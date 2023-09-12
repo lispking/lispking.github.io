@@ -8,13 +8,14 @@ subtitle: '深入Web3世界'
 description: '欢迎光临Web3世界，下个10年一起拥抱Web3'
 keywords: Web3,DeFi,StableCoin
 author: King
+location: Guangdong,China
 language: zh-CN
 timezone: 'Asia/Shanghai'
 favicon: https://github.githubassets.com/favicon.ico
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://lispking.github.io
+url: http://lispking.github.io/tech
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -123,6 +124,7 @@ marked:
 # avatar: https://avatars.githubusercontent.com/u/4446580?s=40&v=4
 social:
   github: https://github.com/lispking
+  weibo: https://weibo.com/lispking
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
