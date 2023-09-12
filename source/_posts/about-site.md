@@ -1,5 +1,6 @@
 ---
 title: 欢迎光临小店
+categories: abc
 ---
 
 ## 欢迎光临小店

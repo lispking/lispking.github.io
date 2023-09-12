@@ -124,7 +124,6 @@ marked:
 social:
   github: https://github.com/lispking
 
-
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
