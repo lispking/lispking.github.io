@@ -15,7 +15,7 @@ favicon: https://github.githubassets.com/favicon.ico
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://lispking.github.io/tech
+url: http://lispking.github.io
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
