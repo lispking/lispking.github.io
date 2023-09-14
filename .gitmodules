@@ -1,3 +1,6 @@
 [submodule "themes/replica"]
 	path = themes/replica
 	url = https://github.com/lispking/hexo-theme-replica.git
+[submodule "themes/next"]
+	path = themes/next
+	url = https://github.com/lispking/hexo-theme-next.git

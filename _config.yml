@@ -5,7 +5,7 @@
 # Site
 title: Dive In Web3
 subtitle: '深入Web3世界'
-description: '欢迎光临Web3世界，下个10年一起拥抱Web3'
+description: '欢迎光临Web3世界，一起拥抱Web3'
 keywords: Web3,DeFi,StableCoin
 author: King
 location: Guangdong,China
@@ -102,33 +102,30 @@ ignore:
 ## Themes: https://hexo.io/themes/
 # theme: landscape
 # remote_theme: lispking/hexo-theme-replica
-theme: replica
+theme: next
 
-# Google Analytics
-ga: G-28440BWWYK
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content:
+  content_limit: 140
+  content_limit_delim: " "
+  order_by: -date
+  icon: icon.png
 
-gcs: 51a97bfe6873a4ed8
-google_ads: ca-pub-6255376809208012
-baidutongji: 9c2a8ad4da4679e0c22706d0a2a7d573
+post_wordcount:
+  item_text: true
+  wordcount: true # 单篇 字数统计
+  min2read: true # 单篇 阅读时长
+  totalcount: false # 网站 字数统计
+  separated_meta: true
 
-#marked setting for markdown
-marked:
-  gfm: true
-  pedantic: false
-  sanitize: false
-  tables: true
-  breaks: true
-  smartLists: true
-  smartypants: true
-
-# avatar: https://avatars.githubusercontent.com/u/4446580?s=40&v=4
-social:
-  github: https://github.com/lispking
-  weibo: https://weibo.com/lispking
-
-# Deployment
-## Docs: https://hexo.io/docs/one-command-deployment
-deploy:
-  type: git
-  repo: git@github.com:lispking/lispking.github.io.git
-  branch: gh-pages
+symbols_count_time:
+  separated_meta: true     # 是否另起一行（true的话不和发表时间等同一行）
+  item_text_post: true     # 首页文章统计数量前是否显示文字描述（本文字数、阅读时长）
+  item_text_total: false   # 页面底部统计数量前是否显示文字描述（站点总字数、站点阅读时长）
+  awl: 4                   # Average Word Length
+  wpm: 275                 # Words Per Minute（每分钟阅读词数）
+  suffix: mins.

@@ -1,7 +1,6 @@
 ---
-title: Hello, Web3!
+title: About Me
 date: 2023-09-13 07:00
-categories: introduce
 ---
 
 ## 欢迎光临小站
