@@ -28,7 +28,7 @@ section Tencent
     2021.09-2023.05 : 首席解决方案架构师
 
 section All In Web3
-    2023.06-至今 : 自由职业者
+    2023.06-Now : 自由职业者
 {% endmermaid %}
 
 **技能特长：**
