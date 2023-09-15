@@ -931,3 +931,7 @@ vendors:
 css: css
 js: js
 images: images
+
+
+summarize:
+  xhh_club: true
