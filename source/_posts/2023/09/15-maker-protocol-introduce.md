@@ -3,6 +3,7 @@ title: Maker协议介绍
 date: 2023-09-15 15:23:21
 categories: MakerDAO
 tags: [MakerDAO,DAI]
+description: MakerDAO是一个去中心化的组织，致力于为加密货币经济带来稳定性。
 ---
 
 ### MakerDAO介绍
@@ -41,3 +42,9 @@ Maker通过创建一个包容性的经济赋权平台，为每个人释放去中
 ### Maker 101协议交互：
 
 ![MakerProtocol101](images/TheMakerProtocol101.png)
+
+### 总结：
+
+> MakerDAO 是一个致力于为加密货币经济带来稳定性的去中心化组织。该组织采用双代币系统，包括稳定币 Dai 和治理令牌 MKR。Dai 是一种由抵押品支持的稳定币，而 MKR 则用于维护系统和管理 Dai。Maker 协议已发布新版本 Multi-Collaborate Dai（MCD），在以太坊主网络上线。此次升级允许以太坊上任何资产作为抵押品生成 Dai，并引入了新的功能。新功能包括新的 Dai 代币、支持多种 Vault 抵押品类型、Dai 储蓄率、更稳健的挂钩确保机制等。MKR 和治理保持不变，同时推出了 Oasis 交易。通过这些创新，MakerDAO 旨在打造一个包容性的经济赋权平台，让每个人都能平等地进入全球金融市场。
+
+> 希望本文对你有用，祝玩得开心 ^_^
