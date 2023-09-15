@@ -6,7 +6,7 @@
   <link href="http://lispking.github.io/atom.xml" rel="self"/>
   
   <link href="http://lispking.github.io/"/>
-  <updated>2023-09-15T11:35:05.628Z</updated>
+  <updated>2023-09-15T12:08:48.166Z</updated>
   <id>http://lispking.github.io/</id>
   
   <author>
@@ -21,16 +21,10 @@
     <link href="http://lispking.github.io/2023/09/15/maker-protocol-introduce/"/>
     <id>http://lispking.github.io/2023/09/15/maker-protocol-introduce/</id>
     <published>2023-09-15T07:23:21.000Z</published>
-    <updated>2023-09-15T11:35:05.628Z</updated>
+    <updated>2023-09-15T12:08:48.166Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;MakerDAO介绍&quot;&gt;&lt;a href=&quot;#MakerDAO介绍&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">MakerDAO是一个去中心化的组织，致力于为加密货币经济带来稳定性。</summary>
     
     
     
@@ -48,20 +42,14 @@
     <link href="http://lispking.github.io/2023/09/12/about-site/"/>
     <id>http://lispking.github.io/2023/09/12/about-site/</id>
     <published>2023-09-12T23:00:00.000Z</published>
-    <updated>2023-09-15T11:35:05.628Z</updated>
+    <updated>2023-09-15T12:08:48.166Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;欢迎光临小站&quot;&gt;&lt;a href=&quot;#欢迎光临小站&quot; class=&quot;headerlink&quot; title=&quot;欢迎光临小站&quot;&gt;&lt;/a&gt;欢迎光临小站&lt;/h2&gt;&lt;h3 id=&quot;心路历程分享&quot;&gt;&lt;a href=&quot;#心路历程分享&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">欢迎来到本站，这里是一位拥有近 20 年技术研发经验的专业人士与你分享编程知识和心得的地方。</summary>
     
     
     
-    <category term="introduce" scheme="http://lispking.github.io/categories/introduce/"/>
+    <category term="Welcome" scheme="http://lispking.github.io/categories/Welcome/"/>
     
     
   </entry>

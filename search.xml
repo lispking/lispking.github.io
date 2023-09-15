@@ -18,12 +18,13 @@
 </li>
 <li><p>在技术实践方面，博主会分享他在后端开发、网站开发、手机开发等方面的经验和技巧。他将介绍一些常用的开发框架和库，如 Django、Flask、React Native 等，并分享如何使用这些框架和库高效地开发应用程序。此外，博主还会分享一些关于软件测试、性能优化、安全防护等方面的知识，帮助读者提高软件质量和保障软件安全。</p>
 </li>
-<li><p>总之，本站内容丰富多样，涵盖了编程语言、技术实践、团队管理等多个领域。博主将用他丰富的经验和深厚的技术功底，为读者带来有价值的思考和启示。无论您是编程初学者还是有经验的开发者，都可以在本站找到对自己有用的内容。我们期待您的光临，并希望您能够从中受益。</p>
-</li>
 </ul>
+<blockquote>
+<p>总之，本站内容丰富多样，涵盖了编程语言、技术实践、团队管理等多个领域。博主将用他丰富的经验和深厚的技术功底，为读者带来有价值的思考和启示。无论您是编程初学者还是有经验的开发者，都可以在本站找到对自己有用的内容。我们期待您的光临，并希望您能够从中受益。</p>
+</blockquote>
 ]]></content>
       <categories>
-        <category>introduce</category>
+        <category>Welcome</category>
       </categories>
   </entry>
   <entry>
@@ -63,6 +64,12 @@
 </ul>
 <h3 id="Maker协议智能合约模块系统："><a href="#Maker协议智能合约模块系统：" class="headerlink" title="Maker协议智能合约模块系统："></a>Maker协议智能合约模块系统：</h3><p><img src="/images/TheMakerProtocolSystemDiagram.png" alt="SystemDiagram"></p>
 <h3 id="Maker-101协议交互："><a href="#Maker-101协议交互：" class="headerlink" title="Maker 101协议交互："></a>Maker 101协议交互：</h3><p><img src="/images/TheMakerProtocol101.png" alt="MakerProtocol101"></p>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><blockquote>
+<p>MakerDAO 是一个致力于为加密货币经济带来稳定性的去中心化组织。该组织采用双代币系统，包括稳定币 Dai 和治理令牌 MKR。Dai 是一种由抵押品支持的稳定币，而 MKR 则用于维护系统和管理 Dai。Maker 协议已发布新版本 Multi-Collaborate Dai（MCD），在以太坊主网络上线。此次升级允许以太坊上任何资产作为抵押品生成 Dai，并引入了新的功能。新功能包括新的 Dai 代币、支持多种 Vault 抵押品类型、Dai 储蓄率、更稳健的挂钩确保机制等。MKR 和治理保持不变，同时推出了 Oasis 交易。通过这些创新，MakerDAO 旨在打造一个包容性的经济赋权平台，让每个人都能平等地进入全球金融市场。</p>
+</blockquote>
+<blockquote>
+<p>希望本文对你有用，祝玩得开心 ^_^</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>MakerDAO</category>
