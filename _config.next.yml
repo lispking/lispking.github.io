@@ -723,7 +723,7 @@ livere_uid: # <your_uid>
 gitalk:
   enable: true
   github_id: lispking # GitHub repo owner
-  repo: lispking # Repository name to store issues
+  repo: lispking.github.io # Repository name to store issues
   client_id: 909b979ee5805cfc60f7 # GitHub Application Client ID
   client_secret: 926e911787fa2e3d6c6db5322dccd58bcb63402b # GitHub Application Client Secret
   admin_user: lispking # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
