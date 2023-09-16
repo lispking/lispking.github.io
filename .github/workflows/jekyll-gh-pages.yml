@@ -46,6 +46,12 @@ jobs:
             ${{ runner.OS }}-npm-cache
       - name: Install Dependencies
         run: npm install
+      - name: Create env file
+        run: |
+          touch .env
+          echo GITALK_CLIENT_ID=${{ secrets.GITALK_CLIENT_ID }} >> .env
+          echo GITALK_CLIENT_SECRET=${{ secrets.GITALK_CLIENT_SECRET }} >> .env
+          cat .env
       - name: Build
         run: npm run build
       - name: Deploy to GitHub Pages

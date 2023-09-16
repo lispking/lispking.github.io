@@ -724,8 +724,8 @@ gitalk:
   enable: true
   github_id: lispking # GitHub repo owner
   repo: lispking.github.io # Repository name to store issues
-  client_id: 909b979ee5805cfc60f7 # GitHub Application Client ID
-  client_secret: 926e911787fa2e3d6c6db5322dccd58bcb63402b # GitHub Application Client Secret
+  client_id: ${env.GITALK_CLIENT_ID} # GitHub Application Client ID
+  client_secret: ${env.GITALK_CLIENT_SECRET} # GitHub Application Client Secret
   admin_user: lispking # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
   distraction_free_mode: true # Facebook-like distraction free mode
   # When the official proxy is not available, you can change it to your own proxy address
