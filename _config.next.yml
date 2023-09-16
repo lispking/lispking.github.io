@@ -294,7 +294,7 @@ related_posts:
 # Post edit
 # Easily browse and edit blog source code online.
 post_edit:
-  enable: true
+  enable: false
   url: https://github.com/lispking/lispking.github.io/tree/main/source/ # Link for view source
   #url: https://github.com/user-name/repo-name/edit/branch-name/subdirectory-name/ # Link for fork & edit
 
@@ -673,7 +673,7 @@ comments:
   style: tabs
   # Choose a comment system to be displayed by default.
   # Available values: disqus | disqusjs | changyan | livere | gitalk | utterances
-  active:
+  active: gitalk
   # Setting `true` means remembering the comment system selected by the visitor.
   storage: true
   # Lazyload all comment systems.
@@ -721,12 +721,12 @@ livere_uid: # <your_uid>
 # Gitalk
 # For more information: https://gitalk.github.io
 gitalk:
-  enable: false
-  github_id:  # GitHub repo owner
-  repo:  # Repository name to store issues
-  client_id:  # GitHub Application Client ID
-  client_secret:  # GitHub Application Client Secret
-  admin_user:  # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
+  enable: true
+  github_id: lispking # GitHub repo owner
+  repo: lispking # Repository name to store issues
+  client_id: ${{ secrets.GITALK_CLIENT_ID }} # GitHub Application Client ID
+  client_secret: ${{ secrets.GITALK_CLIENT_SECRETS }} # GitHub Application Client Secret
+  admin_user: lispking # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
   distraction_free_mode: true # Facebook-like distraction free mode
   # When the official proxy is not available, you can change it to your own proxy address
   # proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token # This is official proxy address
