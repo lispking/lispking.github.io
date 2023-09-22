@@ -62,14 +62,133 @@
 <li>MKR和治理保持不变</li>
 <li>Oasis交易</li>
 </ul>
-<h3 id="Maker协议智能合约模块系统："><a href="#Maker协议智能合约模块系统：" class="headerlink" title="Maker协议智能合约模块系统："></a>Maker协议智能合约模块系统：</h3><p><img src="/images/TheMakerProtocolSystemDiagram.png" alt="SystemDiagram"></p>
-<h3 id="Maker-101协议交互："><a href="#Maker-101协议交互：" class="headerlink" title="Maker 101协议交互："></a>Maker 101协议交互：</h3><p><img src="/images/TheMakerProtocol101.png" alt="MakerProtocol101"></p>
+<h3 id="Maker协议智能合约模块系统："><a href="#Maker协议智能合约模块系统：" class="headerlink" title="Maker协议智能合约模块系统："></a>Maker协议智能合约模块系统：</h3><p><img src="/images/makedao/TheMakerProtocolSystemDiagram.png" alt="SystemDiagram"></p>
+<h3 id="Maker-101协议交互："><a href="#Maker-101协议交互：" class="headerlink" title="Maker 101协议交互："></a>Maker 101协议交互：</h3><p><img src="/images/makedao/TheMakerProtocol101.png" alt="MakerProtocol101"></p>
 <h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><blockquote>
 <p>MakerDAO 是一个致力于为加密货币经济带来稳定性的去中心化组织。该组织采用双代币系统，包括稳定币 Dai 和治理令牌 MKR。Dai 是一种由抵押品支持的稳定币，而 MKR 则用于维护系统和管理 Dai。Maker 协议已发布新版本 Multi-Collaborate Dai（MCD），在以太坊主网络上线。此次升级允许以太坊上任何资产作为抵押品生成 Dai，并引入了新的功能。新功能包括新的 Dai 代币、支持多种 Vault 抵押品类型、Dai 储蓄率、更稳健的挂钩确保机制等。MKR 和治理保持不变，同时推出了 Oasis 交易。通过这些创新，MakerDAO 旨在打造一个包容性的经济赋权平台，让每个人都能平等地进入全球金融市场。</p>
 </blockquote>
 <blockquote>
-<p>希望本文对你有用，祝玩得开心 ^_^</p>
+<p>免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^</p>
 </blockquote>
+]]></content>
+      <categories>
+        <category>MakerDAO</category>
+      </categories>
+      <tags>
+        <tag>MakerDAO</tag>
+        <tag>DAI</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>DAI架构流程图 —— 术语解析</title>
+    <url>/2023/09/22/dai-module/</url>
+    <content><![CDATA[<blockquote>
+<p>免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^</p>
+</blockquote>
+<h3 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h3><blockquote>
+<p>上个章节主要讲解了 <a href="15-maker-protocol-introduce.md">Maker 协议的介绍</a>，同时在最后贴了两张图，一张是 Maker 协议智能合约模块系统图，另一张是 Maker 101 协议交互图。细心的读者可能会发现，合约模块的图异常复杂，而且上面的单词背后的意义可能并未完全理解。不用担心，本文将会详细讲述这些术语以及相关合约接口的说明，让你逐步明白其中的奥秘。</p>
+</blockquote>
+<h3 id="DAI-诞生于以太坊测试网发布前"><a href="#DAI-诞生于以太坊测试网发布前" class="headerlink" title="DAI 诞生于以太坊测试网发布前"></a>DAI 诞生于以太坊测试网发布前</h3><blockquote>
+<p>在在讲解这些术语之前，我们先来了解一下 DAI 的诞生背景。DAI 的最早雏形诞生于 2015 年 3 月，这个时间点比以太坊测试网的正式发布还要早两个月。创始人 Rune 在 Reddit 上与以太坊社区的成员，包括 Vitalik 分享了协议的设计、合约代码以及测试前端。</p>
+</blockquote>
+<h3 id="Maker-晦涩难懂的代码是刻意的"><a href="#Maker-晦涩难懂的代码是刻意的" class="headerlink" title="Maker 晦涩难懂的代码是刻意的"></a>Maker 晦涩难懂的代码是刻意的</h3><blockquote>
+<p>乍一看，这些术语确实令人费解，许多研究 Maker 协议的开发者常常惊讶于其复杂且几乎晦涩的术语。实际上，这种复杂性是有意为之。变量名不同的字母长度和词性，严格而清晰地对应着不同的方程和模块。</p>
+</blockquote>
+<h3 id="架构流程图"><a href="#架构流程图" class="headerlink" title="架构流程图"></a>架构流程图</h3><p><img src="/images/makedao/TheMakerActions.png" alt="MakerActions"></p>
+<h3 id="术语介绍"><a href="#术语介绍" class="headerlink" title="术语介绍"></a>术语介绍</h3><h4 id="Cat-Liquidator"><a href="#Cat-Liquidator" class="headerlink" title="Cat - Liquidator"></a><a href="https://github.com/makerdao/dss/blob/master/src/cat.sol">Cat</a> - Liquidator</h4><ul>
+<li>Bite - Trigger liquidation of an unsafe Cdp (vat.grab)</li>
+</ul>
+<h4 id="Dai-Token"><a href="#Dai-Token" class="headerlink" title="Dai - Token"></a><a href="https://github.com/makerdao/dss/blob/master/src/vow.sol">Dai</a> - Token</h4><ul>
+<li>Mint - Mint to an address</li>
+<li>Burn - Burn at an address</li>
+<li>Push - Transfer</li>
+<li>Pull - Transfer From</li>
+<li>Move - Transfer From</li>
+<li>Approve - Allow pulls and moves</li>
+<li>Permit - Approve by signature</li>
+</ul>
+<h4 id="End-Global-settlement"><a href="#End-Global-settlement" class="headerlink" title="End - Global settlement"></a><a href="https://github.com/makerdao/dss/blob/master/src/end.sol">End</a> - Global settlement</h4><ul>
+<li>Cage - Freeze user-facing actions. Tag Ilk prices.</li>
+<li>Skim - Settle a Cdp at the tagged price</li>
+<li>Free - Remove collateral from a settled Cdp</li>
+<li>Thaw - Fix outstanding Dai supply after all Skims</li>
+<li>Flow - Calculate final Ilk prices</li>
+<li>Pack - Lock Dai ahead of Cash</li>
+<li>Cash - Exchange packed Dai for collateral</li>
+</ul>
+<h4 id="Flipper-Collateral-auctions"><a href="#Flipper-Collateral-auctions" class="headerlink" title="Flipper - Collateral auctions"></a><a href="https://github.com/makerdao/dss/blob/master/src/flip.sol">Flipper</a> - Collateral auctions</h4><ul>
+<li>Kick - Put up a new GEM <code>lot</code> for auction</li>
+<li>Tick - Bump the end date for an auction with no bids</li>
+<li>Tend - Submit a DAI bid (increasing <code>bid</code>)</li>
+<li>Dent - Submit a DAI bid (decreasing <code>lot</code>)</li>
+<li>Deal - Settle a completed auction</li>
+</ul>
+<h4 id="Flapper-Surplus-auctions"><a href="#Flapper-Surplus-auctions" class="headerlink" title="Flapper - Surplus auctions"></a><a href="https://github.com/makerdao/dss/blob/master/src/flap.sol">Flapper</a> - Surplus auctions</h4><ul>
+<li>Kick - Put up a new DAI <code>lot</code> for auction</li>
+<li>Tend - Submit an MKR bid (increasing <code>bid</code>)</li>
+<li>Deal - Settle a completed auction</li>
+</ul>
+<h4 id="Flopper-Defecit-auctions"><a href="#Flopper-Defecit-auctions" class="headerlink" title="Flopper - Defecit auctions"></a><a href="https://github.com/makerdao/dss/blob/master/src/flop.sol">Flopper</a> - Defecit auctions</h4><ul>
+<li>Kick - Put up a new MKR <code>bid</code> for auction</li>
+<li>Dent - Submit a DAI bid (decreasing <code>lot</code>)</li>
+<li>Deal - Settle a completed auction</li>
+</ul>
+<h4 id="Join-Token-adapters"><a href="#Join-Token-adapters" class="headerlink" title="Join - Token adapters"></a><a href="https://github.com/makerdao/dss/blob/master/src/join.sol">Join</a> - Token adapters</h4><ul>
+<li>Join - Deposit tokens to the system</li>
+<li>Exit - Remove tokens from the system</li>
+</ul>
+<h4 id="Jug-Stability-fees"><a href="#Jug-Stability-fees" class="headerlink" title="Jug - Stability fees"></a><a href="https://github.com/makerdao/dss/blob/master/src/jug.sol">Jug</a> - Stability fees</h4><ul>
+<li>Drip - Trigger stability fee accumulation (vat.fold)</li>
+</ul>
+<h4 id="Median-Price-oracle"><a href="#Median-Price-oracle" class="headerlink" title="Median - Price oracle"></a><a href="https://github.com/makerdao/median/blob/master/src/median.sol">Median</a> - Price oracle</h4><ul>
+<li>Read - Get valid price or fail</li>
+<li>Peek - Get price and validity</li>
+<li>Poke - Set price from white-listed feed providers</li>
+</ul>
+<h4 id="OSM-Oracle-security-module"><a href="#OSM-Oracle-security-module" class="headerlink" title="OSM - Oracle security module"></a><a href="https://github.com/makerdao/osm/blob/master/src/osm.sol">OSM</a> - Oracle security module</h4><ul>
+<li>Read - Get current valid price or fail</li>
+<li>Peek - Get current price and validity</li>
+<li>Peep - Get next price and validity</li>
+<li>Poke - Set next price if delay has elapsed</li>
+</ul>
+<h4 id="Pause-System-governance"><a href="#Pause-System-governance" class="headerlink" title="Pause - System governance"></a><a href="https://github.com/dapphub/ds-pause/blob/master/src/pause.sol">Pause</a> - System governance</h4><ul>
+<li>Plot - Schedule a plan</li>
+<li>Exec - Execute a plan</li>
+<li>Drop - Cancel a plan</li>
+</ul>
+<h4 id="Pot-Dai-savings"><a href="#Pot-Dai-savings" class="headerlink" title="Pot - Dai savings"></a><a href="https://github.com/makerdao/dss/blob/master/src/pot.sol">Pot</a> - Dai savings</h4><ul>
+<li>Join - Add Dai to the Pot</li>
+<li>Exit - Remove Dai from the Pot</li>
+<li>Drip - Trigger savings accumulation (vat.suck)</li>
+</ul>
+<h4 id="Spotter-Price-relayer"><a href="#Spotter-Price-relayer" class="headerlink" title="Spotter - Price relayer"></a><a href="https://github.com/makerdao/dss/blob/master/src/spot.sol">Spotter</a> - Price relayer</h4><ul>
+<li>Poke - Update the spot price for a given Ilk (vat.file)</li>
+</ul>
+<h4 id="Vat-User-balances"><a href="#Vat-User-balances" class="headerlink" title="Vat - User balances"></a><a href="https://github.com/makerdao/dss/blob/master/src/vat.sol">Vat</a> - User balances</h4><ul>
+<li>Hope - Permit <code>flux</code> and <code>move</code></li>
+<li>Nope - Deny <code>flux</code> and <code>move</code></li>
+<li>Slip - Add and remove Gem</li>
+<li>Move - Transfer Dai</li>
+<li>Flux - Transfer Gem</li>
+<li>Frob - Cdp Management</li>
+<li>Fork - Transfer Cdp balances</li>
+<li>Grab - Seize Cdp balances</li>
+<li>Heal - Balance system surplus&#x2F;defecit</li>
+<li>Suck - Print Dai</li>
+<li>Fold - Apply rates across an Ilk</li>
+</ul>
+<h4 id="Vow-Liquidations-manager"><a href="#Vow-Liquidations-manager" class="headerlink" title="Vow - Liquidations manager"></a><a href="https://github.com/makerdao/dss/blob/master/src/vow.sol">Vow</a> - Liquidations manager</h4><ul>
+<li>Fess - Push bad debt to the auctions queue</li>
+<li>Flog - Release queued debt for auction</li>
+<li>Heal - Optimise debt buffer (vat.heal)</li>
+<li>Kiss - Release on-auction debt and Heal (vat.heal)</li>
+<li>Flap - Trigger a surplus auction (flapper.kick)</li>
+<li>Flop - Trigger a defecit auction (flopper.kick)</li>
+</ul>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a href="https://blog.makerdao.com/zh/%E5%85%B3%E4%BA%8E-maker-%E7%9A%84%E5%8D%81%E4%B8%AA%E5%86%B7%E7%9F%A5%E8%AF%86/">关于 Maker 的十个冷知识</a></li>
+<li><a href="https://github.com/makerdao/dss/wiki/Actions">DAI官方Wiki之Actions</a></li>
+</ul>
 ]]></content>
       <categories>
         <category>MakerDAO</category>
