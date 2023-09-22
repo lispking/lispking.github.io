@@ -52,6 +52,8 @@ jobs:
           echo GITALK_CLIENT_ID=${{ secrets.GITALK_CLIENT_ID }} >> .env
           echo GITALK_CLIENT_SECRET=${{ secrets.GITALK_CLIENT_SECRET }} >> .env
           cat .env
+      - name: Add Google Adsense ads.txt
+        run: echo "google.com, pub-6255376809208012, DIRECT, f08c47fec0942fa0" > ads.txt
       - name: Build
         run: npm run build
       - name: Deploy to GitHub Pages
