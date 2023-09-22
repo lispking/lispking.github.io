@@ -3,7 +3,7 @@ title: DAI架构流程图 —— 术语解析
 date: 2023-09-22 11:20:39
 categories: MakerDAO
 tags: [MakerDAO,DAI]
-description: DAI起源旨在代表核心系统认为与其内部债务单位价值相等的任何代币。因此，DAI模块包含DAI合约和所有DaiJoin适配器。
+description: 原来，DAI 的晦涩术语是有意为之。现在，让我们一起来探究这些有趣的术语。
 ---
 
 > 免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^
