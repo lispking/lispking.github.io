@@ -6,7 +6,7 @@
   <link href="http://lispking.github.io/atom.xml" rel="self"/>
   
   <link href="http://lispking.github.io/"/>
-  <updated>2023-09-25T02:11:43.126Z</updated>
+  <updated>2023-09-25T02:17:00.076Z</updated>
   <id>http://lispking.github.io/</id>
   
   <author>
@@ -21,20 +21,19 @@
     <link href="http://lispking.github.io/2023/09/25/web3-world-think/"/>
     <id>http://lispking.github.io/2023/09/25/web3-world-think/</id>
     <published>2023-09-25T00:03:12.000Z</published>
-    <updated>2023-09-25T02:11:43.126Z</updated>
+    <updated>2023-09-25T02:17:00.076Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;亲们，是不是对现在的 Web 世界已经习以为常了？🤔 最近几个月，我一直在思考：&lt;strong&gt;下一个 Web 时代应该是怎样的呢？&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;在 Web</summary>
-        
-      
+    <summary type="html">以下是最近有关Web3方面的一些思考，与君共勉</summary>
     
     
     
+    <category term="Web3" scheme="http://lispking.github.io/categories/Web3/"/>
+    
+    
+    <category term="Web3" scheme="http://lispking.github.io/tags/Web3/"/>
+    
+    <category term="元宇宙" scheme="http://lispking.github.io/tags/%E5%85%83%E5%AE%87%E5%AE%99/"/>
     
   </entry>
   
@@ -43,7 +42,7 @@
     <link href="http://lispking.github.io/2023/09/22/dai-module/"/>
     <id>http://lispking.github.io/2023/09/22/dai-module/</id>
     <published>2023-09-22T03:20:39.000Z</published>
-    <updated>2023-09-25T02:11:43.126Z</updated>
+    <updated>2023-09-25T02:17:00.076Z</updated>
     
     
     <summary type="html">原来，DAI 的晦涩术语是有意为之。现在，让我们一起来探究这些有趣的术语。</summary>
@@ -64,7 +63,7 @@
     <link href="http://lispking.github.io/2023/09/15/maker-protocol-introduce/"/>
     <id>http://lispking.github.io/2023/09/15/maker-protocol-introduce/</id>
     <published>2023-09-15T07:23:21.000Z</published>
-    <updated>2023-09-25T02:11:43.126Z</updated>
+    <updated>2023-09-25T02:17:00.076Z</updated>
     
     
     <summary type="html">MakerDAO是一个去中心化的组织，致力于为加密货币经济带来稳定性。</summary>
@@ -85,7 +84,7 @@
     <link href="http://lispking.github.io/2023/09/12/about-site/"/>
     <id>http://lispking.github.io/2023/09/12/about-site/</id>
     <published>2023-09-12T23:00:00.000Z</published>
-    <updated>2023-09-25T02:11:43.126Z</updated>
+    <updated>2023-09-25T02:17:00.076Z</updated>
     
     
     <summary type="html">欢迎来到本站，这里是一位拥有16年技术研发经验的专业人士与你分享编程知识和心得的地方。</summary>
