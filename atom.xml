@@ -6,7 +6,7 @@
   <link href="http://lispking.github.io/atom.xml" rel="self"/>
   
   <link href="http://lispking.github.io/"/>
-  <updated>2023-09-26T00:21:47.967Z</updated>
+  <updated>2023-09-26T08:48:35.623Z</updated>
   <id>http://lispking.github.io/</id>
   
   <author>
@@ -17,11 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>DAI 架构流程图 —— Dai模块</title>
+    <link href="http://lispking.github.io/2023/09/26/dai-module/"/>
+    <id>http://lispking.github.io/2023/09/26/dai-module/</id>
+    <published>2023-09-26T07:16:18.000Z</published>
+    <updated>2023-09-26T08:48:35.623Z</updated>
+    
+    
+    <summary type="html">本文主要介绍DAI合约和DAI Join适配器</summary>
+    
+    
+    
+    <category term="MakerDAO" scheme="http://lispking.github.io/categories/MakerDAO/"/>
+    
+    
+    <category term="MakerDAO" scheme="http://lispking.github.io/tags/MakerDAO/"/>
+    
+    <category term="DAI" scheme="http://lispking.github.io/tags/DAI/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【颠覆想象！】揭秘下一个 Web 时代：元宇宙，即将改变你的生活！</title>
     <link href="http://lispking.github.io/2023/09/25/web3-world-think/"/>
     <id>http://lispking.github.io/2023/09/25/web3-world-think/</id>
     <published>2023-09-25T00:03:12.000Z</published>
-    <updated>2023-09-26T00:21:47.967Z</updated>
+    <updated>2023-09-26T08:48:35.623Z</updated>
     
     
     <summary type="html">以下是最近有关Web3方面的一些思考，与君共勉</summary>
@@ -38,11 +59,11 @@
   </entry>
   
   <entry>
-    <title>DAI架构流程图 —— 术语解析</title>
-    <link href="http://lispking.github.io/2023/09/22/dai-module/"/>
-    <id>http://lispking.github.io/2023/09/22/dai-module/</id>
+    <title>DAI 架构流程图 —— 晦涩难懂的术语</title>
+    <link href="http://lispking.github.io/2023/09/22/dai-terminology/"/>
+    <id>http://lispking.github.io/2023/09/22/dai-terminology/</id>
     <published>2023-09-22T03:20:39.000Z</published>
-    <updated>2023-09-26T00:21:47.967Z</updated>
+    <updated>2023-09-26T08:48:35.623Z</updated>
     
     
     <summary type="html">原来，DAI 的晦涩术语是有意为之。现在，让我们一起来探究这些有趣的术语。</summary>
@@ -63,7 +84,7 @@
     <link href="http://lispking.github.io/2023/09/15/maker-protocol-introduce/"/>
     <id>http://lispking.github.io/2023/09/15/maker-protocol-introduce/</id>
     <published>2023-09-15T07:23:21.000Z</published>
-    <updated>2023-09-26T00:21:47.967Z</updated>
+    <updated>2023-09-26T08:48:35.623Z</updated>
     
     
     <summary type="html">MakerDAO是一个去中心化的组织，致力于为加密货币经济带来稳定性。</summary>
@@ -84,7 +105,7 @@
     <link href="http://lispking.github.io/2023/09/12/about-site/"/>
     <id>http://lispking.github.io/2023/09/12/about-site/</id>
     <published>2023-09-12T23:00:00.000Z</published>
-    <updated>2023-09-26T00:21:47.967Z</updated>
+    <updated>2023-09-26T08:48:35.623Z</updated>
     
     
     <summary type="html">欢迎来到本站，这里是一位拥有16年技术研发经验的专业人士与你分享编程知识和心得的地方。</summary>

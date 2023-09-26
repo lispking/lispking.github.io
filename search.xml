@@ -80,8 +80,8 @@
       </tags>
   </entry>
   <entry>
-    <title>DAI架构流程图 —— 术语解析</title>
-    <url>/2023/09/22/dai-module/</url>
+    <title>DAI 架构流程图 —— 晦涩难懂的术语</title>
+    <url>/2023/09/22/dai-terminology/</url>
     <content><![CDATA[<blockquote>
 <p>免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^</p>
 </blockquote>
@@ -233,6 +233,76 @@
       <tags>
         <tag>Web3</tag>
         <tag>元宇宙</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>DAI 架构流程图 —— Dai模块</title>
+    <url>/2023/09/26/dai-module/</url>
+    <content><![CDATA[<blockquote>
+<p>免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^</p>
+</blockquote>
+<h3 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h3><blockquote>
+<p>上个章节主要讲解了 DAI 架构流程图，其中包含了一些<a href="https://lispking.github.io/2023/09/26/dai-terminology/">晦涩难懂的术语</a>。从本章节开始，我们将逐步解读每个合约模块的细节，以深入了解其工作原理。</p>
+</blockquote>
+<h3 id="DAI-模块分绍"><a href="#DAI-模块分绍" class="headerlink" title="DAI 模块分绍"></a>DAI 模块分绍</h3><blockquote>
+<p>DAI 的起源设计是为了代表核心系统认为与其内部债务单位等值的任何代币。因此，DAI 模块包含 <a href="https://github.com/makerdao/dss/blob/master/src/dai.sol">DAI 代币合约</a>以及所有的 <a href="https://github.com/makerdao/dss/blob/2318555e87b1798e322feaab36265a6e20d637be/src/join.sol#L100">DaiJoin</a> 适配器。</p>
+</blockquote>
+<h3 id="DAI-常见问题"><a href="#DAI-常见问题" class="headerlink" title="DAI 常见问题"></a>DAI 常见问题</h3><blockquote>
+<p>为什么这些组件对多抵押物 Dai（MCD）系统如此重要？  </p>
+</blockquote>
+<ul>
+<li>Dai 合约是用户面向的 ERC20 合约，负责维护外部 Dai 余额的会计核算。</li>
+<li>大多数功能对于具有变动供应的代币都是标准的，但它还值得注意的是，具有根据签名消息发行转移批准的能力。</li>
+<li>Join 由三个智能合约组成，其中一个是 DaiJoin 合约。每个 join 合约都是专门为给定的代币类型加入 <code>vat</code> 而创建的。因此，每个 join 合约在系统中的代币类型略有不同的逻辑。DaiJoin 合约允许用户将其 Dai 从系统中撤回到标准 ERC20 代币中。</li>
+</ul>
+<blockquote>
+<p>需要注意的问题（潜在的用户错误来源）</p>
+</blockquote>
+<ul>
+<li>DAI 也容易受到已知的 <a href="https://github.com/0xProject/0x-monorepo/issues/850">ERC20 竞态条件</a>影响，但对于无限授权来说，通常不应该是个问题。建议使用指定金额授权的用户要特别注意这个问题，并在授权其他合约代为执行转账时要谨慎。</li>
+<li>由于<code>Join</code>合约系统的功能有限，用户错误的来源也相对较少。除合约错误外，如果用户不小心调用了<code>Join</code>功能，他们总是可以通过在相应Join合约中的退出调用找回自己的代币。这里需要特别注意的问题是一个执行得当的网络钓鱼攻击。随着系统的发展，可能会创建更多的<code>Join</code>合约，或者更多的用户界面，这可能会导致用户的资金被恶意的<code>Join</code>合约盗取，这些合约实际上并没有将代币发送到汇集地址，而是发送到了其他合约或钱包。</li>
+</ul>
+<blockquote>
+<p>故障模式（操作条件范围和外部风险因素）  </p>
+</blockquote>
+<ul>
+<li>可能会出现需要创建新的 <code>join</code> 合约的 <code>vat</code> 更新。</li>
+<li>如果一个 <code>gem</code> 合约在用户抵押品在系统中的时候进行代币升级或者将代币冻结，可能会出现一种情况，即用户在冻结或升级完成后无法赎回他们的抵押品。然而，这似乎是一个较小的风险，因为似乎正在进行这种升级的代币很可能会希望与 maker 社区合作，确保这不是一个问题。</li>
+</ul>
+<h3 id="DAI-合约交互流程图"><a href="#DAI-合约交互流程图" class="headerlink" title="DAI 合约交互流程图"></a>DAI 合约交互流程图</h3><blockquote>
+<p>DAI 合约是用户面向的 ERC20 代币合约，负责维护外部 DAI 余额的会计核算。大多数功能对于具有变动供应的代币来说是标准的，但它还值得注意的是具有根据签名消息发行转账批准的能力。</p>
+</blockquote>
+<p><img src="/images/makedao/DaiInteractions.png" alt="Dai Interactions with the Maker Protocol"></p>
+<h3 id="DAI-关键机制和概念"><a href="#DAI-关键机制和概念" class="headerlink" title="DAI 关键机制和概念"></a>DAI 关键机制和概念</h3><ul>
+<li><p>在大多数情况下，<a href="(https://github.com/makerdao/dss/blob/master/src/dai.sol)">dai.sol</a> 充当了一个典型的 ERC20 代币。这些代币已经被这里详细记录，建议阅读有关 ERC20 代币核心功能的文档。</p>
+</li>
+<li><p>与 ERC20 的区别：</p>
+<ul>
+<li>DAI 合约中的 <code>transferFrom</code> 函数与通用的 <code>transferFrom</code> 函数的工作形式略有不同。DAI 合约允许进行“无限授权”。如果用户授权一个地址用于最大的 uint256 值，则该地址将具有无限授权，否则直到被告知。</li>
+<li><code>push</code>、<code>pull</code> 和 <code>move</code> 是 <code>transferFrom</code> 调用的别名，形式为 <code>transferFrom(msg.sender, usr, amount)</code> ，<code>transferFrom(usr, msg.sender, amount)</code> &amp; <code>transferFrom(src, dst, amount)</code> 。</li>
+<li><code>permit</code> 是一种基于签名的批准函数。这允许最终用户签署一条消息，然后由另一方转发以提交其批准。这对于不需要最终用户持有 ETH 的应用程序很有用。要使用此功能，用户的地址必须与持有者、消费者、随机数、到期时间和允许的金额一起签署一条消息。然后，将其提交给 <code>permit()</code> 以更新用户的批准。</li>
+</ul>
+</li>
+<li><p><font color='red'>无限允许是一项相对不常见的做法（尽管变得越来越普遍）</font>。这可能是一种通过恶意合约欺骗用户，使其放弃所有 DAI 访问权限的手段。这在可升级合约中尤为令人担忧，因为合约可能在升级为恶意合约之前看起来无害。</p>
+</li>
+<li><p>DAI 也容易受到已知的 <a href="https://github.com/0xProject/0x-monorepo/issues/850">ERC20 竞态条件的影响</a>，但在无限授权的情况下通常不应成为问题。我们建议使用特定金额授权的任何用户都应注意这个问题，并在授权其他合约代表他们执行转账时谨慎行事。</p>
+</li>
+<li><p>在 <code>transferFrom</code> 功能中存在轻微的偏差：如果 <code>src == msg.sender</code>，则该函数不需要事先获得批准，而是将其视为从 <code>msg.sender</code> 到 <code>dst</code> 的正常转账。</p>
+</li>
+<li><p>DAI 内置的元交易功能：DAI 代币提供了一种链下授权，这意味着作为以太坊地址的所有者，您可以使用 <code>permit()</code> 函数签署权限，基本上将允许另一以太坊地址获得额度。您授权的以太坊地址可以负责执行转账，但有一个额度限制。</p>
+</li>
+</ul>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a href="https://docs.makerdao.com/smart-contract-modules/dai-module">Dai Module</a></li>
+<li><a href="https://docs.makerdao.com/smart-contract-modules/dai-module/dai-detailed-documentation">Dai - Detailed Documentation</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>MakerDAO</category>
+      </categories>
+      <tags>
+        <tag>MakerDAO</tag>
+        <tag>DAI</tag>
       </tags>
   </entry>
 </search>
