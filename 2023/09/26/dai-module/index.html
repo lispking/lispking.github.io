@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://lispking.github.io/images/makedao/DaiInteractions.png">
 <meta property="article:published_time" content="2023-09-26T07:16:18.000Z">
-<meta property="article:modified_time" content="2023-09-26T08:48:35.623Z">
+<meta property="article:modified_time" content="2023-09-26T08:55:20.524Z">
 <meta property="article:author" content="King">
 <meta property="article:tag" content="MakerDAO">
 <meta property="article:tag" content="DAI">
@@ -256,7 +256,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-09-26 15:16:18 / 修改时间：16:48:35" itemprop="dateCreated datePublished" datetime="2023-09-26T15:16:18+08:00">2023-09-26</time>
+      <time title="创建时间：2023-09-26 15:16:18 / 修改时间：16:55:20" itemprop="dateCreated datePublished" datetime="2023-09-26T15:16:18+08:00">2023-09-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -297,7 +297,7 @@
 <p>免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^</p>
 </blockquote>
 <h3 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h3><blockquote>
-<p>上个章节主要讲解了 DAI 架构流程图，其中包含了一些<a href="https://lispking.github.io/2023/09/26/dai-terminology/">晦涩难懂的术语</a>。从本章节开始，我们将逐步解读每个合约模块的细节，以深入了解其工作原理。</p>
+<p>上个章节主要讲解了 DAI 架构流程图，其中包含了一些<a href="https://lispking.github.io/2023/09/22/dai-terminology/">晦涩难懂的术语</a>。从本章节开始，我们将逐步解读每个合约模块的细节，以深入了解其工作原理。</p>
 </blockquote>
 <h3 id="DAI-模块分绍"><a href="#DAI-模块分绍" class="headerlink" title="DAI 模块分绍"></a>DAI 模块分绍</h3><blockquote>
 <p>DAI 的起源设计是为了代表核心系统认为与其内部债务单位等值的任何代币。因此，DAI 模块包含 <a target="_blank" rel="noopener" href="https://github.com/makerdao/dss/blob/master/src/dai.sol">DAI 代币合约</a>以及所有的 <a target="_blank" rel="noopener" href="https://github.com/makerdao/dss/blob/2318555e87b1798e322feaab36265a6e20d637be/src/join.sol#L100">DaiJoin</a> 适配器。</p>
@@ -308,14 +308,14 @@
 <ul>
 <li>Dai 合约是用户面向的 ERC20 合约，负责维护外部 Dai 余额的会计核算。</li>
 <li>大多数功能对于具有变动供应的代币都是标准的，但它还值得注意的是，具有根据签名消息发行转移批准的能力。</li>
-<li>Join 由三个智能合约组成，其中一个是 DaiJoin 合约。每个 join 合约都是专门为给定的代币类型加入 <code>vat</code> 而创建的。因此，每个 join 合约在系统中的代币类型略有不同的逻辑。DaiJoin 合约允许用户将其 Dai 从系统中撤回到标准 ERC20 代币中。</li>
+<li><code>join</code> 由三个智能合约组成，其中一个是 <code>DaiJoin</code> 合约。每个 <code>join</code> 合约都是专门为给定的代币类型加入 <code>vat</code> 而创建的。因此，每个 <code>join</code> 合约在系统中的代币类型略有不同的逻辑。<code>DaiJoin</code> 合约允许用户将其 Dai 从系统中撤回到标准 ERC20 代币中。</li>
 </ul>
 <blockquote>
 <p>需要注意的问题（潜在的用户错误来源）</p>
 </blockquote>
 <ul>
-<li>DAI 也容易受到已知的 <a target="_blank" rel="noopener" href="https://github.com/0xProject/0x-monorepo/issues/850">ERC20 竞态条件</a>影响，但对于无限授权来说，通常不应该是个问题。建议使用指定金额授权的用户要特别注意这个问题，并在授权其他合约代为执行转账时要谨慎。</li>
-<li>由于<code>Join</code>合约系统的功能有限，用户错误的来源也相对较少。除合约错误外，如果用户不小心调用了<code>Join</code>功能，他们总是可以通过在相应Join合约中的退出调用找回自己的代币。这里需要特别注意的问题是一个执行得当的网络钓鱼攻击。随着系统的发展，可能会创建更多的<code>Join</code>合约，或者更多的用户界面，这可能会导致用户的资金被恶意的<code>Join</code>合约盗取，这些合约实际上并没有将代币发送到汇集地址，而是发送到了其他合约或钱包。</li>
+<li>DAI 也容易受到已知的 <a target="_blank" rel="noopener" href="https://github.com/0xProject/0x-monorepo/issues/850">ERC20 竞态条件</a>影响，但对于无限授权来说，通常不应该是个问题。<font color='red'>建议使用指定金额授权的用户要特别注意这个问题，并在授权其他合约代为执行转账时要谨慎。</font></li>
+<li>由于<code>join</code>合约系统的功能有限，用户错误的来源也相对较少。除合约错误外，如果用户不小心调用了<code>join</code>功能，他们总是可以通过在相应Join合约中的退出调用找回自己的代币。这里需要特别注意的问题是一个执行得当的网络钓鱼攻击。随着系统的发展，可能会创建更多的<code>join</code>合约，或者更多的用户界面，这可能会导致用户的资金被恶意的<code>join</code>合约盗取，这些合约实际上并没有将代币发送到汇集地址，而是发送到了其他合约或钱包。</li>
 </ul>
 <blockquote>
 <p>故障模式（操作条件范围和外部风险因素）  </p>
@@ -329,7 +329,7 @@
 </blockquote>
 <p><img src="/images/makedao/DaiInteractions.png" alt="Dai Interactions with the Maker Protocol"></p>
 <h3 id="DAI-关键机制和概念"><a href="#DAI-关键机制和概念" class="headerlink" title="DAI 关键机制和概念"></a>DAI 关键机制和概念</h3><ul>
-<li><p>在大多数情况下，<a href="(https://github.com/makerdao/dss/blob/master/src/dai.sol)">dai.sol</a> 充当了一个典型的 ERC20 代币。这些代币已经被这里详细记录，建议阅读有关 ERC20 代币核心功能的文档。</p>
+<li><p>在大多数情况下，<a target="_blank" rel="noopener" href="https://github.com/makerdao/dss/blob/master/src/dai.sol">dai.sol</a> 充当了一个典型的 ERC20 代币。这些代币已经被这里详细记录，建议阅读有关 ERC20 代币核心功能的文档。</p>
 </li>
 <li><p>与 ERC20 的区别：</p>
 <ul>
