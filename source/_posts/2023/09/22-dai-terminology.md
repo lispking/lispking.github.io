@@ -1,5 +1,5 @@
 ---
-title: DAI架构流程图 —— 术语解析
+title: DAI 架构流程图 —— 晦涩难懂的术语
 date: 2023-09-22 11:20:39
 categories: MakerDAO
 tags: [MakerDAO,DAI]
