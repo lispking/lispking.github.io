@@ -81,7 +81,7 @@ description: 本文主要介绍DAI核心模块，Maker协议的状态
         - `hope`: enable wish for a pair of addresses.
         - `nope`: disable wish for a pair of addresses.
 
-    _注意_：`art` 和 `Art` 代表标准化债务，即当乘以正确的利率时，可以得到最新的、当前的稳定币债务。
+    __注意__：`art` 和 `Art` 代表标准化债务，即当乘以正确的利率时，可以得到最新的、当前的稳定币债务。
 
 * Accounting
     - `debt` is the sum of all dai (the total quantity of dai issued).
@@ -115,14 +115,14 @@ description: 本文主要介绍DAI核心模块，Maker协议的状态
     - has `spot` - 带安全余量的价格  
     - has `line` - 债务上限  
     - has `dust` - 债务下限  
-    _注意_：在上面的使用“`encumbered`”一词时，这是指“被锁定在 `Vault` 中”。 
+    __注意__：在上面的使用“`encumbered`”一词时，这是指“被锁定在 `Vault` 中”。 
 
 * `Vault` 管理  
     - `Vault` 通过 `frob(i, u, v, w, dink, dart)` 进行管理，它使用用户 `van` 的 `gem` 修改用户 `u` 的 `Vault`，并为用户 `w` 创建 `dai`。
     - 通过调用 `grab(i, u, v, w, dink, dart)`，修改用户 `u` 的 `Vault`，将`gem`给用户 `v` 并为用户 `w` 创建 `sin`。`grab` 是 `Vault` 变现的手段，将债务从 `Vault` 转移到用户的 `sin` 余额。
     - `Sin` 代表“被查获”或“不良”债务，可以使用 `heal(uint rad where msg.sender is used as the address for the dai and sin balances)` 使用相等数量的 Dai 进行抵消。
-        - _注意_：只有 `Vow` 才会有 `sin`，因此只有 `Vow` 能成功调用 `heal`。这是因为每当调用 `grab` 和 `suck` 时，将 `Vow` 的地址作为 `sin` 的接收方传递。需要注意的是，这取决于当前系统的设计和实现。
-        - _注意_：heal 只能用正数（`uint`）调用，并将 `sub(dai[u])` 以及 `sub` 掉 `sin`。
+        - __注意__：只有 `Vow` 才会有 `sin`，因此只有 `Vow` 能成功调用 `heal`。这是因为每当调用 `grab` 和 `suck` 时，将 `Vow` 的地址作为 `sin` 的接收方传递。需要注意的是，这取决于当前系统的设计和实现。
+        - __注意__：heal 只能用正数（`uint`）调用，并将 `sub(dai[u])` 以及 `sub` 掉 `sin`。
     - `dai` 的数量可以通过 `move` 在用户之间转移。
 
 * 通过 `fold(bytes32 ilk, address u, int rate)` 更新利率  
