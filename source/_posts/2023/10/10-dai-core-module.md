@@ -3,7 +3,7 @@ title: 解读 DAI 架构流程图 —— Core模块
 date: 2023-10-10 15:00:00
 categories: MakerDAO
 tags: [MakerDAO,DAI]
-description: 本文主要介绍DAI核心模块，Maker协议的状态
+description: 本文介绍了 DAI `Core`合约模块的细节，包括 `Vat`合约和`Spot`合约。`Vat` 是 `dss` 的核心 `Vault` 引擎。它存储 `Vault` 并跟踪所有相关的 `Dai` 和抵押品余额。它还定义了可以通过操作 `Vault` 和余额的规则。`Vat` 中定义的规则是不可变的，因此在某种程度上，可以将 `Vat` 中的规则视为 `dss` 的宪法。`Spot`是负责连接预言机（`Oracles`）与核心合约的现货接口。作为一个接口合约，它只存储当前的 `ilk` 列表。
 ---
 
 > 免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^
