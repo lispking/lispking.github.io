@@ -1,9 +1,9 @@
 ---
-title: DAI 架构流程图 —— 晦涩难懂的术语
+title: 解读 DAI 架构流程图 —— 晦涩难懂的术语
 date: 2023-09-22 11:20:39
 categories: MakerDAO
 tags: [MakerDAO,DAI]
-description: 原来，DAI 的晦涩术语是有意为之。现在，让我们一起来探究这些有趣的术语。
+description: 本文详细讲述了Maker协议中的各种术语及其相关合约接口的说明，让读者逐步明白其中的奥秘。同时，介绍了DAI的诞生背景，以及Maker晦涩难懂的代码是刻意的。文章列举了大量术语，包括Cat、Dai、End、Flipper、Flapper、Flopper等等
 ---
 
 > 免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^

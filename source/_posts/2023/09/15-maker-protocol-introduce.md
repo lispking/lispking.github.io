@@ -1,9 +1,9 @@
 ---
-title: Maker协议介绍
+title: MakerDAO 协议介绍
 date: 2023-09-15 15:23:21
 categories: MakerDAO
 tags: [MakerDAO,DAI]
-description: MakerDAO是一个去中心化的组织，致力于为加密货币经济带来稳定性。
+description: MakerDAO是一个去中心化的组织，致力于为加密货币经济带来稳定性。他们采用双代币系统，包括稳定币Dai和治理令牌MKR。最新版本的Maker协议Multi-Collaborate Dai（MCD）允许以太坊上任何资产作为抵押品生成Dai，并引入了新的功能，如新的Dai代币、支持多种Vault抵押品类型、Dai储蓄率、更稳健的挂钩确保机制等。MKR和治理保持不变，同时推出了Oasis交易。MakerDAO旨在打造一个包容性的经济赋权平台，让每个人都能平等地进入全球金融市场。
 ---
 
 ### MakerDAO介绍

@@ -1,9 +1,9 @@
 ---
-title: DAI 架构流程图 —— Dai模块
+title: 解读 DAI 架构流程图 —— Dai模块
 date: 2023-09-26 15:16:18
 categories: MakerDAO
 tags: [MakerDAO,DAI]
-description: 本文主要介绍DAI合约和DAI Join适配器
+description: 本文介绍了 DAI 合约模块的细节，包括 DAI 代币合约和所有的 DaiJoin 适配器。DAI 合约是用户面向的 ERC20 代币合约，具有根据签名消息发行转账批准的能力。与 ERC20 的区别在于 DAI 合约中的 transferFrom 函数允许进行“无限授权”。此外，文章还提到了 permit 函数和无限允许可能带来的风险。在 transferFrom 功能中存在轻微的偏差，如果 src == msg.sender，则该函数不需要事先获得批准。
 ---
 
 > 免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^
