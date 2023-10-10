@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lispking.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本文主要介绍DAI核心模块，Maker协议的状态">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解读 DAI 架构流程图 —— Core模块">
+<meta property="og:url" content="http://lispking.github.io/2023/10/10/dai-core-module/index.html">
+<meta property="og:site_name" content="Dive In Web3">
+<meta property="og:description" content="本文主要介绍DAI核心模块，Maker协议的状态">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://lispking.github.io/images/makedao/TheMakerProtocolSystemDiagram.png">
+<meta property="og:image" content="http://lispking.github.io/images/makedao/TheMakerSpot.png">
+<meta property="article:published_time" content="2023-10-10T07:00:00.000Z">
+<meta property="article:modified_time" content="2023-10-10T07:27:40.998Z">
+<meta property="article:author" content="King">
+<meta property="article:tag" content="MakerDAO">
+<meta property="article:tag" content="DAI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lispking.github.io/images/makedao/TheMakerProtocolSystemDiagram.png">
+
+
+<link rel="canonical" href="http://lispking.github.io/2023/10/10/dai-core-module/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://lispking.github.io/2023/10/10/dai-core-module/","path":"2023/10/10/dai-core-module/","title":"解读 DAI 架构流程图 —— Core模块"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>解读 DAI 架构流程图 —— Core模块 | Dive In Web3</title>
+  
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6255376809208012" crossorigin="anonymous"></script>
+
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-28440BWWYK"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-28440BWWYK","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?ea3634b85b5b23007bec7092a4735018"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Dive In Web3" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Dive In Web3</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">深入Web3世界</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">6</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E4%B8%80%E8%8A%82%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.</span> <span class="nav-text">上一节回顾</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">核心模块介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vat%E5%90%88%E7%BA%A6%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">Vat合约详细介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vat%E5%90%88%E7%BA%A6%E7%9A%84%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6%E5%92%8C%E6%A6%82%E5%BF%B5"><span class="nav-number">4.</span> <span class="nav-text">Vat合约的核心机制和概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spot%E5%90%88%E7%BA%A6%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D"><span class="nav-number">5.</span> <span class="nav-text">Spot合约详细介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spot%E5%90%88%E7%BA%A6%E7%9A%84%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6%E5%92%8C%E6%A6%82%E5%BF%B5"><span class="nav-number">6.</span> <span class="nav-text">Spot合约的核心机制和概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="King"
+      src="https://avatars.githubusercontent.com/u/4446580?v=4">
+  <p class="site-author-name" itemprop="name">King</p>
+  <div class="site-description" itemprop="description">欢迎光临Web3世界，一起拥抱Web3</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lispking" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/lispking" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/lispking" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_nd.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="sidebar-inner sidebar-post-related">
+          <div class="animated">
+              <div class="links-of-blogroll-title"><i class="fa fa-signs-post fa-fw"></i>
+    相关文章
+  </div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2023/09/22/dai-terminology/" rel="bookmark">
+        <time class="popular-posts-time">2023-09-22</time>
+        <br>
+      解读 DAI 架构流程图 —— 晦涩难懂的术语
+      </a>
+    </li>
+  </ul>
+
+          </div>
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lispking.github.io/2023/10/10/dai-core-module/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/4446580?v=4">
+      <meta itemprop="name" content="King">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dive In Web3">
+      <meta itemprop="description" content="欢迎光临Web3世界，一起拥抱Web3">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="解读 DAI 架构流程图 —— Core模块 | Dive In Web3">
+      <meta itemprop="description" content="本文主要介绍DAI核心模块，Maker协议的状态">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          解读 DAI 架构流程图 —— Core模块
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-10-10 15:00:00 / 修改时间：15:27:40" itemprop="dateCreated datePublished" datetime="2023-10-10T15:00:00+08:00">2023-10-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MakerDAO/" itemprop="url" rel="index"><span itemprop="name">MakerDAO</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">本文主要介绍DAI核心模块，Maker协议的状态</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^</p>
+</blockquote>
+<h3 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h3><blockquote>
+<p>上个章节主要讲解了<a href="https://lispking.github.io/2023/09/26/dai-module/">DAI 合约模块的细节</a>，其中包括 DAI 代币合约和所有的 DaiJoin 适配器。本章节，我们来解读Core合约模块的细节。</p>
+</blockquote>
+<h3 id="核心模块介绍"><a href="#核心模块介绍" class="headerlink" title="核心模块介绍"></a>核心模块介绍</h3><blockquote>
+<p>核心模块由<a target="_blank" rel="noopener" href="https://github.com/makerdao/dss/blob/master/src/vat.sol">Vat</a>和<a target="_blank" rel="noopener" href="https://github.com/makerdao/dss/blob/master/src/spot.sol">Spot</a>两个合约组成，该模块对系统至关重要，因为它包含了 Maker 协议的完整状态，并在系统正常运行状态下控制着系统的核心机制。</p>
+</blockquote>
+<ul>
+<li><p><code>Vat</code> - <code>Vat</code> 是核心金库，<code>Dai</code> 和抵押品状态都保存在 <code>Vat</code> 中。<code>Vat</code> 合约没有外部依赖关系，并维护 <code>Dai</code> 的中心“会计不变量”。  </p>
+</li>
+<li><p><code>Spot</code> - <code>poke</code> 是现货中唯一的非认证函数。该函数接收一个32字节（<code>bytes32</code>）“<code>poke</code>”的 <code>ilk</code>。<code>poke</code> 调用两个外部函数，分别是<code>peek</code> 和 <code>file</code>。</p>
+</li>
+</ul>
+<blockquote>
+<p>需要注意的问题（潜在的用户错误来源）</p>
+</blockquote>
+<ul>
+<li><code>Vat</code> 中的方法被编写得尽可能通用，因此它们的接口可能相当冗长。应注意确保您没有混淆参数的顺序。任何经过 <code>Vat</code> 身份验证的模块都具有完整的根访问权限，因此可以窃取系统中的所有抵押品。这意味着添加新的抵押品类型（以及相关的适配器）具有相当的风险。</li>
+<li>当 <code>Cat</code> 升级时，必须同时更新多个对其的引用（<code>End</code>，<code>Vat.rely</code>，<code>Vow.rely</code>）。它还必须依赖于 <code>End</code> 和系统的 <code>pause.proxy()</code>。更多的注意点，等后续讲到<code>Cat</code>合约时，再次展开。</li>
+<li>与 <code>dss</code> 的其他大部分部分相比，<code>spotter</code> 中的方法相对基本。单个未认证方法 <code>poke</code> 中用户错误的余地不大。如果提供了错误的 <code>bytes32</code>，则调用将失败。任何经过 <code>spot</code> 身份验证的模块都具有完整的根访问权限，因此可以添加和删除可以被“<code>poke</code>”的 <code>ilks</code>。虽然这并没有完全破坏系统，但可能会导致相当的风险。</li>
+</ul>
+<blockquote>
+<p>故障模式（操作条件范围和外部风险因素）  </p>
+</blockquote>
+<ul>
+<li>编码错误风险 <ul>
+<li><code>Vat</code> - <code>Vat</code> 中的错误可能是灾难性的，可能导致系统中所有 <code>Dai</code> 和抵押品的丢失（或锁定）。这将使得无法修改金库或转移 <code>Dai</code>。拍卖可能会停止运作。关机可能会失败。  </li>
+<li><code>Spot</code> - <code>Spot</code> 中的错误很可能导致抵押品价格不再更新。在这种情况下，系统需要授权一个新的 <code>Spot</code>，然后该 <code>Spot</code> 将能够更新价格。总的来说，这不是一种灾难性的故障，因为这只会在某段时间内暂停所有价格波动。</li>
+</ul>
+</li>
+<li>数据源风险 <ul>
+<li><code>Vat</code>和<code>Spot</code>都依赖一组可信任的预言机来提供价格数据。如果这些价格数据源失败，将可能允许创建无支持的 <code>Dai</code>，或者不公平地清算安全的金库。</li>
+</ul>
+</li>
+<li>治理风险<ul>
+<li><code>Vat</code> - 治理可以授权 <code>Vat</code> 对新的模块。这使得他们可以窃取抵押品（<code>slip</code>）或铸造无支持的 Dai（<code>suck</code>或添加无价值的抵押品类型）。如果使这样做变得代价高昂的加密经济保护措施失败，系统可能会受到攻击并被不良行为者榨取抵押品。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Vat合约详细介绍"><a href="#Vat合约详细介绍" class="headerlink" title="Vat合约详细介绍"></a><code>Vat</code>合约详细介绍</h3><blockquote>
+<p><code>Vat</code> 是 <code>dss</code> 的核心 <code>Vault</code> 引擎。它存储 <code>Vault</code> 并跟踪所有相关的 <code>Dai</code> 和抵押品余额。它还定义了可以通过操作 <code>Vault</code> 和余额的规则。<code>Vat</code> 中定义的规则是不可变的，因此在某种程度上，可以将 <code>Vat</code> 中的规则视为 <code>dss</code> 的宪法。</p>
+</blockquote>
+<p><img src="/images/makedao/TheMakerProtocolSystemDiagram.png" alt="SystemDiagram"></p>
+<ul>
+<li><p><code>Vat</code> - <code>Vault</code>引擎术语解析</p>
+<ul>
+<li><code>gem</code>: collateral tokens.</li>
+<li><code>dai</code>: stablecoin tokens.</li>
+<li><code>sin</code>: unbacked stablecoin (system debt, not belonging to any urn).</li>
+<li><code>ilks</code>: a mapping of Ilk types.</li>
+<li><code>Ilk</code>: a collateral type.<ul>
+<li><code>Art</code>: total normalized stablecoin debt.</li>
+<li><code>rate</code>: stablecoin debt multiplier (accumulated stability fees).</li>
+<li><code>spot</code>: collateral price with safety margin, i.e. the maximum stablecoin allowed per unit of collateral.</li>
+<li><code>line</code>: the debt ceiling for a specific collateral type.</li>
+<li><code>dust</code>: the debt floor for a specific collateral type.</li>
+</ul>
+</li>
+<li><code>urns</code>: a mapping of Urn types.</li>
+<li><code>Urn</code>: a specific Vault.<ul>
+<li><code>ink</code>: collateral balance.</li>
+<li><code>art</code>: normalized outstanding stablecoin debt.</li>
+</ul>
+</li>
+<li><code>init</code>: create a new collateral type.</li>
+<li><code>slip</code>: modify a user’s collateral balance.</li>
+<li><code>flux</code>: transfer collateral between users.</li>
+<li><code>move</code>: transfer stablecoin between users.</li>
+<li><code>grab</code>: liquidate a Vault.</li>
+<li><code>heal</code>: create &#x2F; destroy equal quantities of stablecoin and system debt (vice).</li>
+<li><code>fold</code>: modify the debt multiplier, creating &#x2F; destroying corresponding debt.</li>
+<li><code>suck</code>: mint unbacked stablecoin (accounted for with vice).</li>
+<li><code>Line</code>: the total debt ceiling for all collateral types.</li>
+<li><code>frob</code>: modify a Vault.<ul>
+<li><code>lock</code>: transfer collateral into a Vault.</li>
+<li><code>free</code>: transfer collateral from a Vault.</li>
+<li><code>draw</code>: increase Vault debt, creating Dai.</li>
+<li><code>wipe</code>: decrease Vault debt, destroying Dai.</li>
+<li><code>dink</code>: change in collateral.</li>
+<li><code>dart</code>: change in debt.</li>
+</ul>
+</li>
+<li><code>fork</code>: to split a Vault - binary approval or splitting&#x2F;merging Vaults.<ul>
+<li><code>dink</code>: amount of collateral to exchange.</li>
+<li><code>dart</code>: amount of stablecoin debt to exchange.</li>
+</ul>
+</li>
+<li><code>wish</code>: check whether an address is allowed to modify another address’s gem or dai balance.<ul>
+<li><code>hope</code>: enable wish for a pair of addresses.</li>
+<li><code>nope</code>: disable wish for a pair of addresses.</li>
+</ul>
+</li>
+</ul>
+<p>  _注意_：<code>art</code> 和 <code>Art</code> 代表标准化债务，即当乘以正确的利率时，可以得到最新的、当前的稳定币债务。</p>
+</li>
+<li><p>Accounting</p>
+<ul>
+<li><code>debt</code> is the sum of all dai (the total quantity of dai issued).</li>
+<li><code>vice</code> is the sum of all sin (the total quantity of system debt).</li>
+<li><code>Ilk.Art</code> the sum of all art in the urns for that Ilk.</li>
+<li><code>debt</code> is vice plus the sum of <code>Ilk.Art * Ilk.rate</code> across all <code>ilks</code>.</li>
+</ul>
+</li>
+<li><p>Collateral</p>
+<ul>
+<li><code>gem</code> can always be transferred to any address by it’s owner.</li>
+</ul>
+</li>
+<li><p>Dai</p>
+<ul>
+<li><code>dai</code> can only move with the consent of it’s owner.</li>
+<li><code>dai</code> can always be transferred to any address by it’s owner.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Vat合约的核心机制和概念"><a href="#Vat合约的核心机制和概念" class="headerlink" title="Vat合约的核心机制和概念"></a><code>Vat</code>合约的核心机制和概念</h3><ul>
+<li><p><code>Vat</code> 中的核心 <code>Vault</code>、<code>Dai</code> 和抵押状态由 <code>Vat</code> 维护。<code>Vat</code> 合约没有外部依赖关系，并维护 <code>Dai</code> 的中央“会计不变量”。适用于 <code>Vat</code> 的核心原则如下：  </p>
+<ol>
+<li><code>Dai</code> 不能没有抵押品存在：</li>
+</ol>
+<ul>
+<li><code>Ilk</code> 是一种特殊类型的抵押品。  </li>
+<li>抵押品<code>gem</code>分配给具有<code>slip</code>的用户。  </li>
+<li>抵押品<code>gem</code>在用户之间转移<code>flux</code>。</li>
+</ul>
+<ol start="2">
+<li><code>Vault</code> 数据结构是 <code>Urn</code>：</li>
+</ol>
+<ul>
+<li>has <code>ink</code> - 负担的抵押品  </li>
+<li>has <code>art</code> - 负担、标准化债务</li>
+</ul>
+<ol start="3">
+<li>类似地，一个抵押品是一个 <code>Ilk</code>：</li>
+</ol>
+<ul>
+<li>has <code>Art</code> - 负担、标准化债务  </li>
+<li>has <code>rate</code> - 债务缩放因子（下面进一步讨论）  </li>
+<li>has <code>spot</code> - 带安全余量的价格  </li>
+<li>has <code>line</code> - 债务上限  </li>
+<li>has <code>dust</code> - 债务下限<br>  _注意_：在上面的使用“<code>encumbered</code>”一词时，这是指“被锁定在 <code>Vault</code> 中”。</li>
+</ul>
+</li>
+<li><p><code>Vault</code> 管理  </p>
+<ul>
+<li><code>Vault</code> 通过 <code>frob(i, u, v, w, dink, dart)</code> 进行管理，它使用用户 <code>van</code> 的 <code>gem</code> 修改用户 <code>u</code> 的 <code>Vault</code>，并为用户 <code>w</code> 创建 <code>dai</code>。</li>
+<li>通过调用 <code>grab(i, u, v, w, dink, dart)</code>，修改用户 <code>u</code> 的 <code>Vault</code>，将<code>gem</code>给用户 <code>v</code> 并为用户 <code>w</code> 创建 <code>sin</code>。<code>grab</code> 是 <code>Vault</code> 变现的手段，将债务从 <code>Vault</code> 转移到用户的 <code>sin</code> 余额。</li>
+<li><code>Sin</code> 代表“被查获”或“不良”债务，可以使用 <code>heal(uint rad where msg.sender is used as the address for the dai and sin balances)</code> 使用相等数量的 Dai 进行抵消。<ul>
+<li>_注意_：只有 <code>Vow</code> 才会有 <code>sin</code>，因此只有 <code>Vow</code> 能成功调用 <code>heal</code>。这是因为每当调用 <code>grab</code> 和 <code>suck</code> 时，将 <code>Vow</code> 的地址作为 <code>sin</code> 的接收方传递。需要注意的是，这取决于当前系统的设计和实现。</li>
+<li>_注意_：heal 只能用正数（<code>uint</code>）调用，并将 <code>sub(dai[u])</code> 以及 <code>sub</code> 掉 <code>sin</code>。</li>
+</ul>
+</li>
+<li><code>dai</code> 的数量可以通过 <code>move</code> 在用户之间转移。</li>
+</ul>
+</li>
+<li><p>通过 <code>fold(bytes32 ilk, address u, int rate)</code> 更新利率  </p>
+<ul>
+<li>一个 <code>ilk</code> 的利率是其与任何正常化债务（<code>art</code>）之间的转换因子，该债务的现值包括累积的费用。<code>fold</code> 的 <code>rate</code> 参数实际上是 <code>Ilk.rate</code> 值的变化，即缩放因子的差值（新 - 旧）。它是一个有符号整数，因此当前账户值可能增加或减少。将 <code>Ilk.Art * rate</code> 添加到地址 <code>u</code> 的 <code>dai</code> 余额（表示系统盈余的增加或减少）；通过将 <code>rate</code> 添加到 <code>Ilk.rate</code> 来隐式地更新所有与指定 <code>Ilk</code> 抵押的 <code>Vault</code> 的债务余额。</li>
+<li>关于利率和系统稳定，请参阅<a target="_blank" rel="noopener" href="https://docs.makerdao.com/smart-contract-modules/rates-module">利率模块</a>和<a target="_blank" rel="noopener" href="https://docs.makerdao.com/smart-contract-modules/system-stabilizer-module">系统稳定器模块</a>文档</li>
+</ul>
+</li>
+</ul>
+<h3 id="Spot合约详细介绍"><a href="#Spot合约详细介绍" class="headerlink" title="Spot合约详细介绍"></a><code>Spot</code>合约详细介绍</h3><blockquote>
+<p><code>Spot</code>是负责连接预言机（<code>Oracles</code>）与核心合约的现货接口。作为一个接口合约，它只存储当前的 <code>ilk</code> 列表。</p>
+</blockquote>
+<p><img src="/images/makedao/TheMakerSpot.png" alt="SpotDiagram"></p>
+<h3 id="Spot合约的核心机制和概念"><a href="#Spot合约的核心机制和概念" class="headerlink" title="Spot合约的核心机制和概念"></a><code>Spot</code>合约的核心机制和概念</h3><blockquote>
+<p><code>Poke</code> 是 <code>spot</code> 中唯一的非认证函数。该函数接收一个要<code>poked</code>的 <code>ilk</code> 的 <code>bytes32</code>。<code>Poke</code> 调用两个外部函数：  </p>
+</blockquote>
+<ol>
+<li><code>Peek</code> 调用给定 <code>ilk</code> 的 <code>OSM</code> 并将 <code>val</code>（值）和 <code>has</code>（布尔值，如果 <code>OSM</code> 中发生错误则为 <code>false</code>）作为返回值。只有在 <code>has == true</code> 时才会发生第二次外部调用。  </li>
+<li>在计算现货价格时，<code>par</code>（基本价格单位）对于计算 <code>DAI</code> 与价格中的 1 个单位的关系至关重要。然后将 <code>val</code>（值）除以 <code>par</code>（得到 <code>val</code> 与 <code>DAI</code> 的比率），再将结果除以 <code>ilk.mat</code>。这给我们提供了给定 <code>ilk</code> 的当前现货价格。  </li>
+<li>在计算<code>spot</code>后调用 <code>file</code>。这个函数用于 <code>ilk</code> 的当前清算价格更新 <code>vat</code>。</li>
+</ol>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.makerdao.com/smart-contract-modules/core-module">Core Module</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.makerdao.com/smart-contract-modules/core-module/vat-detailed-documentation">Vat Module</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.makerdao.com/smart-contract-modules/core-module/spot-detailed-documentation">Spot Module</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechat.png" alt="King 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="King 支付宝">
+        <span>支付宝</span>
+      </div>
+      <div>
+        <img src="/images/metamask.png" alt="King 比特币">
+        <span>比特币</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/lispking">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/MakerDAO/" rel="tag"><i class="fa fa-tag"></i> MakerDAO</a>
+              <a href="/tags/DAI/" rel="tag"><i class="fa fa-tag"></i> DAI</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/09/26/dai-module/" rel="prev" title="解读 DAI 架构流程图 —— Dai模块">
+                  <i class="fa fa-angle-left"></i> 解读 DAI 架构流程图 —— Dai模块
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+  
+  <script type="text/javascript">
+    // 可修改，摘要将显示在这个选择器选中的元素之上。
+    var _xhh_selector = ".post-body";
+    // 可修改，定制最外层 DIV 的风格。
+    // 默认限制宽度为 750px，上下加 8px 的镶边，4 像素圆角。
+    var _xhh_style = "max-width: 100%; margin:8px 0px; border-radius: 4px;";
+
+    // 以下部分不要改动
+    var host = '///xhh.club';
+    var _xhh_service_url = host + '/summarize-this/';
+    (function() {
+      var smmr = document.createElement("script");
+      smmr.src = host + "/static/js/summarize_this.js";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(smmr, s);
+    })();
+  </script>
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">King</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">12k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">11 分钟</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lispking" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.3.0/mermaid.min.js","integrity":"sha256-9y71g5Lz/KLsHjB8uXwnkuWDtAMDSzD/HdIbqhJfTAI="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","mhchem":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"lispking","repo":"lispking.github.io","client_id":"909b979ee5805cfc60f7","client_secret":"7a5f88e85afc02681b49d44afe4aa9a7a68f4b21","admin_user":"lispking","distraction_free_mode":true,"proxy":"https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"856e99e3b2068b8374b96dc39fceca67"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

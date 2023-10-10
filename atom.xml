@@ -6,7 +6,7 @@
   <link href="http://lispking.github.io/atom.xml" rel="self"/>
   
   <link href="http://lispking.github.io/"/>
-  <updated>2023-09-26T09:41:10.873Z</updated>
+  <updated>2023-10-10T07:27:40.998Z</updated>
   <id>http://lispking.github.io/</id>
   
   <author>
@@ -17,14 +17,35 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>DAI 架构流程图 —— Dai模块</title>
+    <title>解读 DAI 架构流程图 —— Core模块</title>
+    <link href="http://lispking.github.io/2023/10/10/dai-core-module/"/>
+    <id>http://lispking.github.io/2023/10/10/dai-core-module/</id>
+    <published>2023-10-10T07:00:00.000Z</published>
+    <updated>2023-10-10T07:27:40.998Z</updated>
+    
+    
+    <summary type="html">本文主要介绍DAI核心模块，Maker协议的状态</summary>
+    
+    
+    
+    <category term="MakerDAO" scheme="http://lispking.github.io/categories/MakerDAO/"/>
+    
+    
+    <category term="MakerDAO" scheme="http://lispking.github.io/tags/MakerDAO/"/>
+    
+    <category term="DAI" scheme="http://lispking.github.io/tags/DAI/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>解读 DAI 架构流程图 —— Dai模块</title>
     <link href="http://lispking.github.io/2023/09/26/dai-module/"/>
     <id>http://lispking.github.io/2023/09/26/dai-module/</id>
     <published>2023-09-26T07:16:18.000Z</published>
-    <updated>2023-09-26T09:41:10.873Z</updated>
+    <updated>2023-10-10T07:27:40.998Z</updated>
     
     
-    <summary type="html">本文主要介绍DAI合约和DAI Join适配器</summary>
+    <summary type="html">本文介绍了 DAI 合约模块的细节，包括 DAI 代币合约和所有的 DaiJoin 适配器。DAI 合约是用户面向的 ERC20 代币合约，具有根据签名消息发行转账批准的能力。与 ERC20 的区别在于 DAI 合约中的 transferFrom 函数允许进行“无限授权”。此外，文章还提到了 permit 函数和无限允许可能带来的风险。在 transferFrom 功能中存在轻微的偏差，如果 src == msg.sender，则该函数不需要事先获得批准。</summary>
     
     
     
@@ -42,10 +63,10 @@
     <link href="http://lispking.github.io/2023/09/25/web3-world-think/"/>
     <id>http://lispking.github.io/2023/09/25/web3-world-think/</id>
     <published>2023-09-25T00:03:12.000Z</published>
-    <updated>2023-09-26T09:41:10.873Z</updated>
+    <updated>2023-10-10T07:27:40.998Z</updated>
     
     
-    <summary type="html">以下是最近有关Web3方面的一些思考，与君共勉</summary>
+    <summary type="html">本文讨论了下一个Web时代的特点，包括Web3.0、AI、区块链、VR、IoT、5G/6G/7G和数字人等技术的应用，以及元宇宙的概念。这个新时代将带来更加丰富、智能和个性化的体验，同时也将改变我们的生产方式、交流方式和商业模式。作者强调了中国在Web新时代的技术研发和应用上已经走在了世界的前列。</summary>
     
     
     
@@ -59,14 +80,14 @@
   </entry>
   
   <entry>
-    <title>DAI 架构流程图 —— 晦涩难懂的术语</title>
+    <title>解读 DAI 架构流程图 —— 晦涩难懂的术语</title>
     <link href="http://lispking.github.io/2023/09/22/dai-terminology/"/>
     <id>http://lispking.github.io/2023/09/22/dai-terminology/</id>
     <published>2023-09-22T03:20:39.000Z</published>
-    <updated>2023-09-26T09:41:10.873Z</updated>
+    <updated>2023-10-10T07:27:40.998Z</updated>
     
     
-    <summary type="html">原来，DAI 的晦涩术语是有意为之。现在，让我们一起来探究这些有趣的术语。</summary>
+    <summary type="html">本文详细讲述了Maker协议中的各种术语及其相关合约接口的说明，让读者逐步明白其中的奥秘。同时，介绍了DAI的诞生背景，以及Maker晦涩难懂的代码是刻意的。文章列举了大量术语，包括Cat、Dai、End、Flipper、Flapper、Flopper等等</summary>
     
     
     
@@ -80,14 +101,14 @@
   </entry>
   
   <entry>
-    <title>Maker协议介绍</title>
+    <title>MakerDAO 协议介绍</title>
     <link href="http://lispking.github.io/2023/09/15/maker-protocol-introduce/"/>
     <id>http://lispking.github.io/2023/09/15/maker-protocol-introduce/</id>
     <published>2023-09-15T07:23:21.000Z</published>
-    <updated>2023-09-26T09:41:10.869Z</updated>
+    <updated>2023-10-10T07:27:40.998Z</updated>
     
     
-    <summary type="html">MakerDAO是一个去中心化的组织，致力于为加密货币经济带来稳定性。</summary>
+    <summary type="html">MakerDAO是一个去中心化的组织，致力于为加密货币经济带来稳定性。他们采用双代币系统，包括稳定币Dai和治理令牌MKR。最新版本的Maker协议Multi-Collaborate Dai（MCD）允许以太坊上任何资产作为抵押品生成Dai，并引入了新的功能，如新的Dai代币、支持多种Vault抵押品类型、Dai储蓄率、更稳健的挂钩确保机制等。MKR和治理保持不变，同时推出了Oasis交易。MakerDAO旨在打造一个包容性的经济赋权平台，让每个人都能平等地进入全球金融市场。</summary>
     
     
     
@@ -105,10 +126,10 @@
     <link href="http://lispking.github.io/2023/09/12/about-site/"/>
     <id>http://lispking.github.io/2023/09/12/about-site/</id>
     <published>2023-09-12T23:00:00.000Z</published>
-    <updated>2023-09-26T09:41:10.873Z</updated>
+    <updated>2023-10-10T07:27:40.998Z</updated>
     
     
-    <summary type="html">欢迎来到本站，这里是一位拥有16年技术研发经验的专业人士与你分享编程知识和心得的地方。</summary>
+    <summary type="html">本站是一位拥有近20年技术研发经验的专业人士分享编程知识和心得的地方。博主具有丰富的实践经验，掌握多种编程语言，最近关注Rust和Solidity，将分享实践经验和应用技巧。此外，博主还将分享团队管理和项目领导方面的经验和见解。本站内容丰富，涵盖编程语言、技术实践、团队管理等多个领域，适合编程初学者和有经验的开发者。</summary>
     
     
     

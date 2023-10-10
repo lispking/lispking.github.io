@@ -28,7 +28,7 @@
       </categories>
   </entry>
   <entry>
-    <title>Maker协议介绍</title>
+    <title>MakerDAO 协议介绍</title>
     <url>/2023/09/15/maker-protocol-introduce/</url>
     <content><![CDATA[<h3 id="MakerDAO介绍"><a href="#MakerDAO介绍" class="headerlink" title="MakerDAO介绍"></a>MakerDAO介绍</h3><p>MakerDAO是一个去中心化的组织，致力于为加密货币经济带来稳定性。</p>
 <blockquote>
@@ -80,7 +80,7 @@
       </tags>
   </entry>
   <entry>
-    <title>DAI 架构流程图 —— 晦涩难懂的术语</title>
+    <title>解读 DAI 架构流程图 —— 晦涩难懂的术语</title>
     <url>/2023/09/22/dai-terminology/</url>
     <content><![CDATA[<blockquote>
 <p>免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^</p>
@@ -236,7 +236,7 @@
       </tags>
   </entry>
   <entry>
-    <title>DAI 架构流程图 —— Dai模块</title>
+    <title>解读 DAI 架构流程图 —— Dai模块</title>
     <url>/2023/09/26/dai-module/</url>
     <content><![CDATA[<blockquote>
 <p>免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^</p>
@@ -295,6 +295,199 @@
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
 <li><a href="https://docs.makerdao.com/smart-contract-modules/dai-module">Dai Module</a></li>
 <li><a href="https://docs.makerdao.com/smart-contract-modules/dai-module/dai-detailed-documentation">Dai - Detailed Documentation</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>MakerDAO</category>
+      </categories>
+      <tags>
+        <tag>MakerDAO</tag>
+        <tag>DAI</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解读 DAI 架构流程图 —— Core模块</title>
+    <url>/2023/10/10/dai-core-module/</url>
+    <content><![CDATA[<blockquote>
+<p>免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^</p>
+</blockquote>
+<h3 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h3><blockquote>
+<p>上个章节主要讲解了<a href="https://lispking.github.io/2023/09/26/dai-module/">DAI 合约模块的细节</a>，其中包括 DAI 代币合约和所有的 DaiJoin 适配器。本章节，我们来解读Core合约模块的细节。</p>
+</blockquote>
+<h3 id="核心模块介绍"><a href="#核心模块介绍" class="headerlink" title="核心模块介绍"></a>核心模块介绍</h3><blockquote>
+<p>核心模块由<a href="https://github.com/makerdao/dss/blob/master/src/vat.sol">Vat</a>和<a href="https://github.com/makerdao/dss/blob/master/src/spot.sol">Spot</a>两个合约组成，该模块对系统至关重要，因为它包含了 Maker 协议的完整状态，并在系统正常运行状态下控制着系统的核心机制。</p>
+</blockquote>
+<ul>
+<li><p><code>Vat</code> - <code>Vat</code> 是核心金库，<code>Dai</code> 和抵押品状态都保存在 <code>Vat</code> 中。<code>Vat</code> 合约没有外部依赖关系，并维护 <code>Dai</code> 的中心“会计不变量”。  </p>
+</li>
+<li><p><code>Spot</code> - <code>poke</code> 是现货中唯一的非认证函数。该函数接收一个32字节（<code>bytes32</code>）“<code>poke</code>”的 <code>ilk</code>。<code>poke</code> 调用两个外部函数，分别是<code>peek</code> 和 <code>file</code>。</p>
+</li>
+</ul>
+<blockquote>
+<p>需要注意的问题（潜在的用户错误来源）</p>
+</blockquote>
+<ul>
+<li><code>Vat</code> 中的方法被编写得尽可能通用，因此它们的接口可能相当冗长。应注意确保您没有混淆参数的顺序。任何经过 <code>Vat</code> 身份验证的模块都具有完整的根访问权限，因此可以窃取系统中的所有抵押品。这意味着添加新的抵押品类型（以及相关的适配器）具有相当的风险。</li>
+<li>当 <code>Cat</code> 升级时，必须同时更新多个对其的引用（<code>End</code>，<code>Vat.rely</code>，<code>Vow.rely</code>）。它还必须依赖于 <code>End</code> 和系统的 <code>pause.proxy()</code>。更多的注意点，等后续讲到<code>Cat</code>合约时，再次展开。</li>
+<li>与 <code>dss</code> 的其他大部分部分相比，<code>spotter</code> 中的方法相对基本。单个未认证方法 <code>poke</code> 中用户错误的余地不大。如果提供了错误的 <code>bytes32</code>，则调用将失败。任何经过 <code>spot</code> 身份验证的模块都具有完整的根访问权限，因此可以添加和删除可以被“<code>poke</code>”的 <code>ilks</code>。虽然这并没有完全破坏系统，但可能会导致相当的风险。</li>
+</ul>
+<blockquote>
+<p>故障模式（操作条件范围和外部风险因素）  </p>
+</blockquote>
+<ul>
+<li>编码错误风险 <ul>
+<li><code>Vat</code> - <code>Vat</code> 中的错误可能是灾难性的，可能导致系统中所有 <code>Dai</code> 和抵押品的丢失（或锁定）。这将使得无法修改金库或转移 <code>Dai</code>。拍卖可能会停止运作。关机可能会失败。  </li>
+<li><code>Spot</code> - <code>Spot</code> 中的错误很可能导致抵押品价格不再更新。在这种情况下，系统需要授权一个新的 <code>Spot</code>，然后该 <code>Spot</code> 将能够更新价格。总的来说，这不是一种灾难性的故障，因为这只会在某段时间内暂停所有价格波动。</li>
+</ul>
+</li>
+<li>数据源风险 <ul>
+<li><code>Vat</code>和<code>Spot</code>都依赖一组可信任的预言机来提供价格数据。如果这些价格数据源失败，将可能允许创建无支持的 <code>Dai</code>，或者不公平地清算安全的金库。</li>
+</ul>
+</li>
+<li>治理风险<ul>
+<li><code>Vat</code> - 治理可以授权 <code>Vat</code> 对新的模块。这使得他们可以窃取抵押品（<code>slip</code>）或铸造无支持的 Dai（<code>suck</code>或添加无价值的抵押品类型）。如果使这样做变得代价高昂的加密经济保护措施失败，系统可能会受到攻击并被不良行为者榨取抵押品。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Vat合约详细介绍"><a href="#Vat合约详细介绍" class="headerlink" title="Vat合约详细介绍"></a><code>Vat</code>合约详细介绍</h3><blockquote>
+<p><code>Vat</code> 是 <code>dss</code> 的核心 <code>Vault</code> 引擎。它存储 <code>Vault</code> 并跟踪所有相关的 <code>Dai</code> 和抵押品余额。它还定义了可以通过操作 <code>Vault</code> 和余额的规则。<code>Vat</code> 中定义的规则是不可变的，因此在某种程度上，可以将 <code>Vat</code> 中的规则视为 <code>dss</code> 的宪法。</p>
+</blockquote>
+<p><img src="/images/makedao/TheMakerProtocolSystemDiagram.png" alt="SystemDiagram"></p>
+<ul>
+<li><p><code>Vat</code> - <code>Vault</code>引擎术语解析</p>
+<ul>
+<li><code>gem</code>: collateral tokens.</li>
+<li><code>dai</code>: stablecoin tokens.</li>
+<li><code>sin</code>: unbacked stablecoin (system debt, not belonging to any urn).</li>
+<li><code>ilks</code>: a mapping of Ilk types.</li>
+<li><code>Ilk</code>: a collateral type.<ul>
+<li><code>Art</code>: total normalized stablecoin debt.</li>
+<li><code>rate</code>: stablecoin debt multiplier (accumulated stability fees).</li>
+<li><code>spot</code>: collateral price with safety margin, i.e. the maximum stablecoin allowed per unit of collateral.</li>
+<li><code>line</code>: the debt ceiling for a specific collateral type.</li>
+<li><code>dust</code>: the debt floor for a specific collateral type.</li>
+</ul>
+</li>
+<li><code>urns</code>: a mapping of Urn types.</li>
+<li><code>Urn</code>: a specific Vault.<ul>
+<li><code>ink</code>: collateral balance.</li>
+<li><code>art</code>: normalized outstanding stablecoin debt.</li>
+</ul>
+</li>
+<li><code>init</code>: create a new collateral type.</li>
+<li><code>slip</code>: modify a user’s collateral balance.</li>
+<li><code>flux</code>: transfer collateral between users.</li>
+<li><code>move</code>: transfer stablecoin between users.</li>
+<li><code>grab</code>: liquidate a Vault.</li>
+<li><code>heal</code>: create &#x2F; destroy equal quantities of stablecoin and system debt (vice).</li>
+<li><code>fold</code>: modify the debt multiplier, creating &#x2F; destroying corresponding debt.</li>
+<li><code>suck</code>: mint unbacked stablecoin (accounted for with vice).</li>
+<li><code>Line</code>: the total debt ceiling for all collateral types.</li>
+<li><code>frob</code>: modify a Vault.<ul>
+<li><code>lock</code>: transfer collateral into a Vault.</li>
+<li><code>free</code>: transfer collateral from a Vault.</li>
+<li><code>draw</code>: increase Vault debt, creating Dai.</li>
+<li><code>wipe</code>: decrease Vault debt, destroying Dai.</li>
+<li><code>dink</code>: change in collateral.</li>
+<li><code>dart</code>: change in debt.</li>
+</ul>
+</li>
+<li><code>fork</code>: to split a Vault - binary approval or splitting&#x2F;merging Vaults.<ul>
+<li><code>dink</code>: amount of collateral to exchange.</li>
+<li><code>dart</code>: amount of stablecoin debt to exchange.</li>
+</ul>
+</li>
+<li><code>wish</code>: check whether an address is allowed to modify another address’s gem or dai balance.<ul>
+<li><code>hope</code>: enable wish for a pair of addresses.</li>
+<li><code>nope</code>: disable wish for a pair of addresses.</li>
+</ul>
+</li>
+</ul>
+<p>  _注意_：<code>art</code> 和 <code>Art</code> 代表标准化债务，即当乘以正确的利率时，可以得到最新的、当前的稳定币债务。</p>
+</li>
+<li><p>Accounting</p>
+<ul>
+<li><code>debt</code> is the sum of all dai (the total quantity of dai issued).</li>
+<li><code>vice</code> is the sum of all sin (the total quantity of system debt).</li>
+<li><code>Ilk.Art</code> the sum of all art in the urns for that Ilk.</li>
+<li><code>debt</code> is vice plus the sum of <code>Ilk.Art * Ilk.rate</code> across all <code>ilks</code>.</li>
+</ul>
+</li>
+<li><p>Collateral</p>
+<ul>
+<li><code>gem</code> can always be transferred to any address by it’s owner.</li>
+</ul>
+</li>
+<li><p>Dai</p>
+<ul>
+<li><code>dai</code> can only move with the consent of it’s owner.</li>
+<li><code>dai</code> can always be transferred to any address by it’s owner.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Vat合约的核心机制和概念"><a href="#Vat合约的核心机制和概念" class="headerlink" title="Vat合约的核心机制和概念"></a><code>Vat</code>合约的核心机制和概念</h3><ul>
+<li><p><code>Vat</code> 中的核心 <code>Vault</code>、<code>Dai</code> 和抵押状态由 <code>Vat</code> 维护。<code>Vat</code> 合约没有外部依赖关系，并维护 <code>Dai</code> 的中央“会计不变量”。适用于 <code>Vat</code> 的核心原则如下：  </p>
+<ol>
+<li><code>Dai</code> 不能没有抵押品存在：</li>
+</ol>
+<ul>
+<li><code>Ilk</code> 是一种特殊类型的抵押品。  </li>
+<li>抵押品<code>gem</code>分配给具有<code>slip</code>的用户。  </li>
+<li>抵押品<code>gem</code>在用户之间转移<code>flux</code>。</li>
+</ul>
+<ol start="2">
+<li><code>Vault</code> 数据结构是 <code>Urn</code>：</li>
+</ol>
+<ul>
+<li>has <code>ink</code> - 负担的抵押品  </li>
+<li>has <code>art</code> - 负担、标准化债务</li>
+</ul>
+<ol start="3">
+<li>类似地，一个抵押品是一个 <code>Ilk</code>：</li>
+</ol>
+<ul>
+<li>has <code>Art</code> - 负担、标准化债务  </li>
+<li>has <code>rate</code> - 债务缩放因子（下面进一步讨论）  </li>
+<li>has <code>spot</code> - 带安全余量的价格  </li>
+<li>has <code>line</code> - 债务上限  </li>
+<li>has <code>dust</code> - 债务下限<br>  _注意_：在上面的使用“<code>encumbered</code>”一词时，这是指“被锁定在 <code>Vault</code> 中”。</li>
+</ul>
+</li>
+<li><p><code>Vault</code> 管理  </p>
+<ul>
+<li><code>Vault</code> 通过 <code>frob(i, u, v, w, dink, dart)</code> 进行管理，它使用用户 <code>van</code> 的 <code>gem</code> 修改用户 <code>u</code> 的 <code>Vault</code>，并为用户 <code>w</code> 创建 <code>dai</code>。</li>
+<li>通过调用 <code>grab(i, u, v, w, dink, dart)</code>，修改用户 <code>u</code> 的 <code>Vault</code>，将<code>gem</code>给用户 <code>v</code> 并为用户 <code>w</code> 创建 <code>sin</code>。<code>grab</code> 是 <code>Vault</code> 变现的手段，将债务从 <code>Vault</code> 转移到用户的 <code>sin</code> 余额。</li>
+<li><code>Sin</code> 代表“被查获”或“不良”债务，可以使用 <code>heal(uint rad where msg.sender is used as the address for the dai and sin balances)</code> 使用相等数量的 Dai 进行抵消。<ul>
+<li>_注意_：只有 <code>Vow</code> 才会有 <code>sin</code>，因此只有 <code>Vow</code> 能成功调用 <code>heal</code>。这是因为每当调用 <code>grab</code> 和 <code>suck</code> 时，将 <code>Vow</code> 的地址作为 <code>sin</code> 的接收方传递。需要注意的是，这取决于当前系统的设计和实现。</li>
+<li>_注意_：heal 只能用正数（<code>uint</code>）调用，并将 <code>sub(dai[u])</code> 以及 <code>sub</code> 掉 <code>sin</code>。</li>
+</ul>
+</li>
+<li><code>dai</code> 的数量可以通过 <code>move</code> 在用户之间转移。</li>
+</ul>
+</li>
+<li><p>通过 <code>fold(bytes32 ilk, address u, int rate)</code> 更新利率  </p>
+<ul>
+<li>一个 <code>ilk</code> 的利率是其与任何正常化债务（<code>art</code>）之间的转换因子，该债务的现值包括累积的费用。<code>fold</code> 的 <code>rate</code> 参数实际上是 <code>Ilk.rate</code> 值的变化，即缩放因子的差值（新 - 旧）。它是一个有符号整数，因此当前账户值可能增加或减少。将 <code>Ilk.Art * rate</code> 添加到地址 <code>u</code> 的 <code>dai</code> 余额（表示系统盈余的增加或减少）；通过将 <code>rate</code> 添加到 <code>Ilk.rate</code> 来隐式地更新所有与指定 <code>Ilk</code> 抵押的 <code>Vault</code> 的债务余额。</li>
+<li>关于利率和系统稳定，请参阅<a href="https://docs.makerdao.com/smart-contract-modules/rates-module">利率模块</a>和<a href="https://docs.makerdao.com/smart-contract-modules/system-stabilizer-module">系统稳定器模块</a>文档</li>
+</ul>
+</li>
+</ul>
+<h3 id="Spot合约详细介绍"><a href="#Spot合约详细介绍" class="headerlink" title="Spot合约详细介绍"></a><code>Spot</code>合约详细介绍</h3><blockquote>
+<p><code>Spot</code>是负责连接预言机（<code>Oracles</code>）与核心合约的现货接口。作为一个接口合约，它只存储当前的 <code>ilk</code> 列表。</p>
+</blockquote>
+<p><img src="/images/makedao/TheMakerSpot.png" alt="SpotDiagram"></p>
+<h3 id="Spot合约的核心机制和概念"><a href="#Spot合约的核心机制和概念" class="headerlink" title="Spot合约的核心机制和概念"></a><code>Spot</code>合约的核心机制和概念</h3><blockquote>
+<p><code>Poke</code> 是 <code>spot</code> 中唯一的非认证函数。该函数接收一个要<code>poked</code>的 <code>ilk</code> 的 <code>bytes32</code>。<code>Poke</code> 调用两个外部函数：  </p>
+</blockquote>
+<ol>
+<li><code>Peek</code> 调用给定 <code>ilk</code> 的 <code>OSM</code> 并将 <code>val</code>（值）和 <code>has</code>（布尔值，如果 <code>OSM</code> 中发生错误则为 <code>false</code>）作为返回值。只有在 <code>has == true</code> 时才会发生第二次外部调用。  </li>
+<li>在计算现货价格时，<code>par</code>（基本价格单位）对于计算 <code>DAI</code> 与价格中的 1 个单位的关系至关重要。然后将 <code>val</code>（值）除以 <code>par</code>（得到 <code>val</code> 与 <code>DAI</code> 的比率），再将结果除以 <code>ilk.mat</code>。这给我们提供了给定 <code>ilk</code> 的当前现货价格。  </li>
+<li>在计算<code>spot</code>后调用 <code>file</code>。这个函数用于 <code>ilk</code> 的当前清算价格更新 <code>vat</code>。</li>
+</ol>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a href="https://docs.makerdao.com/smart-contract-modules/core-module">Core Module</a></li>
+<li><a href="https://docs.makerdao.com/smart-contract-modules/core-module/vat-detailed-documentation">Vat Module</a></li>
+<li><a href="https://docs.makerdao.com/smart-contract-modules/core-module/spot-detailed-documentation">Spot Module</a></li>
 </ul>
 ]]></content>
       <categories>
