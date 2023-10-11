@@ -19,36 +19,31 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"lispking.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="本文讨论了下一个Web时代的特点，包括Web3.0、AI、区块链、VR、IoT、5G&#x2F;6G&#x2F;7G和数字人等技术的应用，以及元宇宙的概念。这个新时代将带来更加丰富、智能和个性化的体验，同时也将改变我们的生产方式、交流方式和商业模式。作者强调了中国在Web新时代的技术研发和应用上已经走在了世界的前列。">
+    <meta name="description" content="本文介绍了 DAI &#96;Collateral&#96;相关合约模块的细节，这是针对每种特定抵押品类型的适配器和拍卖合约。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【颠覆想象！】揭秘下一个 Web 时代：元宇宙，即将改变你的生活！">
-<meta property="og:url" content="http://lispking.github.io/2023/09/25/web3-world-think/index.html">
+<meta property="og:title" content="解读 DAI 架构流程图 —— Collateral模块">
+<meta property="og:url" content="http://lispking.github.io/2023/10/11/dai-collateral-module/index.html">
 <meta property="og:site_name" content="Dive In Web3">
-<meta property="og:description" content="本文讨论了下一个Web时代的特点，包括Web3.0、AI、区块链、VR、IoT、5G&#x2F;6G&#x2F;7G和数字人等技术的应用，以及元宇宙的概念。这个新时代将带来更加丰富、智能和个性化的体验，同时也将改变我们的生产方式、交流方式和商业模式。作者强调了中国在Web新时代的技术研发和应用上已经走在了世界的前列。">
+<meta property="og:description" content="本文介绍了 DAI &#96;Collateral&#96;相关合约模块的细节，这是针对每种特定抵押品类型的适配器和拍卖合约。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://lispking.github.io/images/think/Metaverse.png">
-<meta property="og:image" content="http://lispking.github.io/images/think/AI.png">
-<meta property="og:image" content="http://lispking.github.io/images/think/blocklink.png">
-<meta property="og:image" content="http://lispking.github.io/images/think/VR.png">
-<meta property="og:image" content="http://lispking.github.io/images/think/IoT.png">
-<meta property="og:image" content="http://lispking.github.io/images/wechat-blog.png">
-<meta property="article:published_time" content="2023-09-25T00:03:12.000Z">
-<meta property="article:modified_time" content="2023-10-11T08:12:00.895Z">
+<meta property="og:image" content="http://lispking.github.io/images/makedao/TheMakerJoin.png">
+<meta property="article:published_time" content="2023-10-11T06:30:52.000Z">
+<meta property="article:modified_time" content="2023-10-11T08:12:00.899Z">
 <meta property="article:author" content="King">
-<meta property="article:tag" content="Web3">
-<meta property="article:tag" content="元宇宙">
+<meta property="article:tag" content="MakerDAO">
+<meta property="article:tag" content="DAI">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://lispking.github.io/images/think/Metaverse.png">
+<meta name="twitter:image" content="http://lispking.github.io/images/makedao/TheMakerJoin.png">
 
 
-<link rel="canonical" href="http://lispking.github.io/2023/09/25/web3-world-think/">
+<link rel="canonical" href="http://lispking.github.io/2023/10/11/dai-collateral-module/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://lispking.github.io/2023/09/25/web3-world-think/","path":"2023/09/25/web3-world-think/","title":"【颠覆想象！】揭秘下一个 Web 时代：元宇宙，即将改变你的生活！"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://lispking.github.io/2023/10/11/dai-collateral-module/","path":"2023/10/11/dai-collateral-module/","title":"解读 DAI 架构流程图 —— Collateral模块"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>【颠覆想象！】揭秘下一个 Web 时代：元宇宙，即将改变你的生活！ | Dive In Web3</title>
+<title>解读 DAI 架构流程图 —— Collateral模块 | Dive In Web3</title>
   
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6255376809208012" crossorigin="anonymous"></script>
 
@@ -144,7 +139,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -157,6 +152,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E4%B8%80%E8%8A%82%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.</span> <span class="nav-text">上一节回顾</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">核心模块介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Join%E5%90%88%E7%BA%A6%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">Join合约介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Join%E5%90%88%E7%BA%A6%E7%BB%86%E8%8A%82%E8%AF%B4%E6%98%8E"><span class="nav-number">4.</span> <span class="nav-text">Join合约细节说明</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -214,6 +210,23 @@
     </div>
 
     
+        <div class="sidebar-inner sidebar-post-related">
+          <div class="animated">
+              <div class="links-of-blogroll-title"><i class="fa fa-signs-post fa-fw"></i>
+    相关文章
+  </div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2023/09/26/dai-module/" rel="bookmark">
+        <time class="popular-posts-time">2023-09-26</time>
+        <br>
+      解读 DAI 架构流程图 —— Dai模块
+      </a>
+    </li>
+  </ul>
+
+          </div>
+        </div>
   </aside>
 
 
@@ -230,7 +243,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://lispking.github.io/2023/09/25/web3-world-think/">
+    <link itemprop="mainEntityOfPage" href="http://lispking.github.io/2023/10/11/dai-collateral-module/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars.githubusercontent.com/u/4446580?v=4">
@@ -243,12 +256,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="【颠覆想象！】揭秘下一个 Web 时代：元宇宙，即将改变你的生活！ | Dive In Web3">
-      <meta itemprop="description" content="本文讨论了下一个Web时代的特点，包括Web3.0、AI、区块链、VR、IoT、5G/6G/7G和数字人等技术的应用，以及元宇宙的概念。这个新时代将带来更加丰富、智能和个性化的体验，同时也将改变我们的生产方式、交流方式和商业模式。作者强调了中国在Web新时代的技术研发和应用上已经走在了世界的前列。">
+      <meta itemprop="name" content="解读 DAI 架构流程图 —— Collateral模块 | Dive In Web3">
+      <meta itemprop="description" content="本文介绍了 DAI `Collateral`相关合约模块的细节，这是针对每种特定抵押品类型的适配器和拍卖合约。">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          【颠覆想象！】揭秘下一个 Web 时代：元宇宙，即将改变你的生活！
+          解读 DAI 架构流程图 —— Collateral模块
         </h1>
 
         <div class="post-meta-container">
@@ -258,15 +271,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2023-09-25 08:03:12" itemprop="dateCreated datePublished" datetime="2023-09-25T08:03:12+08:00">2023-09-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-10-11 16:12:00" itemprop="dateModified" datetime="2023-10-11T16:12:00+08:00">2023-10-11</time>
+      <time title="创建时间：2023-10-11 14:30:52 / 修改时间：16:12:00" itemprop="dateCreated datePublished" datetime="2023-10-11T14:30:52+08:00">2023-10-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -274,7 +281,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Web3/" itemprop="url" rel="index"><span itemprop="name">Web3</span></a>
+          <a href="/categories/MakerDAO/" itemprop="url" rel="index"><span itemprop="name">MakerDAO</span></a>
         </span>
     </span>
 
@@ -285,49 +292,119 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.1k</span>
+      <span>2.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
-            <div class="post-description">本文讨论了下一个Web时代的特点，包括Web3.0、AI、区块链、VR、IoT、5G/6G/7G和数字人等技术的应用，以及元宇宙的概念。这个新时代将带来更加丰富、智能和个性化的体验，同时也将改变我们的生产方式、交流方式和商业模式。作者强调了中国在Web新时代的技术研发和应用上已经走在了世界的前列。</div>
+            <div class="post-description">本文介绍了 DAI `Collateral`相关合约模块的细节，这是针对每种特定抵押品类型的适配器和拍卖合约。</div>
         </div>
       </header>
 
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>亲们，是不是对现在的 Web 世界已经习以为常了？🤔 最近几个月，我一直在思考：<font color='red'><strong>下一个 Web 时代应该是怎样的呢？</strong></font></p>
-<p>在 Web 发展的历程中，我们已经经历了多个阶段，从静态网页到动态网页，再到社交媒体和移动应用的兴起。</p>
-<p><font color='red'><strong>而现在，随着技术的不断进步，我们正在迎来一个全新的 Web 时代。我要告诉你，Web3.0、AI、区块链、VR、IoT、5G&#x2F;6G&#x2F;7G、数字人，这些最新科技将带你进入一个全新的 Web 时代！🚀🚀🚀</strong></font></p>
-<p>这个新时代的特点是，各种相关技术将得到更加深入和广泛的应用，包括人工智能、区块链、虚拟现实、增强现实等等。这些技术的结合将为我们带来更加丰富、智能和个性化的体验，同时也将改变我们的生产方式、交流方式和商业模式。</p>
-<p>在这个新时代，我们将进入一个<font color='red'>元宇宙 (Metaverse) </font>的新纪元。元宇宙是一个虚拟的数字世界，通过各种技术手段，将现实世界和虚拟世界相融合，创造出一个全新的虚拟世界。在元宇宙中，我们可以像现实世界一样自由地行走、交流、创造和分享，同时也能够享受到更加丰富和多样的体验。</p>
-<p><img src="/images/think/Metaverse.png" alt="Metaverse"></p>
-<p>Web3.0 将给我们带来更加个性化、智能化的网络体验。🌐🌐🌐 再也不会有千篇一律的网站，每个人都将拥有自己的网络空间。🎉🎉🎉</p>
-<p>AI，人工智能的大规模应用，将让我们的生活更加便捷。🤖🤖🤖 从此，AI 智能助手将成为我们生活的得力助手，让我们的生活更加高效。🎊🎊🎊</p>
-<p><img src="/images/think/AI.png" alt="AI"></p>
-<p>区块链技术将彻底改变我们的数字资产管理方式。💰💰💰 不仅让你的数字资产更加安全，还能实现全球范围内的即时交易。🚀🚀🚀</p>
-<p><img src="/images/think/blocklink.png" alt="区块链"></p>
-<p>VR 技术让你在家就能体验到身临其境的现实。🎢🎢🎢 不论是旅游、购物还是娱乐，VR 都将给你带来全新的体验。🎊🎊🎊</p>
-<p><img src="/images/think/VR.png" alt="VR"></p>
-<p>IoT 让我们的家居生活更加智能化，电器设备都能联网，为我们提供更加便捷的服务。🔧🔧🔧</p>
-<p><img src="/images/think/IoT.png" alt="IoT"></p>
-<p>5G&#x2F;6G&#x2F;7G，高速网络将无处不在。📶📶📶 不论是家庭、办公室还是户外，你都能享受到极速的网络体验。🎉🎉🎉</p>
-<p>我国在 Web 新时代的技术研发和应用上，已经走在了世界的前列！👍👍👍 这是我们国家科技实力的体现，也是我们每一个中国人的骄傲！🌟🌟🌟</p>
-<p>这是一个充满无限可能的时代，这是一个让人激动的时代，这是一个属于我们的时代！🎊🎊🎊</p>
-<p>让我们一起期待，一起迎接，一起享受这个 Web 新时代的到来吧！🎉🎉🎉</p>
-<p><font color='red'>总结起来，下一个 Web 时代必须是各种相关技术的组合，而元宇宙将是这个新时代的重要特征。让我们一起期待并迎接这个全新的时代！</font></p>
-<p>所以，亲们，别忘了关注我哦，我会持续为大家带来 Web 新时代的最新资讯和解读！😉😉😉</p>
-<p><img src="/images/wechat-blog.png" alt="公众号"></p>
-<blockquote>
+    <div class="post-body" itemprop="articleBody"><blockquote>
 <p>免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^</p>
 </blockquote>
+<h3 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h3><blockquote>
+<p>上个章节主要讲解了<a href="https://lispking.github.io/2023/10/10/dai-core-module/">Core模块相关合约的细节</a>，其中，包括 <code>Vat</code>合约和<code>Spot</code>合约。<code>Vat</code> 是 <code>dss</code> 的核心 <code>Vault</code> 引擎。它存储 <code>Vault</code> 并跟踪所有相关的 <code>Dai</code> 和抵押品余额。它还定义了可以通过操作 <code>Vault</code> 和余额的规则。<code>Vat</code> 中定义的规则是不可变的，因此在某种程度上，可以将 <code>Vat</code> 中的规则视为 <code>dss</code> 的宪法。<code>Spot</code>是负责连接预言机（<code>Oracles</code>）与核心合约的现货接口。作为一个接口合约，它只存储当前的 <code>ilk</code> 列表。本章节，我们来解读Collateral模块的细节。</p>
+</blockquote>
+<h3 id="核心模块介绍"><a href="#核心模块介绍" class="headerlink" title="核心模块介绍"></a>核心模块介绍</h3><blockquote>
+<p>Collateral模块在MCD系统中充当抵押品角色，该模块会为 <code>Vat</code> 中添加的每个新抵押品类型（<code>collateral type</code>）进行部署。它包含了针对某一特定抵押品类型的所有适配器和拍卖合约。抵押品模块主要由<a target="_blank" rel="noopener" href="https://github.com/makerdao/dss/blob/master/src/join.sol">Join</a>和<a target="_blank" rel="noopener" href="https://github.com/makerdao/dss/blob/master/src/clip.sol">Clip</a>合约组成。</p>
+</blockquote>
+<ul>
+<li>抵押品模块组件概述  <ul>
+<li><code>Join</code> - 用于将未锁定的抵押品存入&#x2F;提取到 <code>Vat</code> 的适配器。<code>Join</code> 包含三个智能合约：<code>GemJoin</code>、<code>ETHJoin</code>和<code>DaiJoin</code>。  </li>
+<li>每个 <code>join</code> 合约都专门用于将给定的代币类型加入到 <code>Vat</code> 中。正因为如此，每个 <code>join</code> 合约在处理系统内不同类型的代币时都有略微不同的逻辑。</li>
+</ul>
+</li>
+<li><code>Join</code> 合约究竟如何帮助 MCD 系统运行？  <ul>
+<li><code>Join</code> - <code>join</code> 适配器的目的是保留系统的安全性，只允许可信任的智能合约将值添加&#x2F;删除到&#x2F;从 <code>Vat</code> 中。存放在金库中已存入&#x2F;已锁定的抵押品的位置在相应的 <code>Join</code> 适配器中。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>潜在的陷阱（可能导致用户错误的来源）  </p>
+</blockquote>
+<ul>
+<li>当用户希望进入系统并与 <code>dss</code> 合约进行交互时，他们必须使用其中一个 <code>join</code> 合约。    </li>
+<li>如果 <code>join</code> 合约中存在合同错误，而用户不小心调用了 <code>join</code>，他们仍然可以通过给定的 <code>join</code> 合约上的相应退出调用来取回他们的代币。</li>
+</ul>
+<blockquote>
+<p>故障模式</p>
+</blockquote>
+<ul>
+<li>可能会有一个 <code>vat</code> 升级，需要创建新的 <code>join</code> 合约    <ul>
+<li>如果一个 <code>gem</code> 合约在用户的抵押品在系统中时进行代币升级或冻结，可能会出现一种情况，即在冻结或升级完成后，用户无法兑换他们的抵押品。虽然这似乎是一个小风险，因为似乎进行这种升级的代币很可能希望与制造商社区合作，以确保这不是问题。</li>
+</ul>
+</li>
+<li>潜在的网络钓鱼攻击    <ul>
+<li>随着 MCD 系统的发展，我们将看到更多的 <code>join</code> 合约、用户界面等。这使得用户有可能被一个恶意的 <code>join</code> 合约窃取资金，该合约会将代币发送到外部合约或钱包，而不是 <code>vat</code>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Join合约介绍"><a href="#Join合约介绍" class="headerlink" title="Join合约介绍"></a><code>Join</code>合约介绍</h3><blockquote>
+<p><code>Join</code> 由三个智能合约组成：<code>GemJoin</code>、<code>ETHJoin</code> 和 <code>DaiJoin</code>：  </p>
+</blockquote>
+<ul>
+<li><code>GemJoin</code> - 允许将标准 <code>ERC20</code> 代币存入系统以供使用。</li>
+<li><code>ETHJoin</code> - 允许使用本地 <code>Ether</code>。  </li>
+<li><code>DaiJoin</code> - 允许用户将其 <code>Dai</code> 从系统中提取到标准 <code>ERC20</code> 代币。</li>
+</ul>
+<blockquote>
+<p>每个 <code>join</code> 合约都是专门为允许给定的代币类型加入到 <code>Vat</code> 而创建的。正因为如此，每个 <code>join</code> 合约在处理系统内不同类型的代币时都有略微不同的逻辑。下面来看看<code>join</code>合约的交互流程以及其所在的位置（用黄色标注出来了）</p>
+</blockquote>
+<p><img src="/images/makedao/TheMakerJoin.png" alt="JoinDiagram"></p>
+<h3 id="Join合约细节说明"><a href="#Join合约细节说明" class="headerlink" title="Join合约细节说明"></a><code>Join</code>合约细节说明</h3><blockquote>
+<p>词汇表（<code>Join</code>）  </p>
+</blockquote>
+<ul>
+<li><code>vat</code> - <code>Vat</code> 地址的存储。  </li>
+<li><code>ilk</code> - 为哪个 <code>Ilk</code> 创建 <code>GemJoin</code> 的 <code>id</code>。  </li>
+<li><code>gem</code> - 用于转账的 <code>Ilk</code> 地址。  </li>
+<li><code>dai</code> - <code>Dai</code> 代币的地址。  </li>
+<li><code>one</code> - <code>DaiJoin</code> 中用于数学的 <code>10^27 uint</code>。  </li>
+<li><code>live</code> - <code>join</code>适配器的访问标志。  </li>
+<li><code>dec</code> - <code>Gem</code> 的小数位数。</li>
+</ul>
+<blockquote>
+<p>每个 <code>Join</code> 合约都有 4 个公共函数：构造函数、<code>join</code> 函数、<code>exit</code> 函数和<code>cage</code> 函数。</p>
+</blockquote>
+<ul>
+<li>构造函数在合约初始化时用于设置该 <code>Join</code> 合约的核心变量。</li>
+<li><code>Join</code> 和 <code>exit</code> 都符合其名称。<code>Join</code> 为用户提供了将给定代币类型添加到 <code>Vat</code> 的机制。它在每个变种中的逻辑略有不同，但通常简化为一个转账和一个在 <code>Vat</code> 中的函数调用。<code>Exit</code> 非常相似，但相反，它允许用户从 <code>Vat</code> 中移除他们想要的代币。</li>
+<li><code>Cage</code> 允许适配器被排空（允许代币流出但不流入）。</li>
+</ul>
+<blockquote>
+<p>关键机制和概念</p>
+</blockquote>
+<ul>
+<li><code>GemJoin</code> 合约具有非常特定和单一的目的，相对于核心智能合约系统的其他部分，它被抽象出来。当用户希望进入系统并与 <code>dss</code> 合约进行交互时，他们必须使用其中一个 <code>join</code> 合约。在完成 <code>dss</code> 合约后，他们必须调用 <code>exit</code> 函数离开系统并提取他们的代币。当 <code>GemJoin</code> 被授权地址围困时，它可以从 <code>Vat</code> 中退出抵押品，但它不能再加入新抵押品。  </li>
+<li>通过 <code>join</code> 添加到系统的抵押品代币余额在 <code>Vat</code> 中根据抵押品类型 <code>Ilk</code> 计算为 <code>Gem</code>，直到它们被转换为锁定的抵押品代币（<code>ink</code>），以便用户可以提取 <code>Dai</code>。  </li>
+<li><code>DaiJoin</code> 合约具有类似的目的。它管理 <code>Vat</code> 中跟踪的 <code>Dai</code> 和 <code>Dai.sol</code> 跟踪的 <code>ERC-20 Dai</code> 之间的交换。在用户使用抵押品提取 <code>Dai</code> 之后，他们将在 <code>Vat</code> 中拥有一个余额。这个 <code>Dai</code> 平衡可以使用持有 <code>Vat.dai</code> 和 <code>mint</code> 的 <code>ERC-20 Dai</code> 的 <code>DaiJoin</code> 合约从 <code>Vat</code> 中退出。当用户希望将其 <code>Dai</code> 移回 <code>Vat</code> 账户系统（比如，偿还债务、参加拍卖、在<code>End</code>打包<code>bag</code>或利用 <code>DSR</code> 等）时，他们必须调用 <code>DaiJoin.join</code>。通过调用 <code>DaiJoin.join</code>，有效地燃烧 <code>ERC-20 Dai</code> 并将从 <code>DaiJoin</code> 的余额转移 <code>Vat.dai</code> 到用户在 <code>Vat</code> 的账户。在系统的正常运行中，<code>Dai.totalSupply</code> 应该等于 <code>Vat.dai(DaiJoin)</code> 余额。当 <code>DaiJoin</code> 合约被授权地址围困时，它可以将 <code>Dai</code> 移回 <code>Vat</code>，但它不能再从 <code>Vat</code> 中退出 <code>Dai</code>。</li>
+</ul>
+<blockquote>
+<p>需要注意的问题（可能导致用户错误的潜在来源） </p>
+</blockquote>
+<ul>
+<li>加入合约中用户错误的主要来源是用户不应直接向合约转移代币，他们必须使用加入功能，否则将无法取回他们的代币。  </li>
+<li>由于系统的有限功能，加入合约系统中用户错误的来源有限。除了合约漏洞，如果用户不小心调用了 <code>join</code>，他们总是可以通过给定的加入合约对应的退出调用来取回他们的代币。  </li>
+<li>这里需要警惕的主要问题是精心策划的网络钓鱼攻击。随着系统的发展，可能创建更多的加入合约或更多的用户界面，用户有可能被恶意的加入合约窃取资金，该合约并未实际将代币发送到 <code>Vat</code>，而是发送到其他合约或钱包。</li>
+</ul>
+<blockquote>
+<p>故障模式（操作条件和外部风险因素的边界）</p>
+</blockquote>
+<ul>
+<li>可能会有一个 <code>vat</code> 升级，需要创建新的加入合约。  </li>
+<li>如果一个宝石合约在代币升级或代币冻结期间，用户的抵押品在系统中，可能会出现一种情况，即在冻结或升级完成后，用户无法赎回他们的抵押品。虽然这种情况可能带来一些风险，但进行升级的代币很可能希望与 <code>Maker</code> 社区合作，确保这不是一个问题。</li>
+</ul>
 
     </div>
 
@@ -386,22 +463,19 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/Web3/" rel="tag"><i class="fa fa-tag"></i> Web3</a>
-              <a href="/tags/%E5%85%83%E5%AE%87%E5%AE%99/" rel="tag"><i class="fa fa-tag"></i> 元宇宙</a>
+              <a href="/tags/MakerDAO/" rel="tag"><i class="fa fa-tag"></i> MakerDAO</a>
+              <a href="/tags/DAI/" rel="tag"><i class="fa fa-tag"></i> DAI</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/09/22/dai-terminology/" rel="prev" title="解读 DAI 架构流程图 —— 晦涩难懂的术语">
-                  <i class="fa fa-angle-left"></i> 解读 DAI 架构流程图 —— 晦涩难懂的术语
+                <a href="/2023/10/10/dai-core-module/" rel="prev" title="解读 DAI 架构流程图 —— Core模块">
+                  <i class="fa fa-angle-left"></i> 解读 DAI 架构流程图 —— Core模块
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/09/26/dai-module/" rel="next" title="解读 DAI 架构流程图 —— Dai模块">
-                  解读 DAI 架构流程图 —— Dai模块 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -510,7 +584,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"lispking","repo":"lispking.github.io","client_id":"909b979ee5805cfc60f7","client_secret":"7a5f88e85afc02681b49d44afe4aa9a7a68f4b21","admin_user":"lispking","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"faa8d49a05ae4a255306651766415d76"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"lispking","repo":"lispking.github.io","client_id":"909b979ee5805cfc60f7","client_secret":"7a5f88e85afc02681b49d44afe4aa9a7a68f4b21","admin_user":"lispking","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"8a147a8f5796de9aca40072c01daf234"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>
