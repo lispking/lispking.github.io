@@ -3,7 +3,7 @@ title: 解读 DAI 架构流程图 —— Collateral模块
 date: 2023-10-11 14:30:52
 categories: MakerDAO
 tags: [MakerDAO,DAI]
-description: 本文介绍了 DAI `Collateral`相关合约模块的细节，这是针对每种特定抵押品类型的适配器和拍卖合约。
+description: 本文讲解了Collateral模块的细节，前文已经介绍了Core模块中的Vat和Spot合约。Vat是dss的核心Vault引擎，存储Vault和跟踪相关的Dai和抵押品余额，定义了Vault和余额的操作规则；Spot是连接预言机和核心合约的现货接口，只存储当前的ilk列表。
 ---
 
 > 免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^
