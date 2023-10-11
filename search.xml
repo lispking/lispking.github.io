@@ -507,7 +507,7 @@
 <h3 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h3><blockquote>
 <p>上个章节主要讲解了<a href="https://lispking.github.io/2023/10/10/dai-core-module/">Core模块相关合约的细节</a>，其中，包括 <code>Vat</code>合约和<code>Spot</code>合约。<code>Vat</code> 是 <code>dss</code> 的核心 <code>Vault</code> 引擎。它存储 <code>Vault</code> 并跟踪所有相关的 <code>Dai</code> 和抵押品余额。它还定义了可以通过操作 <code>Vault</code> 和余额的规则。<code>Vat</code> 中定义的规则是不可变的，因此在某种程度上，可以将 <code>Vat</code> 中的规则视为 <code>dss</code> 的宪法。<code>Spot</code>是负责连接预言机（<code>Oracles</code>）与核心合约的现货接口。作为一个接口合约，它只存储当前的 <code>ilk</code> 列表。本章节，我们来解读Collateral模块的细节。</p>
 </blockquote>
-<h3 id="核心模块介绍"><a href="#核心模块介绍" class="headerlink" title="核心模块介绍"></a>核心模块介绍</h3><blockquote>
+<h3 id="Collateral模块介绍"><a href="#Collateral模块介绍" class="headerlink" title="Collateral模块介绍"></a><code>Collateral</code>模块介绍</h3><blockquote>
 <p>Collateral模块在MCD系统中充当抵押品角色，该模块会为 <code>Vat</code> 中添加的每个新抵押品类型（<code>collateral type</code>）进行部署。它包含了针对某一特定抵押品类型的所有适配器和拍卖合约。抵押品模块主要由<a href="https://github.com/makerdao/dss/blob/master/src/join.sol">Join</a>和<a href="https://github.com/makerdao/dss/blob/master/src/clip.sol">Clip</a>合约组成。</p>
 </blockquote>
 <ul>
