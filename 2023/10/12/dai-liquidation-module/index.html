@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lispking.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本文着重讲解清算2.0模块的细节，这是Maker协议的抵押物拍卖行，主要解决从不足以抵押的 Vault 中自动转移抵押品，并同时将该 Vault 的债务转移至协议。在清算合约（Dog）中，会立即启动拍卖，试图通过出售转移的抵押品来换取 DAI，以抵消已分配给协议的债务。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解读 DAI 架构流程图 —— 清算2.0模块">
+<meta property="og:url" content="http://lispking.github.io/2023/10/12/dai-liquidation-module/index.html">
+<meta property="og:site_name" content="Dive In Web3">
+<meta property="og:description" content="本文着重讲解清算2.0模块的细节，这是Maker协议的抵押物拍卖行，主要解决从不足以抵押的 Vault 中自动转移抵押品，并同时将该 Vault 的债务转移至协议。在清算合约（Dog）中，会立即启动拍卖，试图通过出售转移的抵押品来换取 DAI，以抵消已分配给协议的债务。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-10-12T02:15:36.000Z">
+<meta property="article:modified_time" content="2023-10-12T11:53:10.184Z">
+<meta property="article:author" content="King">
+<meta property="article:tag" content="MakerDAO">
+<meta property="article:tag" content="DAI">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://lispking.github.io/2023/10/12/dai-liquidation-module/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://lispking.github.io/2023/10/12/dai-liquidation-module/","path":"2023/10/12/dai-liquidation-module/","title":"解读 DAI 架构流程图 —— 清算2.0模块"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>解读 DAI 架构流程图 —— 清算2.0模块 | Dive In Web3</title>
+  
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6255376809208012" crossorigin="anonymous"></script>
+
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-28440BWWYK"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-28440BWWYK","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?ea3634b85b5b23007bec7092a4735018"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Dive In Web3" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Dive In Web3</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">深入Web3世界</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">8</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E4%B8%80%E8%8A%82%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.</span> <span class="nav-text">上一节回顾</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E7%AE%97%E6%A8%A1%E5%9D%97%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">清算模块介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E7%AE%97%E6%A8%A1%E5%9D%97%E7%9A%84%E9%82%A3%E4%BA%9B%E7%89%B9%E5%BE%81"><span class="nav-number">3.</span> <span class="nav-text">清算模块的那些特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E7%AE%97%E6%A8%A1%E5%9D%97%E7%9A%84%E5%90%88%E7%BA%A6%E7%BB%86%E8%8A%82"><span class="nav-number">4.</span> <span class="nav-text">清算模块的合约细节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E7%AE%97%E6%A8%A1%E5%9D%97%E7%9A%84%E9%82%A3%E4%BA%9B%E5%B7%B2%E7%9F%A5%E9%A3%8E%E9%99%A9"><span class="nav-number">5.</span> <span class="nav-text">清算模块的那些已知风险</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="King"
+      src="https://avatars.githubusercontent.com/u/4446580?v=4">
+  <p class="site-author-name" itemprop="name">King</p>
+  <div class="site-description" itemprop="description">欢迎光临Web3世界，一起拥抱Web3</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lispking" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/lispking" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/lispking" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_nd.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lispking.github.io/2023/10/12/dai-liquidation-module/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/4446580?v=4">
+      <meta itemprop="name" content="King">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dive In Web3">
+      <meta itemprop="description" content="欢迎光临Web3世界，一起拥抱Web3">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="解读 DAI 架构流程图 —— 清算2.0模块 | Dive In Web3">
+      <meta itemprop="description" content="本文着重讲解清算2.0模块的细节，这是Maker协议的抵押物拍卖行，主要解决从不足以抵押的 Vault 中自动转移抵押品，并同时将该 Vault 的债务转移至协议。在清算合约（Dog）中，会立即启动拍卖，试图通过出售转移的抵押品来换取 DAI，以抵消已分配给协议的债务。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          解读 DAI 架构流程图 —— 清算2.0模块
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-10-12 10:15:36 / 修改时间：19:53:10" itemprop="dateCreated datePublished" datetime="2023-10-12T10:15:36+08:00">2023-10-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MakerDAO/" itemprop="url" rel="index"><span itemprop="name">MakerDAO</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">本文着重讲解清算2.0模块的细节，这是Maker协议的抵押物拍卖行，主要解决从不足以抵押的 Vault 中自动转移抵押品，并同时将该 Vault 的债务转移至协议。在清算合约（Dog）中，会立即启动拍卖，试图通过出售转移的抵押品来换取 DAI，以抵消已分配给协议的债务。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^</p>
+</blockquote>
+<h3 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h3><blockquote>
+<p>上个章节主要讲解了<a href="https://lispking.github.io/2023/10/11/dai-collateral-module/">Collateral模块相关合约的细节</a>，Collateral模块在MCD系统中充当抵押品角色，该模块会为 <code>Vat</code> 中添加的每个新抵押品类型（<code>collateral type</code>）进行部署。它包含了针对某一特定抵押品类型的所有适配器和拍卖合约。抵押品模块主要由<a target="_blank" rel="noopener" href="https://github.com/makerdao/dss/blob/master/src/join.sol">Join</a>和<a target="_blank" rel="noopener" href="https://github.com/makerdao/dss/blob/master/src/clip.sol">Clip</a>合约组成。本章节，我们来解读清算模块的细节。</p>
+</blockquote>
+<h3 id="清算模块介绍"><a href="#清算模块介绍" class="headerlink" title="清算模块介绍"></a>清算模块介绍</h3><blockquote>
+<p>在 <code>Maker</code>协议的背景下，清算（<code>liquidation</code>）是指从不足以抵押的 <code>Vault</code> 中自动转移抵押品，并同时将该 <code>Vault</code> 的债务转移至协议。在清算合约（<code>Dog</code>）中，会立即启动拍卖，试图通过出售转移的抵押品来换取 <code>DAI</code>，以抵消已分配给协议的债务。该模块主要由<a target="_blank" rel="noopener" href="https://github.com/makerdao/dss/blob/master/src/clip.sol">clip</a>、<a target="_blank" rel="noopener" href="https://github.com/makerdao/dss/blob/master/src/dog.sol">dog</a>和<a target="_blank" rel="noopener" href="https://github.com/makerdao/dss/blob/master/src/abaci.sol">abaci</a>等合约组成。</p>
+</blockquote>
+<h3 id="清算模块的那些特征"><a href="#清算模块的那些特征" class="headerlink" title="清算模块的那些特征"></a>清算模块的那些特征</h3><blockquote>
+<p>即时结算</p>
+</blockquote>
+<ul>
+<li>与旧版 Liquidation 1.2 系统不同，该系统使用英语拍卖，其中 DAI 投标不断叠加，参与者的资金将在他们被竞标或拍卖结束之前一直处于锁定状态。Liquidation 2.0 使用荷兰拍卖，实现即时结算。这是根据起始价格以及自拍卖开始以来经过的时间计算的价格。关于价格与时间的曲线，我们将在后面进行更详细的讨论。缺乏锁定期大大减轻了拍卖参与者的价格波动风险，并允许更快地回收资金。</li>
+</ul>
+<blockquote>
+<p>抵押品闪电借贷  </p>
+</blockquote>
+<ul>
+<li>此功能由即时结算启用，消除了投标人（除燃气外）的任何资本要求 —— 换句话说，即使一个拥有零 DAI（没有可以用于交易 DAI 的资产）的参与者仍然可以通过将拍卖抵押品的销售引导到其他协议以换取 DAI 来购买拍卖品。因此，DeFi 中可用的所有 DAI 流动性都可以被任何参与者用于购买抵押品，仅受燃气要求限制。上述确切机制已进行讨论，但本质上，参与者需要指定一个符合特定接口的合约，以及提供给该合约的调用数据，拍卖合约将自动调用外部合约中的任何逻辑。</li>
+</ul>
+<blockquote>
+<p>价格作为时间的函数  </p>
+</blockquote>
+<ul>
+<li>价格 - 与时间曲线是通过一个接口来指定的，该接口将当前时间的价格视为拍卖初始价格的函数以及该价格设置的时间。如何确定给定抵押品最有效的价格曲线仍然是一个活跃的研究领域；一些初始选项（线性、分段指数和连续指数）已经为研究目的和初始部署而实施。除了这些选项之外，还包括分段线性曲线和分段指数曲线。此模块是可配置的，可以在创新过程中进行替换。</li>
+<li>投标人应注意，尽管价格通常会随着时间的推移而下降，但偶尔会发生活跃拍卖的价格上升的情况，这可能导致以高于预期的价格购买抵押品。在运行拍卖中增加价格的最明显事件是重置拍卖（通过重做），但治理可以通过更改价格下降计算器（或甚至用另一个计算器替换）的可配置参数来增加价格。建议投标人（或抽象出此详细信息的投标 UI）选择最大可接受价格（max）参数仔细考虑，以确保在价格意外上升时获得理想的结果。</li>
+</ul>
+<blockquote>
+<p>重置拍卖  </p>
+</blockquote>
+<ul>
+<li>如上文所述，拍卖可能因以下两个原因进入失效状态而需要重置：  </li>
+<li>自拍卖开始以来已经过去了太多时间（由尾随治理参数控制）  </li>
+<li>当前价格与初始价格的比率已降至某一水平以下（由尖点治理参数指定）。  </li>
+<li>当调用重置函数时，首先确保至少满足其中之一条件。然后，将拍卖的开始时间调整为当前时间，并将起始价格设置为初始化函数中执行的方式（即当前 OSM 价格百分比增加由 buf 参数确定）。这个过程将重复进行，直到所有抵押品都已售出或已收取全部债务（除非通过 yank 取消拍卖，例如在紧急关机期间），否则对比当前拍卖，在至少收到一个投标之前重置。</li>
+</ul>
+<blockquote>
+<p>提高 Keeper 钱包安全性</p>
+</blockquote>
+<ul>
+<li>如果保管人选择使用 <code>clipperCallee</code> 模式，那么他们就不需要在该账户上存储 DAI 或抵押品。这意味着保管人只需持有足够的 ETH 来执行可以协调 <code>Clipper.take</code> 调用的交易，将抵押品发送到一个返回 DAI 给 <code>msg.sender</code> 的合约以在一次交易中支付抵押品。实现 <code>clipperCallee</code> 接口的合约可以将保管人无法访问的冷钱包地址的任何剩余抵押品或 DAI 发送至保管人无法访问的冷钱包地址。<font color='red'>** 注意：如果保管人选择作为一个 EOA 地址行为，那么除非特别小心地创建一个代理合同，否则 DAI 和抵押品将像 LIQ-1.2 一样暴露。**</font></li>
+</ul>
+<h3 id="清算模块的合约细节"><a href="#清算模块的合约细节" class="headerlink" title="清算模块的合约细节"></a>清算模块的合约细节</h3><blockquote>
+<p>通过文件设置的治理参数  </p>
+</blockquote>
+<ul>
+<li>Abacus&#x2F;LinearDecrease – tau [秒]  ：拍卖开始后价格达到零时的秒数。  </li>
+<li>Abacus&#x2F;StairstepExponentialDecrease – cut [ray]  ：每步乘法因子。cut &#x3D; 0.99 * RAY 指定每步秒数下降 1%。  </li>
+<li>Abacus&#x2F;StairstepExponentialDecrease – step [秒]  ：价格下降之间的时间间隔。  </li>
+<li>Abacus&#x2F;ExponentialDecrease – cut [ray]  ：每秒乘法因子。cut &#x3D; 0.99 * RAY 指定每秒下降 1%。  </li>
+<li>Clipper – buf [ray]  ：增加拍卖起始价格的乘法因子。例如，如果某种资产的当前 OSM 价格为 1,000，而 buf &#x3D; 1.2 * RAY（高出 20%），则该拍卖的初始价格将为 1,200。  </li>
+<li>Clipper – calc [地址]  ：价格计算器函数的合约地址。遵循 Abacus 接口。有关价格函数的一些示例可以在 abaci.sol 文件中找到。  </li>
+<li>Clipper – chip [wad]  ：从 vow 吸筹以激励保管人在清算金库或重置现有拍卖时的百分比。chip &#x3D; 0.02 * WAD 为 2%。  </li>
+<li>Clipper – cusp [ray]  ：在拍卖必须重置之前可以发生的价格下降百分比。与 tail 一起，此参数确定何时需要重置拍卖。例如，如果拍卖的初始价格（top）设定为 1,200，而 cusp &#x3D; 0.6 * RAY（起始价格的 60%），则拍卖在达到刚好低于 720 的价格时需要重置。  </li>
+<li>Clipper – dog [地址]  ：清算模块合约的地址。  </li>
+<li>Clipper – spotter [地址]  ：抵押品价格模块合约地址。  </li>
+<li>Clipper – tail [秒]  ：拍卖必须重置之前可以流逝的秒数。与 cusp 一起，此参数确定何时需要重置拍卖。例如，如果 tail 为 1800 秒，则如果拍卖在 30 分钟过去后仍未完成，它将需要重置。</li>
+<li>Clipper – tip [rad]  ：从 vow 中提取的扁平费用，用于在清算金库或重置现有拍卖时激励保管人。tip &#x3D; 100 * RAD 为 100 DAI。  </li>
+<li>Clipper – vow [地址]  ：会计系统合约的地址。拍卖中筹集的 DAI 的接收者。  </li>
+<li>Dog – Hole [rad]  ：用于支付活跃拍卖中的债务 + 清算罚款所需的最大 DAI。Hole &#x3D; 10,000,000 * RAD 为 10M DAI。  </li>
+<li>Dog – ilk.chop [wad]  ：每个抵押品（ilk）的清算罚款。例如，如果有一个准备清算的金库，其债务为 1,000 DAI，而 chop &#x3D; 1.13 * WAD（高出 13%），则拍卖筹集的最大金额将为 1,130 DAI。  </li>
+<li>Dog – ilk.clip [地址]  ：拍卖模块合约的地址。每个抵押品（ilk）有一个剪辑。  </li>
+<li>Dog – ilk.hole [rad]  ：每个抵押品（ilk）用于支付活跃拍卖中的债务 + 清算罚款所需的最大 DAI。hole &#x3D; 10,000,000 * RAD 为 10M DAI。  </li>
+<li>Dog – vow [地址]  ：会计系统合约的地址。当金库被清算时，来自金库的坏账的接收者。</li>
+</ul>
+<blockquote>
+<p><code>Vault</code>清算函数（<code>Dog.bark</code>）</p>
+</blockquote>
+<ul>
+<li><p>接受三个调用者提供的参数：  </p>
+<ul>
+<li><code>ilk</code>：抵押品类型  </li>
+<li><code>urn</code>：要清算的金库  </li>
+<li><code>kpr</code>：DAI 激励将发送到的地址</li>
+</ul>
+</li>
+<li><p><code>Dog.bark</code> 执行以下操作：  </p>
+<ul>
+<li>如果金库 <code>urn</code> 资本不足，则没收该金库 <code>urn</code>  <ul>
+<li>将抵押品发送到 <code>ilk</code> 的 <code>Clipper</code>  </li>
+<li>增加 <code>vow</code> 的坏账累积器</li>
+</ul>
+</li>
+<li>将坏账推入债务队列  </li>
+<li>将坏账加清算罚款添加到带有 <code>Dirt</code> 累积器的 <code>Hole</code> 中  </li>
+<li>将坏账加清算罚款添加到 <code>ilk.hole</code> 中，使用 <code>ilk.dirt</code> 累积器  </li>
+<li>通过调用 <code>Clipper.kick()</code> 启动拍卖  </li>
+<li>触发 &#96;Bark()&#96;&#96; 事件</li>
+</ul>
+</li>
+<li><p>在 <code>Maker</code> 协议的背景下，”清算” 是将抵押品从资本不足的金库自动转移，以及将该金库的债务转移到协议。在清算 1.2 版本（<code>Cat</code>）和清算 2.0 版本（<code>Dog</code>）中，都会迅速启动拍卖，试图将转移的抵押品出售为 DAI，以抵消现在分配给协议的债务。这使得新合约的行为与旧合约非常相似，但有一些重要的区别，如下所述。</p>
+</li>
+<li><p>部分清算与全部清算  </p>
+<ul>
+<li>在当前系统中，每次调用清算函数（<code>Cat.bite</code>）都会从受影响的金库中转移固定数量的债务（<code>dunk</code>），以及相应的金库抵押品数量到协议。例如，如果协议接收了金库的 50% 的债务，那么也会接收其 50% 的抵押品。如果金库的债务少于 <code>dunk</code>，那么所有债务和抵押品都会被接收。</li>
+<li>在 2.0 版本中，当调用清算函数（<code>Dog.bark</code>）时，会接收所有债务，不存在 <code>dunk</code> 参数的类似物。这种变化的原因是，由于新的拍卖允许部分购买抵押品，参与者可用的流动性不再限制他们参与拍卖的能力，因此，应尽量减少拍卖的总数量。强调一下，不再对每个参与者出售抵押品设有最低的 DAI 流动性要求。</li>
+</ul>
+</li>
+<li><p>覆盖活跃拍卖的债务和费用所需的 DAI 限制  </p>
+<ul>
+<li>在涉及拍卖大量抵押品的情况下，当前和新的设计修改了前述部分描述的行为。无论是清算 1.2 还是 2.0 版本，都实现了一个限制，即用于覆盖所有活跃拍卖的债务和清算罚款总和所需的 DAI 总额。</li>
+<li>在 LIQ-1.2 中，这被称为 <code>box</code>，而在 LIQ-2.0 中，我们称之为 <code>Hole</code>。</li>
+<li>每当最大可能增加值小于将发送至拍卖的债务 + 费用金额时，会执行部分清算，以不超过此金额。</li>
+<li>在当前系统中，只有一个全局限制；在 2.0 版本中，除了全局限制外，还有每个抵押品的限制。</li>
+<li>类似于每个抵押品的债务上限有一个 <code>ilk.line</code> 和整个系统债务上限有一个 <code>Line</code>，现在还有一个 <code>ilk.hole</code> 与 <code>Hole</code> 对应。这确保了那些确定风险参数的人可以按抵押品逐个考虑典型市场对 DAI 的深度。</li>
+<li><code>Dirt</code> 累积器跟踪所有活跃拍卖的债务和罚款费用所需的总 DAI，必须小于 <code>Hole</code> 才能使 <code>bark</code> 调用成功。对于每种抵押品类型，<code>ilk.dirt</code> 跟踪该抵押品的所有活跃拍卖所需的总 DAI 以覆盖债务和罚款费用，并且必须小于 <code>ilk.hole</code> 才能使 <code>bark</code>（针对该抵押品的 <code>Vault</code>）调用成功。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>拍卖启动函数（Clipper.kick）</p>
+</blockquote>
+<ul>
+<li>接受四个调用者提供的参数：  <ul>
+<li><code>tab</code>：从拍卖中增加的目标 DAI（债务 + 稳定性费用 + 清算罚款）[rad]  </li>
+<li><code>lot</code>：可用于购买的抵押品数量 [wad]  </li>
+<li><code>usr</code>：将任何剩余抵押品退回的地址  </li>
+<li><code>kpr</code>：将 DAI 激励发送到的地址</li>
+</ul>
+</li>
+<li><code>Clipper.kick</code> 执行以下检查和操作：  <ul>
+<li>检查调用者是否已授权（只有 <code>Dog</code> 或治理才能调用 <code>Clipper.kick</code>）  </li>
+<li>检查四阶段断路器中是否启用了清算  </li>
+<li>递增计数器并为新拍卖分配唯一的数字 ID  </li>
+<li>将 ID 插入跟踪活动拍卖的列表中  </li>
+<li>创建一个结构来记录拍卖的参数，包括：  <ul>
+<li>在活动拍卖列表中的位置  </li>
+<li>从投标人那里增加的目标 DAI 金额（<code>tab</code>）  </li>
+<li>可用于购买的抵押品数量（<code>lot</code>）  </li>
+<li>为创建此拍卖而清算的 <code>Vault</code>  <ul>
+<li>如果抵押品未全部售出，则允许退回抵押品  </li>
+<li>当 <code>End.snip</code> 调用 <code>Clipper.yank</code> 时，允许退回抵押品和 <code>tab</code></li>
+</ul>
+</li>
+<li>拍卖创建的时间戳（作为 Unix 时代）  </li>
+<li>拍卖中抵押品的初始价格（<code>top</code>）</li>
+</ul>
+</li>
+<li>向 <code>kpr</code> 发送以 DAI 计价的激励  </li>
+<li>触发 <code>Kick()</code> 事件</li>
+</ul>
+</li>
+<li>初始价格是通过读取相应 <code>Oracle</code> 安全模块（<code>OSM</code>）中的当前价格并将其乘以一个可配置的百分比（<code>buf</code> 参数）来设置的。请注意，当前的 <code>OSM</code> 价格与实际市场价格之间相差一到两个小时。守护者不会直接调用 <code>Clipper.kick</code>，而是调用 <code>Dog.bark</code>，后者会调用 <code>Clipper.kick</code>。</li>
+</ul>
+<blockquote>
+<p>清算激励机制  </p>
+</blockquote>
+<ul>
+<li>在这个设计中，迅速清算金库的动力不如当前系统，因为并没有通过这样做获得内在优势。相比之下，当前的拍卖系统赋予触发清算的账户在产生的拍卖中进行第一轮竞标的特权。目前尚不清楚这在实践中是否具有重要意义，还是应该添加更强的激励（例如，向清算者支付的小额 DAI 奖励）。  </li>
+<li>为了确保解决这个潜在问题，为清算者添加了一个激励机制。激励的形式是，按抵押品类型为基础，清算债务的固定数量的 DAI 加上一个与清算债务成线性比例的 DAI。两个贡献都可以设置为零。这种结构有以下理由：  <ul>
+<li>奖励按抵押品类型设置，以便在设置中不仅包括每种抵押品的风险参数（如抵押率 <code>mat</code> 和清算惩罚 <code>chop</code>），还可以允许独特的市场条件，这些条件可能只适用于一种或几种抵押品类型。  </li>
+<li>与总金库债务成线性增长的奖励部分旨在用于奖励清算者降低系统风险，因为风险本身与未充分抵押金库的大小成比例 - 一个是另一个的两倍大，代表着坏账累积的两倍风险。或者用另一种方式看，清算两个大小为 X 的金库与清算一个大小为 2X 的金库的风险降低相同 - 因此，清算者的奖励应该是相似的。此外，系统可以承受为较大的清算支付更多的费用，因为清算惩罚也是与给定金库的未偿还债务成比例的。  </li>
+<li>奖励的固定部分可以用于支付清算费用（对清算者而言，这些费用是按金库计算的），或者允许 MKR 持有者有效地向 Kee 支付。</li>
+</ul>
+</li>
+<li>这些参数必须非常小心地设置，以免通过<code>farming</code>清算奖励（例如，创建意图清算的 <code>Vault</code> 并从过高的奖励中获利）来利用系统。通常，清算奖励应保持在低于最低清算惩罚的某个安全余量，以使系统不太可能累积赤字。这并不一定阻止耕作，只是确保系统保持偿债能力。例如，当 <code>Dirt</code> 接近 <code>Hole</code>，或者对于某种抵押品类型，<code>ilk.dirt</code> 接近 <code>ilk.hole</code> 时，可以以资本高效的方式耕作激励。攻击者会从正在进行的拍卖中购买少量抵押品，释放相对于 <code>Hole</code> 或 <code>ilk.hole</code> 的少量空间，然后清算现有 <code>Vault</code> 的一小部分以收集奖励，并重复此过程。在同一交易中可以反复进行此操作，<code>EIP 2929</code> 的激活将显著降低相关 <code>gas</code> 费用（由于温存储读取和写入）。请注意，由于攻击者无需创建自己的 <code>Vault</code>，因此清算惩罚与激励价值之比不是阻止因素；攻击者只关心 <code>gas</code> 费用。<code>Dog</code>阻止从 <code>Vault</code> 中移除小于 <code>ilk.dust</code> 债务的部分清算有助于减轻这种情况 —— 只要清算惩罚超过此最小清算尺寸的总奖励，并且清算惩罚可靠地由结果拍卖收取（在市场或网络扰动条件下可能不适用），系统总体上不应累积坏账。</li>
+</ul>
+<blockquote>
+<p>四阶段清算断路器  </p>
+</blockquote>
+<ul>
+<li>在本节中，我们将介绍清算断路器的四个阶段。与 LIQ-1.2 不同，Liquidations 2.0 在 <code>Clipper</code> 合约中内置了四个阶段的断路器。这些阶段是：<ul>
+<li>清算启用 (<code>0</code>)：这意味着断路器未跳闸，协议可以清算新 <code>Vault</code> 以及服务旧清算。  </li>
+<li>新清算禁用 (<code>1</code>)：这意味着没有新的清算（<code>Clipper.kick</code>）。  </li>
+<li>新清算和重置禁用 (<code>2</code>)：这意味着没有新的清算（<code>Clipper.kick</code>），而且达到价格或时间终点的拍卖不能被重置（<code>Clipper.redo</code>）。  </li>
+<li>清算禁用 (<code>3</code>)：这意味着没有新的清算（<code>Clipper.kick</code>），没有接收（<code>Clipper.take</code>），也没有重置（<code>Clipper.redo</code>）。</li>
+</ul>
+</li>
+<li>与 LIQ-1.2 一样，断路器将通过 <code>ClipperMom</code> 合约提供，使治理能够绕过 <code>GSM</code> 延迟来执行断路器操作。</li>
+</ul>
+<blockquote>
+<p>紧急关停机制（<code>end.sol</code>)[<a target="_blank" rel="noopener" href="https://github.com/makerdao/dss/blob/liq-2.0/src/end.sol]">https://github.com/makerdao/dss/blob/liq-2.0/src/end.sol]</a></p>
+</blockquote>
+<ul>
+<li>一个已开始的拍卖可以通过调用 <code>Clipper</code> 合约中的 <code>yank</code> 认证函数来回滚。这个函数需要拍卖存在，并执行以下操作：  <ul>
+<li>调用 <code>dog.digs</code> 以降低其 <code>Dirt</code> 和 <code>ilk.dirt</code> 值的剩余拍卖选项卡  </li>
+<li>将剩余的抵押品发送给它的 <code>msg.sender</code> </li>
+<li>删除拍卖结构数据  </li>
+<li>触发 &#96;Yank()&#96;&#96; 事件</li>
+</ul>
+</li>
+<li>这个函数可能被认为是一个通用的操作，将现有的拍卖迁移到新的合约；然而，现在唯一的用例是在 <code>End</code> 模块中，负责系统关停。  </li>
+<li><code>End</code> 模块将随着拍卖合约一起升级，因为需要一个新的 <code>End.snip</code> 函数。  </li>
+<li><code>End.snip</code> 函数负责在关停被触发时调用 <code>Clipper.yank</code> 的任何运行拍卖。它将从 <code>Clipper.yank</code> 接收抵押品，并将其与剩余债务一起发送回金库所有者以进行恢复。需要注意的一个考虑是，金库所有者将收到的债务包括已经收取的清算罚款部分。</li>
+</ul>
+<h3 id="清算模块的那些已知风险"><a href="#清算模块的那些已知风险" class="headerlink" title="清算模块的那些已知风险"></a>清算模块的那些已知风险</h3><blockquote>
+<p>激励耕作 </p>
+</blockquote>
+<ul>
+<li>时而，治理可能会增加 <code>ilk.dust</code> 的数量。当这种情况发生时，通常是因为气体变得如此昂贵，以至于影响了清算的效率。也就是说，调用 <code>Dog.bark()</code>、<code>Clipper.take()</code> 或 <code>Clipper.redo()</code> 的成本可能超过提供的抵押品。激励可能被用作解决这个问题的一种方法，也可能是协议保持 <code>ilk.dust</code> 较低的一种方式；然而，在增加 <code>ilks dust</code>、<code>tip</code> 或 <code>chip</code> 时，治理必须小心，不要激励创建许多 <code>Vaults</code> 来耕作这种激励。一个利用示例如下：  <ul>
+<li>治理决定在同一时刻将 <code>dust</code> 增加 <code>1500 DAI</code>，同时将 <code>ilk.tip</code> 调整为补贴拍卖。  </li>
+<li>攻击者意识到，在气体和砍柴之间，将现有的 <code>Vault</code> 分裂成许多 <code>Vaults</code> 或创建许多新的 <code>Vaults</code> 将是有利可图的。  </li>
+<li>该法案被投票通过并获得通过  </li>
+<li>通过一笔交易，攻击者将其 <code>Vaults</code> 置于不安全的边缘，在价格下次下跌时戳一下 <code>OSM</code>，然后对所有 <code>Vaults</code> 调用 <code>Dog.bark()</code> 以收集激励。  </li>
+<li>利用这些收益，他们还可以稍微过高竞标自己的 <code>Vaults</code> 拍卖。</li>
+</ul>
+</li>
+<li>为了挫败这种攻击，治理必须在设置 <code>ilk.tip</code> 和 <code>ilk.chip</code> 时要小心，不要创造这种扭曲的激励。</li>
+</ul>
+<blockquote>
+<p>价格下降过快  </p>
+</blockquote>
+<ul>
+<li>如果价格下降过快，可能会导致以下后果：  <ul>
+<li>拍卖在没有任何出价的情况下结束，然后需要重置，可能还会一直发生这种情况  </li>
+<li>竞拍者因拍卖在交易确认之前结束而产生退款  </li>
+<li>竞拍者最终支付的金额远低于他们愿意支付的金额（可能产生永久性坏账）</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>价格下降过慢  </p>
+</blockquote>
+<ul>
+<li>如果价格下降过慢，可能会导致以下后果：  <ul>
+<li>拍卖价格始终赶不上市场价格，最终被重置  </li>
+<li>重置后价格赶上了，但仍低于最佳市场价格  </li>
+<li>重置后价格赶上了，但仍然留下了坏账  </li>
+<li>重置后拍卖价格仍然可能无法赶上，导致更多重置，并极有可能留下坏账</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>抢跑  </p>
+</blockquote>
+<ul>
+<li>在 LIQ-1.2 中，由于参与拍卖需要资金，因此抢跑风险有限；</li>
+<li>然而，在清算 2.0 中，如果保管人选择不使用资金参与，则来自通用抢跑机器人的抢跑风险很大。替换交易发送地址为自己的地址越容易，风险就越大。</li>
+<li>为了减轻这种风险，鼓励保管人使用经过授权的代理合同与清算 2.0 互动，并在竞标时提供部分自有资金。更高的燃料价格也可能起作用。然而，我们没有找到一种能防止通用抢跑且保持单块可组合性的好方法。</li>
+</ul>
+<blockquote>
+<p>起始价格 <code>OSM</code> 风险  </p>
+</blockquote>
+<ul>
+<li>由于 <code>Clipper.kick</code> 和 <code>Clipper.redo</code> 会咨询 <code>OSM</code> 来确定抵押物价格，因此我们容易受到只能通过 <code>oracle</code> 延迟、<code>Dog.Hole</code> 和 <code>ilk.hole</code> 等措施来减轻的 <code>oracle</code> 攻击。我们必须依靠已经设置的守卫数量来防止价格操纵和 <code>oracle</code> 攻击。然而，价格延迟一小时的事实也带来了一种风险：由于价格与市场的相对时间不同步，它可能要么过高，要么过低，无法在考虑其他参数如<code>buf</code>和价格下降函数的情况下实现有效的结算。上述两种情况的后果实际上都包含在关于价格下降过快或过慢的风险部分。</li>
+</ul>
+<blockquote>
+<p>设置 <code>Dog.Hole</code> 或 <code>ilk.hole</code> 过高  </p>
+</blockquote>
+<ul>
+<li>虽然在清算 2.0 中，<code>Dog.Hole</code> 和 <code>ilk.hole</code> 可以设置得更高，但仍然存在设置过高的风险。过高的 <code>Dog.Hole</code> 值可能导致对 DAI 的需求过高，打破高挂起。<code>PSM</code> 和稳定币抵押品类型对此有所缓解，但在设置此参数时应予以考虑。如果 <code>ilk.hole</code> 设置过高，可能会导致清算推动资产价格走低的恶性循环。此外，如果发生 <code>oracle</code> 攻击，这个参数可以被认为是我们的最大敞口。</li>
+</ul>
+<blockquote>
+<p>设置 Dog.Hole 或 ilk.hole 过低  </p>
+</blockquote>
+<ul>
+<li>如果我们将 <code>Dog.Hole</code> 或 <code>ilk.hole</code> 设置得太低，我们将面临无法一次性清算足够抵押品的风险。这可能导致系统中不足抵押的头寸逐渐累积，最终导致坏账的增加。</li>
+</ul>
+<blockquote>
+<p>拍卖参数更改会影响进行中的拍卖  </p>
+</blockquote>
+<ul>
+<li>尾数、临界值或价格下降函数及其任何参数都可以在任何时候通过治理进行更改，并会影响进行中的拍卖的行为。整合者应考虑到这种可能性，推理出参数突然变化将对其投标策略产生何种影响。治理应尽量减少参数更改的频率，如果可能的话，只在没有受影响的拍卖时进行更改。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechat.png" alt="King 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="King 支付宝">
+        <span>支付宝</span>
+      </div>
+      <div>
+        <img src="/images/metamask.png" alt="King 比特币">
+        <span>比特币</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/lispking">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/MakerDAO/" rel="tag"><i class="fa fa-tag"></i> MakerDAO</a>
+              <a href="/tags/DAI/" rel="tag"><i class="fa fa-tag"></i> DAI</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/10/11/dai-collateral-module/" rel="prev" title="解读 DAI 架构流程图 —— Collateral模块">
+                  <i class="fa fa-angle-left"></i> 解读 DAI 架构流程图 —— Collateral模块
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+  
+  <script type="text/javascript">
+    // 可修改，摘要将显示在这个选择器选中的元素之上。
+    var _xhh_selector = ".post-body";
+    // 可修改，定制最外层 DIV 的风格。
+    // 默认限制宽度为 750px，上下加 8px 的镶边，4 像素圆角。
+    var _xhh_style = "max-width: 100%; margin:8px 0px; border-radius: 4px;";
+
+    // 以下部分不要改动
+    var host = '///xhh.club';
+    var _xhh_service_url = host + '/summarize-this/';
+    (function() {
+      var smmr = document.createElement("script");
+      smmr.src = host + "/static/js/summarize_this.js";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(smmr, s);
+    })();
+  </script>
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">King</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">23k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">21 分钟</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lispking" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.3.0/mermaid.min.js","integrity":"sha256-9y71g5Lz/KLsHjB8uXwnkuWDtAMDSzD/HdIbqhJfTAI="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","mhchem":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"lispking","repo":"lispking.github.io","client_id":"909b979ee5805cfc60f7","client_secret":"7a5f88e85afc02681b49d44afe4aa9a7a68f4b21","admin_user":"lispking","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"3bbcd7bad3caa25cb5d5bddb408fbf1f"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
