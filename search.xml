@@ -780,7 +780,7 @@
 <li>与 LIQ-1.2 一样，断路器将通过 <code>ClipperMom</code> 合约提供，使治理能够绕过 <code>GSM</code> 延迟来执行断路器操作。</li>
 </ul>
 <blockquote>
-<p>紧急关停机制（<code>end.sol</code>)[<a href="https://github.com/makerdao/dss/blob/liq-2.0/src/end.sol]">https://github.com/makerdao/dss/blob/liq-2.0/src/end.sol]</a></p>
+<p>紧急关停机制<a href="https://github.com/makerdao/dss/blob/liq-2.0/src/end.sol"><code>end.sol</code></a></p>
 </blockquote>
 <ul>
 <li>一个已开始的拍卖可以通过调用 <code>Clipper</code> 合约中的 <code>yank</code> 认证函数来回滚。这个函数需要拍卖存在，并执行以下操作：  <ul>
