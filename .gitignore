@@ -3,3 +3,4 @@ public/
 db.json
 .DS_Store
 .env
+.obsidian/
