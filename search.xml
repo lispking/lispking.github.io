@@ -949,7 +949,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="项目结束语"><a href="#项目结束语" class="headerlink" title="项目结束语"></a>项目结束语</h3><ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
 <li><p>Community of Developers for Mobile Applications in Rust: <a href="https://github.com/project-robius">https://github.com/project-robius</a></p>
 </li>
 <li><p>Robius是个雨伞项目，重点发展<a href="https://github.com/makepad/makepad">Makepad</a>，<a href="https://github.com/DioxusLabs/dioxus">Dioxus</a>，Ylong，Osiris这些重点项目，促成他们之间的紧密集成。</p>
