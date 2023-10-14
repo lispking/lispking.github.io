@@ -3,7 +3,7 @@ title: 【正值当下】加入 Robius project 开发者社区
 date: 2023-10-14 07:00:00
 categories: Robius
 tags: [Robius,Rust]
-description: 呼吁开源爱好者加入 Robius project 开发者社区，本文重点介绍 Robius 基本架构设计，Robius 是一个多平台应用开发的项目，它的设计基于 Rust 语言。项目的主要目标是为开发者提供一套全面的工具和库，使他们能够在多种设备和操作系统上创建高效、响应快速的应用。
+description: 呼吁开源爱好者加入 Robius project 开发者社区一起共建，本文重点介绍 Robius 基本架构设计，Robius 是一个多平台应用开发的项目，它的设计基于 Rust 语言。项目的主要目标是为开发者提供一套全面的工具和库，使他们能够在多种设备和操作系统上创建高效、响应快速的应用。
 ---
 
 ### 项目简介
