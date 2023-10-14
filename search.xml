@@ -956,8 +956,6 @@
 </li>
 <li><p>Robius项目是提供给Rust社区一套完整的App开发库和工具，上层app框架可能是<a href="https://github.com/DioxusLabs/dioxus">Dioxus</a>这种类React的声明式框架，底层组件和UI库可以是<a href="https://github.com/makepad/makepad">Makepad</a>，也可以是<a href="https://github.com/emilk/egui">egui</a>或者<a href="https://github.com/slint-ui/slint">slint</a>。</p>
 </li>
-<li><p>本群的目标希望可以组织国内开发者的力量参与到这个项目贡献中。项目刚起步，大家都可以参与贡献。</p>
-</li>
 <li><p>看视频了解 Robius【GOSIM WORKSHOP 开幕式 Kevin Boos：Robius：用 Rust 开发多平台应用程序的愿景-哔哩哔哩】: <a href="https://b23.tv/FzhitOd">https://b23.tv/FzhitOd</a></p>
 </li>
 </ul>
