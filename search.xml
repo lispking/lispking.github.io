@@ -873,7 +873,7 @@
       </tags>
   </entry>
   <entry>
-    <title>【正值当下】加入 Robius project 开发者社区</title>
+    <title>Robius基础架构介绍</title>
     <url>/2023/10/13/join-rust-robius-project/</url>
     <content><![CDATA[<h3 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h3><p>Robius 是一个多平台应用开发的项目，它的设计基于 Rust 语言。项目的主要目标是为开发者提供一套全面的工具和库，使他们能够在多种设备和操作系统上创建高效、响应快速的应用。</p>
 <p><img src="/images/robius/TheRobiusArch.png" alt="TheRobiusArch"></p>
@@ -959,10 +959,13 @@
 <li><p>看视频了解 Robius【GOSIM WORKSHOP 开幕式 Kevin Boos：Robius：用 Rust 开发多平台应用程序的愿景-哔哩哔哩】: <a href="https://b23.tv/FzhitOd">https://b23.tv/FzhitOd</a></p>
 </li>
 </ul>
-<blockquote>
-<p>正值当下，《Rust 编程之道》的作者张汉东老师正在国内积极呼吁开源爱好者们加入 <a href="https://github.com/project-robius">Robius Project</a> 的开发者社区，一起共同参与建设，与众多专家一起从零开始打造 Robius。欢迎了解下 <a href="https://github.com/project-robius">Robius Project</a>，有意向参与贡献，请私聊我加入Robius project开发者社区</p>
-</blockquote>
-<p><img src="/images/wxe.png" alt="我的企业微信"></p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li>Robius Project：<a href="https://github.com/project-robius">https://github.com/project-robius</a></li>
+<li>Makepad：<a href="https://github.com/makepad/makepad">https://github.com/makepad/makepad</a></li>
+<li>Dioxus：<a href="https://github.com/DioxusLabs/dioxus">https://github.com/DioxusLabs/dioxus</a></li>
+<li>egui：<a href="https://github.com/emilk/egui">https://github.com/emilk/egui</a></li>
+<li>slint：<a href="https://github.com/slint-ui/slint">https://github.com/slint-ui/slint</a></li>
+</ul>
 ]]></content>
       <categories>
         <category>Robius</category>
