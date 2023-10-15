@@ -3,6 +3,7 @@ title: Robius：用 Rust 开发多平台应用
 date: 2023-10-15 11:00:33
 categories: Robius
 tags: [Robius,Rust]
+description: 本文重点介绍 Robius 的愿景和未来的一些规划，Robius 是一个完全开源的、去中心化的、由社区驱动的项目，旨在让 Rust 成为多平台应用开发的理想选择。 Robius 生态系统包括几个独立的项目，这些项目可以组合成一个完整的系统堆栈，实现跨多个平台的快速、无痛的纯 Rust 应用开发。
 ---
 
 ### 项目简介
