@@ -3,7 +3,7 @@ title: 深入了解Rust - Hello World汇编初探
 date: 2023-10-17 11:43:51
 categories: Rust
 tags: [Rust]
-description: Hello World是每一个程序员学习新语言时的小小里程碑。今天，我们就来学习如何编写一个 Rust 的 Hello World 程序，并且探索一些底层汇编知识。
+description: 本文介绍了在Rust中编写Hello World程序的方法，并探索了底层汇编知识。通过分析汇编代码，可以了解程序的结构和功能，以及各个函数和变量之间的关系。本文主要介绍了启动函数和main函数的解读，以及整个代码的执行过程。
 ---
 
 ## 引言
