@@ -1,6 +1,6 @@
 ---
 title: 解刨 Robius Demo 之 Wechat 应用
-date: 2023-10-15 11:00:33
+date: 2023-10-22 20:00:33
 categories: Robius
 tags: [Robius,Rust]
 description: 在本篇文章中，我们将对 Robius Demo 中的 Wechat 应用进行解剖。通过对这个示例应用的深入分析，你将能够更好地理解其内部工作原理和实现细节。通过阅读这篇文章，你将能够掌握如何在 Robius Demo 中构建和实现 Wechat 应用，以及如何利用其提供的工具和组件来创建具有相似功能和性能的实际应用程序。让我们开始吧！
