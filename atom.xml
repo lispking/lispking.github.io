@@ -6,7 +6,7 @@
   <link href="http://lispking.github.io/atom.xml" rel="self"/>
   
   <link href="http://lispking.github.io/"/>
-  <updated>2023-10-22T12:45:11.050Z</updated>
+  <updated>2023-10-22T12:48:47.689Z</updated>
   <id>http://lispking.github.io/</id>
   
   <author>
@@ -17,11 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>解刨 Robius Demo 之 Wechat 应用</title>
+    <link href="http://lispking.github.io/2023/10/22/rust-robius-wechat-demo/"/>
+    <id>http://lispking.github.io/2023/10/22/rust-robius-wechat-demo/</id>
+    <published>2023-10-22T12:00:33.000Z</published>
+    <updated>2023-10-22T12:48:47.689Z</updated>
+    
+    
+    <summary type="html">在本篇文章中，我们将对 Robius Demo 中的 Wechat 应用进行解剖。通过对这个示例应用的深入分析，你将能够更好地理解其内部工作原理和实现细节。通过阅读这篇文章，你将能够掌握如何在 Robius Demo 中构建和实现 Wechat 应用，以及如何利用其提供的工具和组件来创建具有相似功能和性能的实际应用程序。让我们开始吧！</summary>
+    
+    
+    
+    <category term="Robius" scheme="http://lispking.github.io/categories/Robius/"/>
+    
+    
+    <category term="Robius" scheme="http://lispking.github.io/tags/Robius/"/>
+    
+    <category term="Rust" scheme="http://lispking.github.io/tags/Rust/"/>
+    
+  </entry>
+  
+  <entry>
     <title>深入了解Rust - Hello World汇编初探</title>
     <link href="http://lispking.github.io/2023/10/17/rust-hello-world-asm/"/>
     <id>http://lispking.github.io/2023/10/17/rust-hello-world-asm/</id>
     <published>2023-10-17T03:43:51.000Z</published>
-    <updated>2023-10-22T12:45:11.050Z</updated>
+    <updated>2023-10-22T12:48:47.685Z</updated>
     
     
     <summary type="html">本文介绍了在Rust中编写Hello World程序的方法，并探索了底层汇编知识。通过分析汇编代码，可以了解程序的结构和功能，以及各个函数和变量之间的关系。本文主要介绍了启动函数和main函数的解读，以及整个代码的执行过程。</summary>
@@ -40,31 +61,10 @@
     <link href="http://lispking.github.io/2023/10/15/rust-robius-project-update/"/>
     <id>http://lispking.github.io/2023/10/15/rust-robius-project-update/</id>
     <published>2023-10-15T03:00:33.000Z</published>
-    <updated>2023-10-22T12:45:11.050Z</updated>
+    <updated>2023-10-22T12:48:47.685Z</updated>
     
     
     <summary type="html">本文重点介绍 Robius 的愿景和未来的一些规划，Robius 是一个完全开源的、去中心化的、由社区驱动的项目，旨在让 Rust 成为多平台应用开发的理想选择。 Robius 生态系统包括几个独立的项目，这些项目可以组合成一个完整的系统堆栈，实现跨多个平台的快速、无痛的纯 Rust 应用开发。</summary>
-    
-    
-    
-    <category term="Robius" scheme="http://lispking.github.io/categories/Robius/"/>
-    
-    
-    <category term="Robius" scheme="http://lispking.github.io/tags/Robius/"/>
-    
-    <category term="Rust" scheme="http://lispking.github.io/tags/Rust/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>解刨 Robius Demo 之 Wechat 应用</title>
-    <link href="http://lispking.github.io/2023/10/15/rust-robius-wechat-demo/"/>
-    <id>http://lispking.github.io/2023/10/15/rust-robius-wechat-demo/</id>
-    <published>2023-10-15T03:00:33.000Z</published>
-    <updated>2023-10-22T12:45:11.050Z</updated>
-    
-    
-    <summary type="html">在本篇文章中，我们将对 Robius Demo 中的 Wechat 应用进行解剖。通过对这个示例应用的深入分析，你将能够更好地理解其内部工作原理和实现细节。通过阅读这篇文章，你将能够掌握如何在 Robius Demo 中构建和实现 Wechat 应用，以及如何利用其提供的工具和组件来创建具有相似功能和性能的实际应用程序。让我们开始吧！</summary>
     
     
     
@@ -82,7 +82,7 @@
     <link href="http://lispking.github.io/2023/10/13/join-rust-robius-project/"/>
     <id>http://lispking.github.io/2023/10/13/join-rust-robius-project/</id>
     <published>2023-10-13T23:00:00.000Z</published>
-    <updated>2023-10-22T12:45:11.050Z</updated>
+    <updated>2023-10-22T12:48:47.685Z</updated>
     
     
     <summary type="html">本文重点介绍 Robius 基本架构设计，Robius 是一个多平台应用开发的项目，它的设计基于 Rust 语言。项目的主要目标是为开发者提供一套全面的工具和库，使他们能够在多种设备和操作系统上创建高效、响应快速的应用。</summary>
@@ -103,7 +103,7 @@
     <link href="http://lispking.github.io/2023/10/12/dai-liquidation-module/"/>
     <id>http://lispking.github.io/2023/10/12/dai-liquidation-module/</id>
     <published>2023-10-12T02:15:36.000Z</published>
-    <updated>2023-10-22T12:45:11.050Z</updated>
+    <updated>2023-10-22T12:48:47.685Z</updated>
     
     
     <summary type="html">本文着重讲解清算2.0模块的细节，这是Maker协议的抵押物拍卖行，主要解决从不足以抵押的 Vault 中自动转移抵押品，并同时将该 Vault 的债务转移至协议。在清算合约（Dog）中，会立即启动拍卖，试图通过出售转移的抵押品来换取 DAI，以抵消已分配给协议的债务。</summary>
@@ -124,7 +124,7 @@
     <link href="http://lispking.github.io/2023/10/11/dai-collateral-module/"/>
     <id>http://lispking.github.io/2023/10/11/dai-collateral-module/</id>
     <published>2023-10-11T06:30:52.000Z</published>
-    <updated>2023-10-22T12:45:11.050Z</updated>
+    <updated>2023-10-22T12:48:47.685Z</updated>
     
     
     <summary type="html">本文讲解了Collateral模块的细节，前文已经介绍了Core模块中的Vat和Spot合约。Vat是dss的核心Vault引擎，存储Vault和跟踪相关的Dai和抵押品余额，定义了Vault和余额的操作规则；Spot是连接预言机和核心合约的现货接口，只存储当前的ilk列表。</summary>
@@ -145,7 +145,7 @@
     <link href="http://lispking.github.io/2023/10/10/dai-core-module/"/>
     <id>http://lispking.github.io/2023/10/10/dai-core-module/</id>
     <published>2023-10-10T07:00:00.000Z</published>
-    <updated>2023-10-22T12:45:11.050Z</updated>
+    <updated>2023-10-22T12:48:47.685Z</updated>
     
     
     <summary type="html">本文介绍了 DAI `Core`相关合约模块的细节，包括 `Vat`合约和`Spot`合约。`Vat` 是 `dss` 的核心 `Vault` 引擎。它存储 `Vault` 并跟踪所有相关的 `Dai` 和抵押品余额。它还定义了可以通过操作 `Vault` 和余额的规则。`Vat` 中定义的规则是不可变的，因此在某种程度上，可以将 `Vat` 中的规则视为 `dss` 的宪法。`Spot`是负责连接预言机（`Oracles`）与核心合约的现货接口。作为一个接口合约，它只存储当前的 `ilk` 列表。</summary>
@@ -166,7 +166,7 @@
     <link href="http://lispking.github.io/2023/09/26/dai-module/"/>
     <id>http://lispking.github.io/2023/09/26/dai-module/</id>
     <published>2023-09-26T07:16:18.000Z</published>
-    <updated>2023-10-22T12:45:11.050Z</updated>
+    <updated>2023-10-22T12:48:47.685Z</updated>
     
     
     <summary type="html">本文介绍了 DAI 合约模块的细节，包括 DAI 代币合约和所有的 DaiJoin 适配器。DAI 合约是用户面向的 ERC20 代币合约，具有根据签名消息发行转账批准的能力。与 ERC20 的区别在于 DAI 合约中的 transferFrom 函数允许进行“无限授权”。此外，文章还提到了 permit 函数和无限允许可能带来的风险。在 transferFrom 功能中存在轻微的偏差，如果 src == msg.sender，则该函数不需要事先获得批准。</summary>
@@ -187,7 +187,7 @@
     <link href="http://lispking.github.io/2023/09/25/web3-world-think/"/>
     <id>http://lispking.github.io/2023/09/25/web3-world-think/</id>
     <published>2023-09-25T00:03:12.000Z</published>
-    <updated>2023-10-22T12:45:11.050Z</updated>
+    <updated>2023-10-22T12:48:47.685Z</updated>
     
     
     <summary type="html">本文讨论了下一个Web时代的特点，包括Web3.0、AI、区块链、VR、IoT、5G/6G/7G和数字人等技术的应用，以及元宇宙的概念。这个新时代将带来更加丰富、智能和个性化的体验，同时也将改变我们的生产方式、交流方式和商业模式。作者强调了中国在Web新时代的技术研发和应用上已经走在了世界的前列。</summary>
@@ -208,7 +208,7 @@
     <link href="http://lispking.github.io/2023/09/22/dai-terminology/"/>
     <id>http://lispking.github.io/2023/09/22/dai-terminology/</id>
     <published>2023-09-22T03:20:39.000Z</published>
-    <updated>2023-10-22T12:45:11.050Z</updated>
+    <updated>2023-10-22T12:48:47.685Z</updated>
     
     
     <summary type="html">本文详细讲述了Maker协议中的各种术语及其相关合约接口的说明，让读者逐步明白其中的奥秘。同时，介绍了DAI的诞生背景，以及Maker晦涩难懂的代码是刻意的。文章列举了大量术语，包括Cat、Dai、End、Flipper、Flapper、Flopper等等</summary>
@@ -229,7 +229,7 @@
     <link href="http://lispking.github.io/2023/09/15/maker-protocol-introduce/"/>
     <id>http://lispking.github.io/2023/09/15/maker-protocol-introduce/</id>
     <published>2023-09-15T07:23:21.000Z</published>
-    <updated>2023-10-22T12:45:11.050Z</updated>
+    <updated>2023-10-22T12:48:47.685Z</updated>
     
     
     <summary type="html">MakerDAO是一个去中心化的组织，致力于为加密货币经济带来稳定性。他们采用双代币系统，包括稳定币Dai和治理令牌MKR。最新版本的Maker协议Multi-Collaborate Dai（MCD）允许以太坊上任何资产作为抵押品生成Dai，并引入了新的功能，如新的Dai代币、支持多种Vault抵押品类型、Dai储蓄率、更稳健的挂钩确保机制等。MKR和治理保持不变，同时推出了Oasis交易。MakerDAO旨在打造一个包容性的经济赋权平台，让每个人都能平等地进入全球金融市场。</summary>
@@ -250,7 +250,7 @@
     <link href="http://lispking.github.io/2023/09/12/about-site/"/>
     <id>http://lispking.github.io/2023/09/12/about-site/</id>
     <published>2023-09-12T23:00:00.000Z</published>
-    <updated>2023-10-22T12:45:11.050Z</updated>
+    <updated>2023-10-22T12:48:47.689Z</updated>
     
     
     <summary type="html">本站是一位拥有近20年技术研发经验的专业人士分享编程知识和心得的地方。博主具有丰富的实践经验，掌握多种编程语言，最近关注Rust和Solidity，将分享实践经验和应用技巧。此外，博主还将分享团队管理和项目领导方面的经验和见解。本站内容丰富，涵盖编程语言、技术实践、团队管理等多个领域，适合编程初学者和有经验的开发者。</summary>
