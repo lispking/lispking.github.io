@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lispking.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在本篇文章中，我们将对 Robius Demo 中的 Wechat 应用进行解剖。通过对这个示例应用的深入分析，你将能够更好地理解其内部工作原理和实现细节。通过阅读这篇文章，你将能够掌握如何在 Robius Demo 中构建和实现 Wechat 应用，以及如何利用其提供的工具和组件来创建具有相似功能和性能的实际应用程序。让我们开始吧！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解刨 Robius Demo 之 Wechat 应用">
+<meta property="og:url" content="http://lispking.github.io/2023/10/15/rust-robius-wechat-demo/index.html">
+<meta property="og:site_name" content="Dive In Web3">
+<meta property="og:description" content="在本篇文章中，我们将对 Robius Demo 中的 Wechat 应用进行解剖。通过对这个示例应用的深入分析，你将能够更好地理解其内部工作原理和实现细节。通过阅读这篇文章，你将能够掌握如何在 Robius Demo 中构建和实现 Wechat 应用，以及如何利用其提供的工具和组件来创建具有相似功能和性能的实际应用程序。让我们开始吧！">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://lispking.github.io/images/robius/TheRobiusWechatDemo.png">
+<meta property="og:image" content="http://lispking.github.io/images/robius/TheRobiusWechatDemoSource.png">
+<meta property="og:image" content="http://lispking.github.io/images/wechat-blog.png">
+<meta property="article:published_time" content="2023-10-15T03:00:33.000Z">
+<meta property="article:modified_time" content="2023-10-22T12:45:11.050Z">
+<meta property="article:author" content="King">
+<meta property="article:tag" content="Robius">
+<meta property="article:tag" content="Rust">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lispking.github.io/images/robius/TheRobiusWechatDemo.png">
+
+
+<link rel="canonical" href="http://lispking.github.io/2023/10/15/rust-robius-wechat-demo/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://lispking.github.io/2023/10/15/rust-robius-wechat-demo/","path":"2023/10/15/rust-robius-wechat-demo/","title":"解刨 Robius Demo 之 Wechat 应用"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>解刨 Robius Demo 之 Wechat 应用 | Dive In Web3</title>
+  
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6255376809208012" crossorigin="anonymous"></script>
+
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-28440BWWYK"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-28440BWWYK","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?ea3634b85b5b23007bec7092a4735018"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Dive In Web3" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Dive In Web3</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">深入Web3世界</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">6</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">12</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%B8%80%E8%8A%82%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.</span> <span class="nav-text">上一节回顾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Makepad-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">Makepad 项目介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#makepad-widgets%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.1.</span> <span class="nav-text">makepad-widgets介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#makepad-studio%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.2.</span> <span class="nav-text">makepad-studio介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">3.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Makepad"><span class="nav-number">3.1.</span> <span class="nav-text">安装 Makepad</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-iOS-%E5%AE%89%E8%A3%85-makepad-wechat-%E5%BA%94%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">在 iOS 安装 makepad_wechat 应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#makepad-wechat-%E5%BA%94%E7%94%A8%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB"><span class="nav-number">4.</span> <span class="nav-text">makepad_wechat 应用源码解读</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90"><span class="nav-number">4.1.</span> <span class="nav-text">目录结构分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96%E5%88%86%E6%9E%90"><span class="nav-number">4.2.</span> <span class="nav-text">项目依赖分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#app-rs-%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90"><span class="nav-number">4.3.</span> <span class="nav-text">app.rs 框架分析</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="King"
+      src="https://avatars.githubusercontent.com/u/4446580?v=4">
+  <p class="site-author-name" itemprop="name">King</p>
+  <div class="site-description" itemprop="description">欢迎光临Web3世界，一起拥抱Web3</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lispking" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/lispking" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/lispking" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_nd.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="sidebar-inner sidebar-post-related">
+          <div class="animated">
+              <div class="links-of-blogroll-title"><i class="fa fa-signs-post fa-fw"></i>
+    相关文章
+  </div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2023/10/15/rust-robius-project-update/" rel="bookmark">
+        <time class="popular-posts-time">2023-10-15</time>
+        <br>
+      Robius：用 Rust 开发多平台应用
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2023/10/13/join-rust-robius-project/" rel="bookmark">
+        <time class="popular-posts-time">2023-10-14</time>
+        <br>
+      Robius基础架构介绍
+      </a>
+    </li>
+  </ul>
+
+          </div>
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lispking.github.io/2023/10/15/rust-robius-wechat-demo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/4446580?v=4">
+      <meta itemprop="name" content="King">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dive In Web3">
+      <meta itemprop="description" content="欢迎光临Web3世界，一起拥抱Web3">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="解刨 Robius Demo 之 Wechat 应用 | Dive In Web3">
+      <meta itemprop="description" content="在本篇文章中，我们将对 Robius Demo 中的 Wechat 应用进行解剖。通过对这个示例应用的深入分析，你将能够更好地理解其内部工作原理和实现细节。通过阅读这篇文章，你将能够掌握如何在 Robius Demo 中构建和实现 Wechat 应用，以及如何利用其提供的工具和组件来创建具有相似功能和性能的实际应用程序。让我们开始吧！">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          解刨 Robius Demo 之 Wechat 应用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-10-15 11:00:33" itemprop="dateCreated datePublished" datetime="2023-10-15T11:00:33+08:00">2023-10-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-10-22 20:45:11" itemprop="dateModified" datetime="2023-10-22T20:45:11+08:00">2023-10-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Robius/" itemprop="url" rel="index"><span itemprop="name">Robius</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">在本篇文章中，我们将对 Robius Demo 中的 Wechat 应用进行解剖。通过对这个示例应用的深入分析，你将能够更好地理解其内部工作原理和实现细节。通过阅读这篇文章，你将能够掌握如何在 Robius Demo 中构建和实现 Wechat 应用，以及如何利用其提供的工具和组件来创建具有相似功能和性能的实际应用程序。让我们开始吧！</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h2><p>在<a href="https://lispking.github.io/2023/10/15/rust-robius-project-update/">Robius：用 Rust 开发多平台应用</a>一文介绍了 Robius 的愿景和未来的一些规划，Robius 是一个完全开源的、去中心化的、由社区驱动的项目，旨在让 Rust 成为多平台应用开发的理想选择，本章节，我们一起来解刨 Robius 里的 <code>Wechat</code> 应用 Demo。</p>
+<h2 id="Makepad-项目介绍"><a href="#Makepad-项目介绍" class="headerlink" title="Makepad 项目介绍"></a>Makepad 项目介绍</h2><p>在开始解剖 <code>Wechat</code> 项目之前，我们先来学习一下所使用的 <a target="_blank" rel="noopener" href="https://makepad.nl/">Makepad</a> 项目的基本知识。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://makepad.nl/">Makepad</a> 包括 Makepad Framework 和 Makepad Studio。  </li>
+<li>Makepad Framework 是一个跨平台的 <code>UI 框架</code>。包括多个 crate，顶级 crate 是 <a target="_blank" rel="noopener" href="https://crates.io/crates/makepad-widgets">makepad-widgets</a>。有关 Makepad Framework 的更多详细解释，请参阅<a href="#makepad-widgets%E4%BB%8B%E7%BB%8D">makepad-widgets组件介绍</a>。  </li>
+<li>Makepad Studio 是使用 Makepad Framework 构建的一个 <code>IDE 原型</code>。它仍然在重度开发中，但我们的最终目标是创建一个可以在运行时更改应用程序设计的 IDE。Makepad Studio 的主 crate 是 <a target="_blank" rel="noopener" href="https://crates.io/crates/makepad-studio">makepad-studio</a>。有关更多信息，请参阅<a href="#makepad-studio%E4%BB%8B%E7%BB%8D">makepad-studio章节介绍</a>。</li>
+</ul>
+<h3 id="makepad-widgets介绍"><a href="#makepad-widgets介绍" class="headerlink" title="makepad-widgets介绍"></a>makepad-widgets介绍</h3><ul>
+<li>这是 Makepad Framework 的顶级 crate，它是一个为 Rust 开发的下一代 UI 框架。使用 Makepad Framework 构建的应用程序可以在本地和 web 上运行，完全在 GPU 上渲染，并支持名为 live design 的新颖功能。</li>
+<li>Live design 意味着 Makepad Framework 为其他应用程序（例如 IDE）提供基础设施，使其可以挂载到您的应用程序并在线运行时更改其设计。为此，Makepad Framework 应用程序的样式使用 DSL 描述。编写的代码通过使用 proc_macros 与主要 Rust 代码紧密集成。</li>
+<li>一个具有 live design 意识的 IDE 检测 <code>DSL</code> 代码中发生的更改，而不是 Rust 代码，因此，它可以在触发完整重新编译之前将更改发送到应用程序，使其更新自身。（<a target="_blank" rel="noopener" href="https://crates.io/crates/makepad-studio">makepad-studio</a> crate 包含一个可以最终实现此功能的 IDE 原型，但仍在进行大量开发。）</li>
+<li>此 crate 包含一组基本控件，几乎每个应用程序都需要。在撰写本文时，支持的控件有：窗口、下拉菜单、停靠栏、分割器、标签栏、框架、滚动条、文件树、标签、按钮、复选框、单选框、颜色选择器</li>
+<li>除了这些控件外，此 crate 还包含两个低级 crate 的重导出，分别是 <a target="_blank" rel="noopener" href="https://crates.io/crates/makepad-draw-2d">makepad-draw-2d</a>（包含所有与绘制应用程序相关的代码）和 <a target="_blank" rel="noopener" href="https://crates.io/crates/makepad-platform">makepad-platform</a>（包含所有特定于平台的代码）。最后，它包含一组基本字体。</li>
+</ul>
+<blockquote>
+<p>简而言之，要在 Makepad Framework 中构建应用程序，大多数时候，这个 crate 是您唯一需要的。</p>
+</blockquote>
+<blockquote>
+<p><font color='red'>注意事项</font>：尽管 <a target="_blank" rel="noopener" href="https://makepad.nl/">Makepad</a> 框架已经足够完整，可以让你使用它来编写自己的应用程序，但目前它<code>仍然处于激烈的开发阶段</code>。目前，我们只支持 <code>Mac</code> 和 <code>Web</code>（尽管我们很快就会添加对 Windows 和 Linux 的支持）。在此阶段，我们无法保证 API 的稳定性。请在使用 <a target="_blank" rel="noopener" href="https://makepad.nl/">Makepad</a> 框架为自己的应用程序时牢记这一点。最后，我们在<code>字体渲染</code>、<code>国际化</code>等领域仍然缺乏许多功能。</p>
+</blockquote>
+<h3 id="makepad-studio介绍"><a href="#makepad-studio介绍" class="headerlink" title="makepad-studio介绍"></a>makepad-studio介绍</h3><ul>
+<li>这是一个使用 <a target="_blank" rel="noopener" href="https://makepad.nl/">Makepad</a> 框架编写的 IDE 原型。关于 <a target="_blank" rel="noopener" href="https://makepad.nl/">Makepad</a> 框架的解释，请参阅 <a href="#makepad-widgets%E4%BB%8B%E7%BB%8D">makepad-widgets 组件介绍</a>。  </li>
+<li>最终目标是将其开发成为一个支持实时设计意识的 IDE。这样的 IDE 能够检测到描述应用程序样式的 DSL 代码（而非本地 Rust 代码）发生更改时，无需重新编译，而是将更改发送到 DSL 代码的应用程序，使其自行更新。  </li>
+<li>尽管如此，这个组件目前<code>仍然处于激烈的开发阶段</code>。在撰写本文时，它具有一个带有选项卡的工作栏系统，一个带有折叠的文件树，以及一个基本代码编辑器，支持语法高亮。我们目前的主要挑战是重新设计 IDE，使其具有适当的扩展模型和沙箱化。</li>
+</ul>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h3 id="安装-Makepad"><a href="#安装-Makepad" class="headerlink" title="安装 Makepad"></a>安装 <a target="_blank" rel="noopener" href="https://makepad.nl/">Makepad</a></h3><ul>
+<li>构建 <a target="_blank" rel="noopener" href="https://makepad.nl/">Makepad</a> 组件之前，首先，需要安装 <code>Rust</code>，<code>Rust</code> 的安装指南请参考：<a target="_blank" rel="noopener" href="https://www.rust-lang.org/tools/install">https://www.rust-lang.org/tools/install</a></li>
+<li>本地构建通常会使用<code>stable</code>版本的 Rust 工具链，然而，<a target="_blank" rel="noopener" href="https://makepad.nl/">Makepad</a> 在运行时生成的一些错误（尤其是来自 DSL 的错误）除非你使用<code>nightly</code>版本的 Rust 工具链，否则，不会包含行信息。_此外，<a target="_blank" rel="noopener" href="https://makepad.nl/">Makepad</a> 的 <code>Web</code> 构建目前仅在<code>nightly</code>版本工作。因此，建议您使用<code>nightly</code>版本的 Rust 工具链来构建 <a target="_blank" rel="noopener" href="https://makepad.nl/">Makepad</a>_。  </li>
+<li>对于非标准构建目标（<code>ios</code>、<code>android</code>、<code>wasm</code>），需要安装一个名为 <code>cargo-makepad</code> 的构建工具，有两种安装方式。  <ul>
+<li>仓库安装： <code>git clone https://github.com/makepad/makepad.git &amp;&amp; cd makepad &amp;&amp; cargo install --path=./tools/cargo_makepad</code></li>
+<li><code>cargo</code> 安装：<code>cargo install cargo-makepad</code> (推荐用该方法，省心)</li>
+</ul>
+</li>
+<li><code>cargo-makepad</code>工具安装成功后，可根据所需平台安装工具链，相关命令如下：  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cargo makepad wasm install-toolchain</span><br><span class="line">cargo makepad ios install-toolchain</span><br><span class="line">cargo makepad android --abi=all install-toolchain</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="在-iOS-安装-makepad-wechat-应用"><a href="#在-iOS-安装-makepad-wechat-应用" class="headerlink" title="在 iOS 安装 makepad_wechat 应用"></a>在 <code>iOS</code> 安装 <a target="_blank" rel="noopener" href="https://github.com/project-robius/makepad_wechat"><code>makepad_wechat</code></a> 应用</h3><blockquote>
+<p>鉴于 <code>iOS</code> 模拟器的安装过程相对较为复杂，本章节将仅针对 <code>iOS</code> 模拟器的安装进行讲解。而 <code>Android</code> 的安装过程类似，因此不再赘述。</p>
+</blockquote>
+<ul>
+<li><p><code>clone</code> 源码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/project-robius/makepad_wechat.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>iOS</code> 安装应用前准备</p>
+<ul>
+<li>请启用您的 <code>iPhone</code> 的开发者模式，具体操作步骤，请参考<a target="_blank" rel="noopener" href="https://www.delasign.com/blog/how-to-turn-on-developer-mode-on-an-iphone/">这里</a></li>
+<li>创建一个 <code>Apple 开发者账户</code>  </li>
+<li>在 XCode 中创建一个空白的骨架项目  <ul>
+<li>文件 -&gt; 新建 -&gt; 项目以创建一个新 “App”  </li>
+<li>将产品名称设置为 <code>WeChat</code>（后面 –org 参数中使用）  </li>
+<li>将组织标识符设置为您选择的任何值，例如，本示例将使用 <code>rs.robius</code>（后面 –app 参数中使用）  </li>
+<li>设置项目签名和功能，选择正确的团队账户</li>
+</ul>
+</li>
+<li>在 <code>XCode</code> 中，构建&#x2F;运行此项目以在模拟器和设备上安装并运行应用  </li>
+<li>一旦模拟器和设备上正确安装并运行了 “skeleton” 应用，接下来，就可以使用 <a target="_blank" rel="noopener" href="https://makepad.nl/">Makepad</a> 安装其应用程序。</li>
+</ul>
+</li>
+<li><p>在 <code>iOS</code> 模拟器上安装应用</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/makepad_wechat</span><br><span class="line">cargo makepad ios --org=rs.robius --app=WeChat run-sim -p makepad_wechat --release</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 <code>iOS</code> 设备上安装应用</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/makepad_wechat</span><br><span class="line">cargo makepad ios --ios-version=16 --org-id=&lt;ORGIDVALUE&gt; --org=rs.robius --app=WeChat run-device -p makepad_wechat --release</span><br></pre></td></tr></table></figure>
+
+<p>  其中，<code>--org-id</code>：这是位于 <code>~/Library/MobileDevice/Provisioning Profiles</code> 目录中的 <code>**.mobileprovision</code> 文件中的 ApplicationIdentifierPrefix <key> 的 <string> 值。它应该是一个 10 位数的字母数字值。</p>
+</li>
+<li><p>在 <code>iOS</code> 模拟器安装成功，运行效果图如下所示</p>
+<p>  <img src="/images/robius/TheRobiusWechatDemo.png" alt="iOS模块器效果"></p>
+</li>
+</ul>
+<h2 id="makepad-wechat-应用源码解读"><a href="#makepad-wechat-应用源码解读" class="headerlink" title="makepad_wechat 应用源码解读"></a><a target="_blank" rel="noopener" href="https://github.com/project-robius/makepad_wechat"><code>makepad_wechat</code></a> 应用源码解读</h2><h3 id="目录结构分析"><a href="#目录结构分析" class="headerlink" title="目录结构分析"></a>目录结构分析</h3><p><code>Demo</code> 源码目录整体较为简洁，具体解析如下：</p>
+<ul>
+<li><code>resources</code>：资源目录，主要存放字体、图标、图片等。</li>
+<li><code>src</code>: 源码目录，主要包含程序启动、模块定义以及数据交互等<ul>
+<li><code>main.rs</code>: 服务启动入口，实际上是调用<code>app.rs</code>的<code>app_main</code>方法。</li>
+<li><code>app.rs</code>: 应用程序入口，由 <a target="_blank" rel="noopener" href="https://makepad.nl/">Makepad</a> 提供的 <code>app_main!</code> 宏提供服务，同时，使用 <code>live_design!</code> 来定义应用需要用到的相关<code>组件</code>以及<code>布局</code>。</li>
+<li><code>api.rs</code>: 定义聊天应用相关结构体，例如，<code>ChatEntry</code>、<code>MessagePreview</code>、<code>MessageDirection</code>、<code>MessageEntry</code>和<code>Db</code>等，以及 <code>mock</code> 相关应用使用到的数据和方法。</li>
+<li><code>contacts</code>: 定义联系人组件以及其相关布局</li>
+<li><code>discover</code>: 定义发现组件以及其相关布局</li>
+<li><code>home</code>: 定义首页（聊天列表）组件以及其相关布局</li>
+<li><code>profile</code>: 定义我的组件以及其相关布局</li>
+<li><code>shared</code>: 一些公共组件的定义，比如，header、搜索框、弹出菜单等等</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/robius/TheRobiusWechatDemoSource.png" alt="makepad_wechat源码目录"></p>
+<h3 id="项目依赖分析"><a href="#项目依赖分析" class="headerlink" title="项目依赖分析"></a>项目依赖分析</h3><p>从 <code>Cargo.toml</code> 文件分析，<code>Demo</code> 项目主要引入了 <code>makepad-widgets</code> 依赖。初步浏览了所有源代码，由于没有第三方服务相关调用，因此，暂不需要其他依赖。</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[dependencies]</span></span><br><span class="line"><span class="attr">makepad-widgets</span> = &#123; path = <span class="string">&quot;../makepad/widgets&quot;</span>, version = <span class="string">&quot;0.6.0&quot;</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="app-rs-框架分析"><a href="#app-rs-框架分析" class="headerlink" title="app.rs 框架分析"></a><code>app.rs</code> 框架分析</h3><p>关键源码框架解读如下：</p>
+<ul>
+<li><code>live_design!</code>宏: 定义了一个 <code>live_design</code> 函数，该函数将一个 <code>Live DSL</code> 代码块注册到 <code>live</code> 系统中。宏中的代码被序列化为一个字符串，稍后由 <code>live</code> 系统解析。新创建的 Rust 结构体的字段被初始化为对应默认值，<a target="_blank" rel="noopener" href="https://makepad.nl/">Makepad</a> 的 <code>live</code> 系统应用该结构的 <code>Live DSL</code> 定义，覆盖所有 <code>Live DSL</code> 有定义的字段。导入了相关的模块和主题，并且定义应用相关组件及布局。</li>
+<li><code>app_main!(App)</code>: 定义了所有支持平台（<code>Web</code>、<code>Android</code> 和<code>桌面</code>）的应用程序入口点。为了实现跨平台支持，代码必须是宏生成的，不能是一个简单的 <code>fn main()</code> 函数。</li>
+<li><code>struct App &#123; ... &#125;</code>: 使用 <code>derive(Live)</code> 过程宏来生成将 <code>live_design DSL</code> 反序列化为 <code>App</code> 结构体的粘合剂。在 <a target="_blank" rel="noopener" href="https://makepad.nl/">Makepad</a> 的术语中，这被称为将 <code>live DSL</code> 应用到 <code>Rust 结构体</code>，该示例包含了两个字段：一个 <code>WidgetRef</code> 类型的 <code>ui</code>，用于存储组件；一个 <code>HashMap</code> 类型的 <code>navigation_destinations</code>，用于存储导航目标。</li>
+<li><code>impl LiveHook for App &#123; ... &#125;</code>: 为 <code>App</code> 实现 <code>LiveHook</code> 特质，定义了 <code>before_live_design</code> 钩子函数，该函数在生命周期开始前执行，<code>App</code> 的 <code>LiveHook</code> 实现允许在连接到 <code>Live DSL</code> 的各种对象生命周期阶段时进行挂载。。</li>
+<li><code>impl AppMain for App &#123; ... &#125;</code>: <code>AppMain</code> 是为 <code>App</code> 实现的特质。它提供了从系统进入应用程序的唯一入口点：<code>fn handle_event</code>。该特质提供了鼠标、计时器和滑动事件，这些事件被传递到 <code>UI</code> 树中进行处理。该示例中，<code>Event::Draw</code> 事件是系统请求应用程序生成必要渲染结构的地方。</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">live_design! &#123;</span><br><span class="line">    import makepad_widgets::base::*;</span><br><span class="line">    import makepad_widgets::theme_desktop_dark::*;</span><br><span class="line"></span><br><span class="line">    ... ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">app_main!(App);</span><br><span class="line"></span><br><span class="line"><span class="meta">#[derive(Live)]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">struct</span> <span class="title class_">App</span> &#123;</span><br><span class="line">    <span class="meta">#[live]</span></span><br><span class="line">    ui: WidgetRef,</span><br><span class="line"></span><br><span class="line">    <span class="meta">#[rust]</span></span><br><span class="line">    navigation_destinations: HashMap&lt;StackViewAction, LiveId&gt;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">LiveHook</span> <span class="keyword">for</span> <span class="title class_">App</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">before_live_design</span>(cx: &amp;<span class="keyword">mut</span> Cx) &#123;</span><br><span class="line">        ... ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">AppMain</span> <span class="keyword">for</span> <span class="title class_">App</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">handle_event</span>(&amp;<span class="keyword">mut</span> <span class="keyword">self</span>, cx: &amp;<span class="keyword">mut</span> Cx, event: &amp;Event) &#123;</span><br><span class="line">        ... ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>由于 <a target="_blank" rel="noopener" href="https://makepad.nl/">Makepad</a> 文档较少，我们需要花费更多时间来分析其底层设计。</p>
+</blockquote>
+<blockquote>
+<p>以上就是关于 <code>Robius Demo</code> 中的 <code>Wechat</code> 应用源码剖析过程，希望对您有所帮助。祝大家玩得开心 ^_^</p>
+</blockquote>
+<blockquote>
+<p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
+</blockquote>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
+<!-- Links below -->
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechat.png" alt="King 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="King 支付宝">
+        <span>支付宝</span>
+      </div>
+      <div>
+        <img src="/images/metamask.png" alt="King 比特币">
+        <span>比特币</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/lispking">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Robius/" rel="tag"><i class="fa fa-tag"></i> Robius</a>
+              <a href="/tags/Rust/" rel="tag"><i class="fa fa-tag"></i> Rust</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/10/13/join-rust-robius-project/" rel="prev" title="Robius基础架构介绍">
+                  <i class="fa fa-angle-left"></i> Robius基础架构介绍
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/10/15/rust-robius-project-update/" rel="next" title="Robius：用 Rust 开发多平台应用">
+                  Robius：用 Rust 开发多平台应用 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+  
+  <script type="text/javascript">
+    // 可修改，摘要将显示在这个选择器选中的元素之上。
+    var _xhh_selector = ".post-body";
+    // 可修改，定制最外层 DIV 的风格。
+    // 默认限制宽度为 750px，上下加 8px 的镶边，4 像素圆角。
+    var _xhh_style = "max-width: 100%; margin:8px 0px; border-radius: 4px;";
+
+    // 以下部分不要改动
+    var host = '///xhh.club';
+    var _xhh_service_url = host + '/summarize-this/';
+    (function() {
+      var smmr = document.createElement("script");
+      smmr.src = host + "/static/js/summarize_this.js";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(smmr, s);
+    })();
+  </script>
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">King</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">37k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">34 分钟</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lispking" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.3.0/mermaid.min.js","integrity":"sha256-9y71g5Lz/KLsHjB8uXwnkuWDtAMDSzD/HdIbqhJfTAI="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","mhchem":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"lispking","repo":"lispking.github.io","client_id":"909b979ee5805cfc60f7","client_secret":"7a5f88e85afc02681b49d44afe4aa9a7a68f4b21","admin_user":"lispking","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"66dbe321e118221af348a4c64e4c3a4d"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
