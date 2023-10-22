@@ -1189,9 +1189,9 @@
       </tags>
   </entry>
   <entry>
-    <title>解刨 Robius Demo 之 Wechat 应用</title>
+    <title>解剖 Robius Demo 之 Wechat 应用</title>
     <url>/2023/10/22/rust-robius-wechat-demo/</url>
-    <content><![CDATA[<h2 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h2><p>在<a href="https://lispking.github.io/2023/10/15/rust-robius-project-update/">Robius：用 Rust 开发多平台应用</a>一文介绍了 Robius 的愿景和未来的一些规划，Robius 是一个完全开源的、去中心化的、由社区驱动的项目，旨在让 Rust 成为多平台应用开发的理想选择，本章节，我们一起来解刨 Robius 里的 <code>Wechat</code> 应用 Demo。</p>
+    <content><![CDATA[<h2 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h2><p>在<a href="https://lispking.github.io/2023/10/15/rust-robius-project-update/">Robius：用 Rust 开发多平台应用</a>一文介绍了 Robius 的愿景和未来的一些规划，Robius 是一个完全开源的、去中心化的、由社区驱动的项目，旨在让 Rust 成为多平台应用开发的理想选择，本章节，我们一起来解剖 Robius 里的 <code>Wechat</code> 应用 Demo。</p>
 <h2 id="Makepad-项目介绍"><a href="#Makepad-项目介绍" class="headerlink" title="Makepad 项目介绍"></a>Makepad 项目介绍</h2><p>在开始解剖 <code>Wechat</code> 项目之前，我们先来学习一下所使用的 <a href="https://makepad.nl/">Makepad</a> 项目的基本知识。</p>
 <ul>
 <li><a href="https://makepad.nl/">Makepad</a> 包括 Makepad Framework 和 Makepad Studio。  </li>
@@ -1224,7 +1224,7 @@
 <li><code>cargo</code> 安装：<code>cargo install cargo-makepad</code> (推荐用该方法，省心)</li>
 </ul>
 </li>
-<li><code>cargo-makepad</code>工具安装成功后，可根据所需平台安装工具链，相关命令如下：  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cargo makepad wasm install-toolchain</span><br><span class="line">cargo makepad ios install-toolchain</span><br><span class="line">cargo makepad android --abi=all install-toolchain</span><br></pre></td></tr></table></figure></li>
+<li><code>cargo-makepad</code>工具安装成功后，可根据平台所需安装相应的工具链，具体命令如下：  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cargo makepad wasm install-toolchain</span><br><span class="line">cargo makepad ios install-toolchain</span><br><span class="line">cargo makepad android --abi=all install-toolchain</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="在-iOS-安装-makepad-wechat-应用"><a href="#在-iOS-安装-makepad-wechat-应用" class="headerlink" title="在 iOS 安装 makepad_wechat 应用"></a>在 <code>iOS</code> 安装 <a href="https://github.com/project-robius/makepad_wechat"><code>makepad_wechat</code></a> 应用</h3><blockquote>
 <p>鉴于 <code>iOS</code> 模拟器的安装过程相对较为复杂，本章节将仅针对 <code>iOS</code> 模拟器的安装进行讲解。而 <code>Android</code> 的安装过程类似，因此不再赘述。</p>
@@ -1238,7 +1238,7 @@
 <li>请启用您的 <code>iPhone</code> 的开发者模式，具体操作步骤，请参考<a href="https://www.delasign.com/blog/how-to-turn-on-developer-mode-on-an-iphone/">这里</a></li>
 <li>创建一个 <code>Apple 开发者账户</code>  </li>
 <li>在 XCode 中创建一个空白的骨架项目  <ul>
-<li>文件 -&gt; 新建 -&gt; 项目以创建一个新 “App”  </li>
+<li>文件 -&gt; 新建 -&gt; 项目: 创建一个新 “App”  </li>
 <li>将产品名称设置为 <code>WeChat</code>（后面 –org 参数中使用）  </li>
 <li>将组织标识符设置为您选择的任何值，例如，本示例将使用 <code>rs.robius</code>（后面 –app 参数中使用）  </li>
 <li>设置项目签名和功能，选择正确的团队账户</li>
@@ -1256,11 +1256,12 @@
 
 <p>  其中，<code>--org-id</code>：这是位于 <code>~/Library/MobileDevice/Provisioning Profiles</code> 目录中的 <code>**.mobileprovision</code> 文件中的 ApplicationIdentifierPrefix <key> 的 <string> 值。它应该是一个 10 位数的字母数字值。</p>
 </li>
-<li><p>在 <code>iOS</code> 模拟器安装成功，运行效果图如下所示</p>
+<li><p>以下是在 <code>iOS</code> 模拟器安装成功运行效果图</p>
 <p>  <img src="/images/robius/TheRobiusWechatDemo.png" alt="iOS模块器效果"></p>
 </li>
 </ul>
-<h2 id="makepad-wechat-应用源码解读"><a href="#makepad-wechat-应用源码解读" class="headerlink" title="makepad_wechat 应用源码解读"></a><a href="https://github.com/project-robius/makepad_wechat"><code>makepad_wechat</code></a> 应用源码解读</h2><h3 id="目录结构分析"><a href="#目录结构分析" class="headerlink" title="目录结构分析"></a>目录结构分析</h3><p><code>Demo</code> 源码目录整体较为简洁，具体解析如下：</p>
+<h2 id="makepad-wechat-应用源码解读"><a href="#makepad-wechat-应用源码解读" class="headerlink" title="makepad_wechat 应用源码解读"></a><a href="https://github.com/project-robius/makepad_wechat"><code>makepad_wechat</code></a> 应用源码解读</h2><h3 id="源码结构分析"><a href="#源码结构分析" class="headerlink" title="源码结构分析"></a>源码结构分析</h3><p><img src="/images/robius/TheRobiusWechatDemoSource.png" alt="makepad_wechat源码目录"></p>
+<p><code>Demo</code> 源码目录整体较为简洁，具体解析如下：</p>
 <ul>
 <li><code>resources</code>：资源目录，主要存放字体、图标、图片等。</li>
 <li><code>src</code>: 源码目录，主要包含程序启动、模块定义以及数据交互等<ul>
@@ -1275,7 +1276,6 @@
 </ul>
 </li>
 </ul>
-<p><img src="/images/robius/TheRobiusWechatDemoSource.png" alt="makepad_wechat源码目录"></p>
 <h3 id="项目依赖分析"><a href="#项目依赖分析" class="headerlink" title="项目依赖分析"></a>项目依赖分析</h3><p>从 <code>Cargo.toml</code> 文件分析，<code>Demo</code> 项目主要引入了 <code>makepad-widgets</code> 依赖。初步浏览了所有源代码，由于没有第三方服务相关调用，因此，暂不需要其他依赖。</p>
 <figure class="highlight toml"><table><tr><td class="code"><pre><span class="line"><span class="section">[dependencies]</span></span><br><span class="line"><span class="attr">makepad-widgets</span> = &#123; path = <span class="string">&quot;../makepad/widgets&quot;</span>, version = <span class="string">&quot;0.6.0&quot;</span> &#125;</span><br></pre></td></tr></table></figure>
 

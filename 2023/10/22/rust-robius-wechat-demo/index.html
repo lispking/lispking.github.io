@@ -21,7 +21,7 @@
 
     <meta name="description" content="在本篇文章中，我们将对 Robius Demo 中的 Wechat 应用进行解剖。通过对这个示例应用的深入分析，你将能够更好地理解其内部工作原理和实现细节。通过阅读这篇文章，你将能够掌握如何在 Robius Demo 中构建和实现 Wechat 应用，以及如何利用其提供的工具和组件来创建具有相似功能和性能的实际应用程序。让我们开始吧！">
 <meta property="og:type" content="article">
-<meta property="og:title" content="解刨 Robius Demo 之 Wechat 应用">
+<meta property="og:title" content="解剖 Robius Demo 之 Wechat 应用">
 <meta property="og:url" content="http://lispking.github.io/2023/10/22/rust-robius-wechat-demo/index.html">
 <meta property="og:site_name" content="Dive In Web3">
 <meta property="og:description" content="在本篇文章中，我们将对 Robius Demo 中的 Wechat 应用进行解剖。通过对这个示例应用的深入分析，你将能够更好地理解其内部工作原理和实现细节。通过阅读这篇文章，你将能够掌握如何在 Robius Demo 中构建和实现 Wechat 应用，以及如何利用其提供的工具和组件来创建具有相似功能和性能的实际应用程序。让我们开始吧！">
@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://lispking.github.io/images/robius/TheRobiusWechatDemoSource.png">
 <meta property="og:image" content="http://lispking.github.io/images/wechat-blog.png">
 <meta property="article:published_time" content="2023-10-22T12:00:33.000Z">
-<meta property="article:modified_time" content="2023-10-22T12:48:47.689Z">
+<meta property="article:modified_time" content="2023-10-22T13:37:44.329Z">
 <meta property="article:author" content="King">
 <meta property="article:tag" content="Robius">
 <meta property="article:tag" content="Rust">
@@ -42,10 +42,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://lispking.github.io/2023/10/22/rust-robius-wechat-demo/","path":"2023/10/22/rust-robius-wechat-demo/","title":"解刨 Robius Demo 之 Wechat 应用"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://lispking.github.io/2023/10/22/rust-robius-wechat-demo/","path":"2023/10/22/rust-robius-wechat-demo/","title":"解剖 Robius Demo 之 Wechat 应用"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>解刨 Robius Demo 之 Wechat 应用 | Dive In Web3</title>
+<title>解剖 Robius Demo 之 Wechat 应用 | Dive In Web3</title>
   
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6255376809208012" crossorigin="anonymous"></script>
 
@@ -154,7 +154,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%B8%80%E8%8A%82%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.</span> <span class="nav-text">上一节回顾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Makepad-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">Makepad 项目介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#makepad-widgets%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.1.</span> <span class="nav-text">makepad-widgets介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#makepad-studio%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.2.</span> <span class="nav-text">makepad-studio介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">3.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Makepad"><span class="nav-number">3.1.</span> <span class="nav-text">安装 Makepad</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-iOS-%E5%AE%89%E8%A3%85-makepad-wechat-%E5%BA%94%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">在 iOS 安装 makepad_wechat 应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#makepad-wechat-%E5%BA%94%E7%94%A8%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB"><span class="nav-number">4.</span> <span class="nav-text">makepad_wechat 应用源码解读</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90"><span class="nav-number">4.1.</span> <span class="nav-text">目录结构分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96%E5%88%86%E6%9E%90"><span class="nav-number">4.2.</span> <span class="nav-text">项目依赖分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#app-rs-%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90"><span class="nav-number">4.3.</span> <span class="nav-text">app.rs 框架分析</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%B8%80%E8%8A%82%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.</span> <span class="nav-text">上一节回顾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Makepad-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">Makepad 项目介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#makepad-widgets%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.1.</span> <span class="nav-text">makepad-widgets介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#makepad-studio%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.2.</span> <span class="nav-text">makepad-studio介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">3.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Makepad"><span class="nav-number">3.1.</span> <span class="nav-text">安装 Makepad</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-iOS-%E5%AE%89%E8%A3%85-makepad-wechat-%E5%BA%94%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">在 iOS 安装 makepad_wechat 应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#makepad-wechat-%E5%BA%94%E7%94%A8%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB"><span class="nav-number">4.</span> <span class="nav-text">makepad_wechat 应用源码解读</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90"><span class="nav-number">4.1.</span> <span class="nav-text">源码结构分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96%E5%88%86%E6%9E%90"><span class="nav-number">4.2.</span> <span class="nav-text">项目依赖分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#app-rs-%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90"><span class="nav-number">4.3.</span> <span class="nav-text">app.rs 框架分析</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -265,12 +265,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="解刨 Robius Demo 之 Wechat 应用 | Dive In Web3">
+      <meta itemprop="name" content="解剖 Robius Demo 之 Wechat 应用 | Dive In Web3">
       <meta itemprop="description" content="在本篇文章中，我们将对 Robius Demo 中的 Wechat 应用进行解剖。通过对这个示例应用的深入分析，你将能够更好地理解其内部工作原理和实现细节。通过阅读这篇文章，你将能够掌握如何在 Robius Demo 中构建和实现 Wechat 应用，以及如何利用其提供的工具和组件来创建具有相似功能和性能的实际应用程序。让我们开始吧！">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          解刨 Robius Demo 之 Wechat 应用
+          解剖 Robius Demo 之 Wechat 应用
         </h1>
 
         <div class="post-meta-container">
@@ -282,7 +282,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-10-22 20:00:33 / 修改时间：20:48:47" itemprop="dateCreated datePublished" datetime="2023-10-22T20:00:33+08:00">2023-10-22</time>
+      <time title="创建时间：2023-10-22 20:00:33 / 修改时间：21:37:44" itemprop="dateCreated datePublished" datetime="2023-10-22T20:00:33+08:00">2023-10-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -301,7 +301,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>5.1k</span>
+      <span>5.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -319,7 +319,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h2><p>在<a href="https://lispking.github.io/2023/10/15/rust-robius-project-update/">Robius：用 Rust 开发多平台应用</a>一文介绍了 Robius 的愿景和未来的一些规划，Robius 是一个完全开源的、去中心化的、由社区驱动的项目，旨在让 Rust 成为多平台应用开发的理想选择，本章节，我们一起来解刨 Robius 里的 <code>Wechat</code> 应用 Demo。</p>
+    <div class="post-body" itemprop="articleBody"><h2 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h2><p>在<a href="https://lispking.github.io/2023/10/15/rust-robius-project-update/">Robius：用 Rust 开发多平台应用</a>一文介绍了 Robius 的愿景和未来的一些规划，Robius 是一个完全开源的、去中心化的、由社区驱动的项目，旨在让 Rust 成为多平台应用开发的理想选择，本章节，我们一起来解剖 Robius 里的 <code>Wechat</code> 应用 Demo。</p>
 <h2 id="Makepad-项目介绍"><a href="#Makepad-项目介绍" class="headerlink" title="Makepad 项目介绍"></a>Makepad 项目介绍</h2><p>在开始解剖 <code>Wechat</code> 项目之前，我们先来学习一下所使用的 <a target="_blank" rel="noopener" href="https://makepad.nl/">Makepad</a> 项目的基本知识。</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://makepad.nl/">Makepad</a> 包括 Makepad Framework 和 Makepad Studio。  </li>
@@ -352,7 +352,7 @@
 <li><code>cargo</code> 安装：<code>cargo install cargo-makepad</code> (推荐用该方法，省心)</li>
 </ul>
 </li>
-<li><code>cargo-makepad</code>工具安装成功后，可根据所需平台安装工具链，相关命令如下：  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cargo makepad wasm install-toolchain</span><br><span class="line">cargo makepad ios install-toolchain</span><br><span class="line">cargo makepad android --abi=all install-toolchain</span><br></pre></td></tr></table></figure></li>
+<li><code>cargo-makepad</code>工具安装成功后，可根据平台所需安装相应的工具链，具体命令如下：  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cargo makepad wasm install-toolchain</span><br><span class="line">cargo makepad ios install-toolchain</span><br><span class="line">cargo makepad android --abi=all install-toolchain</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="在-iOS-安装-makepad-wechat-应用"><a href="#在-iOS-安装-makepad-wechat-应用" class="headerlink" title="在 iOS 安装 makepad_wechat 应用"></a>在 <code>iOS</code> 安装 <a target="_blank" rel="noopener" href="https://github.com/project-robius/makepad_wechat"><code>makepad_wechat</code></a> 应用</h3><blockquote>
 <p>鉴于 <code>iOS</code> 模拟器的安装过程相对较为复杂，本章节将仅针对 <code>iOS</code> 模拟器的安装进行讲解。而 <code>Android</code> 的安装过程类似，因此不再赘述。</p>
@@ -366,7 +366,7 @@
 <li>请启用您的 <code>iPhone</code> 的开发者模式，具体操作步骤，请参考<a target="_blank" rel="noopener" href="https://www.delasign.com/blog/how-to-turn-on-developer-mode-on-an-iphone/">这里</a></li>
 <li>创建一个 <code>Apple 开发者账户</code>  </li>
 <li>在 XCode 中创建一个空白的骨架项目  <ul>
-<li>文件 -&gt; 新建 -&gt; 项目以创建一个新 “App”  </li>
+<li>文件 -&gt; 新建 -&gt; 项目: 创建一个新 “App”  </li>
 <li>将产品名称设置为 <code>WeChat</code>（后面 –org 参数中使用）  </li>
 <li>将组织标识符设置为您选择的任何值，例如，本示例将使用 <code>rs.robius</code>（后面 –app 参数中使用）  </li>
 <li>设置项目签名和功能，选择正确的团队账户</li>
@@ -384,11 +384,12 @@
 
 <p>  其中，<code>--org-id</code>：这是位于 <code>~/Library/MobileDevice/Provisioning Profiles</code> 目录中的 <code>**.mobileprovision</code> 文件中的 ApplicationIdentifierPrefix <key> 的 <string> 值。它应该是一个 10 位数的字母数字值。</p>
 </li>
-<li><p>在 <code>iOS</code> 模拟器安装成功，运行效果图如下所示</p>
+<li><p>以下是在 <code>iOS</code> 模拟器安装成功运行效果图</p>
 <p>  <img src="/images/robius/TheRobiusWechatDemo.png" alt="iOS模块器效果"></p>
 </li>
 </ul>
-<h2 id="makepad-wechat-应用源码解读"><a href="#makepad-wechat-应用源码解读" class="headerlink" title="makepad_wechat 应用源码解读"></a><a target="_blank" rel="noopener" href="https://github.com/project-robius/makepad_wechat"><code>makepad_wechat</code></a> 应用源码解读</h2><h3 id="目录结构分析"><a href="#目录结构分析" class="headerlink" title="目录结构分析"></a>目录结构分析</h3><p><code>Demo</code> 源码目录整体较为简洁，具体解析如下：</p>
+<h2 id="makepad-wechat-应用源码解读"><a href="#makepad-wechat-应用源码解读" class="headerlink" title="makepad_wechat 应用源码解读"></a><a target="_blank" rel="noopener" href="https://github.com/project-robius/makepad_wechat"><code>makepad_wechat</code></a> 应用源码解读</h2><h3 id="源码结构分析"><a href="#源码结构分析" class="headerlink" title="源码结构分析"></a>源码结构分析</h3><p><img src="/images/robius/TheRobiusWechatDemoSource.png" alt="makepad_wechat源码目录"></p>
+<p><code>Demo</code> 源码目录整体较为简洁，具体解析如下：</p>
 <ul>
 <li><code>resources</code>：资源目录，主要存放字体、图标、图片等。</li>
 <li><code>src</code>: 源码目录，主要包含程序启动、模块定义以及数据交互等<ul>
@@ -403,7 +404,6 @@
 </ul>
 </li>
 </ul>
-<p><img src="/images/robius/TheRobiusWechatDemoSource.png" alt="makepad_wechat源码目录"></p>
 <h3 id="项目依赖分析"><a href="#项目依赖分析" class="headerlink" title="项目依赖分析"></a>项目依赖分析</h3><p>从 <code>Cargo.toml</code> 文件分析，<code>Demo</code> 项目主要引入了 <code>makepad-widgets</code> 依赖。初步浏览了所有源代码，由于没有第三方服务相关调用，因此，暂不需要其他依赖。</p>
 <figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[dependencies]</span></span><br><span class="line"><span class="attr">makepad-widgets</span> = &#123; path = <span class="string">&quot;../makepad/widgets&quot;</span>, version = <span class="string">&quot;0.6.0&quot;</span> &#125;</span><br></pre></td></tr></table></figure>
 
