@@ -1310,4 +1310,86 @@
         <tag>Rust</tag>
       </tags>
   </entry>
+  <entry>
+    <title>RISC-V：跟着清华训练营从零打造OS之第一课</title>
+    <url>/2023/10/24/risc-v-learning-ch1/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天是 1024 程序员节，祝所有程序员节日快乐！你们用智慧和勤奋创造了世界上最复杂、最神奇、最优秀的软件和系统，让我们享受到了科技的便捷和乐趣。感谢你们一直以来的努力和付出，希望你们继续前行，不断创新，让我们的世界更加美好！</p>
+<p>大家是否还记得我之前提到过想要用 <code>Rust</code> 编写操作系统的感言？事实上，最近我一直在忙碌地参加<a href="https://os2edu.cn/">清华开源操作系统训练营</a>的学习。昨天是课程的第一课，我学到了很多新的知识。现在，我想和大家分享一下第一节课的内容。</p>
+<p>既然要编写操作系统，首先，需要准备好开发环境。这听起来很基础，但这是非常重要的一步。然后，我们开始了熟悉的 <code>Hello World</code> 示例。这个示例可以帮助我们熟悉操作系统的最基本概念，例如进程管理、内存管理和文件系统等。</p>
+<p>总的来说，这节课让我学到了很多有用的知识，并且让我更加坚定了编写操作系统的决心。我会继续努力学习，并和大家分享我的进展。</p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h3 id="基础环境信息"><a href="#基础环境信息" class="headerlink" title="基础环境信息"></a>基础环境信息</h3><ul>
+<li>CPU: <code>Apple M1</code></li>
+<li>宿主机OS：<code>macOS Sonoma 14.0</code></li>
+<li>虚拟机：使用 <a href="https://orbstack.dev/">OrbStack</a> 安装 <code>ubuntu 23.04</code>，选用 <a href="https://orbstack.dev/">OrbStack</a> 理由看<a href="https://docs.orbstack.dev/">这里</a></li>
+</ul>
+<h3 id="Ubuntu-环境准备"><a href="#Ubuntu-环境准备" class="headerlink" title="Ubuntu 环境准备"></a>Ubuntu 环境准备</h3><ul>
+<li><p>准备 <code>Rust</code> 环境</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static</span><br><span class="line">export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup</span><br><span class="line">curl https://sh.rustup.rs -sSf | sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装 <code>rustc</code> 的 <code>nightly</code> 版本</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rustup install nightly</span><br><span class="line">rustup default nightly</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改 <code>cargo</code> 所用的软件包镜像地址</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt; ~/.cargo/config</span><br><span class="line">[source.crates-io]</span><br><span class="line">registry = &quot;https://github.com/rust-lang/crates.io-index&quot;</span><br><span class="line">replace-with = &#x27;ustc&#x27;</span><br><span class="line">[source.ustc]</span><br><span class="line">registry = &quot;git://mirrors.ustc.edu.cn/crates.io-index&quot;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装 <code>Rust</code> 相关的软件包</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rustup target add riscv64gc-unknown-none-elf</span><br><span class="line">cargo install cargo-binutils</span><br><span class="line">rustup component add llvm-tools-preview</span><br><span class="line">rustup component add rust-src</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改 <code>ubuntu</code> 源</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</span><br><span class="line">sudo sed -i &#x27;s/ports.ubuntu.com/mirrors.ustc.edu.cn/&#x27; /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装 <code>Qemu</code> 环境</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装编译所需的依赖包</span></span><br><span class="line">sudo apt install autoconf automake autotools-dev curl libmpc-dev libmpfr-dev libgmp-dev \</span><br><span class="line">    gawk build-essential bison flex texinfo gperf libtool patchutils bc \</span><br><span class="line">    zlib1g-dev libexpat-dev pkg-config  libglib2.0-dev libpixman-1-dev libsdl2-dev \</span><br><span class="line">    git tmux python3 python3-pip ninja-build</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载源码包</span></span><br><span class="line">cd $home</span><br><span class="line">wget https://download.qemu.org/qemu-7.0.0.tar.xz</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">解压</span></span><br><span class="line">tar xJf qemu-7.0.0.tar.xz</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">编译安装并配置 RISC-V 支持</span></span><br><span class="line">cd qemu-7.0.0</span><br><span class="line">./configure --target-list=riscv64-softmmu,riscv64-linux-user  # 如果要支持图形界面，可添加 &quot; --enable-sdl&quot; 参数</span><br><span class="line">make -j$(nproc)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置 <code>Qemu</code> 环境变量，可将以下命令写入在 <code>.bashrc</code> 文件中</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export QEMU_PATH=&quot;$home/qemu-7.0.0&quot;</span><br><span class="line">export PATH=&quot;$QEMU_PATH/build:$PATH&quot;</span><br><span class="line">export PATH=&quot;$QEMU_PATH/build/riscv64-softmmu:$PATH&quot;</span><br><span class="line">export PATH=&quot;$QEMU_PATH/build/riscv64-linux-user:$PATH&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>验证 <code>Qemu</code> 和 <code>Rust</code> 版本</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">qemu-system-riscv64 --version</span></span><br><span class="line">QEMU emulator version 7.0.0</span><br><span class="line">Copyright (c) 2003-2022 Fabrice Bellard and the QEMU Project developers</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">qemu-riscv64 --version</span></span><br><span class="line">qemu-riscv64 version 7.0.0</span><br><span class="line">Copyright (c) 2003-2022 Fabrice Bellard and the QEMU Project developers</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">rustc -Vv</span></span><br><span class="line">rustc 1.75.0-nightly (1c05d50c8 2023-10-21)</span><br><span class="line">binary: rustc</span><br><span class="line">commit-hash: 1c05d50c8403c56d9a8b6fb871f15aaa26fb5d07</span><br><span class="line">commit-date: 2023-10-21</span><br><span class="line">host: aarch64-unknown-linux-gnu</span><br><span class="line">release: 1.75.0-nightly</span><br><span class="line">LLVM version: 17.0.3</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="理解App执行环境"><a href="#理解App执行环境" class="headerlink" title="理解App执行环境"></a>理解App执行环境</h2><h3 id="三叶虫LibOS总体结构"><a href="#三叶虫LibOS总体结构" class="headerlink" title="三叶虫LibOS总体结构"></a>三叶虫LibOS总体结构</h3><p>通过下图，大致可以看出Qemu把包含app和三叶虫LibOS的image镜像加载到内存中，RustSBI（bootloader）完成基本的硬件初始化后，跳转到三叶虫LibOS起始位置，三叶虫LibOS首先进行app执行前的初始化工作，即建立栈空间和清零bss段，然后跳转到app去执行。app在执行过程中，会通过函数调用的方式得到三叶虫LibOS提供的OS服务，如输出字符串等，避免了app与硬件直接交互的繁琐过程。</p>
+<p><img src="/images/risc-v/LibOS-arch.png" alt="LibOS-arch"></p>
+<blockquote>
+<p>注: 图中的<code>S-Mode</code>和<code>M-Mode</code>是<code>RISC-V</code> 处理器架构中的两种特权级别。<code>S-Mode</code> 指的是 <code>Supervisor</code> 模式，是操作系统使用的特权级别，可执行特权指令等。<code>M-Mode</code>是 <code>Machine</code>模式，其特权级别比<code>S-Mode</code>还高，可以访问<code>RISC-V</code>处理器中的所有系统资源。</p>
+</blockquote>
+<h3 id="App执行环境栈介绍"><a href="#App执行环境栈介绍" class="headerlink" title="App执行环境栈介绍"></a>App执行环境栈介绍</h3><blockquote>
+<p>在现代通用操作系统（如 Linux）上运行应用程序，需要多层次的执行环境栈支持，图中的白色块自上而下表示各级执行环境，黑色块则表示相邻两层执行环境之间的接口。下层作为上层的执行环境，支持上层代码运行。</p>
+</blockquote>
+<p><img src="/images/risc-v/os-env-stack.png" alt="OS环境栈"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">计算机科学中遇到的所有问题都可通过增加一层抽象来解决。</span><br><span class="line">All problems in computer science can be solved by another level of indirection。</span><br><span class="line">—— 计算机科学家 David Wheeler</span><br></pre></td></tr></table></figure>
+
+<h3 id="编译器工作流程介绍"><a href="#编译器工作流程介绍" class="headerlink" title="编译器工作流程介绍"></a>编译器工作流程介绍</h3><blockquote>
+<p>现代编译器工具集（以C或Rust编译器为例）的主要工作流程如下：</p>
+</blockquote>
+<ul>
+<li>源代码（source code） –&gt; 预处理器（preprocessor） –&gt; 宏展开的源代码</li>
+<li>宏展开的源代码 –&gt; 编译器（compiler） –&gt; 汇编程序</li>
+<li>汇编程序 –&gt; 汇编器（assembler）–&gt; 目标代码（object code）</li>
+<li>目标代码 –&gt; 链接器（linker） –&gt; 可执行文件（executables）</li>
+</ul>
+<h2 id="Hello-World之路"><a href="#Hello-World之路" class="headerlink" title="Hello World之路"></a>Hello World之路</h2><blockquote>
+<p>按照 <a href="https://learningos.cn/rCore-Tutorial-Guide-2023A/chapter1/0intro.html">第一章：应用程序与基本执行环境</a> 教程步骤，一步一步编写<code>Hello World</code>时，可能会遇到以下问题：</p>
+</blockquote>
+<ul>
+<li>执行<code>make run</code>命令后，可能没有任何响应。这可能是由于 <a href="https://github.com/rustsbi/rustsbi-qemu/releases"><code>rustsbi-qemu</code></a> <code>bootloader</code>包需要更新。在本文撰写时，建议使用最新<code>Prereleased 2023-03-06</code>版本。</li>
+<li>完成教程中所有代码后，可能会发现持续打印出 <code>It should shutdown!</code> 信息，并出现各种乱码。这主要是因为<code>sbi 标准</code>已经更改，原代码不再适用。我们已经在 <a href="ch1/os/src/sbi.rs">这里</a> 提供了新版本的代码，并将相关代码上传到了 <a href="ch1/os/">ch1 目录</a>。执行<code>make run</code>后，若看到特定的效果，那就代表环境准备完成了。</li>
+</ul>
+<p><img src="/images/risc-v/hello-world.png" alt="Hello World运行效果图"></p>
+<h2 id="未完待续-…-…"><a href="#未完待续-…-…" class="headerlink" title="未完待续 … …"></a>未完待续 … …</h2><blockquote>
+<p>以上就是关于 <a href="https://os2edu.cn/">清华开源操作系统训练营</a> 第一课学到的知识，希望对您有所帮助。祝大家玩得开心 ^_^</p>
+</blockquote>
+<blockquote>
+<p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
+</blockquote>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
+<!-- 参考资料 -->
+]]></content>
+      <categories>
+        <category>RISC-V</category>
+      </categories>
+      <tags>
+        <tag>Rust</tag>
+        <tag>RISC-V</tag>
+      </tags>
+  </entry>
 </search>
