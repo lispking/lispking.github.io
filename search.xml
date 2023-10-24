@@ -1371,8 +1371,8 @@
 <p>按照 <a href="https://learningos.cn/rCore-Tutorial-Guide-2023A/chapter1/0intro.html">第一章：应用程序与基本执行环境</a> 教程步骤，一步一步编写<code>Hello World</code>时，可能会遇到以下问题：</p>
 </blockquote>
 <ul>
-<li>执行<code>make run</code>命令后，可能没有任何响应。这可能是由于 <a href="https://github.com/rustsbi/rustsbi-qemu/releases"><code>rustsbi-qemu</code></a> <code>bootloader</code>包需要更新。在本文撰写时，建议使用最新<code>Prereleased 2023-03-06</code>版本。</li>
-<li>完成教程中所有代码后，可能会发现持续打印出 <code>It should shutdown!</code> 信息，并出现各种乱码。这主要是因为<code>sbi 标准</code>已经更改，原代码不再适用。我们已经在 <a href="ch1/os/src/sbi.rs">这里</a> 提供了新版本的代码，并将相关代码上传到了 <a href="ch1/os/">ch1 目录</a>。执行<code>make run</code>后，若看到特定的效果，那就代表环境准备完成了。</li>
+<li>执行<code>make run</code>命令后，可能没有任何响应。这可能是由于 <a href="https://github.com/rustsbi/rustsbi-qemu/releases"><code>rustsbi-qemu</code></a> <code>bootloader</code>包需要更新。在本文撰写时，建议使用最新<a href="https://gitee.com/lispking/rCore-Tutorial-v3/blob/master/bootloader/rustsbi-qemu.bin"><code>Prereleased 2023-03-06</code>版本</a>。</li>
+<li>完成教程中所有代码后，可能会发现持续打印出 <code>It should shutdown!</code> 信息，并出现各种乱码。这主要是因为<code>sbi 标准</code>已经更改，原代码不再适用。我们已经在 <a href="https://gitee.com/lispking/rCore-Tutorial-v3/blob/master/ch1/os/src/sbi.rs">这里</a> 提供了新版本的代码，并将相关代码上传到了 <a href="https://gitee.com/lispking/rCore-Tutorial-v3/tree/master/ch1/os">ch1 目录</a>。执行<code>make run</code>后，若看到特定的效果，那就代表环境准备完成了。</li>
 </ul>
 <p><img src="/images/risc-v/hello-world.png" alt="Hello World运行效果图"></p>
 <h2 id="未完待续-…-…"><a href="#未完待续-…-…" class="headerlink" title="未完待续 … …"></a>未完待续 … …</h2><blockquote>
