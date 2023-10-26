@@ -1,5 +1,5 @@
 ---
-title: RISC-V：跟着清华训练营从零打造OS之第一课
+title: RISC-V：跟着清华训练营从零打造OS【第一课】
 date: 2023-10-24 11:16:37
 categories: RISC-V
 tags: [RISC-V,Rust]
