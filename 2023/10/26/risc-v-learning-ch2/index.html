@@ -19,31 +19,36 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"lispking.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="本文讲解了Collateral模块的细节，前文已经介绍了Core模块中的Vat和Spot合约。Vat是dss的核心Vault引擎，存储Vault和跟踪相关的Dai和抵押品余额，定义了Vault和余额的操作规则；Spot是连接预言机和核心合约的现货接口，只存储当前的ilk列表。">
+    <meta name="description" content="在[RISC-V：跟着清华训练营从零打造OS【第一课】]中，我们学习了三叶虫LibOS总体结构以及相关环境的配置，本节课将主要探讨批处理系统的设计以及多道程序与分时任务设计，这两章节内容颇具启发性和趣味性，相信会引发大家的浓厚兴趣。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="解读 DAI 架构流程图 —— Collateral模块">
-<meta property="og:url" content="http://lispking.github.io/2023/10/11/dai-collateral-module/index.html">
+<meta property="og:title" content="RISC-V：跟着清华训练营从零打造OS【第二课】">
+<meta property="og:url" content="http://lispking.github.io/2023/10/26/risc-v-learning-ch2/index.html">
 <meta property="og:site_name" content="Dive In Web3">
-<meta property="og:description" content="本文讲解了Collateral模块的细节，前文已经介绍了Core模块中的Vat和Spot合约。Vat是dss的核心Vault引擎，存储Vault和跟踪相关的Dai和抵押品余额，定义了Vault和余额的操作规则；Spot是连接预言机和核心合约的现货接口，只存储当前的ilk列表。">
+<meta property="og:description" content="在[RISC-V：跟着清华训练营从零打造OS【第一课】]中，我们学习了三叶虫LibOS总体结构以及相关环境的配置，本节课将主要探讨批处理系统的设计以及多道程序与分时任务设计，这两章节内容颇具启发性和趣味性，相信会引发大家的浓厚兴趣。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://lispking.github.io/images/makedao/TheMakerJoin.png">
-<meta property="article:published_time" content="2023-10-11T06:30:52.000Z">
+<meta property="og:image" content="http://lispking.github.io/images/risc-v/LibOS-arch.png">
+<meta property="og:image" content="http://lispking.github.io/images/risc-v/BatchOS-arch.png">
+<meta property="og:image" content="http://lispking.github.io/images/risc-v/execute-env.png">
+<meta property="og:image" content="http://lispking.github.io/images/risc-v/OS-M-Mode.png">
+<meta property="og:image" content="http://lispking.github.io/images/risc-v/TimesharingOS.png">
+<meta property="og:image" content="http://lispking.github.io/images/wechat-blog.png">
+<meta property="article:published_time" content="2023-10-26T02:26:38.000Z">
 <meta property="article:modified_time" content="2023-10-26T08:02:00.072Z">
 <meta property="article:author" content="King">
-<meta property="article:tag" content="MakerDAO">
-<meta property="article:tag" content="DAI">
+<meta property="article:tag" content="Rust">
+<meta property="article:tag" content="RISC-V">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://lispking.github.io/images/makedao/TheMakerJoin.png">
+<meta name="twitter:image" content="http://lispking.github.io/images/risc-v/LibOS-arch.png">
 
 
-<link rel="canonical" href="http://lispking.github.io/2023/10/11/dai-collateral-module/">
+<link rel="canonical" href="http://lispking.github.io/2023/10/26/risc-v-learning-ch2/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://lispking.github.io/2023/10/11/dai-collateral-module/","path":"2023/10/11/dai-collateral-module/","title":"解读 DAI 架构流程图 —— Collateral模块"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://lispking.github.io/2023/10/26/risc-v-learning-ch2/","path":"2023/10/26/risc-v-learning-ch2/","title":"RISC-V：跟着清华训练营从零打造OS【第二课】"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>解读 DAI 架构流程图 —— Collateral模块 | Dive In Web3</title>
+<title>RISC-V：跟着清华训练营从零打造OS【第二课】 | Dive In Web3</title>
   
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6255376809208012" crossorigin="anonymous"></script>
 
@@ -152,7 +157,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E4%B8%80%E8%8A%82%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.</span> <span class="nav-text">上一节回顾</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Collateral%E6%A8%A1%E5%9D%97%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">Collateral模块介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Join%E5%90%88%E7%BA%A6%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">Join合约介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Join%E5%90%88%E7%BA%A6%E7%BB%86%E8%8A%82%E8%AF%B4%E6%98%8E"><span class="nav-number">4.</span> <span class="nav-text">Join合约细节说明</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%B8%80%E8%8A%82%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.</span> <span class="nav-text">上一节回顾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%B9%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.</span> <span class="nav-text">批处理系统设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E9%81%93%E7%A8%8B%E5%BA%8F%E4%B8%8E%E5%88%86%E6%97%B6%E5%A4%9A%E4%BB%BB%E5%8A%A1"><span class="nav-number">3.</span> <span class="nav-text">多道程序与分时多任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD-%E2%80%A6-%E2%80%A6"><span class="nav-number">4.</span> <span class="nav-text">未完待续 … …</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -217,17 +222,10 @@
   </div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <a class="popular-posts-link" href="/2023/09/26/dai-module/" rel="bookmark">
-        <time class="popular-posts-time">2023-09-26</time>
+      <a class="popular-posts-link" href="/2023/10/24/risc-v-learning-ch1/" rel="bookmark">
+        <time class="popular-posts-time">2023-10-24</time>
         <br>
-      解读 DAI 架构流程图 —— Dai模块
-      </a>
-    </li>
-    <li class="popular-posts-item">
-      <a class="popular-posts-link" href="/2023/10/10/dai-core-module/" rel="bookmark">
-        <time class="popular-posts-time">2023-10-10</time>
-        <br>
-      解读 DAI 架构流程图 —— Core模块
+      RISC-V：跟着清华训练营从零打造OS【第一课】
       </a>
     </li>
   </ul>
@@ -250,7 +248,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://lispking.github.io/2023/10/11/dai-collateral-module/">
+    <link itemprop="mainEntityOfPage" href="http://lispking.github.io/2023/10/26/risc-v-learning-ch2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars.githubusercontent.com/u/4446580?v=4">
@@ -263,12 +261,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="解读 DAI 架构流程图 —— Collateral模块 | Dive In Web3">
-      <meta itemprop="description" content="本文讲解了Collateral模块的细节，前文已经介绍了Core模块中的Vat和Spot合约。Vat是dss的核心Vault引擎，存储Vault和跟踪相关的Dai和抵押品余额，定义了Vault和余额的操作规则；Spot是连接预言机和核心合约的现货接口，只存储当前的ilk列表。">
+      <meta itemprop="name" content="RISC-V：跟着清华训练营从零打造OS【第二课】 | Dive In Web3">
+      <meta itemprop="description" content="在[RISC-V：跟着清华训练营从零打造OS【第一课】]中，我们学习了三叶虫LibOS总体结构以及相关环境的配置，本节课将主要探讨批处理系统的设计以及多道程序与分时任务设计，这两章节内容颇具启发性和趣味性，相信会引发大家的浓厚兴趣。">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          解读 DAI 架构流程图 —— Collateral模块
+          RISC-V：跟着清华训练营从零打造OS【第二课】
         </h1>
 
         <div class="post-meta-container">
@@ -278,15 +276,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2023-10-11 14:30:52" itemprop="dateCreated datePublished" datetime="2023-10-11T14:30:52+08:00">2023-10-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-10-26 16:02:00" itemprop="dateModified" datetime="2023-10-26T16:02:00+08:00">2023-10-26</time>
+      <time title="创建时间：2023-10-26 10:26:38 / 修改时间：16:02:00" itemprop="dateCreated datePublished" datetime="2023-10-26T10:26:38+08:00">2023-10-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -294,7 +286,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/MakerDAO/" itemprop="url" rel="index"><span itemprop="name">MakerDAO</span></a>
+          <a href="/categories/RISC-V/" itemprop="url" rel="index"><span itemprop="name">RISC-V</span></a>
         </span>
     </span>
 
@@ -305,7 +297,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.6k</span>
+      <span>2.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -316,108 +308,54 @@
     </span>
 </div>
 
-            <div class="post-description">本文讲解了Collateral模块的细节，前文已经介绍了Core模块中的Vat和Spot合约。Vat是dss的核心Vault引擎，存储Vault和跟踪相关的Dai和抵押品余额，定义了Vault和余额的操作规则；Spot是连接预言机和核心合约的现货接口，只存储当前的ilk列表。</div>
+            <div class="post-description">在[RISC-V：跟着清华训练营从零打造OS【第一课】]中，我们学习了三叶虫LibOS总体结构以及相关环境的配置，本节课将主要探讨批处理系统的设计以及多道程序与分时任务设计，这两章节内容颇具启发性和趣味性，相信会引发大家的浓厚兴趣。</div>
         </div>
       </header>
 
     
     
     
-    <div class="post-body" itemprop="articleBody"><blockquote>
-<p>免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^</p>
-</blockquote>
-<h3 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h3><blockquote>
-<p>上个章节主要讲解了<a href="https://lispking.github.io/2023/10/10/dai-core-module/">Core模块相关合约的细节</a>，其中，包括 <code>Vat</code>合约和<code>Spot</code>合约。<code>Vat</code> 是 <code>dss</code> 的核心 <code>Vault</code> 引擎。它存储 <code>Vault</code> 并跟踪所有相关的 <code>Dai</code> 和抵押品余额。它还定义了可以通过操作 <code>Vault</code> 和余额的规则。<code>Vat</code> 中定义的规则是不可变的，因此在某种程度上，可以将 <code>Vat</code> 中的规则视为 <code>dss</code> 的宪法。<code>Spot</code>是负责连接预言机（<code>Oracles</code>）与核心合约的现货接口。作为一个接口合约，它只存储当前的 <code>ilk</code> 列表。本章节，我们来解读Collateral模块的细节。</p>
-</blockquote>
-<h3 id="Collateral模块介绍"><a href="#Collateral模块介绍" class="headerlink" title="Collateral模块介绍"></a><code>Collateral</code>模块介绍</h3><blockquote>
-<p>Collateral模块在MCD系统中充当抵押品角色，该模块会为 <code>Vat</code> 中添加的每个新抵押品类型（<code>collateral type</code>）进行部署。它包含了针对某一特定抵押品类型的所有适配器和拍卖合约。抵押品模块主要由<a target="_blank" rel="noopener" href="https://github.com/makerdao/dss/blob/master/src/join.sol">Join</a>和<a target="_blank" rel="noopener" href="https://github.com/makerdao/dss/blob/master/src/clip.sol">Clip</a>合约组成。</p>
-</blockquote>
-<ul>
-<li>抵押品模块组件概述  <ul>
-<li><code>Join</code> - 用于将未锁定的抵押品存入&#x2F;提取到 <code>Vat</code> 的适配器。<code>Join</code> 包含三个智能合约：<code>GemJoin</code>、<code>ETHJoin</code>和<code>DaiJoin</code>。  </li>
-<li>每个 <code>join</code> 合约都专门用于将给定的代币类型加入到 <code>Vat</code> 中。正因为如此，每个 <code>join</code> 合约在处理系统内不同类型的代币时都有略微不同的逻辑。</li>
-</ul>
-</li>
-<li><code>Join</code> 合约究竟如何帮助 MCD 系统运行？  <ul>
-<li><code>Join</code> - <code>join</code> 适配器的目的是保留系统的安全性，只允许可信任的智能合约将值添加&#x2F;删除到&#x2F;从 <code>Vat</code> 中。存放在金库中已存入&#x2F;已锁定的抵押品的位置在相应的 <code>Join</code> 适配器中。</li>
-</ul>
-</li>
-</ul>
+    <div class="post-body" itemprop="articleBody"><h2 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h2><p>在<a href="https://lispking.github.io/2023/10/24/risc-v-learning-ch1/">RISC-V：跟着清华训练营从零打造OS【第一课】</a>中，我们学习了三叶虫LibOS总体结构以及相关环境的配置，本节课将主要探讨批处理系统的设计以及多道程序与分时任务设计，这两章节内容颇具启发性和趣味性，相信会引发大家的浓厚兴趣。</p>
+<h2 id="批处理系统设计"><a href="#批处理系统设计" class="headerlink" title="批处理系统设计"></a>批处理系统设计</h2><p>上一节课在 RISC-V 64 裸机平台上成功运行 <code>Hello, world! </code>。看起来这个过程非常顺利，只需要一条命令就能全部完成。架构也比较简单，通过Qemu加载App和LibOS镜像到内存中，由RustSBI完成硬件初始化后，跳转到OS起始位置，执行App相关逻辑。但实际上，在那个计算机刚刚诞生的年代，很多事情并不像我们想象的那么简单。</p>
+<p><img src="/images/risc-v/LibOS-arch.png" alt="LibOS-arch"></p>
+<p>本节课的批处理系统（名为：邓氏鱼BatchOS操作系统）总体架构如图所示：</p>
+<p><img src="/images/risc-v/BatchOS-arch.png" alt="BatchOS-arch"></p>
+<p>通过上图，我们可以大致了解到，<code>Qemu</code> 将包含多个 <code>app</code> 的列表以及 <code>BatchOS</code> 的 <code>image</code> 镜像加载到内存中。</p>
+<ol>
+<li>在 <code>RustSBI</code>（<code>bootloader</code>）完成基本硬件初始化后，跳转到 <code>BatchOS</code> 的起始位置。</li>
+<li>进行正常运行前的初始化工作，包括建立栈空间和清零 <code>bss</code> 段。</li>
+<li>通过 <code>AppManager</code> 内核模块从 <code>app 列表</code>中依次加载各 <code>app</code> 到指定内存中，并在用户态执行。</li>
+<li>在 <code>app</code> 执行过程中，可通过系统调用的方式获得 <code>BatchOS</code> 提供的 OS 服务，如输出字符串等。</li>
+</ol>
+<p>批处理系统将多个程序打包一起输入计算机并逐个执行，但由于应用程序可能存在错误，如果某个程序的错误导致整个操作系统无法运行，后果将不堪设想。</p>
+<p>为了保护操作系统免受错误程序的破坏，特权级（Privilege）机制应运而生，它实现了用户态和内核态的隔离。在RISC-V 架构中，一共定义了 4 种特权级：</p>
+<p><img src="/images/risc-v/execute-env.png" alt="执行环境"></p>
 <blockquote>
-<p>潜在的陷阱（可能导致用户错误的来源）  </p>
+<p>其中，级别的数值越大，特权级越高，掌控硬件的能力越强。从表中可以看出， M 模式处在最高的特权级，而 U 模式处于最低的特权级。在CPU硬件层面，除了M模式必须存在外，其它模式可以不存在。</p>
 </blockquote>
-<ul>
-<li>当用户希望进入系统并与 <code>dss</code> 合约进行交互时，他们必须使用其中一个 <code>join</code> 合约。    </li>
-<li>如果 <code>join</code> 合约中存在合同错误，而用户不小心调用了 <code>join</code>，他们仍然可以通过给定的 <code>join</code> 合约上的相应退出调用来取回他们的代币。</li>
-</ul>
+<p>接下来，让我们一起来回顾一下这两课的架构概述。在最右侧的图中，我们引入了一个名为 Hypervisor 的抽象层，用以服务于多个操作系统。</p>
+<p><img src="/images/risc-v/OS-M-Mode.png" alt="OS-M-Mode"></p>
+<p> 通过 <code>link_app.S</code> 代码将应用程序链接到内核，接着，应用管理器 <code>AppManager</code> 加载应用程序二进制代码。在此过程中，强调了屏障指令 <code>fence.i</code> 的重要性。由于 CPU 对物理内存的缓存分为数据缓存（<code>d-cache</code>）和指令缓存（<code>i-cache</code>）两部分，在 CPU 访问内存和提取指令时分别使用。而 <code>fence.i</code> 的功能是确保其在后的取指过程能看到其在前的所有对取指内存区域的修改。</p>
+<p>最后，由于处理器具有硬件级特权级机制，应用程序在用户态特权级运行时，无法直接通过函数调用访问内核态特权级的批处理操作系统内核函数。然而，应用程序需要获得操作系统提供的服务，因此应用程序与操作系统需要通过某种合作机制完成特权级之间的切换，使得用户态应用程序可以获得内核态操作系统函数的服务。</p>
+<h2 id="多道程序与分时多任务"><a href="#多道程序与分时多任务" class="headerlink" title="多道程序与分时多任务"></a>多道程序与分时多任务</h2><p>批处理与多道程序的主要区别在于内存使用和处理器调度策略。</p>
+<p>批处理系统中，一段时间内可以处理一批程序，但内存中仅存放一个程序。处理器一次只能运行一个程序。当一个程序运行完毕后，才会将另一个程序调入内存并执行。换句话说，批处理系统无法交错地执行多个程序。</p>
+<p>而在支持多道程序的系统中，一段时间内也可处理一批程序，但内存中可以存放多个程序。在执行过程中，一个程序可以主动（协作式）或被动（抢占式）地放弃执行，让另一个程序得以执行。这意味着支持多道程序的系统能够交错地执行多个程序，从而提高系统利用率。</p>
+<p>总之，批处理系统和多道程序系统在内存管理和处理器调度策略上有显著差别，导致它们在执行多个程序时的效率不同。</p>
+<p><img src="/images/risc-v/TimesharingOS.png" alt="TimesharingOS"></p>
+<p>站在系统的层面，还是需要有一种办法能强制打断应用程序的执行，来提高整个系统的效率，让在整个系统中执行的多个程序之间占用计算机资源的情况相对公平一些。</p>
+<p>根据计算机系统的硬件设计，为提高 I&#x2F;O 效率，外设可以通过硬件中断机制来与处理机进行 I&#x2F;O 交互操作。这种硬件中断机制可随时打断应用程序的执行，并让操作系统来完成对外设的 I&#x2F;O 响应。</p>
 <blockquote>
-<p>故障模式</p>
+<p>最后，让我们以一段关于「中断」的有趣、生动且形象的解释来总结本节所学到的关键内容。这段解释来源于老师在训练营群里分享的聊天记录：</p>
 </blockquote>
-<ul>
-<li>可能会有一个 <code>vat</code> 升级，需要创建新的 <code>join</code> 合约    <ul>
-<li>如果一个 <code>gem</code> 合约在用户的抵押品在系统中时进行代币升级或冻结，可能会出现一种情况，即在冻结或升级完成后，用户无法兑换他们的抵押品。虽然这似乎是一个小风险，因为似乎进行这种升级的代币很可能希望与制造商社区合作，以确保这不是问题。</li>
-</ul>
-</li>
-<li>潜在的网络钓鱼攻击    <ul>
-<li>随着 MCD 系统的发展，我们将看到更多的 <code>join</code> 合约、用户界面等。这使得用户有可能被一个恶意的 <code>join</code> 合约窃取资金，该合约会将代币发送到外部合约或钱包，而不是 <code>vat</code>。</li>
-</ul>
-</li>
-</ul>
-<h3 id="Join合约介绍"><a href="#Join合约介绍" class="headerlink" title="Join合约介绍"></a><code>Join</code>合约介绍</h3><blockquote>
-<p><code>Join</code> 由三个智能合约组成：<code>GemJoin</code>、<code>ETHJoin</code> 和 <code>DaiJoin</code>：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">这不就是中断模式下的CPU处理方式么？</span><br><span class="line"></span><br><span class="line">我有三个群，相当于三个外设，而我是一个逻辑核心，外设时不时的at我一下，就是发一个中断信号，而我需要中断现有的作业去进行一个拉人进群的任务处理。</span><br><span class="line"></span><br><span class="line">用NAPI就是在处理某个中断的时候，看见有别的人也要让我拉进去，就轮询一波把其他人也拉进去。</span><br><span class="line"></span><br><span class="line">用DPDK就是做一会作业，轮询一波看看是否有新的拉人请求（别管什么内核旁路了）。</span><br><span class="line"></span><br><span class="line">要是三个群都有一大堆人请求我拉人进群，就会产生资源争用，而我就是性能瓶颈。</span><br><span class="line"></span><br><span class="line">另外，拉人进群是一个短作业，要是突然来了一个请求让我看看某个其他的问题，就是来了个长作业，就会导致拉人速度变慢，任务延迟变高。你学会了么？</span><br></pre></td></tr></table></figure>
+
+<h2 id="未完待续-…-…"><a href="#未完待续-…-…" class="headerlink" title="未完待续 … …"></a>未完待续 … …</h2><blockquote>
+<p>以上就是关于 [清华开源操作系统训练营] 第二课学到的知识，希望对您有所帮助。祝大家玩得开心 ^_^</p>
 </blockquote>
-<ul>
-<li><code>GemJoin</code> - 允许将标准 <code>ERC20</code> 代币存入系统以供使用。</li>
-<li><code>ETHJoin</code> - 允许使用本地 <code>Ether</code>。  </li>
-<li><code>DaiJoin</code> - 允许用户将其 <code>Dai</code> 从系统中提取到标准 <code>ERC20</code> 代币。</li>
-</ul>
 <blockquote>
-<p>每个 <code>join</code> 合约都是专门为允许给定的代币类型加入到 <code>Vat</code> 而创建的。正因为如此，每个 <code>join</code> 合约在处理系统内不同类型的代币时都有略微不同的逻辑。下面来看看<code>join</code>合约的交互流程以及其所在的位置（用黄色标注出来了）</p>
+<p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
 </blockquote>
-<p><img src="/images/makedao/TheMakerJoin.png" alt="JoinDiagram"></p>
-<h3 id="Join合约细节说明"><a href="#Join合约细节说明" class="headerlink" title="Join合约细节说明"></a><code>Join</code>合约细节说明</h3><blockquote>
-<p>词汇表（<code>Join</code>）  </p>
-</blockquote>
-<ul>
-<li><code>vat</code> - <code>Vat</code> 地址的存储。  </li>
-<li><code>ilk</code> - 为哪个 <code>Ilk</code> 创建 <code>GemJoin</code> 的 <code>id</code>。  </li>
-<li><code>gem</code> - 用于转账的 <code>Ilk</code> 地址。  </li>
-<li><code>dai</code> - <code>Dai</code> 代币的地址。  </li>
-<li><code>one</code> - <code>DaiJoin</code> 中用于数学的 <code>10^27 uint</code>。  </li>
-<li><code>live</code> - <code>join</code>适配器的访问标志。  </li>
-<li><code>dec</code> - <code>Gem</code> 的小数位数。</li>
-</ul>
-<blockquote>
-<p>每个 <code>Join</code> 合约都有 4 个公共函数：构造函数、<code>join</code> 函数、<code>exit</code> 函数和<code>cage</code> 函数。</p>
-</blockquote>
-<ul>
-<li>构造函数在合约初始化时用于设置该 <code>Join</code> 合约的核心变量。</li>
-<li><code>Join</code> 和 <code>exit</code> 都符合其名称。<code>Join</code> 为用户提供了将给定代币类型添加到 <code>Vat</code> 的机制。它在每个变种中的逻辑略有不同，但通常简化为一个转账和一个在 <code>Vat</code> 中的函数调用。<code>Exit</code> 非常相似，但相反，它允许用户从 <code>Vat</code> 中移除他们想要的代币。</li>
-<li><code>Cage</code> 允许适配器被排空（允许代币流出但不流入）。</li>
-</ul>
-<blockquote>
-<p>关键机制和概念</p>
-</blockquote>
-<ul>
-<li><code>GemJoin</code> 合约具有非常特定和单一的目的，相对于核心智能合约系统的其他部分，它被抽象出来。当用户希望进入系统并与 <code>dss</code> 合约进行交互时，他们必须使用其中一个 <code>join</code> 合约。在完成 <code>dss</code> 合约后，他们必须调用 <code>exit</code> 函数离开系统并提取他们的代币。当 <code>GemJoin</code> 被授权地址围困时，它可以从 <code>Vat</code> 中退出抵押品，但它不能再加入新抵押品。  </li>
-<li>通过 <code>join</code> 添加到系统的抵押品代币余额在 <code>Vat</code> 中根据抵押品类型 <code>Ilk</code> 计算为 <code>Gem</code>，直到它们被转换为锁定的抵押品代币（<code>ink</code>），以便用户可以提取 <code>Dai</code>。  </li>
-<li><code>DaiJoin</code> 合约具有类似的目的。它管理 <code>Vat</code> 中跟踪的 <code>Dai</code> 和 <code>Dai.sol</code> 跟踪的 <code>ERC-20 Dai</code> 之间的交换。在用户使用抵押品提取 <code>Dai</code> 之后，他们将在 <code>Vat</code> 中拥有一个余额。这个 <code>Dai</code> 平衡可以使用持有 <code>Vat.dai</code> 和 <code>mint</code> 的 <code>ERC-20 Dai</code> 的 <code>DaiJoin</code> 合约从 <code>Vat</code> 中退出。当用户希望将其 <code>Dai</code> 移回 <code>Vat</code> 账户系统（比如，偿还债务、参加拍卖、在<code>End</code>打包<code>bag</code>或利用 <code>DSR</code> 等）时，他们必须调用 <code>DaiJoin.join</code>。通过调用 <code>DaiJoin.join</code>，有效地燃烧 <code>ERC-20 Dai</code> 并将从 <code>DaiJoin</code> 的余额转移 <code>Vat.dai</code> 到用户在 <code>Vat</code> 的账户。在系统的正常运行中，<code>Dai.totalSupply</code> 应该等于 <code>Vat.dai(DaiJoin)</code> 余额。当 <code>DaiJoin</code> 合约被授权地址围困时，它可以将 <code>Dai</code> 移回 <code>Vat</code>，但它不能再从 <code>Vat</code> 中退出 <code>Dai</code>。</li>
-</ul>
-<blockquote>
-<p>需要注意的问题（可能导致用户错误的潜在来源） </p>
-</blockquote>
-<ul>
-<li>加入合约中用户错误的主要来源是用户不应直接向合约转移代币，他们必须使用加入功能，否则将无法取回他们的代币。  </li>
-<li>由于系统的有限功能，加入合约系统中用户错误的来源有限。除了合约漏洞，如果用户不小心调用了 <code>join</code>，他们总是可以通过给定的加入合约对应的退出调用来取回他们的代币。  </li>
-<li>这里需要警惕的主要问题是精心策划的网络钓鱼攻击。随着系统的发展，可能创建更多的加入合约或更多的用户界面，用户有可能被恶意的加入合约窃取资金，该合约并未实际将代币发送到 <code>Vat</code>，而是发送到其他合约或钱包。</li>
-</ul>
-<blockquote>
-<p>故障模式（操作条件和外部风险因素的边界）</p>
-</blockquote>
-<ul>
-<li>可能会有一个 <code>vat</code> 升级，需要创建新的加入合约。  </li>
-<li>如果一个宝石合约在代币升级或代币冻结期间，用户的抵押品在系统中，可能会出现一种情况，即在冻结或升级完成后，用户无法赎回他们的抵押品。虽然这种情况可能带来一些风险，但进行升级的代币很可能希望与 <code>Maker</code> 社区合作，确保这不是一个问题。</li>
-</ul>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
 
     </div>
 
@@ -476,22 +414,19 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/MakerDAO/" rel="tag"><i class="fa fa-tag"></i> MakerDAO</a>
-              <a href="/tags/DAI/" rel="tag"><i class="fa fa-tag"></i> DAI</a>
+              <a href="/tags/Rust/" rel="tag"><i class="fa fa-tag"></i> Rust</a>
+              <a href="/tags/RISC-V/" rel="tag"><i class="fa fa-tag"></i> RISC-V</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/10/10/dai-core-module/" rel="prev" title="解读 DAI 架构流程图 —— Core模块">
-                  <i class="fa fa-angle-left"></i> 解读 DAI 架构流程图 —— Core模块
+                <a href="/2023/10/24/risc-v-learning-ch1/" rel="prev" title="RISC-V：跟着清华训练营从零打造OS【第一课】">
+                  <i class="fa fa-angle-left"></i> RISC-V：跟着清华训练营从零打造OS【第一课】
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/10/12/dai-liquidation-module/" rel="next" title="解读 DAI 架构流程图 —— 清算2.0模块">
-                  解读 DAI 架构流程图 —— 清算2.0模块 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -600,7 +535,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"lispking","repo":"lispking.github.io","client_id":"909b979ee5805cfc60f7","client_secret":"7a5f88e85afc02681b49d44afe4aa9a7a68f4b21","admin_user":"lispking","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"8a147a8f5796de9aca40072c01daf234"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"lispking","repo":"lispking.github.io","client_id":"909b979ee5805cfc60f7","client_secret":"7a5f88e85afc02681b49d44afe4aa9a7a68f4b21","admin_user":"lispking","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"4fc15b62fb53d4d29e4037ac35394837"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>
