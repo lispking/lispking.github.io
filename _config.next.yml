@@ -721,7 +721,7 @@ livere_uid: # <your_uid>
 # Gitalk
 # For more information: https://gitalk.github.io
 gitalk:
-  enable: true
+  enable: false
   github_id: lispking # GitHub repo owner
   repo: lispking.github.io # Repository name to store issues
   client_id: ${env.GITALK_CLIENT_ID} # GitHub Application Client ID
