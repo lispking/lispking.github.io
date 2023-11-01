@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lispking.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在 RISC-V：跟着清华训练营从零打造OS【第三课】中，我们学习了地址空间和进程管理的设计。本节课将主要探讨文件系统的设计，文件系统在 UNIX 操作系统中具有举足轻重的地位。根据史料《UNIX:A History and a Memoir》记载，1969 年，UNIX 的作者 Ken Thompson 在贝尔实验室的空闲时间里，编写了一个用于提高 PDP-7 计算机磁盘吞吐量的调度算法。为了测">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RISC-V：跟着清华训练营从零打造OS【第四课】">
+<meta property="og:url" content="http://lispking.github.io/2023/11/01/risc-v-learning-ch4/index.html">
+<meta property="og:site_name" content="Dive In Web3">
+<meta property="og:description" content="在 RISC-V：跟着清华训练营从零打造OS【第三课】中，我们学习了地址空间和进程管理的设计。本节课将主要探讨文件系统的设计，文件系统在 UNIX 操作系统中具有举足轻重的地位。根据史料《UNIX:A History and a Memoir》记载，1969 年，UNIX 的作者 Ken Thompson 在贝尔实验室的空闲时间里，编写了一个用于提高 PDP-7 计算机磁盘吞吐量的调度算法。为了测">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://lispking.github.io/images/risc-v/FilesystemOS.png">
+<meta property="og:image" content="http://lispking.github.io/images/risc-v/FilesystemStruct.png">
+<meta property="og:image" content="http://lispking.github.io/images/wechat-blog.png">
+<meta property="article:published_time" content="2023-11-01T08:52:38.000Z">
+<meta property="article:modified_time" content="2023-11-01T11:42:36.329Z">
+<meta property="article:author" content="King">
+<meta property="article:tag" content="Rust">
+<meta property="article:tag" content="RISC-V">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lispking.github.io/images/risc-v/FilesystemOS.png">
+
+
+<link rel="canonical" href="http://lispking.github.io/2023/11/01/risc-v-learning-ch4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://lispking.github.io/2023/11/01/risc-v-learning-ch4/","path":"2023/11/01/risc-v-learning-ch4/","title":"RISC-V：跟着清华训练营从零打造OS【第四课】"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RISC-V：跟着清华训练营从零打造OS【第四课】 | Dive In Web3</title>
+  
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6255376809208012" crossorigin="anonymous"></script>
+
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-28440BWWYK"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-28440BWWYK","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?ea3634b85b5b23007bec7092a4735018"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Dive In Web3" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Dive In Web3</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">深入Web3世界</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">7</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">16</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%B8%80%E8%8A%82%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.</span> <span class="nav-text">上一节回顾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.</span> <span class="nav-text">文件系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD-%E2%80%A6-%E2%80%A6"><span class="nav-number">3.</span> <span class="nav-text">未完待续 … …</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="King"
+      src="https://avatars.githubusercontent.com/u/4446580?v=4">
+  <p class="site-author-name" itemprop="name">King</p>
+  <div class="site-description" itemprop="description">欢迎光临Web3世界，一起拥抱Web3</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lispking" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/lispking" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/lispking" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_nd.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lispking.github.io/2023/11/01/risc-v-learning-ch4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/4446580?v=4">
+      <meta itemprop="name" content="King">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dive In Web3">
+      <meta itemprop="description" content="欢迎光临Web3世界，一起拥抱Web3">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="RISC-V：跟着清华训练营从零打造OS【第四课】 | Dive In Web3">
+      <meta itemprop="description" content="在 RISC-V：跟着清华训练营从零打造OS【第三课】中，我们学习了地址空间和进程管理的设计。本节课将主要探讨文件系统的设计，文件系统在 UNIX 操作系统中具有举足轻重的地位。根据史料《UNIX:A History and a Memoir》记载，1969 年，UNIX 的作者 Ken Thompson 在贝尔实验室的空闲时间里，编写了一个用于提高 PDP-7 计算机磁盘吞吐量的调度算法。为了测试这个算法，他打算编写一个批量读写数据的测试程序。然而，在编写过程中，Thompson 在某一刻意识到，这个测试程序稍作扩展，就能成为一个文件系统，再进一步扩展，便可以成为一个完整的操作系统。他意识到，自己距离实现一个操作系统仅有短短三周的时间。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RISC-V：跟着清华训练营从零打造OS【第四课】
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-11-01 16:52:38 / 修改时间：19:42:36" itemprop="dateCreated datePublished" datetime="2023-11-01T16:52:38+08:00">2023-11-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/RISC-V/" itemprop="url" rel="index"><span itemprop="name">RISC-V</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">在 RISC-V：跟着清华训练营从零打造OS【第三课】中，我们学习了地址空间和进程管理的设计。本节课将主要探讨文件系统的设计，文件系统在 UNIX 操作系统中具有举足轻重的地位。根据史料《UNIX:A History and a Memoir》记载，1969 年，UNIX 的作者 Ken Thompson 在贝尔实验室的空闲时间里，编写了一个用于提高 PDP-7 计算机磁盘吞吐量的调度算法。为了测试这个算法，他打算编写一个批量读写数据的测试程序。然而，在编写过程中，Thompson 在某一刻意识到，这个测试程序稍作扩展，就能成为一个文件系统，再进一步扩展，便可以成为一个完整的操作系统。他意识到，自己距离实现一个操作系统仅有短短三周的时间。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h2><p>在 <a href="https://lispking.github.io/2023/10/30/risc-v-learning-ch3/">RISC-V：跟着清华训练营从零打造OS【第三课】</a>中，我们主要讲解了操作系统中的地址空间和进程管理的设计。通过利用硬件的分页机制，实现了内核的安全核心机制，构建了一种经典的抽象 —— <code>地址空间</code>。同时，介绍了<code>进程管理机制</code>的设计与实现，以满足多道程序在系统中高效运行的需求。通过这些改进，可以为应用程序提供更流畅、更安全、更便捷、高效的操作系统环境。</p>
+<h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><p>先来看一段有趣的 UNIX 历史， 在 UNIX 文件系统眼中有一个著名的理念：<code>一切皆文件</code>，可见得文件系统在 UNIX 操作系统中具有举足轻重的地位。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">根据史料《UNIX: A History and a Memoir》记载，1969 年，UNIX 的作者 Ken Thompson 在贝尔实验室的空闲时间里，编写了一个用于提高 PDP-7 计算机磁盘吞吐量的调度算法。为了测试这个算法，他打算编写一个批量读写数据的测试程序。然而，在编写过程中，Thompson 在某一刻意识到，这个测试程序稍作扩展，就能成为一个文件系统，再进一步扩展，便可以成为一个完整的操作系统。他意识到，自己距离实现一个操作系统仅有短短三周的时间。</span><br><span class="line"></span><br><span class="line">第一周，他专注于编写代码编辑器；第二周，编写汇编器；第三周，编写 shell 程序。在编写这些程序的过程中，他还需添加操作系统的功能（如 exec 等系统调用），以支持这些应用程序。经过三周的努力，Thompson 成功创建了一个用于测试磁盘调度算法性能的 UNIX 操作系统雏形。</span><br></pre></td></tr></table></figure>
+
+<p>本节课将实现一个简单的文件系统 —— <code>EasyFS</code>，它能对持久存储设备（<code>Persistent Storage</code>）这种 I&#x2F;O 资源进行有效管理。</p>
+<p>为了满足应用程序对持久存储设备的访问需求，内核需新增两种文件类型：<code>常规文件</code>和<code>目录文件</code>。这两种文件均以文件系统所维护的磁盘文件形式组织并存储在持久存储设备上。从而，形成了具备强大 UNIX 操作系统基本功能的 <code>霸王龙</code> 操作系统。</p>
+<ul>
+<li>常规文件：用于存储应用程序的数据。</li>
+<li>目录文件：用于存储文件系统内部的信息。</li>
+</ul>
+<p>这两种文件类型共同构成了文件系统的基础，使得操作系统能够对存储设备进行高效的管理和访问。</p>
+<p><img src="/images/risc-v/FilesystemOS.png" alt="FilesystemOS"></p>
+<p>通过上图，我们可以大致了解<code>霸王龙</code>操作系统 —— <code>FilesystemOS</code> 对文件系统的支持以及为应用程序提供的文件访问相关系统调用服务。在进程管理方面，<code>FilesystemOS</code> 进一步扩展了资源管理的范围，将打开文件的相关信息放入 <code>fd table</code> 数据结构中，纳入进程管理，并基于此提供了一系列与文件访问相关的系统调用服务，如 <code>sys_open</code>、<code>sys_close</code>、<code>sys_read</code>、<code>sys_write</code> 等。</p>
+<p>在设备管理层面，<code>FilesystemOS</code> 增加了块设备驱动 —— <code>BlockDrv</code>，通过访问块设备数据来实现对文件系统与文件各种数据的读写。文件系统 —— <code>EasyFS</code> 成为 <code>FilesystemOS</code> 的核心内核模块，负责完成文件与存储块之间的数据&#x2F;地址映射关系，并基于存储块进行读写操作。</p>
+<p><code>EasyFS</code> 的核心数据结构包括：</p>
+<ul>
+<li><code>Superblock</code>：表示整个文件系统结构</li>
+<li><code>inode bitmap</code>：表示存放 inode 磁盘块空闲情况的位图</li>
+<li><code>data bitmap</code>：表示存放文件数据磁盘块空闲情况的位图</li>
+<li><code>inode blks</code>：存放文件元数据的磁盘块</li>
+<li><code>data blks</code>：存放文件数据的磁盘块</li>
+</ul>
+<p>此外，<code>EasyFS</code> 中的块缓存管理器 <code>BlockManager</code> 在内存中管理有限个 <code>BlockCache</code> 磁盘块缓存，并通过 <code>Blk Interface</code>（与块设备驱动对接的读写操作接口）与 <code>BlockDrv</code> 块设备驱动程序进行互操作。</p>
+<p>接下来，让我们共同探讨文件系统的数据结构。</p>
+<p><img src="/images/risc-v/FilesystemStruct.png" alt="FilesystemStruct"></p>
+<p>在 <code>EasyFS</code> 设计中，采用了松耦合的模块化设计理念。通过使用抽象接口 <code>BlockDevice</code>，<code>EasyFS</code> 与底层设备驱动之间实现了解耦，避免了与设备驱动的绑定。此外，<code>EasyFS</code> 借助 <code>Rust</code> 提供的 <code>alloc crate</code> 实现了对操作系统内核内存管理的隔离，避免了直接调用内存管理的内核函数。</p>
+<p>在底层驱动方面，采用轮询方式访问 <code>virtio_blk</code> 虚拟磁盘设备，从而避免了访问外设中断相关的内核函数。在设计过程中，<code>EasyFS</code> 充分考虑了避免直接访问进程相关的数据和函数，从而实现了与操作系统内核的进程管理隔离。</p>
+<p><code>EasyFS</code> <code>crate</code> 自下而上大致可以分成五个不同的层次：</p>
+<ul>
+<li>磁盘块设备接口层：定义了以块大小为单位对磁盘块设备进行读写的 <code>trait</code> 接口</li>
+<li>块缓存层：在内存中缓存磁盘块的数据，避免频繁读写磁盘</li>
+<li>磁盘数据结构层：磁盘上的超级块、位图、索引节点、数据块、目录项等核心数据结构和相关处理</li>
+<li>磁盘块管理器层：合并了上述核心数据结构和磁盘布局所形成的磁盘文件系统数据结构，以及基于这些结构的创建&#x2F;打开文件系统的相关处理和磁盘块的分配和回收处理</li>
+<li>索引节点层：管理索引节点（即文件控制块）数据结构，并实现文件创建&#x2F;文件打开&#x2F;文件读写等成员函数来向上支持文件操作相关的系统调用</li>
+</ul>
+<p>最后，一起看看相关接口代码定义：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// 块设备的抽象接口 BlockDevice</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">trait</span> <span class="title class_">BlockDevice</span> : <span class="built_in">Send</span> + <span class="built_in">Sync</span> + Any &#123;</span><br><span class="line">    <span class="comment">/// 将编号为 block_id 的块从磁盘读入内存中的缓冲区 buf ；</span></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">read_block</span>(&amp;<span class="keyword">self</span>, block_id: <span class="type">usize</span>, buf: &amp;<span class="keyword">mut</span> [<span class="type">u8</span>]);</span><br><span class="line">    <span class="comment">/// 将内存中的缓冲区 buf 中的数据写入磁盘编号为 block_id 的块。</span></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">write_block</span>(&amp;<span class="keyword">self</span>, block_id: <span class="type">usize</span>, buf: &amp;[<span class="type">u8</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">const</span> BLOCK_SZ: <span class="type">usize</span> = <span class="number">512</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 块缓存 BlockCache</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">struct</span> <span class="title class_">BlockCache</span> &#123;</span><br><span class="line">    <span class="comment">/// 一个 512 字节的数组，表示位于内存中的缓冲区；</span></span><br><span class="line">    cache: [<span class="type">u8</span>; BLOCK_SZ],</span><br><span class="line">    <span class="comment">/// 记录这个块缓存来自于磁盘中的块的编号</span></span><br><span class="line">    block_id: <span class="type">usize</span>,</span><br><span class="line">    <span class="comment">/// 一个底层块设备的引用，可通过它进行块读写</span></span><br><span class="line">    block_device: Arc&lt;<span class="keyword">dyn</span> BlockDevice&gt;,</span><br><span class="line">    <span class="comment">/// 记录这个块从磁盘载入内存缓存之后，它有没有被修改过</span></span><br><span class="line">    modified: <span class="type">bool</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 超级块 SuperBlock</span></span><br><span class="line"><span class="meta">#[repr(C)]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">struct</span> <span class="title class_">SuperBlock</span> &#123;</span><br><span class="line">    <span class="comment">/// 用于文件系统合法性验证的魔数</span></span><br><span class="line">    magic: <span class="type">u32</span>,</span><br><span class="line">    <span class="comment">/// 文件系统的总块数</span></span><br><span class="line">    <span class="keyword">pub</span> total_blocks: <span class="type">u32</span>,</span><br><span class="line">    <span class="comment">/// 索引节点位图，长度为若干个块。记录后面的索引节点区域中有哪些索引节点已经被分配出去使用了，而哪些还尚未被分配出去</span></span><br><span class="line">    <span class="keyword">pub</span> inode_bitmap_blocks: <span class="type">u32</span>,</span><br><span class="line">    <span class="comment">/// 索引节点区域，长度为若干个块。其中的每个块都存储了若干个索引节点</span></span><br><span class="line">    <span class="keyword">pub</span> inode_area_blocks: <span class="type">u32</span>,</span><br><span class="line">    <span class="comment">/// 数据块位图，长度为若干个块。记录后面的数据块区域中有哪些数据块已经被分配出去使用了，而哪些还尚未被分配出去。</span></span><br><span class="line">    <span class="keyword">pub</span> data_bitmap_blocks: <span class="type">u32</span>,</span><br><span class="line">    <span class="comment">/// 数据块区域，顾名思义，其中的每一个已经分配出去的块保存了文件或目录中的具体数据内容。</span></span><br><span class="line">    <span class="keyword">pub</span> data_area_blocks: <span class="type">u32</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 磁盘块管理器</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">struct</span> <span class="title class_">EasyFileSystem</span> &#123;</span><br><span class="line">    <span class="comment">/// 块设备指针</span></span><br><span class="line">    <span class="keyword">pub</span> block_device: Arc&lt;<span class="keyword">dyn</span> BlockDevice&gt;,</span><br><span class="line">    <span class="comment">/// 索引节点位图</span></span><br><span class="line">    <span class="keyword">pub</span> inode_bitmap: Bitmap,</span><br><span class="line">    <span class="comment">/// 数据块位图</span></span><br><span class="line">    <span class="keyword">pub</span> data_bitmap: Bitmap,</span><br><span class="line">    <span class="comment">/// 索引节点区域起始块编号</span></span><br><span class="line">    inode_area_start_block: <span class="type">u32</span>,</span><br><span class="line">    <span class="comment">/// 数据块区域起始块编号</span></span><br><span class="line">    data_area_start_block: <span class="type">u32</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 索引节点，在内存中记录文件索引节点信息</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">struct</span> <span class="title class_">Inode</span> &#123;</span><br><span class="line">    <span class="comment">/// 记录该 Inode 对应的 DiskInode 保存在磁盘上的 id</span></span><br><span class="line">    block_id: <span class="type">usize</span>,</span><br><span class="line">    <span class="comment">/// 记录该 Inode 对应的 DiskInode 保存在磁盘上的偏移量</span></span><br><span class="line">    block_offset: <span class="type">usize</span>,</span><br><span class="line">    <span class="comment">/// 指向 EasyFileSystem 的一个指针</span></span><br><span class="line">    fs: Arc&lt;Mutex&lt;EasyFileSystem&gt;&gt;,</span><br><span class="line">    block_device: Arc&lt;<span class="keyword">dyn</span> BlockDevice&gt;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="未完待续-…-…"><a href="#未完待续-…-…" class="headerlink" title="未完待续 … …"></a>未完待续 … …</h2><blockquote>
+<p>以上就是关于 [清华开源操作系统训练营] 第四课学到的知识，文件系统领域仍有很多待探索之处，后续的学习之路亦颇为漫长。希望这节课对您有所帮助。祝大家玩得开心 ^_^</p>
+</blockquote>
+<blockquote>
+<p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
+</blockquote>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechat.png" alt="King 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="King 支付宝">
+        <span>支付宝</span>
+      </div>
+      <div>
+        <img src="/images/metamask.png" alt="King 比特币">
+        <span>比特币</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/lispking">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Rust/" rel="tag"><i class="fa fa-tag"></i> Rust</a>
+              <a href="/tags/RISC-V/" rel="tag"><i class="fa fa-tag"></i> RISC-V</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/10/30/risc-v-learning-ch3/" rel="prev" title="RISC-V：跟着清华训练营从零打造OS【第三课】">
+                  <i class="fa fa-angle-left"></i> RISC-V：跟着清华训练营从零打造OS【第三课】
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+  
+  <script type="text/javascript">
+    // 可修改，摘要将显示在这个选择器选中的元素之上。
+    var _xhh_selector = ".post-body";
+    // 可修改，定制最外层 DIV 的风格。
+    // 默认限制宽度为 750px，上下加 8px 的镶边，4 像素圆角。
+    var _xhh_style = "max-width: 100%; margin:8px 0px; border-radius: 4px;";
+
+    // 以下部分不要改动
+    var host = '///xhh.club';
+    var _xhh_service_url = host + '/summarize-this/';
+    (function() {
+      var smmr = document.createElement("script");
+      smmr.src = host + "/static/js/summarize_this.js";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(smmr, s);
+    })();
+  </script>
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">King</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">49k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">45 分钟</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lispking" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.3.0/mermaid.min.js","integrity":"sha256-9y71g5Lz/KLsHjB8uXwnkuWDtAMDSzD/HdIbqhJfTAI="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","mhchem":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
