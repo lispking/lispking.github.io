@@ -1504,8 +1504,10 @@
     <url>/2023/11/01/risc-v-learning-ch4/</url>
     <content><![CDATA[<h2 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h2><p>在 <a href="https://lispking.github.io/2023/10/30/risc-v-learning-ch3/">RISC-V：跟着清华训练营从零打造OS【第三课】</a>中，我们主要讲解了操作系统中的地址空间和进程管理的设计。通过利用硬件的分页机制，实现了内核的安全核心机制，构建了一种经典的抽象 —— <code>地址空间</code>。同时，介绍了<code>进程管理机制</code>的设计与实现，以满足多道程序在系统中高效运行的需求。通过这些改进，可以为应用程序提供更流畅、更安全、更便捷、高效的操作系统环境。</p>
 <h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><p>先来看一段有趣的 UNIX 历史， 在 UNIX 文件系统眼中有一个著名的理念：<code>一切皆文件</code>，可见得文件系统在 UNIX 操作系统中具有举足轻重的地位。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">根据史料《UNIX: A History and a Memoir》记载，1969 年，UNIX 的作者 Ken Thompson 在贝尔实验室的空闲时间里，编写了一个用于提高 PDP-7 计算机磁盘吞吐量的调度算法。为了测试这个算法，他打算编写一个批量读写数据的测试程序。然而，在编写过程中，Thompson 在某一刻意识到，这个测试程序稍作扩展，就能成为一个文件系统，再进一步扩展，便可以成为一个完整的操作系统。他意识到，自己距离实现一个操作系统仅有短短三周的时间。</span><br><span class="line"></span><br><span class="line">第一周，他专注于编写代码编辑器；第二周，编写汇编器；第三周，编写 shell 程序。在编写这些程序的过程中，他还需添加操作系统的功能（如 exec 等系统调用），以支持这些应用程序。经过三周的努力，Thompson 成功创建了一个用于测试磁盘调度算法性能的 UNIX 操作系统雏形。</span><br></pre></td></tr></table></figure>
-
+<blockquote>
+<p>根据史料《UNIX: A History and a Memoir》记载，1969 年，UNIX 的作者 Ken Thompson 在贝尔实验室的空闲时间里，编写了一个用于提高 PDP-7 计算机磁盘吞吐量的调度算法。为了测试这个算法，他打算编写一个批量读写数据的测试程序。然而，在编写过程中，Thompson 在某一刻意识到，这个测试程序稍作扩展，就能成为一个文件系统，再进一步扩展，便可以成为一个完整的操作系统。他意识到，自己距离实现一个操作系统仅有短短三周的时间。</p>
+<p>第一周，他专注于编写代码编辑器；第二周，编写汇编器；第三周，编写 shell 程序。在编写这些程序的过程中，他还需添加操作系统的功能（如 exec 等系统调用），以支持这些应用程序。经过三周的努力，Thompson 成功创建了一个用于测试磁盘调度算法性能的 UNIX 操作系统雏形。 </p>
+</blockquote>
 <p>本节课将实现一个简单的文件系统 —— <code>EasyFS</code>，它能对持久存储设备（<code>Persistent Storage</code>）这种 I&#x2F;O 资源进行有效管理。</p>
 <p>为了满足应用程序对持久存储设备的访问需求，内核需新增两种文件类型：<code>常规文件</code>和<code>目录文件</code>。这两种文件均以文件系统所维护的磁盘文件形式组织并存储在持久存储设备上。从而，形成了具备强大 UNIX 操作系统基本功能的 <code>霸王龙</code> 操作系统。</p>
 <ul>
