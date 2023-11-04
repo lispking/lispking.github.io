@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lispking.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在 RISC-V：跟着清华训练营从零打造OS【第四课】中，我们主要讲解了文件系统在操作系统中的重要性，并讲述了UNIX操作系统的创始人 Ken Thompson 在编写一个测试程序时，意识到可以将其扩展成一个文件系统，从而创造了UNIX操作系统的故事。还介绍了EasyFS文件系统的设计和实现，包括常规文件和目录文件的新增，以及文件系统的核心数据结构和块缓存管理器的实现。最后，还介绍了EasyFS的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RISC-V：跟着清华训练营从零打造OS【第五课】">
+<meta property="og:url" content="http://lispking.github.io/2023/11/04/risc-v-learning-ch5/index.html">
+<meta property="og:site_name" content="Dive In Web3">
+<meta property="og:description" content="在 RISC-V：跟着清华训练营从零打造OS【第四课】中，我们主要讲解了文件系统在操作系统中的重要性，并讲述了UNIX操作系统的创始人 Ken Thompson 在编写一个测试程序时，意识到可以将其扩展成一个文件系统，从而创造了UNIX操作系统的故事。还介绍了EasyFS文件系统的设计和实现，包括常规文件和目录文件的新增，以及文件系统的核心数据结构和块缓存管理器的实现。最后，还介绍了EasyFS的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://lispking.github.io/images/risc-v/IPCOS.png">
+<meta property="og:image" content="http://lispking.github.io/images/risc-v/PCB-PIPE.png">
+<meta property="og:image" content="http://lispking.github.io/images/risc-v/sigaction.png">
+<meta property="og:image" content="http://lispking.github.io/images/risc-v/ThreadCoroutineOS.png">
+<meta property="og:image" content="http://lispking.github.io/images/risc-v/TaskProcess.png">
+<meta property="og:image" content="http://lispking.github.io/images/risc-v/SyncMutexOS.png">
+<meta property="og:image" content="http://lispking.github.io/images/wechat-blog.png">
+<meta property="article:published_time" content="2023-11-04T09:08:26.000Z">
+<meta property="article:modified_time" content="2023-11-04T11:04:43.105Z">
+<meta property="article:author" content="King">
+<meta property="article:tag" content="Rust">
+<meta property="article:tag" content="RISC-V">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lispking.github.io/images/risc-v/IPCOS.png">
+
+
+<link rel="canonical" href="http://lispking.github.io/2023/11/04/risc-v-learning-ch5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://lispking.github.io/2023/11/04/risc-v-learning-ch5/","path":"2023/11/04/risc-v-learning-ch5/","title":"RISC-V：跟着清华训练营从零打造OS【第五课】"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RISC-V：跟着清华训练营从零打造OS【第五课】 | Dive In Web3</title>
+  
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6255376809208012" crossorigin="anonymous"></script>
+
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-28440BWWYK"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-28440BWWYK","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?ea3634b85b5b23007bec7092a4735018"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Dive In Web3" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Dive In Web3</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">深入Web3世界</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">10</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">7</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">18</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%B8%80%E8%8A%82%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.</span> <span class="nav-text">上一节回顾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E4%B8%8EI-O%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">2.</span> <span class="nav-text">进程间通信与I&#x2F;O重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91"><span class="nav-number">3.</span> <span class="nav-text">并发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E4%B8%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9A"><span class="nav-number">3.0.1.</span> <span class="nav-text">线程与进程的区别：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E7%9B%B8%E5%85%B3%E6%9C%AF%E8%AF%AD%EF%BC%9A"><span class="nav-number">3.0.2.</span> <span class="nav-text">并发相关术语：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD-%E2%80%A6-%E2%80%A6"><span class="nav-number">4.</span> <span class="nav-text">未完待续 … …</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="King"
+      src="https://avatars.githubusercontent.com/u/4446580?v=4">
+  <p class="site-author-name" itemprop="name">King</p>
+  <div class="site-description" itemprop="description">欢迎光临Web3世界，一起拥抱Web3</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lispking" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/lispking" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/lispking" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_nd.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lispking.github.io/2023/11/04/risc-v-learning-ch5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/4446580?v=4">
+      <meta itemprop="name" content="King">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dive In Web3">
+      <meta itemprop="description" content="欢迎光临Web3世界，一起拥抱Web3">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="RISC-V：跟着清华训练营从零打造OS【第五课】 | Dive In Web3">
+      <meta itemprop="description" content="在 RISC-V：跟着清华训练营从零打造OS【第四课】中，我们主要讲解了文件系统在操作系统中的重要性，并讲述了UNIX操作系统的创始人 Ken Thompson 在编写一个测试程序时，意识到可以将其扩展成一个文件系统，从而创造了UNIX操作系统的故事。还介绍了EasyFS文件系统的设计和实现，包括常规文件和目录文件的新增，以及文件系统的核心数据结构和块缓存管理器的实现。最后，还介绍了EasyFS的五个不同层次的设计和相关接口代码定义，本节课是第二阶段最后一节课，主要讲解进程间通信、I/O重定向和并发的设计。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RISC-V：跟着清华训练营从零打造OS【第五课】
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-11-04 17:08:26 / 修改时间：19:04:43" itemprop="dateCreated datePublished" datetime="2023-11-04T17:08:26+08:00">2023-11-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/RISC-V/" itemprop="url" rel="index"><span itemprop="name">RISC-V</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">在 RISC-V：跟着清华训练营从零打造OS【第四课】中，我们主要讲解了文件系统在操作系统中的重要性，并讲述了UNIX操作系统的创始人 Ken Thompson 在编写一个测试程序时，意识到可以将其扩展成一个文件系统，从而创造了UNIX操作系统的故事。还介绍了EasyFS文件系统的设计和实现，包括常规文件和目录文件的新增，以及文件系统的核心数据结构和块缓存管理器的实现。最后，还介绍了EasyFS的五个不同层次的设计和相关接口代码定义，本节课是第二阶段最后一节课，主要讲解进程间通信、I/O重定向和并发的设计。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h2><p>在 <a href="http://lispking.github.io/2023/11/01/risc-v-learning-ch4/">RISC-V：跟着清华训练营从零打造OS【第四课】</a>中，我们主要讲解了文件系统在操作系统中的重要性，并讲述了UNIX操作系统的创始人 Ken Thompson 在编写一个测试程序时，意识到可以将其扩展成一个文件系统，从而创造了UNIX操作系统的故事。还介绍了EasyFS文件系统的设计和实现，包括常规文件和目录文件的新增，以及文件系统的核心数据结构和块缓存管理器的实现。最后，还介绍了EasyFS的五个不同层次的设计和相关接口代码定义，本节课是第二阶段的最后一节课，主要讲解进程间通信、I&#x2F;O重定向和并发的设计。</p>
+<h2 id="进程间通信与I-O重定向"><a href="#进程间通信与I-O重定向" class="headerlink" title="进程间通信与I&#x2F;O重定向"></a>进程间通信与I&#x2F;O重定向</h2><p>截至目前，进程在输入和输出方面仍存在不少限制。尤其是进程能够进行交互的 I&#x2F;O 资源相当有限，仅能接收用户在键盘上的输入，并将字符输出到屏幕上。我们通常将这些 I&#x2F;O 通道分别称为标准输入和标准输出。更令应用开发者感到受限的是，进程被操作系统完全隔离。由于进程间无法方便地“沟通”，它们很难共同协作完成“大事”。</p>
+<p>如果能实现不同进程之间的数据共享与交互，就可以将各种程序的功能组合在一起，形成更强大且灵活的功能。为了让简单的应用程序能够通过组合形成各种强大和复杂的功能，本章将介绍操作系统的核心目标：<strong>实现不同应用通过进程间通信的方式组合在一起运行。</strong></p>
+<p>首先，我们建立一个基于文件的统一 <strong>I&#x2F;O 抽象</strong>，将标准输入&#x2F;标准输出的访问转换为文件描述符。接着，我们基于文件描述符实现了一种父子进程之间的通信机制 —— <strong>管道</strong>，从而实现灵活的进程间通信。通过文件抽象和管道，我们支持不同的独立进程之间动态组合，以实现复杂功能。</p>
+<p>此外，通过实现信号机制，进程和操作系统可以主动发出信号，异步地通知其他进程相关事件。这样，我们就构建了一个具有团队协作能力的白垩纪 <strong>“迅猛龙”</strong> 操作系统。在这个操作系统中，进程间可以高效地协作，实现更强大的功能，犹如迅猛龙一般迅猛且灵活。</p>
+<p><img src="/images/risc-v/IPCOS.png" alt="IPCOS"></p>
+<p>从上图可以看出，迅猛龙操作系统 —— <strong>IPCOS</strong> 增加了两种通信机制：</p>
+<ol>
+<li>用于交换数据的管道（<code>Pipe</code>）机制</li>
+<li>用于发送异步通知事件的信号（<code>signal</code>）机制。</li>
+</ol>
+<p>应用程序可以通过新增的管道和信号相关的系统调用实现进程间通信。这两种机制所对应的资源均由进程管理。如下图所示：</p>
+<p><img src="/images/risc-v/PCB-PIPE.png" alt="PCB-PIPE"></p>
+<p>这里将管道视为一种特殊的内存文件，并在进程的打开文件表 <code>fd_table</code> 中进行管理。进程可以通过文件读写系统调用方便地实现基于管道的中间数据交换。而信号作为一种进程管理的资源，发送信号的进程可以通过系统调用向接收信号的目标进程的控制块中的 <code>signal</code> 结构更新所发信号信息。</p>
+<p>操作系统通过扩展 <code>trap_handler</code> 中从内核态返回到用户态的处理流程，改变了接收信号的目标进程的执行上下文。这样，接收信号的目标进程可以优先执行处理信号事件的预设函数 <code>signal_handler</code>。在处理完信号后，进程将继续执行之前暂停的工作。这种设计使得进程能够更加高效地响应和处理各种信号事件，进一步提高系统的稳定性和可靠性。</p>
+<p>实现迅猛龙操作系统的过程主要涉及对各种内核数据结构和相关操作的不断扩展，以支持以下功能：</p>
+<ol>
+<li><strong>标准输入&#x2F;输出文件</strong>：确保操作系统支持标准输入（如键盘）和标准输出（如屏幕）文件，以便进程能够读取和输出数据。</li>
+<li><strong>管道文件</strong>：实现管道文件，支持进程间数据传输和通信。这是一种特殊的文件，允许一个进程将输出传递给另一个进程作为输入。</li>
+<li><strong>应用程序命令行参数解析和传递</strong>：完善操作系统功能，使应用程序能够方便地解析和传递命令行参数，以便更好地控制程序行为。</li>
+<li><strong>标准 I&#x2F;O 重定向功能</strong>：支持将进程的输入和输出重定向到其他文件或设备，以便在程序运行过程中灵活地调整数据传输路径。</li>
+<li><strong>信号支持</strong>：实现信号机制，使进程和操作系统能够主动发出信号，异步地通知其他进程相关事件。这有助于提高系统的响应速度和稳定性。</li>
+</ol>
+<p>最后，一起看看信号的处理流程：</p>
+<p><img src="/images/risc-v/sigaction.png" alt="sigaction"></p>
+<p>信号主要有两种来源：</p>
+<ol>
+<li><strong>异步信号</strong>：在进程正常执行过程中，内核或其他进程向其发送信号。这些信号称为异步信号，是信号的第一种来源。</li>
+<li><strong>同步信号</strong>：进程自身执行触发信号。当处理 <strong>Trap</strong> 时，内核将相应信号直接附加到进程控制块中。这种信号称为同步信号。</li>
+</ol>
+<p>内核在处理 <strong>Trap</strong> 并即将返回用户态时，会检查进程是否有待处理的信号。如果有，根据进程是否提供相应信号的处理函数，存在以下两种处理方法：</p>
+<ol>
+<li>如果进程通过 <strong>sigaction</strong> 系统调用提供了相应信号的处理函数，内核会将 <strong>Trap</strong> 进入时留下的 <strong>Trap</strong> 上下文保存在其他地方，并执行进程提供的处理函数。处理函数编写者需要在函数末尾手动调用 <strong>sigreturn</strong> 系统调用，以表示处理结束并请求恢复进程原来的执行。内核将处理该系统调用并恢复之前保存的 <strong>Trap</strong> 上下文。当进程再次回到用户态时，它会继续处理信号之前的执行。</li>
+<li>如果进程未提供处理函数，内核将采用默认方式处理信号。处理完毕后，进程将返回用户态并继续执行原始任务。</li>
+</ol>
+<p>以上两种情况保证了进程在接收到信号时能够采取适当的措施，同时确保了系统资源的合理利用和进程执行的连续性。</p>
+<h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><p>为了使 CPU 保持高效运转并充分利用各种资源，操作系统需要多种不同的应用程序同时执行。这些应用程序分时执行，并由操作系统在运行时完成任务切换。虽然并发性有助于提高系统资源利用率，但也引发了共享资源的争抢问题，即同步互斥问题。此外，并发性还会导致执行时间的不确定性，即并发程序在执行过程中走走停停，断续推进，使得应用程序的完成时间无法确定。并发性对操作系统设计提出了诸多挑战，一旦处理不当，可能导致程序执行结果不确定、程序死锁等难以调试和重现的问题。</p>
+<ul>
+<li>并行（<code>Parallel</code>）是指两个或多个事件在同一时刻发生；</li>
+<li>并发（<code>Concurrent</code>）是指两个或多个事件在同一时间间隔内发生。</li>
+</ul>
+<p>对于基于单 CPU 的计算机而言，所谓“同时”运行的程序实际上是通过串行分时复用一个 CPU 实现的。在任何时刻，只有一个程序在 CPU 上运行。这种虚拟性为应用程序的开发和执行提供了极为便利的环境，但同时也给操作系统的设计和实现带来了很多挑战。</p>
+<blockquote>
+<p>贝尔实验室 Victor A. Vyssotsky 提出线程（thread）概念</p>
+<p>1964年开始设计的 Multics 操作系统已经有进程的概念，也有多处理器并行处理的 GE 645 硬件设计，甚至提出了线程（ thread ）的概念。1966年，参与 Multics 开发的 MIT 博士生 Jerome Howard Saltzer 在其博士毕业论文的一个注脚提到贝尔实验室的 Victor A. Vyssotsky 用 thread 这个名称来表示处理器（processor）执行程序（program）代码序列这个过程的抽象概念，Saltzer 进一步把”进程（process）”描述为处理器执行程序代码的当前状态（即线程）和可访问的地址空间。但他们并没有建立类似信号量这样的有效机制来避免并发带来的同步互斥问题。</p>
+</blockquote>
+<p>引入线程（Thread）的主要原因是为了提高整个系统的并行&#x2F;并发执行效率。考虑以下情况：许多应用程序（以单一进程的形式运行）在逻辑上由多个可并行执行的任务组成。如果其中一个任务受到阻塞，整个进程也将被阻塞。这意味着与阻塞任务无关的其他任务也会受到影响，尽管它们实际上本不应受到干扰。这种情况降低了系统的并发执行效率。</p>
+<p>为了解决这个问题，引入了线程这一概念。线程是进程内部的一个轻量级执行单元，它们可以独立地执行任务并进行任务切换。当一个任务被阻塞时，线程可以根据需要切换到其他可执行的任务，从而避免整个进程受到阻塞的影响。这样，系统的并发执行效率得到提高，资源利用率也得到优化。同时，线程还可以充分利用多核 CPU 的性能，进一步提高了整个系统的执行效率。</p>
+<h4 id="线程与进程的区别："><a href="#线程与进程的区别：" class="headerlink" title="线程与进程的区别："></a>线程与进程的区别：</h4><ul>
+<li>进程之间相互独立（即资源隔离），而同一进程内的各线程共享进程资源（即资源共享）。</li>
+<li>子进程与父进程具有不同的地址空间和资源，多个线程（无父子关系）共享同一所属进程的地址空间和资源。</li>
+<li>每个线程具有自己的执行上下文（包括线程 ID、程序计数器、寄存器集合和执行栈），进程的执行上下文涵盖其管理的所有线程的执行上下文和地址空间。因此，同一进程内的线程间上下文切换速度较快。</li>
+<li>线程是一个可调度、分派和执行的实体，具有就绪、阻塞和运行三种基本执行状态。进程并非可调度、分派和执行的实体，而是线程的资源容器。</li>
+<li>进程间通信需要通过 IPC 机制（如管道等），而同一进程的线程间可以共享“即直接读写”进程的数据。但需要同步互斥机制的辅助，以避免数据不一致性和不确定计算结果的问题。</li>
+</ul>
+<blockquote>
+<p>总之，线程和进程在资源管理、通信机制和执行上下文方面存在显著差异。这些差异使得线程在多任务处理、资源利用和通信效率方面具有优势，从而提高了整个系统的性能。</p>
+</blockquote>
+<h4 id="并发相关术语："><a href="#并发相关术语：" class="headerlink" title="并发相关术语："></a>并发相关术语：</h4><ul>
+<li>共享资源（shared resource）：不同的线程&#x2F;进程都能访问的变量或数据结构。</li>
+<li>临界区（critical section）：访问共享资源的一段代码。</li>
+<li>竞态条件（race condition）：多个线程&#x2F;进程都进入临界区时，都试图更新共享的数据结构，导致产生了不期望的结果。</li>
+<li>不确定性（indeterminate）： 多个线程&#x2F;进程在执行过程中出现了竞态条件，导致执行结果取决于哪些线程在何时运行，即执行结果不确定，而开发者期望得到的是确定的结果。</li>
+<li>原子性（atomic）：一系列操作要么全部完成，要么一个都没执行，不会看到中间状态。在数据库领域，具有原子性的一系列操作称为事务（transaction）。</li>
+<li>互斥（mutual exclusion）：一种原子性操作，能保证同一时间只有一个线程进入临界区，从而避免出现竞态条件，并产生确定的预期执行结果。</li>
+<li>同步（synchronization）：多个并发执行的进程&#x2F;线程在一些关键点上需要互相等待，这种相互制约的等待称为进程&#x2F;线程同步。</li>
+<li>死锁（dead lock）：一个线程&#x2F;进程集合里面的每个线程&#x2F;进程都在等待只能由这个集合中的其他一个线程&#x2F;进程（包括他自身）才能引发的事件，这种情况就是死锁。</li>
+<li>饥饿（hungry）：指一个可运行的线程&#x2F;进程尽管能继续执行，但由于操作系统的调度而被无限期地忽视，导致不能执行的情况。</li>
+</ul>
+<p><img src="/images/risc-v/ThreadCoroutineOS.png" alt="ThreadCoroutineOS"></p>
+<p>从上图中可以看到，Thread&amp;Coroutine OS 引入了用户态管理的用户态线程&#x2F;用户态协程以及内核态管理的用户态线程。针对用户态管理的用户态线程和协程，新增了一个运行在用户态的 Thread&#x2F;Coroutine Manager 运行时库（Runtime Lib），无需修改操作系统内核。</p>
+<p>对于内核态管理的用户态线程，需要新增线程控制块（Thread Control Block, TCB）结构，将之前进程控制块（Process Control Block, PCB）中与执行相关的内容剥离给线程控制块。同时，对进程控制块进行进一步重构，将线程控制块列表作为进程控制块中的一部分资源，使一个进程控制块能够管理多个线程。最后，还提供了与线程相关的系统调用，如创建线程、等待线程结束等，以支持多线程应用的执行。</p>
+<p>通过这些改进，Thread&amp;Coroutine OS 实现了对用户态线程和协程的有效管理，提高了系统的并发性能和资源利用率。同时，内核态线程管理的改进使得多线程应用能够更加高效地运行，降低了操作系统复杂性，并为开发者提供了更加便捷的多线程编程接口。</p>
+<p>在这里可以将进程、线程和协程中的控制流执行视为任务（Task）的执行过程，如下图所示：</p>
+<p><img src="/images/risc-v/TaskProcess.png" alt="TaskProcess"></p>
+<p>在上图所示的层次结构中，进程包含线程（即有栈协程），线程包含无栈协程。它们的层次包含关系体现了任务在不同抽象层次上的组织和管理。</p>
+<p>任务切换是进程、线程和协程执行过程中的关键环节，涉及到控制流的切换。任务切换的核心是上下文保存与恢复，而任务上下文的核心部分是各个任务分时共享的硬件寄存器内容。<br>对于无栈协程，只需切换这些寄存器；对于拥有独立栈的线程，还需要切换线程栈；而对于拥有独立地址空间的进程，还需进一步切换地址空间（即切换页表）。</p>
+<p>这种层次化的任务切换策略使得操作系统能够高效地管理不同层次的任务，实现任务之间的协同执行。理解这些层次关系和切换机制有助于我们更好地利用多核处理器资源，提高系统的并发性能和资源利用率。同时，为开发者提供了更加便捷的多线程、多进程和协程编程接口，降低了编写高性能并发程序的难度。</p>
+<p>进一步增加了同步互斥机制的慈母龙操作系统 – SyncMutexOS的总体结构如下图所示：</p>
+<p><img src="/images/risc-v/SyncMutexOS.png" alt="SyncMutexOS"></p>
+<p>在上图所示的进程控制块中，增加了互斥锁（Mutex）、信号量（Semaphore）和条件变量（Condvar）这三种资源，并提供了与这些同步互斥资源相关的系统调用。这使得多线程应用能够利用这些同步互斥机制来解决各种同步互斥问题，例如生产者消费者问题、哲学家问题、读者写者问题等。</p>
+<p>互斥锁、信号量和条件变量是多线程编程中常见的同步互斥工具，它们可以帮助线程在共享资源访问过程中避免竞争条件和死锁。</p>
+<p>互斥锁用于保护共享资源，确保同一时间只有一个线程可以访问资源。当一个线程需要访问受保护的资源时，它必须先获得互斥锁，访问完成后释放互斥锁，以便其他线程访问该资源。</p>
+<p>信号量用于实现线程之间的有序执行。它通常用于解决生产者消费者问题，其中一个线程负责生产商品，另一个线程负责消费商品。通过信号量，生产者线程可以在商品数量大于等于消费者线程所需数量时继续生产，而消费者线程在发现商品数量小于所需数量时开始消费。<br>条件变量用于在线程之间传递信号，实现异步通信。当一个线程等待某个条件成立时，它可以阻塞在条件变量上。当条件成立时，另一个线程通过信号或广播唤醒阻塞的线程，使其继续执行。</p>
+<p>通过提供这些同步互斥机制，操作系统为多线程应用提供了强大的工具来解决各种同步互斥问题。这有助于确保多线程应用在共享资源访问方面的正确性和稳定性，同时提高了系统的并发性能。理解和使用这些同步互斥机制是多线程编程的关键，有助于避免潜在的并发问题，确保程序正确运行。</p>
+<h2 id="未完待续-…-…"><a href="#未完待续-…-…" class="headerlink" title="未完待续 … …"></a>未完待续 … …</h2><blockquote>
+<p>以上就是关于 [清华开源操作系统训练营] 第五课学到的知识，，同时也是第二阶段的最后一节课。接下来，我们将迈入富有挑战的第三阶段。第三阶段将持续一个月，涵盖众多课程，如 ArceOS、Rust for Linux、协程异步 OS 等。我已选修《Rust for Linux》这门课程，初衷是为了为未来的 Linux 设备驱动开发贡献力量。实际上，我对这些课程都充满兴趣，待后续开课时再报名继续学习。最后，希望这节课能对您有所帮助。祝大家玩得开心 ^_^</p>
+</blockquote>
+<blockquote>
+<p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
+</blockquote>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechat.png" alt="King 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="King 支付宝">
+        <span>支付宝</span>
+      </div>
+      <div>
+        <img src="/images/metamask.png" alt="King 比特币">
+        <span>比特币</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/lispking">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Rust/" rel="tag"><i class="fa fa-tag"></i> Rust</a>
+              <a href="/tags/RISC-V/" rel="tag"><i class="fa fa-tag"></i> RISC-V</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/11/01/risc-v-learning-summary/" rel="prev" title="逆境中的学习与成长：我的开源操作系统训练营之旅">
+                  <i class="fa fa-angle-left"></i> 逆境中的学习与成长：我的开源操作系统训练营之旅
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+  
+  <script type="text/javascript">
+    // 可修改，摘要将显示在这个选择器选中的元素之上。
+    var _xhh_selector = ".post-body";
+    // 可修改，定制最外层 DIV 的风格。
+    // 默认限制宽度为 750px，上下加 8px 的镶边，4 像素圆角。
+    var _xhh_style = "max-width: 100%; margin:8px 0px; border-radius: 4px;";
+
+    // 以下部分不要改动
+    var host = '///xhh.club';
+    var _xhh_service_url = host + '/summarize-this/';
+    (function() {
+      var smmr = document.createElement("script");
+      smmr.src = host + "/static/js/summarize_this.js";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(smmr, s);
+    })();
+  </script>
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">King</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">58k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">52 分钟</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lispking" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.3.0/mermaid.min.js","integrity":"sha256-9y71g5Lz/KLsHjB8uXwnkuWDtAMDSzD/HdIbqhJfTAI="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","mhchem":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
