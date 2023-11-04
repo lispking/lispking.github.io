@@ -499,113 +499,6 @@
       </tags>
   </entry>
   <entry>
-    <title>解读 DAI 架构流程图 —— Collateral模块</title>
-    <url>/2023/10/11/dai-collateral-module/</url>
-    <content><![CDATA[<blockquote>
-<p>免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^</p>
-</blockquote>
-<h3 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h3><blockquote>
-<p>上个章节主要讲解了<a href="https://lispking.github.io/2023/10/10/dai-core-module/">Core模块相关合约的细节</a>，其中，包括 <code>Vat</code>合约和<code>Spot</code>合约。<code>Vat</code> 是 <code>dss</code> 的核心 <code>Vault</code> 引擎。它存储 <code>Vault</code> 并跟踪所有相关的 <code>Dai</code> 和抵押品余额。它还定义了可以通过操作 <code>Vault</code> 和余额的规则。<code>Vat</code> 中定义的规则是不可变的，因此在某种程度上，可以将 <code>Vat</code> 中的规则视为 <code>dss</code> 的宪法。<code>Spot</code>是负责连接预言机（<code>Oracles</code>）与核心合约的现货接口。作为一个接口合约，它只存储当前的 <code>ilk</code> 列表。本章节，我们来解读Collateral模块的细节。</p>
-</blockquote>
-<h3 id="Collateral模块介绍"><a href="#Collateral模块介绍" class="headerlink" title="Collateral模块介绍"></a><code>Collateral</code>模块介绍</h3><blockquote>
-<p>Collateral模块在MCD系统中充当抵押品角色，该模块会为 <code>Vat</code> 中添加的每个新抵押品类型（<code>collateral type</code>）进行部署。它包含了针对某一特定抵押品类型的所有适配器和拍卖合约。抵押品模块主要由<a href="https://github.com/makerdao/dss/blob/master/src/join.sol">Join</a>和<a href="https://github.com/makerdao/dss/blob/master/src/clip.sol">Clip</a>合约组成。</p>
-</blockquote>
-<ul>
-<li>抵押品模块组件概述  <ul>
-<li><code>Join</code> - 用于将未锁定的抵押品存入&#x2F;提取到 <code>Vat</code> 的适配器。<code>Join</code> 包含三个智能合约：<code>GemJoin</code>、<code>ETHJoin</code>和<code>DaiJoin</code>。  </li>
-<li>每个 <code>join</code> 合约都专门用于将给定的代币类型加入到 <code>Vat</code> 中。正因为如此，每个 <code>join</code> 合约在处理系统内不同类型的代币时都有略微不同的逻辑。</li>
-</ul>
-</li>
-<li><code>Join</code> 合约究竟如何帮助 MCD 系统运行？  <ul>
-<li><code>Join</code> - <code>join</code> 适配器的目的是保留系统的安全性，只允许可信任的智能合约将值添加&#x2F;删除到&#x2F;从 <code>Vat</code> 中。存放在金库中已存入&#x2F;已锁定的抵押品的位置在相应的 <code>Join</code> 适配器中。</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>潜在的陷阱（可能导致用户错误的来源）  </p>
-</blockquote>
-<ul>
-<li>当用户希望进入系统并与 <code>dss</code> 合约进行交互时，他们必须使用其中一个 <code>join</code> 合约。    </li>
-<li>如果 <code>join</code> 合约中存在合同错误，而用户不小心调用了 <code>join</code>，他们仍然可以通过给定的 <code>join</code> 合约上的相应退出调用来取回他们的代币。</li>
-</ul>
-<blockquote>
-<p>故障模式</p>
-</blockquote>
-<ul>
-<li>可能会有一个 <code>vat</code> 升级，需要创建新的 <code>join</code> 合约    <ul>
-<li>如果一个 <code>gem</code> 合约在用户的抵押品在系统中时进行代币升级或冻结，可能会出现一种情况，即在冻结或升级完成后，用户无法兑换他们的抵押品。虽然这似乎是一个小风险，因为似乎进行这种升级的代币很可能希望与制造商社区合作，以确保这不是问题。</li>
-</ul>
-</li>
-<li>潜在的网络钓鱼攻击    <ul>
-<li>随着 MCD 系统的发展，我们将看到更多的 <code>join</code> 合约、用户界面等。这使得用户有可能被一个恶意的 <code>join</code> 合约窃取资金，该合约会将代币发送到外部合约或钱包，而不是 <code>vat</code>。</li>
-</ul>
-</li>
-</ul>
-<h3 id="Join合约介绍"><a href="#Join合约介绍" class="headerlink" title="Join合约介绍"></a><code>Join</code>合约介绍</h3><blockquote>
-<p><code>Join</code> 由三个智能合约组成：<code>GemJoin</code>、<code>ETHJoin</code> 和 <code>DaiJoin</code>：  </p>
-</blockquote>
-<ul>
-<li><code>GemJoin</code> - 允许将标准 <code>ERC20</code> 代币存入系统以供使用。</li>
-<li><code>ETHJoin</code> - 允许使用本地 <code>Ether</code>。  </li>
-<li><code>DaiJoin</code> - 允许用户将其 <code>Dai</code> 从系统中提取到标准 <code>ERC20</code> 代币。</li>
-</ul>
-<blockquote>
-<p>每个 <code>join</code> 合约都是专门为允许给定的代币类型加入到 <code>Vat</code> 而创建的。正因为如此，每个 <code>join</code> 合约在处理系统内不同类型的代币时都有略微不同的逻辑。下面来看看<code>join</code>合约的交互流程以及其所在的位置（用黄色标注出来了）</p>
-</blockquote>
-<p><img src="/images/makedao/TheMakerJoin.png" alt="JoinDiagram"></p>
-<h3 id="Join合约细节说明"><a href="#Join合约细节说明" class="headerlink" title="Join合约细节说明"></a><code>Join</code>合约细节说明</h3><blockquote>
-<p>词汇表（<code>Join</code>）  </p>
-</blockquote>
-<ul>
-<li><code>vat</code> - <code>Vat</code> 地址的存储。  </li>
-<li><code>ilk</code> - 为哪个 <code>Ilk</code> 创建 <code>GemJoin</code> 的 <code>id</code>。  </li>
-<li><code>gem</code> - 用于转账的 <code>Ilk</code> 地址。  </li>
-<li><code>dai</code> - <code>Dai</code> 代币的地址。  </li>
-<li><code>one</code> - <code>DaiJoin</code> 中用于数学的 <code>10^27 uint</code>。  </li>
-<li><code>live</code> - <code>join</code>适配器的访问标志。  </li>
-<li><code>dec</code> - <code>Gem</code> 的小数位数。</li>
-</ul>
-<blockquote>
-<p>每个 <code>Join</code> 合约都有 4 个公共函数：构造函数、<code>join</code> 函数、<code>exit</code> 函数和<code>cage</code> 函数。</p>
-</blockquote>
-<ul>
-<li>构造函数在合约初始化时用于设置该 <code>Join</code> 合约的核心变量。</li>
-<li><code>Join</code> 和 <code>exit</code> 都符合其名称。<code>Join</code> 为用户提供了将给定代币类型添加到 <code>Vat</code> 的机制。它在每个变种中的逻辑略有不同，但通常简化为一个转账和一个在 <code>Vat</code> 中的函数调用。<code>Exit</code> 非常相似，但相反，它允许用户从 <code>Vat</code> 中移除他们想要的代币。</li>
-<li><code>Cage</code> 允许适配器被排空（允许代币流出但不流入）。</li>
-</ul>
-<blockquote>
-<p>关键机制和概念</p>
-</blockquote>
-<ul>
-<li><code>GemJoin</code> 合约具有非常特定和单一的目的，相对于核心智能合约系统的其他部分，它被抽象出来。当用户希望进入系统并与 <code>dss</code> 合约进行交互时，他们必须使用其中一个 <code>join</code> 合约。在完成 <code>dss</code> 合约后，他们必须调用 <code>exit</code> 函数离开系统并提取他们的代币。当 <code>GemJoin</code> 被授权地址围困时，它可以从 <code>Vat</code> 中退出抵押品，但它不能再加入新抵押品。  </li>
-<li>通过 <code>join</code> 添加到系统的抵押品代币余额在 <code>Vat</code> 中根据抵押品类型 <code>Ilk</code> 计算为 <code>Gem</code>，直到它们被转换为锁定的抵押品代币（<code>ink</code>），以便用户可以提取 <code>Dai</code>。  </li>
-<li><code>DaiJoin</code> 合约具有类似的目的。它管理 <code>Vat</code> 中跟踪的 <code>Dai</code> 和 <code>Dai.sol</code> 跟踪的 <code>ERC-20 Dai</code> 之间的交换。在用户使用抵押品提取 <code>Dai</code> 之后，他们将在 <code>Vat</code> 中拥有一个余额。这个 <code>Dai</code> 平衡可以使用持有 <code>Vat.dai</code> 和 <code>mint</code> 的 <code>ERC-20 Dai</code> 的 <code>DaiJoin</code> 合约从 <code>Vat</code> 中退出。当用户希望将其 <code>Dai</code> 移回 <code>Vat</code> 账户系统（比如，偿还债务、参加拍卖、在<code>End</code>打包<code>bag</code>或利用 <code>DSR</code> 等）时，他们必须调用 <code>DaiJoin.join</code>。通过调用 <code>DaiJoin.join</code>，有效地燃烧 <code>ERC-20 Dai</code> 并将从 <code>DaiJoin</code> 的余额转移 <code>Vat.dai</code> 到用户在 <code>Vat</code> 的账户。在系统的正常运行中，<code>Dai.totalSupply</code> 应该等于 <code>Vat.dai(DaiJoin)</code> 余额。当 <code>DaiJoin</code> 合约被授权地址围困时，它可以将 <code>Dai</code> 移回 <code>Vat</code>，但它不能再从 <code>Vat</code> 中退出 <code>Dai</code>。</li>
-</ul>
-<blockquote>
-<p>需要注意的问题（可能导致用户错误的潜在来源） </p>
-</blockquote>
-<ul>
-<li>加入合约中用户错误的主要来源是用户不应直接向合约转移代币，他们必须使用加入功能，否则将无法取回他们的代币。  </li>
-<li>由于系统的有限功能，加入合约系统中用户错误的来源有限。除了合约漏洞，如果用户不小心调用了 <code>join</code>，他们总是可以通过给定的加入合约对应的退出调用来取回他们的代币。  </li>
-<li>这里需要警惕的主要问题是精心策划的网络钓鱼攻击。随着系统的发展，可能创建更多的加入合约或更多的用户界面，用户有可能被恶意的加入合约窃取资金，该合约并未实际将代币发送到 <code>Vat</code>，而是发送到其他合约或钱包。</li>
-</ul>
-<blockquote>
-<p>故障模式（操作条件和外部风险因素的边界）</p>
-</blockquote>
-<ul>
-<li>可能会有一个 <code>vat</code> 升级，需要创建新的加入合约。  </li>
-<li>如果一个宝石合约在代币升级或代币冻结期间，用户的抵押品在系统中，可能会出现一种情况，即在冻结或升级完成后，用户无法赎回他们的抵押品。虽然这种情况可能带来一些风险，但进行升级的代币很可能希望与 <code>Maker</code> 社区合作，确保这不是一个问题。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>MakerDAO</category>
-      </categories>
-      <tags>
-        <tag>MakerDAO</tag>
-        <tag>DAI</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>解读 DAI 架构流程图 —— 清算2.0模块</title>
     <url>/2023/10/12/dai-liquidation-module/</url>
     <content><![CDATA[<blockquote>
@@ -1311,6 +1204,113 @@
       </tags>
   </entry>
   <entry>
+    <title>解读 DAI 架构流程图 —— Collateral模块</title>
+    <url>/2023/10/11/dai-collateral-module/</url>
+    <content><![CDATA[<blockquote>
+<p>免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^</p>
+</blockquote>
+<h3 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h3><blockquote>
+<p>上个章节主要讲解了<a href="https://lispking.github.io/2023/10/10/dai-core-module/">Core模块相关合约的细节</a>，其中，包括 <code>Vat</code>合约和<code>Spot</code>合约。<code>Vat</code> 是 <code>dss</code> 的核心 <code>Vault</code> 引擎。它存储 <code>Vault</code> 并跟踪所有相关的 <code>Dai</code> 和抵押品余额。它还定义了可以通过操作 <code>Vault</code> 和余额的规则。<code>Vat</code> 中定义的规则是不可变的，因此在某种程度上，可以将 <code>Vat</code> 中的规则视为 <code>dss</code> 的宪法。<code>Spot</code>是负责连接预言机（<code>Oracles</code>）与核心合约的现货接口。作为一个接口合约，它只存储当前的 <code>ilk</code> 列表。本章节，我们来解读Collateral模块的细节。</p>
+</blockquote>
+<h3 id="Collateral模块介绍"><a href="#Collateral模块介绍" class="headerlink" title="Collateral模块介绍"></a><code>Collateral</code>模块介绍</h3><blockquote>
+<p>Collateral模块在MCD系统中充当抵押品角色，该模块会为 <code>Vat</code> 中添加的每个新抵押品类型（<code>collateral type</code>）进行部署。它包含了针对某一特定抵押品类型的所有适配器和拍卖合约。抵押品模块主要由<a href="https://github.com/makerdao/dss/blob/master/src/join.sol">Join</a>和<a href="https://github.com/makerdao/dss/blob/master/src/clip.sol">Clip</a>合约组成。</p>
+</blockquote>
+<ul>
+<li>抵押品模块组件概述  <ul>
+<li><code>Join</code> - 用于将未锁定的抵押品存入&#x2F;提取到 <code>Vat</code> 的适配器。<code>Join</code> 包含三个智能合约：<code>GemJoin</code>、<code>ETHJoin</code>和<code>DaiJoin</code>。  </li>
+<li>每个 <code>join</code> 合约都专门用于将给定的代币类型加入到 <code>Vat</code> 中。正因为如此，每个 <code>join</code> 合约在处理系统内不同类型的代币时都有略微不同的逻辑。</li>
+</ul>
+</li>
+<li><code>Join</code> 合约究竟如何帮助 MCD 系统运行？  <ul>
+<li><code>Join</code> - <code>join</code> 适配器的目的是保留系统的安全性，只允许可信任的智能合约将值添加&#x2F;删除到&#x2F;从 <code>Vat</code> 中。存放在金库中已存入&#x2F;已锁定的抵押品的位置在相应的 <code>Join</code> 适配器中。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>潜在的陷阱（可能导致用户错误的来源）  </p>
+</blockquote>
+<ul>
+<li>当用户希望进入系统并与 <code>dss</code> 合约进行交互时，他们必须使用其中一个 <code>join</code> 合约。    </li>
+<li>如果 <code>join</code> 合约中存在合同错误，而用户不小心调用了 <code>join</code>，他们仍然可以通过给定的 <code>join</code> 合约上的相应退出调用来取回他们的代币。</li>
+</ul>
+<blockquote>
+<p>故障模式</p>
+</blockquote>
+<ul>
+<li>可能会有一个 <code>vat</code> 升级，需要创建新的 <code>join</code> 合约    <ul>
+<li>如果一个 <code>gem</code> 合约在用户的抵押品在系统中时进行代币升级或冻结，可能会出现一种情况，即在冻结或升级完成后，用户无法兑换他们的抵押品。虽然这似乎是一个小风险，因为似乎进行这种升级的代币很可能希望与制造商社区合作，以确保这不是问题。</li>
+</ul>
+</li>
+<li>潜在的网络钓鱼攻击    <ul>
+<li>随着 MCD 系统的发展，我们将看到更多的 <code>join</code> 合约、用户界面等。这使得用户有可能被一个恶意的 <code>join</code> 合约窃取资金，该合约会将代币发送到外部合约或钱包，而不是 <code>vat</code>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Join合约介绍"><a href="#Join合约介绍" class="headerlink" title="Join合约介绍"></a><code>Join</code>合约介绍</h3><blockquote>
+<p><code>Join</code> 由三个智能合约组成：<code>GemJoin</code>、<code>ETHJoin</code> 和 <code>DaiJoin</code>：  </p>
+</blockquote>
+<ul>
+<li><code>GemJoin</code> - 允许将标准 <code>ERC20</code> 代币存入系统以供使用。</li>
+<li><code>ETHJoin</code> - 允许使用本地 <code>Ether</code>。  </li>
+<li><code>DaiJoin</code> - 允许用户将其 <code>Dai</code> 从系统中提取到标准 <code>ERC20</code> 代币。</li>
+</ul>
+<blockquote>
+<p>每个 <code>join</code> 合约都是专门为允许给定的代币类型加入到 <code>Vat</code> 而创建的。正因为如此，每个 <code>join</code> 合约在处理系统内不同类型的代币时都有略微不同的逻辑。下面来看看<code>join</code>合约的交互流程以及其所在的位置（用黄色标注出来了）</p>
+</blockquote>
+<p><img src="/images/makedao/TheMakerJoin.png" alt="JoinDiagram"></p>
+<h3 id="Join合约细节说明"><a href="#Join合约细节说明" class="headerlink" title="Join合约细节说明"></a><code>Join</code>合约细节说明</h3><blockquote>
+<p>词汇表（<code>Join</code>）  </p>
+</blockquote>
+<ul>
+<li><code>vat</code> - <code>Vat</code> 地址的存储。  </li>
+<li><code>ilk</code> - 为哪个 <code>Ilk</code> 创建 <code>GemJoin</code> 的 <code>id</code>。  </li>
+<li><code>gem</code> - 用于转账的 <code>Ilk</code> 地址。  </li>
+<li><code>dai</code> - <code>Dai</code> 代币的地址。  </li>
+<li><code>one</code> - <code>DaiJoin</code> 中用于数学的 <code>10^27 uint</code>。  </li>
+<li><code>live</code> - <code>join</code>适配器的访问标志。  </li>
+<li><code>dec</code> - <code>Gem</code> 的小数位数。</li>
+</ul>
+<blockquote>
+<p>每个 <code>Join</code> 合约都有 4 个公共函数：构造函数、<code>join</code> 函数、<code>exit</code> 函数和<code>cage</code> 函数。</p>
+</blockquote>
+<ul>
+<li>构造函数在合约初始化时用于设置该 <code>Join</code> 合约的核心变量。</li>
+<li><code>Join</code> 和 <code>exit</code> 都符合其名称。<code>Join</code> 为用户提供了将给定代币类型添加到 <code>Vat</code> 的机制。它在每个变种中的逻辑略有不同，但通常简化为一个转账和一个在 <code>Vat</code> 中的函数调用。<code>Exit</code> 非常相似，但相反，它允许用户从 <code>Vat</code> 中移除他们想要的代币。</li>
+<li><code>Cage</code> 允许适配器被排空（允许代币流出但不流入）。</li>
+</ul>
+<blockquote>
+<p>关键机制和概念</p>
+</blockquote>
+<ul>
+<li><code>GemJoin</code> 合约具有非常特定和单一的目的，相对于核心智能合约系统的其他部分，它被抽象出来。当用户希望进入系统并与 <code>dss</code> 合约进行交互时，他们必须使用其中一个 <code>join</code> 合约。在完成 <code>dss</code> 合约后，他们必须调用 <code>exit</code> 函数离开系统并提取他们的代币。当 <code>GemJoin</code> 被授权地址围困时，它可以从 <code>Vat</code> 中退出抵押品，但它不能再加入新抵押品。  </li>
+<li>通过 <code>join</code> 添加到系统的抵押品代币余额在 <code>Vat</code> 中根据抵押品类型 <code>Ilk</code> 计算为 <code>Gem</code>，直到它们被转换为锁定的抵押品代币（<code>ink</code>），以便用户可以提取 <code>Dai</code>。  </li>
+<li><code>DaiJoin</code> 合约具有类似的目的。它管理 <code>Vat</code> 中跟踪的 <code>Dai</code> 和 <code>Dai.sol</code> 跟踪的 <code>ERC-20 Dai</code> 之间的交换。在用户使用抵押品提取 <code>Dai</code> 之后，他们将在 <code>Vat</code> 中拥有一个余额。这个 <code>Dai</code> 平衡可以使用持有 <code>Vat.dai</code> 和 <code>mint</code> 的 <code>ERC-20 Dai</code> 的 <code>DaiJoin</code> 合约从 <code>Vat</code> 中退出。当用户希望将其 <code>Dai</code> 移回 <code>Vat</code> 账户系统（比如，偿还债务、参加拍卖、在<code>End</code>打包<code>bag</code>或利用 <code>DSR</code> 等）时，他们必须调用 <code>DaiJoin.join</code>。通过调用 <code>DaiJoin.join</code>，有效地燃烧 <code>ERC-20 Dai</code> 并将从 <code>DaiJoin</code> 的余额转移 <code>Vat.dai</code> 到用户在 <code>Vat</code> 的账户。在系统的正常运行中，<code>Dai.totalSupply</code> 应该等于 <code>Vat.dai(DaiJoin)</code> 余额。当 <code>DaiJoin</code> 合约被授权地址围困时，它可以将 <code>Dai</code> 移回 <code>Vat</code>，但它不能再从 <code>Vat</code> 中退出 <code>Dai</code>。</li>
+</ul>
+<blockquote>
+<p>需要注意的问题（可能导致用户错误的潜在来源） </p>
+</blockquote>
+<ul>
+<li>加入合约中用户错误的主要来源是用户不应直接向合约转移代币，他们必须使用加入功能，否则将无法取回他们的代币。  </li>
+<li>由于系统的有限功能，加入合约系统中用户错误的来源有限。除了合约漏洞，如果用户不小心调用了 <code>join</code>，他们总是可以通过给定的加入合约对应的退出调用来取回他们的代币。  </li>
+<li>这里需要警惕的主要问题是精心策划的网络钓鱼攻击。随着系统的发展，可能创建更多的加入合约或更多的用户界面，用户有可能被恶意的加入合约窃取资金，该合约并未实际将代币发送到 <code>Vat</code>，而是发送到其他合约或钱包。</li>
+</ul>
+<blockquote>
+<p>故障模式（操作条件和外部风险因素的边界）</p>
+</blockquote>
+<ul>
+<li>可能会有一个 <code>vat</code> 升级，需要创建新的加入合约。  </li>
+<li>如果一个宝石合约在代币升级或代币冻结期间，用户的抵押品在系统中，可能会出现一种情况，即在冻结或升级完成后，用户无法赎回他们的抵押品。虽然这种情况可能带来一些风险，但进行升级的代币很可能希望与 <code>Maker</code> 社区合作，确保这不是一个问题。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>MakerDAO</category>
+      </categories>
+      <tags>
+        <tag>MakerDAO</tag>
+        <tag>DAI</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RISC-V：跟着清华训练营从零打造OS【第一课】</title>
     <url>/2023/10/24/risc-v-learning-ch1/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天是 1024 程序员节，祝所有程序员节日快乐！你们用智慧和勤奋创造了世界上最复杂、最神奇、最优秀的软件和系统，让我们享受到了科技的便捷和乐趣。感谢你们一直以来的努力和付出，希望你们继续前行，不断创新，让我们的世界更加美好！</p>
@@ -1693,8 +1693,8 @@
 <p>互斥锁用于保护共享资源，确保同一时间只有一个线程可以访问资源。当一个线程需要访问受保护的资源时，它必须先获得互斥锁，访问完成后释放互斥锁，以便其他线程访问该资源。</p>
 <p>信号量用于实现线程之间的有序执行。它通常用于解决生产者消费者问题，其中一个线程负责生产商品，另一个线程负责消费商品。通过信号量，生产者线程可以在商品数量大于等于消费者线程所需数量时继续生产，而消费者线程在发现商品数量小于所需数量时开始消费。<br>条件变量用于在线程之间传递信号，实现异步通信。当一个线程等待某个条件成立时，它可以阻塞在条件变量上。当条件成立时，另一个线程通过信号或广播唤醒阻塞的线程，使其继续执行。</p>
 <p>通过提供这些同步互斥机制，操作系统为多线程应用提供了强大的工具来解决各种同步互斥问题。这有助于确保多线程应用在共享资源访问方面的正确性和稳定性，同时提高了系统的并发性能。理解和使用这些同步互斥机制是多线程编程的关键，有助于避免潜在的并发问题，确保程序正确运行。</p>
-<h2 id="未完待续-…-…"><a href="#未完待续-…-…" class="headerlink" title="未完待续 … …"></a>未完待续 … …</h2><blockquote>
-<p>以上就是关于 [清华开源操作系统训练营] 第五课学到的知识，，同时也是第二阶段的最后一节课。接下来，我们将迈入富有挑战的第三阶段。第三阶段将持续一个月，涵盖众多课程，如 ArceOS、Rust for Linux、协程异步 OS 等。我已选修《Rust for Linux》这门课程，初衷是为了为未来的 Linux 设备驱动开发贡献力量。实际上，我对这些课程都充满兴趣，待后续开课时再报名继续学习。最后，希望这节课能对您有所帮助。祝大家玩得开心 ^_^</p>
+<h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2><blockquote>
+<p>以上就是关于 [清华开源操作系统训练营] 第五课学到的知识，同时也是第二阶段的最后一节课。接下来，我们将迈入富有挑战的第三阶段。第三阶段将持续一个月，涵盖众多课程，如 ArceOS、Rust for Linux、协程异步 OS 等。我已选修《Rust for Linux》这门课程，初衷是为了为未来的 Linux 设备驱动开发贡献力量。实际上，我对这些课程都充满兴趣，待后续开课时再报名继续学习。最后，希望这节课能对您有所帮助。祝大家玩得开心 ^_^</p>
 </blockquote>
 <blockquote>
 <p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>

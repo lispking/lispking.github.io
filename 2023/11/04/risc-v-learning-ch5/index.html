@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://lispking.github.io/images/risc-v/SyncMutexOS.png">
 <meta property="og:image" content="http://lispking.github.io/images/wechat-blog.png">
 <meta property="article:published_time" content="2023-11-04T09:08:26.000Z">
-<meta property="article:modified_time" content="2023-11-04T11:08:22.628Z">
+<meta property="article:modified_time" content="2023-11-04T11:16:51.879Z">
 <meta property="article:author" content="King">
 <meta property="article:tag" content="Rust">
 <meta property="article:tag" content="RISC-V">
@@ -158,7 +158,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%B8%80%E8%8A%82%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.</span> <span class="nav-text">上一节回顾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E4%B8%8EI-O%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">2.</span> <span class="nav-text">进程间通信与I&#x2F;O重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91"><span class="nav-number">3.</span> <span class="nav-text">并发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E4%B8%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9A"><span class="nav-number">3.0.1.</span> <span class="nav-text">线程与进程的区别：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E7%9B%B8%E5%85%B3%E6%9C%AF%E8%AF%AD%EF%BC%9A"><span class="nav-number">3.0.2.</span> <span class="nav-text">并发相关术语：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD-%E2%80%A6-%E2%80%A6"><span class="nav-number">4.</span> <span class="nav-text">未完待续 … …</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%B8%80%E8%8A%82%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.</span> <span class="nav-text">上一节回顾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E4%B8%8EI-O%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">2.</span> <span class="nav-text">进程间通信与I&#x2F;O重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91"><span class="nav-number">3.</span> <span class="nav-text">并发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E4%B8%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9A"><span class="nav-number">3.0.1.</span> <span class="nav-text">线程与进程的区别：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E7%9B%B8%E5%85%B3%E6%9C%AF%E8%AF%AD%EF%BC%9A"><span class="nav-number">3.0.2.</span> <span class="nav-text">并发相关术语：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD"><span class="nav-number">4.</span> <span class="nav-text">未完待续</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -262,7 +262,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-11-04 17:08:26 / 修改时间：19:08:22" itemprop="dateCreated datePublished" datetime="2023-11-04T17:08:26+08:00">2023-11-04</time>
+      <time title="创建时间：2023-11-04 17:08:26 / 修改时间：19:16:51" itemprop="dateCreated datePublished" datetime="2023-11-04T17:08:26+08:00">2023-11-04</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -384,8 +384,8 @@
 <p>互斥锁用于保护共享资源，确保同一时间只有一个线程可以访问资源。当一个线程需要访问受保护的资源时，它必须先获得互斥锁，访问完成后释放互斥锁，以便其他线程访问该资源。</p>
 <p>信号量用于实现线程之间的有序执行。它通常用于解决生产者消费者问题，其中一个线程负责生产商品，另一个线程负责消费商品。通过信号量，生产者线程可以在商品数量大于等于消费者线程所需数量时继续生产，而消费者线程在发现商品数量小于所需数量时开始消费。<br>条件变量用于在线程之间传递信号，实现异步通信。当一个线程等待某个条件成立时，它可以阻塞在条件变量上。当条件成立时，另一个线程通过信号或广播唤醒阻塞的线程，使其继续执行。</p>
 <p>通过提供这些同步互斥机制，操作系统为多线程应用提供了强大的工具来解决各种同步互斥问题。这有助于确保多线程应用在共享资源访问方面的正确性和稳定性，同时提高了系统的并发性能。理解和使用这些同步互斥机制是多线程编程的关键，有助于避免潜在的并发问题，确保程序正确运行。</p>
-<h2 id="未完待续-…-…"><a href="#未完待续-…-…" class="headerlink" title="未完待续 … …"></a>未完待续 … …</h2><blockquote>
-<p>以上就是关于 [清华开源操作系统训练营] 第五课学到的知识，，同时也是第二阶段的最后一节课。接下来，我们将迈入富有挑战的第三阶段。第三阶段将持续一个月，涵盖众多课程，如 ArceOS、Rust for Linux、协程异步 OS 等。我已选修《Rust for Linux》这门课程，初衷是为了为未来的 Linux 设备驱动开发贡献力量。实际上，我对这些课程都充满兴趣，待后续开课时再报名继续学习。最后，希望这节课能对您有所帮助。祝大家玩得开心 ^_^</p>
+<h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2><blockquote>
+<p>以上就是关于 [清华开源操作系统训练营] 第五课学到的知识，同时也是第二阶段的最后一节课。接下来，我们将迈入富有挑战的第三阶段。第三阶段将持续一个月，涵盖众多课程，如 ArceOS、Rust for Linux、协程异步 OS 等。我已选修《Rust for Linux》这门课程，初衷是为了为未来的 Linux 设备驱动开发贡献力量。实际上，我对这些课程都充满兴趣，待后续开课时再报名继续学习。最后，希望这节课能对您有所帮助。祝大家玩得开心 ^_^</p>
 </blockquote>
 <blockquote>
 <p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
