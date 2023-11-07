@@ -1794,6 +1794,9 @@
 </blockquote>
 <p><img src="/images/wechat-blog.png" alt="公众号"></p>
 ]]></content>
+      <categories>
+        <category>RustForLinux</category>
+      </categories>
       <tags>
         <tag>Rust</tag>
         <tag>Linux</tag>
