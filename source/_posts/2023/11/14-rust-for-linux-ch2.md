@@ -95,16 +95,27 @@ impl Drop for RustHelloWorld {
 }
 ```
 
-接下来，参考 `samples/rust/Kconfig` 文件将 `rust_helloworld` 模块补充进去，在 `menuconfig` 命令中添加 `rust_helloworld` 模块。
+接下来，参考 `samples/rust/Kconfig` 文件并将 `rust_helloworld` 模块补充进去，在 `menuconfig` 命令中添加 `rust_helloworld` 模块。
 
-最后，参考 `samples/rust/Makefile` 文件将 `rust_helloworld` 模块补充进去，以便在编译过程中包含 `rust_helloworld` 模块。
+最后，参考 `samples/rust/Makefile` 文件并将 `rust_helloworld` 模块补充进去，以便在编译过程中包含 `rust_helloworld` 模块。
 
 现在，可以使用 `make menuconfig` 命令配置内核，并使用 `make build` 命令编译包含 `rust_helloworld` 模块的内核。编译完成后，将 `rust_helloworld` 加载到内核，将会看到 `Hello World from Rust module (init)` 的输出信息，同时，可用 `lsmod` 命令进一步验证模块加载是否成功。
 
 ```shell
 ## 加载成功示例
+
+# 加载模块
+(kernel) >insmod rust_helloworld.ko
+[   14.939902] rust_helloworld: loading out-of-tree module taints kernel.
+[   14.948683] rust_helloworld: Hello World from Rust module (init)
+
+# 显示已加载哪些模块
 (kernel) > lsmod
 rust_helloworld 12288 0 - Live 0xffffb891261ea000 (O)
+
+# 卸载模块
+(kernel) >rmmod rust_helloworld
+[   30.893186] rust_helloworld: Hello World from Rust module (exit)
 ```
 
 ## 深入探索内核模块：逐步剖析其实现与工作机制
