@@ -1710,7 +1710,7 @@
       </tags>
   </entry>
   <entry>
-    <title>RustForLinux：跟着清华训练营从零打造 Linux 驱动</title>
+    <title>RustForLinux：跟着清华训练营从零打造 Linux 驱动【第一课】</title>
     <url>/2023/11/07/rust-for-linux-ch1/</url>
     <content><![CDATA[<h2 id="从零打造-OS-回顾"><a href="#从零打造-OS-回顾" class="headerlink" title="从零打造 OS 回顾"></a>从零打造 OS 回顾</h2><p>不知不觉，我已经步入清华训练营的第三阶段。第一阶段主要学习了 <code>Rust</code> 编程语言，并完成了 <code>Rustlings</code> 题目训练。在第二阶段，老师引导我们运用 <code>Rust</code> 从零开始构建一个小型操作系统。在这个过程中，我掌握了从裸机、批处理程序、分时系统、地址转换，到虚拟地址与物理内存页表映射处理，再到进程管理、文件系统以及并发设计等知识。一个名为 <code>rCore OS</code> 的操作系统便如此一步步地呈现在眼前。作业撰写属实不易，历经艰辛，我终于迎来了第三阶段。在这个阶段，我选修了《Rust fox Linux》课程，以期为未来的 <code>Linux</code> 设备驱动开发贡献力量。昨日是课程的第一节课，我又开始了各种环境准备工作。</p>
 <h2 id="Rust-fox-Linux-环境准备"><a href="#Rust-fox-Linux-环境准备" class="headerlink" title="Rust fox Linux 环境准备"></a>Rust fox Linux 环境准备</h2><h3 id="练习题目说明"><a href="#练习题目说明" class="headerlink" title="练习题目说明"></a>练习题目说明</h3><blockquote>
@@ -1732,7 +1732,7 @@
 <li>主机OS：<code>macOS Sonoma 14.0</code></li>
 <li>虚拟机：<code>Ubuntu 23.04</code></li>
 </ul>
-<h4 id="环境依赖"><a href="#环境依赖" class="headerlink" title="环境依赖"></a>环境依赖</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># first Update</span></span></span><br><span class="line">sudo apt-get update</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Install dependency packages</span></span></span><br><span class="line">sudo apt-get -y install \</span><br><span class="line">  binutils build-essential libtool texinfo \</span><br><span class="line">  gzip zip unzip patchutils curl git \</span><br><span class="line">  make cmake ninja-build automake bison flex gperf \</span><br><span class="line">  grep sed gawk bc \</span><br><span class="line">  zlib1g-dev libexpat1-dev libmpc-dev \</span><br><span class="line">  libglib2.0-dev libfdt-dev libpixman-1-dev libelf-dev libssl-dev</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Install the LLVM</span></span></span><br><span class="line">sudo apt-get install clang-format clang-tidy clang-tools clang clangd libc++-dev libc++1 libc++abi-dev libc++abi1 libclang-dev libclang1 liblldb-dev libllvm-ocaml-dev libomp-dev libomp5 lld lldb llvm-dev llvm-runtime llvm python3-clang</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Add Rust environment</span></span></span><br><span class="line">cd linux</span><br><span class="line">make LLVM=1 rustavailable</span><br><span class="line">rustup override set $(scripts/min-tool-version.sh rustc)</span><br><span class="line">rustup component add rust-src</span><br><span class="line">cargo install --locked --version $(scripts/min-tool-version.sh bindgen) bindgen-cli</span><br></pre></td></tr></table></figure>
+<h4 id="环境依赖"><a href="#环境依赖" class="headerlink" title="环境依赖"></a>环境依赖</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># first Update</span></span></span><br><span class="line">sudo apt-get update</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Install dependency packages</span></span></span><br><span class="line">sudo apt-get -y install \</span><br><span class="line">  binutils build-essential libtool texinfo \</span><br><span class="line">  gzip zip unzip patchutils curl git \</span><br><span class="line">  make cmake ninja-build automake bison flex gperf \</span><br><span class="line">  grep sed gawk bc \</span><br><span class="line">  zlib1g-dev libexpat1-dev libmpc-dev \</span><br><span class="line">  libglib2.0-dev libfdt-dev libpixman-1-dev libelf-dev libssl-dev</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Install the LLVM</span></span></span><br><span class="line">sudo apt-get install clang-format clang-tidy clang-tools clang clangd libc++-dev libc++1 libc++abi-dev libc++abi1 libclang-dev libclang1 liblldb-dev libllvm-ocaml-dev libomp-dev libomp5 lld lldb llvm-dev llvm-runtime llvm python3-clang</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Add Rust environment</span></span></span><br><span class="line">cd linux</span><br><span class="line">make LLVM=1 rustavailable</span><br><span class="line">rustup override set $(scripts/min-tool-version.sh rustc)</span><br><span class="line">rustup component add rust-src</span><br><span class="line">cargo install --locked --version $(scripts/min-tool-version.sh bindgen) bindgen</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>小技巧：若本地已经安装过 <code>bindgen</code>，在执行 <code>make LLVM=1 rustavailable</code> 会提示版本有差异，可以使用 <code>--force</code> 命令强制安装当前 <code>linux</code> 源码需要用到的版本。</p>
@@ -1788,6 +1788,109 @@
 
 <h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2><blockquote>
 <p>以上就是关于 [清华开源操作系统训练营] 《Rust fox Linux》第一课学到的知识，希望这节课能对您有所帮助。祝大家玩得开心 ^_^</p>
+</blockquote>
+<blockquote>
+<p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
+</blockquote>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
+]]></content>
+      <categories>
+        <category>RustForLinux</category>
+      </categories>
+      <tags>
+        <tag>Rust</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RustForLinux：跟着清华训练营从零打造 Linux 驱动【第二课】</title>
+    <url>/2023/11/13/rust-for-linux-ch2/</url>
+    <content><![CDATA[<h2 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h2><p>在 <a href="https://lispking.github.io/2023/11/07/rust-for-linux-ch1/">RustForLinux：跟着清华训练营从零打造 Linux 驱动【第一课】</a>中，主要讲解了如何配置 Rust for Linux 驱动环境。不知道各位同学在配置过程中是否顺利呢？如有任何问题，欢迎在后台私信留言与我交流。我将竭诚为您解答，本节课将一起探究如何从零开始编写一个 Hello World 驱动。让我们一起动手实践，逐步剖析驱动程序的开发过程，从而掌握 Linux 驱动的基本知识。</p>
+<h2 id="Linux-源码目录结构分析"><a href="#Linux-源码目录结构分析" class="headerlink" title="Linux 源码目录结构分析"></a>Linux 源码目录结构分析</h2><blockquote>
+<p>为了后续实验能够顺利开展，需要使用最新 <code>6.6.0-rc4</code> 版本内核，因此，本文将使用官方仓库中的 <code>rust-dev</code> 分支进行探讨和分析。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone git@github.com:Rust-for-Linux/linux.git -b rust-dev --depth 1</span><br></pre></td></tr></table></figure>
+
+<p>目前，<code>Rust for Linux</code> 官方主要维护四个分支：</p>
+<ul>
+<li><code>rust-next</code>：包含将在<code>下一个 Linux 内核合并窗口</code>提交的 <code>Rust</code> 的新功能分支。通过邮件列表发送补丁更新。</li>
+<li><code>rust-fixes</code>：包含针对<code>当前 Linux 内核周期的 Rust 修复</code>。通过邮件列表发送补丁更新。</li>
+<li><code>rust-dev</code>：实验性分支，用于集成目的，是<code>看起来足够好</code>的补丁队列。尚未进入<code>主线</code>或 <code>rust-next</code> 的功能开发提供基础，例如，给予早期访问其他子系统相关的 <code>Rust</code> 更改。有一个注意点，这个分支可能会频繁更新&#x2F;重排，并且在未来可能会消失。（<strong>注：课程主要基于该分支做实验</strong>）</li>
+<li><code>rust</code>：在 <code>Rust</code> 支持合并到内核之前两年进行开发的原生分支，<font color='red'>该分支实际上已经冻结</font>。</li>
+</ul>
+<blockquote>
+<p>在着手编写 Hello World 驱动之前，我们先来了解 Linux 源码目录结构。</p>
+</blockquote>
+<ul>
+<li>arch: 体系结构相关代码，比如，x86、arm64、risc-v等等，与系统架构和硬件规范相关，底层代码多用汇编实现</li>
+<li>block: Block I&#x2F;O layer, 块设备抽象层</li>
+<li>certs: 数字签名相关证书</li>
+<li>crypto: 通用加密算法代码，比如，md5、sha、rsa、lz4等等。</li>
+<li>driver: 通用驱动代码，比如，电源、usb串行通信、pci、输入输出设备驱动等等</li>
+<li>fs: File system，虚拟文件系统（VFS）代码，以及各种文件系统的代码</li>
+<li>include: C语言头文件，#include &lt;linux&#x2F;***.h&gt;</li>
+<li>ipc: Inter-process communication，进程间通信</li>
+<li>mm: Memory management，内存管理</li>
+<li>net: 网络设备驱动代码</li>
+<li>rust: <strong>Rust for Linux 驱动代码</strong></li>
+<li>samples: 样例代码</li>
+<li>sound：音频设备驱动代码</li>
+<li>tools: 一些用于开发和维护内核的工具</li>
+<li>init-env.sh&#x2F;make-aarch64.sh&#x2F;qemu-aarch64-test.sh：细心的读者可能会发现，文章目录比官方多了几个脚本。这些额外的脚本是我自行添加的，其主要作用在<a href="https://lispking.github.io/2023/11/07/rust-for-linux-ch1/">第一节课</a>中已经详细讲解过。在日常开发和测试过程中，这些脚本非常有用。</li>
+</ul>
+<p><img src="/images/rust-for-linux/rust-dev-source.png" alt="rust-dev-source.png"></p>
+<h2 id="常用-Linux-内核模块命令"><a href="#常用-Linux-内核模块命令" class="headerlink" title="常用 Linux 内核模块命令"></a>常用 Linux 内核模块命令</h2><p>在内核编译配置过程中，可以在 <code>menuconfig</code> 界面中，通过按下 <code>Y</code> 键来编译内核模块并将其编译集成到内核中，或者按下 <code>M</code> 键将内核模块编译为独立的可加载模块。</p>
+<p>接下来，将介绍在开发过程中，较为常用的内核模块相关命令：</p>
+<ul>
+<li><code>insmod</code>：加载内核模块，例如：<code>insmod my_module.ko</code></li>
+<li><code>rmmod</code>：卸载内核模块，例如：<code>rmmod my_module</code></li>
+<li><code>lsmod</code>：显示已加载的内核模块。</li>
+<li><code>modprobe</code>：根据依赖加载内核模块，例如：<code>modprobe my_module</code></li>
+<li><code>modprobe -r</code>：根据依赖卸载内核模块，例如：<code>modprobe -r my_module</code></li>
+<li><code>depmod</code>：分析内核模块之间的依赖关系</li>
+<li><code>modinfo</code>：查看内核模块信息，例如：<code>modinfo my_module.ko</code></li>
+</ul>
+<h2 id="创建内核模块：探索所需步骤与实现功能"><a href="#创建内核模块：探索所需步骤与实现功能" class="headerlink" title="创建内核模块：探索所需步骤与实现功能"></a>创建内核模块：探索所需步骤与实现功能</h2><p>首先，在 <code>samples/rust</code> 目录下创建 <code>rust_helloworld.rs</code> 源文件，内容如下：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: GPL-2.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//! hello world module in rust</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> kernel::prelude::*;</span><br><span class="line"></span><br><span class="line">module! &#123;</span><br><span class="line">    <span class="keyword">type</span>: RustHelloWorld,</span><br><span class="line">    name: <span class="string">&quot;rust_helloworld&quot;</span>,</span><br><span class="line">    author: <span class="string">&quot;Rust for Linux Contributors&quot;</span>,</span><br><span class="line">    description: <span class="string">&quot;hello world module in rust&quot;</span>,</span><br><span class="line">    license: <span class="string">&quot;GPL&quot;</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">RustHelloWorld</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">kernel</span>::Module <span class="keyword">for</span> <span class="title class_">RustHelloWorld</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">init</span>(_module: &amp;<span class="symbol">&#x27;static</span> ThisModule) <span class="punctuation">-&gt;</span> <span class="type">Result</span>&lt;<span class="keyword">Self</span>&gt; &#123;</span><br><span class="line">        pr_info!(<span class="string">&quot;Hello World from Rust module (init)\n&quot;</span>);</span><br><span class="line">        <span class="title function_ invoke__">Ok</span>(RustHelloWorld)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">Drop</span> <span class="keyword">for</span> <span class="title class_">RustHelloWorld</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">drop</span>(&amp;<span class="keyword">mut</span> <span class="keyword">self</span>) &#123;</span><br><span class="line">        pr_info!(<span class="string">&quot;Hello World from Rust module (exit)\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来，参考 <code>samples/rust/Kconfig</code> 文件将 <code>rust_helloworld</code> 模块补充进去，在 <code>menuconfig</code> 命令中添加 <code>rust_helloworld</code> 模块。</p>
+<p>最后，参考 <code>samples/rust/Makefile</code> 文件将 <code>rust_helloworld</code> 模块补充进去，以便在编译过程中包含 <code>rust_helloworld</code> 模块。</p>
+<p>现在，可以使用 <code>make menuconfig</code> 命令配置内核，并使用 <code>make build</code> 命令编译包含 <code>rust_helloworld</code> 模块的内核。编译完成后，将 <code>rust_helloworld</code> 加载到内核，将会看到 <code>Hello World from Rust module (init)</code> 的输出信息，同时，可用 <code>lsmod</code> 命令进一步验证模块加载是否成功。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 加载成功示例</span></span></span><br><span class="line">(kernel) &gt; lsmod</span><br><span class="line">rust_helloworld 12288 0 - Live 0xffffb891261ea000 (O)</span><br></pre></td></tr></table></figure>
+
+<h2 id="深入探索内核模块：逐步剖析其实现与工作机制"><a href="#深入探索内核模块：逐步剖析其实现与工作机制" class="headerlink" title="深入探索内核模块：逐步剖析其实现与工作机制"></a>深入探索内核模块：逐步剖析其实现与工作机制</h2><p>为了实现一个 <code>module</code> 做的事情，在 <code>macro/lib.rs</code> 中通过 <code>proc_macro</code> 过程宏定义了 <code>module!</code> 宏，然后，去调用 <code>macro/module.rs</code> 中的 <code>module</code> 函数其中，<code>TokenStream</code> 是传入的参数。</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="comment">/// Declares a kernel module.</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">/// The `type` argument should be a type which implements the [`Module`] trait.</span></span><br><span class="line"><span class="comment">/// Also accepts various forms of kernel metadata.</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">/// # Supported argument types</span></span><br><span class="line"><span class="comment">///   - `type`: type which implements the [`Module`] trait (required).</span></span><br><span class="line"><span class="comment">///   - `name`: byte array of the name of the kernel module (required).</span></span><br><span class="line"><span class="comment">///   - `author`: byte array of the author of the kernel module.</span></span><br><span class="line"><span class="comment">///   - `description`: byte array of the description of the kernel module.</span></span><br><span class="line"><span class="comment">///   - `license`: byte array of the license of the kernel module (required).</span></span><br><span class="line"><span class="comment">///   - `alias`: byte array of alias name of the kernel module.</span></span><br><span class="line"><span class="meta">#[proc_macro]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">module</span>(ts: TokenStream) <span class="punctuation">-&gt;</span> TokenStream &#123;</span><br><span class="line">    module::<span class="title function_ invoke__">module</span>(ts)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>module</code> 函数对各个参数进行解析，然后，使用 <code>format!</code> 宏返回一串字符串。这串字符串是在 <code>Rust</code> 中实现 <code>Linux</code> 内核 <code>C</code> 模块所需的大量定义。在其中，同样生成了 <code>C</code> 代码中实现模块所必需的<code>入口函数</code>、<code>出口函数</code>等一系列内容，并通过 <a href="https://doc.rust-lang.org/nomicon/ffi.html"><code>Foreign Function Interface</code></a>（<code>FFI</code>）形式最终调用了 <code>C</code> 模块的代码。</p>
+<p>在阅读生成的代码时，发现了一个 <code>#[no_mangle]</code> 属性，该属性用于关闭 <code>Rust</code> 的名称修改。<code>Rust</code> 编译器在编译过程中会修改我们定义的名称以进行某些分析。然而，如果直接将这些名称用于 <code>C</code> 语言，可能会导致符号名称不匹配。通过使用 <code>#[no_mangle]</code> 属性，可以确保名称的一致性。</p>
+<blockquote>
+<p>总结：在 <code>Rust for Linux</code> 中声明一个模块时，尽管外部看起来平静如水，但实际上 <code>Rust for Linux</code> 正在负重前行。</p>
+</blockquote>
+<h2 id="深入了解-Bindings-机制的必备知识"><a href="#深入了解-Bindings-机制的必备知识" class="headerlink" title="深入了解 Bindings 机制的必备知识"></a>深入了解 Bindings 机制的必备知识</h2><h3 id="Bindings-机制解读"><a href="#Bindings-机制解读" class="headerlink" title="Bindings 机制解读"></a>Bindings 机制解读</h3><p><code>Rust for Linux</code> 针对部分关键内核框架提供了封装和抽象。这些抽象基于 <code>bindings</code> 和 <code>helper</code> 对 <code>Linux</code> 内核接口进行了封装。通过直接调用 <code>bindings</code> 和 <code>helper</code>，可以实现对 <code>Linux</code> 内核接口的访问。</p>
+<p>值得关注的是，在 <code>Linux</code> 内核所提供的众多内核接口中，大部分尚未被 <code>Rust for Linux</code> 封装。因此，如需直接调用 <code>Linux</code> 内核中的接口，可直接调用 <code>bindings</code> 和 <code>helper</code>。</p>
+<h3 id="Bindings-使用方式"><a href="#Bindings-使用方式" class="headerlink" title="Bindings 使用方式"></a>Bindings 使用方式</h3><p>在 <code>Linux</code> 中，通过头文件方式提供的接口可以在 <code>/rust/kernel/bindings_helper.h</code> 文件中直接添加相应的头文件。例如：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/of_platform.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/security.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;asm/io.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/example.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>只需将需要使用的头文件添加到该列表中，即可在 <code>Rust</code> 代码中使用相应的内核接口。</p>
+<p>对于头文件中使用的宏等代码，可以在 <code>/rust/helpers.c</code> 文件中添加对应的函数封装来使用。例如，在 <code>examples.h</code> 中定义如下宏：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> example(attr) \  </span></span><br><span class="line">    example(attr)  </span><br></pre></td></tr></table></figure>
+
+<p>在 <code>helpers.c</code> 文件中添加如下内容：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/of_platform.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/security.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;asm/io.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/example.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">u32 <span class="title function_">rust_helper_example</span><span class="params">(u32 attr)</span> &#123;  </span><br><span class="line">    <span class="keyword">return</span> example(attr);  </span><br><span class="line">&#125;</span><br><span class="line">EXPORT_SYMBOL_GPL(rust_helper_example);  </span><br></pre></td></tr></table></figure>
+
+<p>通过这种方式，可以在 <code>Rust</code> 代码中方便地使用这些封装好的函数。</p>
+<p>在编译过程中，<code>bindgen</code> 工具会生成两个文件。</p>
+<ul>
+<li><code>/rust/bindings/bindings_generated.rs</code></li>
+<li><code>/rust/bindings/bindings_helpers_generated.rs</code></li>
+</ul>
+<p>随后，在 <code>Rust</code> 驱动代码中，可以通过 <code>bindings::xxx</code> 的方式来实现对 <code>Linux</code> 内核接口的调用。这种方式为开发者提供了一种简洁的途径，使他们在 <code>Rust</code> 代码中充分利用 <code>Linux</code> 内核提供的功能。</p>
+<blockquote>
+<p>注意，直接从 <code>bindings</code> 获取的内核代码接口通常是 <code>unsafe</code> 的，但可以通过封装将其转变为 <code>safe</code> 的代码。这意味着开发者可以放心地在 <code>Rust</code> 代码中使用这些接口，而不必担心安全问题。通过封装，开发者可以隐藏底层内核接口的复杂性，同时提供一种更安全、易于使用的替代方案。</p>
+</blockquote>
+<p><img src="/images/rust-for-linux/bindings-unsafe-safe.png" alt="bindings-unsafe-safe"></p>
+<h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2><blockquote>
+<p>以上就是关于 [清华开源操作系统训练营] 《Rust fox Linux》第二课学到的知识，希望这节课能对您有所帮助。祝大家玩得开心 ^_^</p>
 </blockquote>
 <blockquote>
 <p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
