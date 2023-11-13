@@ -1,5 +1,5 @@
 ---
-title: RustForLinux：跟着清华训练营从零打造 Linux 驱动
+title: RustForLinux：跟着清华训练营从零打造 Linux 驱动【第一课】
 date: 2023-11-07 10:26:33
 categories: RustForLinux
 tags: [Linux,Rust]
@@ -62,7 +62,7 @@ cd linux
 make LLVM=1 rustavailable
 rustup override set $(scripts/min-tool-version.sh rustc)
 rustup component add rust-src
-cargo install --locked --version $(scripts/min-tool-version.sh bindgen) bindgen-cli
+cargo install --locked --version $(scripts/min-tool-version.sh bindgen) bindgen
 ```
 
 > 小技巧：若本地已经安装过 `bindgen`，在执行 `make LLVM=1 rustavailable` 会提示版本有差异，可以使用 `--force` 命令强制安装当前 `linux` 源码需要用到的版本。
