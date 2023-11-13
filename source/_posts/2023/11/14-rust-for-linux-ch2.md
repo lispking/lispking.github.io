@@ -143,6 +143,143 @@ pub fn module(ts: TokenStream) -> TokenStream {
 
 `module` 函数对各个参数进行解析，然后，使用 `format!` 宏返回一串字符串。这串字符串是在 `Rust` 中实现 `Linux` 内核 `C` 模块所需的大量定义。在其中，同样生成了 `C` 代码中实现模块所必需的`入口函数`、`出口函数`等一系列内容，并通过 [`Foreign Function Interface`](https://doc.rust-lang.org/nomicon/ffi.html)（`FFI`）形式最终调用了 `C` 模块的代码。
 
+* FFI 详情介绍：https://doc.rust-lang.org/nomicon/ffi.html
+
+```rust
+pub(crate) fn module(ts: TokenStream) -> TokenStream {
+    let mut it = ts.into_iter();
+
+    let info = ModuleInfo::parse(&mut it);
+
+    let mut modinfo = ModInfoBuilder::new(info.name.as_ref());
+    if let Some(author) = info.author {
+        modinfo.emit("author", &author);
+    }
+    if let Some(description) = info.description {
+        modinfo.emit("description", &description);
+    }
+    modinfo.emit("license", &info.license);
+    if let Some(aliases) = info.alias {
+        for alias in aliases {
+            modinfo.emit("alias", &alias);
+        }
+    }
+
+    // Built-in modules also export the `file` modinfo string.
+    let file =
+        std::env::var("RUST_MODFILE").expect("Unable to fetch RUST_MODFILE environmental variable");
+    modinfo.emit_only_builtin("file", &file);
+
+    format!(
+        "
+            /// The module name.
+            ///
+            /// Used by the printing macros, e.g. [`info!`].
+            const __LOG_PREFIX: &[u8] = b\"{name}\\0\";
+
+            /// The \"Rust loadable module\" mark.
+            //
+            // This may be best done another way later on, e.g. as a new modinfo
+            // key or a new section. For the moment, keep it simple.
+            #[cfg(MODULE)]
+            #[doc(hidden)]
+            #[used]
+            static __IS_RUST_MODULE: () = ();
+
+            static mut __MOD: Option<{type_}> = None;
+
+            // SAFETY: `__this_module` is constructed by the kernel at load time and will not be
+            // freed until the module is unloaded.
+            #[cfg(MODULE)]
+            static THIS_MODULE: kernel::ThisModule = unsafe {{
+                kernel::ThisModule::from_ptr(&kernel::bindings::__this_module as *const _ as *mut _)
+            }};
+            #[cfg(not(MODULE))]
+            static THIS_MODULE: kernel::ThisModule = unsafe {{
+                kernel::ThisModule::from_ptr(core::ptr::null_mut())
+            }};
+
+            // Loadable modules need to export the `{{init,cleanup}}_module` identifiers.
+            #[cfg(MODULE)]
+            #[doc(hidden)]
+            #[no_mangle]
+            pub extern \"C\" fn init_module() -> core::ffi::c_int {{
+                __init()
+            }}
+
+            #[cfg(MODULE)]
+            #[doc(hidden)]
+            #[no_mangle]
+            pub extern \"C\" fn cleanup_module() {{
+                __exit()
+            }}
+
+            // Built-in modules are initialized through an initcall pointer
+            // and the identifiers need to be unique.
+            #[cfg(not(MODULE))]
+            #[cfg(not(CONFIG_HAVE_ARCH_PREL32_RELOCATIONS))]
+            #[doc(hidden)]
+            #[link_section = \"{initcall_section}\"]
+            #[used]
+            pub static __{name}_initcall: extern \"C\" fn() -> core::ffi::c_int = __{name}_init;
+
+            #[cfg(not(MODULE))]
+            #[cfg(CONFIG_HAVE_ARCH_PREL32_RELOCATIONS)]
+            core::arch::global_asm!(
+                r#\".section \"{initcall_section}\", \"a\"
+                __{name}_initcall:
+                    .long   __{name}_init - .
+                    .previous
+                \"#
+            );
+
+            #[cfg(not(MODULE))]
+            #[doc(hidden)]
+            #[no_mangle]
+            pub extern \"C\" fn __{name}_init() -> core::ffi::c_int {{
+                __init()
+            }}
+
+            #[cfg(not(MODULE))]
+            #[doc(hidden)]
+            #[no_mangle]
+            pub extern \"C\" fn __{name}_exit() {{
+                __exit()
+            }}
+
+            fn __init() -> core::ffi::c_int {{
+                match <{type_} as kernel::Module>::init(&THIS_MODULE) {{
+                    Ok(m) => {{
+                        unsafe {{
+                            __MOD = Some(m);
+                        }}
+                        return 0;
+                    }}
+                    Err(e) => {{
+                        return e.to_errno();
+                    }}
+                }}
+            }}
+
+            fn __exit() {{
+                unsafe {{
+                    // Invokes `drop()` on `__MOD`, which should be used for cleanup.
+                    __MOD = None;
+                }}
+            }}
+
+            {modinfo}
+        ",
+        type_ = info.type_,
+        name = info.name,
+        modinfo = modinfo.buffer,
+        initcall_section = ".initcall6.init"
+    )
+    .parse()
+    .expect("Error parsing formatted string into token stream.")
+}
+```
+
 在阅读生成的代码时，发现了一个 `#[no_mangle]` 属性，该属性用于关闭 `Rust` 的名称修改。`Rust` 编译器在编译过程中会修改我们定义的名称以进行某些分析。然而，如果直接将这些名称用于 `C` 语言，可能会导致符号名称不匹配。通过使用 `#[no_mangle]` 属性，可以确保名称的一致性。
 
 > 总结：在 `Rust for Linux` 中声明一个模块时，尽管外部看起来平静如水，但实际上 `Rust for Linux` 正在负重前行。
