@@ -338,6 +338,8 @@ EXPORT_SYMBOL_GPL(rust_helper_example);
 
 > 注意，直接从 `bindings` 获取的内核代码接口通常是 `unsafe` 的，但可以通过封装将其转变为 `safe` 的代码。这意味着开发者可以放心地在 `Rust` 代码中使用这些接口，而不必担心安全问题。通过封装，开发者可以隐藏底层内核接口的复杂性，同时提供一种更安全、易于使用的替代方案。
 
+最后，以下面这张图生动地概括整个描述过程，相信您会认为这个过程颇具趣味性。
+
 ![bindings-unsafe-safe](images/rust-for-linux/bindings-unsafe-safe.png)
 
 
