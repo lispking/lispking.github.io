@@ -1893,6 +1893,7 @@
 <blockquote>
 <p>注意，直接从 <code>bindings</code> 获取的内核代码接口通常是 <code>unsafe</code> 的，但可以通过封装将其转变为 <code>safe</code> 的代码。这意味着开发者可以放心地在 <code>Rust</code> 代码中使用这些接口，而不必担心安全问题。通过封装，开发者可以隐藏底层内核接口的复杂性，同时提供一种更安全、易于使用的替代方案。</p>
 </blockquote>
+<p>最后，以下面这张图生动地概括整个描述过程，相信您会认为这个过程颇具趣味性。</p>
 <p><img src="/images/rust-for-linux/bindings-unsafe-safe.png" alt="bindings-unsafe-safe"></p>
 <h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2><blockquote>
 <p>以上就是关于 [清华开源操作系统训练营] 《Rust fox Linux》第二课学到的知识，希望这节课能对您有所帮助。祝大家玩得开心 ^_^</p>
