@@ -19,32 +19,32 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"lispking.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="MakerDAO是一个去中心化的组织，致力于为加密货币经济带来稳定性。他们采用双代币系统，包括稳定币Dai和治理令牌MKR。最新版本的Maker协议Multi-Collaborate Dai（MCD）允许以太坊上任何资产作为抵押品生成Dai，并引入了新的功能，如新的Dai代币、支持多种Vault抵押品类型、Dai储蓄率、更稳健的挂钩确保机制等。MKR和治理保持不变，同时推出了Oasis交易。Mak">
+    <meta name="description" content="ArceOS Unikernel 总结报告不知不觉，ArceOS Unikernel 课程的学习已经过去了一半。回顾过去这两周，我深感学习过程中的磨砺与成长。感谢石磊老师的细心指导，从基础概念入手，让我们逐渐掌握 Unikernel 的奥秘。谁曾想到，Unikernel 的设计竟如此强大。每次回顾这个过程，我都会重新阅读陈渝老师的著作《像开发应用一样开发操作系统》，从中汲取启示。我对操作系统可以如">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MakerDAO 协议介绍">
-<meta property="og:url" content="http://lispking.github.io/2023/09/15/maker-protocol-introduce/index.html">
+<meta property="og:title" content="2023秋冬季开源操作系统训练营第三阶段 - ArceOS Unikernel 总结报告">
+<meta property="og:url" content="http://lispking.github.io/2023/11/20/arceos-unikernel-summary/index.html">
 <meta property="og:site_name" content="Dive In Web3">
-<meta property="og:description" content="MakerDAO是一个去中心化的组织，致力于为加密货币经济带来稳定性。他们采用双代币系统，包括稳定币Dai和治理令牌MKR。最新版本的Maker协议Multi-Collaborate Dai（MCD）允许以太坊上任何资产作为抵押品生成Dai，并引入了新的功能，如新的Dai代币、支持多种Vault抵押品类型、Dai储蓄率、更稳健的挂钩确保机制等。MKR和治理保持不变，同时推出了Oasis交易。Mak">
+<meta property="og:description" content="ArceOS Unikernel 总结报告不知不觉，ArceOS Unikernel 课程的学习已经过去了一半。回顾过去这两周，我深感学习过程中的磨砺与成长。感谢石磊老师的细心指导，从基础概念入手，让我们逐渐掌握 Unikernel 的奥秘。谁曾想到，Unikernel 的设计竟如此强大。每次回顾这个过程，我都会重新阅读陈渝老师的著作《像开发应用一样开发操作系统》，从中汲取启示。我对操作系统可以如">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://lispking.github.io/images/makedao/TheMakerProtocolSystemDiagram.png">
-<meta property="og:image" content="http://lispking.github.io/images/makedao/TheMakerProtocol101.png">
-<meta property="article:published_time" content="2023-09-15T07:23:21.000Z">
-<meta property="article:modified_time" content="2023-11-20T12:39:36.892Z">
+<meta property="og:image" content="http://lispking.github.io/images/wechat-blog.png">
+<meta property="article:published_time" content="2023-11-20T08:04:04.000Z">
+<meta property="article:modified_time" content="2023-11-20T12:39:36.896Z">
 <meta property="article:author" content="King">
-<meta property="article:tag" content="MakerDAO">
-<meta property="article:tag" content="DAI">
+<meta property="article:tag" content="author:lispking">
+<meta property="article:tag" content="2023秋冬季开源操作系统训练营">
+<meta property="article:tag" content="第三阶段总结报告">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://lispking.github.io/images/makedao/TheMakerProtocolSystemDiagram.png">
+<meta name="twitter:image" content="http://lispking.github.io/images/wechat-blog.png">
 
 
-<link rel="canonical" href="http://lispking.github.io/2023/09/15/maker-protocol-introduce/">
+<link rel="canonical" href="http://lispking.github.io/2023/11/20/arceos-unikernel-summary/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://lispking.github.io/2023/09/15/maker-protocol-introduce/","path":"2023/09/15/maker-protocol-introduce/","title":"MakerDAO 协议介绍"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://lispking.github.io/2023/11/20/arceos-unikernel-summary/","path":"2023/11/20/arceos-unikernel-summary/","title":"2023秋冬季开源操作系统训练营第三阶段 - ArceOS Unikernel 总结报告"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>MakerDAO 协议介绍 | Dive In Web3</title>
+<title>2023秋冬季开源操作系统训练营第三阶段 - ArceOS Unikernel 总结报告 | Dive In Web3</title>
   
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6255376809208012" crossorigin="anonymous"></script>
 
@@ -153,7 +153,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MakerDAO%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">MakerDAO介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maker%E5%8D%8F%E8%AE%AE%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E6%A8%A1%E5%9D%97%E7%B3%BB%E7%BB%9F%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">Maker协议智能合约模块系统：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maker-101%E5%8D%8F%E8%AE%AE%E4%BA%A4%E4%BA%92%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">Maker 101协议交互：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">总结：</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ArceOS-Unikernel-%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A"><span class="nav-number">1.</span> <span class="nav-text">ArceOS Unikernel 总结报告</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BE%E7%A8%8B%E6%80%BB%E7%BB%93"><span class="nav-number">1.1.</span> <span class="nav-text">课程总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E5%91%A8%E7%BB%83%E4%B9%A0%E9%A2%98%E6%80%9D%E8%B7%AF%E6%80%BB%E7%BB%93"><span class="nav-number">1.2.</span> <span class="nav-text">第二周练习题思路总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0-1-%E5%92%8C-2-%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.1.</span> <span class="nav-text">练习 1 和 2 的思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0-3-%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.2.</span> <span class="nav-text">练习 3 的思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0-4-%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.3.</span> <span class="nav-text">练习 4 的思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0-5-%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.4.</span> <span class="nav-text">练习 5 的思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0-6-%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.5.</span> <span class="nav-text">练习 6 的思路</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -227,7 +227,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://lispking.github.io/2023/09/15/maker-protocol-introduce/">
+    <link itemprop="mainEntityOfPage" href="http://lispking.github.io/2023/11/20/arceos-unikernel-summary/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars.githubusercontent.com/u/4446580?v=4">
@@ -240,12 +240,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="MakerDAO 协议介绍 | Dive In Web3">
-      <meta itemprop="description" content="MakerDAO是一个去中心化的组织，致力于为加密货币经济带来稳定性。他们采用双代币系统，包括稳定币Dai和治理令牌MKR。最新版本的Maker协议Multi-Collaborate Dai（MCD）允许以太坊上任何资产作为抵押品生成Dai，并引入了新的功能，如新的Dai代币、支持多种Vault抵押品类型、Dai储蓄率、更稳健的挂钩确保机制等。MKR和治理保持不变，同时推出了Oasis交易。MakerDAO旨在打造一个包容性的经济赋权平台，让每个人都能平等地进入全球金融市场。">
+      <meta itemprop="name" content="2023秋冬季开源操作系统训练营第三阶段 - ArceOS Unikernel 总结报告 | Dive In Web3">
+      <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          MakerDAO 协议介绍
+          2023秋冬季开源操作系统训练营第三阶段 - ArceOS Unikernel 总结报告
         </h1>
 
         <div class="post-meta-container">
@@ -255,15 +255,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2023-09-15 15:23:21" itemprop="dateCreated datePublished" datetime="2023-09-15T15:23:21+08:00">2023-09-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-20 20:39:36" itemprop="dateModified" datetime="2023-11-20T20:39:36+08:00">2023-11-20</time>
+      <time title="创建时间：2023-11-20 16:04:04 / 修改时间：20:39:36" itemprop="dateCreated datePublished" datetime="2023-11-20T16:04:04+08:00">2023-11-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -271,7 +265,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/MakerDAO/" itemprop="url" rel="index"><span itemprop="name">MakerDAO</span></a>
+          <a href="/categories/oscamp-2023fall-arceos-unikernel/" itemprop="url" rel="index"><span itemprop="name">oscamp 2023fall arceos unikernel</span></a>
         </span>
     </span>
 
@@ -282,64 +276,71 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>976</span>
+      <span>1.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
-            <div class="post-description">MakerDAO是一个去中心化的组织，致力于为加密货币经济带来稳定性。他们采用双代币系统，包括稳定币Dai和治理令牌MKR。最新版本的Maker协议Multi-Collaborate Dai（MCD）允许以太坊上任何资产作为抵押品生成Dai，并引入了新的功能，如新的Dai代币、支持多种Vault抵押品类型、Dai储蓄率、更稳健的挂钩确保机制等。MKR和治理保持不变，同时推出了Oasis交易。MakerDAO旨在打造一个包容性的经济赋权平台，让每个人都能平等地进入全球金融市场。</div>
         </div>
       </header>
 
     
     
     
-    <div class="post-body" itemprop="articleBody"><h3 id="MakerDAO介绍"><a href="#MakerDAO介绍" class="headerlink" title="MakerDAO介绍"></a>MakerDAO介绍</h3><p>MakerDAO是一个去中心化的组织，致力于为加密货币经济带来稳定性。</p>
-<blockquote>
-<p>Maker协议采用双代币系统。</p>
-</blockquote>
-<ol>
-<li><p>Dai，一种提供稳定性的抵押品支持的稳定币。Maker基金会和MakerDAO社区认为，任何企业或个人都需要去中心化的稳定币来实现数字货币的优势。</p>
-</li>
-<li><p>MKR，一种由利益相关者用来维护系统和管理Dai的治理令牌。MKR代币持有者是创客协议的决策者，得到更大的公众社区和其他各种外部各方的支持。</p>
-</li>
-</ol>
-<p>Maker通过创建一个包容性的经济赋权平台，为每个人释放去中心化金融的力量；使每个人都能平等地进入全球金融市场。</p>
-<p>随着新版本的Maker协议Multi-Collaborate Dai（MCD）在以太坊主网络上发布并上线，我们想介绍一下它所带来的一些变化和功能。Maker协议最大的变化是，它现在接受任何基于以太坊的资产作为抵押品来生成Dai，因为它已经得到了MKR持有人的批准，并通过Maker去中心化治理过程获得了特定的、相应的风险参数。</p>
-<p>此外，MCD升级还带来了一些其他新推出的功能。</p>
-<blockquote>
-<p>这些新功能包括：</p>
+    <div class="post-body" itemprop="articleBody"><h1 id="ArceOS-Unikernel-总结报告"><a href="#ArceOS-Unikernel-总结报告" class="headerlink" title="ArceOS Unikernel 总结报告"></a>ArceOS Unikernel 总结报告</h1><p>不知不觉，ArceOS Unikernel 课程的学习已经过去了一半。回顾过去这两周，我深感学习过程中的磨砺与成长。感谢石磊老师的细心指导，从基础概念入手，让我们逐渐掌握 Unikernel 的奥秘。谁曾想到，Unikernel 的设计竟如此强大。每次回顾这个过程，我都会重新阅读<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/-birTWw6kZQ9oyCzjTAntg">陈渝老师的著作《像开发应用一样开发操作系统》</a>，从中汲取启示。我对操作系统可以如同应用一般，通过组件化思维实现感到震惊。过去曾听说过鸿蒙分布式部署等新闻，也阅读过一些关于鸿蒙的相关文章，但亲身参与组件化操作系统的学习，完全是不同于以往的体验。</p>
+<h2 id="课程总结"><a href="#课程总结" class="headerlink" title="课程总结"></a>课程总结</h2><blockquote>
+<p>第一周练习主要包含以下内容：</p>
 </blockquote>
 <ul>
-<li>新的Dai代币 ($DAI)</li>
-<li>支持多种Vault抵押品类型 (通过ETH和BAT启动)<ul>
-<li>要打开Vault，请前往<a target="_blank" rel="noopener" href="https://summer.fi/borrow">Oasis Borrow</a></li>
+<li>首先，通过彩色打印 “Hello World” 和支持 Hashmap 数据类型的示例，快速熟悉 ArceOS 架构</li>
+<li>接着，实现 early 内存分配算法，深入了解 ArceOS 的内存分配流程</li>
+<li>最后，将协作式调度算法 FIFO 改造为抢占式调度算法，为第一周的学习画上圆满句号</li>
+</ul>
+<p>通过本周的学习，您将对 ArceOS 的整体架构、内存分配及调度算法有更深入的了解。</p>
+<span id="more"></span>
+
+<blockquote>
+<p>进入第二周的练习，主要包含以下内容：</p>
+</blockquote>
+<ul>
+<li>首先，需要准备 5 个基本实验环境，分别包括：从外部加载应用、将应用拷贝到执行区域并执行、通过 ABI 调用 ArceOS 功能、在 App 中正式调用 ABI 以及支持内核和应用分离的地址空间及切换。</li>
+<li>接下来，在上述环境基础上，完成 6 个附加练习，具体如下：<ul>
+<li>针对第一个环境，探索如何优化加载更多应用</li>
+<li>在第二个环境中，研究多应用的批处理方式</li>
+<li>针对第三个环境，探讨 ABIs 的 SYS_TERMINATE 功能调用</li>
+<li>在第四个环境中，实现内核与应用程序之间的通信，并支持 Hello 功能、打印字符串功能、退出功能</li>
+<li>最后，在第六个环境中，探索如何实现内核与应用程序的分离，并将控制权回到 loader，再由 loader 执行下一个应用</li>
 </ul>
 </li>
-<li>Dai储蓄率 (DSR)<ul>
-<li>要使用DSR，请前往<a target="_blank" rel="noopener" href="https://summer.fi/earn">Oasis Earn</a></li>
+<li>通过这些练习，我们将更加深入地了解 ArceOS 系统的运行机制和应用开发技巧。</li>
 </ul>
-</li>
-<li>更稳健的挂钩确保机制 (MKR作为后盾)</li>
-<li>每个区块支付稳定费，而不是在Dai还款时支付</li>
-<li>新的Maker术语</li>
-<li>MKR和治理保持不变</li>
-<li>Oasis交易</li>
-</ul>
-<h3 id="Maker协议智能合约模块系统："><a href="#Maker协议智能合约模块系统：" class="headerlink" title="Maker协议智能合约模块系统："></a>Maker协议智能合约模块系统：</h3><p><img src="/images/makedao/TheMakerProtocolSystemDiagram.png" alt="SystemDiagram"></p>
-<h3 id="Maker-101协议交互："><a href="#Maker-101协议交互：" class="headerlink" title="Maker 101协议交互："></a>Maker 101协议交互：</h3><p><img src="/images/makedao/TheMakerProtocol101.png" alt="MakerProtocol101"></p>
-<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><blockquote>
-<p>MakerDAO 是一个致力于为加密货币经济带来稳定性的去中心化组织。该组织采用双代币系统，包括稳定币 Dai 和治理令牌 MKR。Dai 是一种由抵押品支持的稳定币，而 MKR 则用于维护系统和管理 Dai。Maker 协议已发布新版本 Multi-Collaborate Dai（MCD），在以太坊主网络上线。此次升级允许以太坊上任何资产作为抵押品生成 Dai，并引入了新的功能。新功能包括新的 Dai 代币、支持多种 Vault 抵押品类型、Dai 储蓄率、更稳健的挂钩确保机制等。MKR 和治理保持不变，同时推出了 Oasis 交易。通过这些创新，MakerDAO 旨在打造一个包容性的经济赋权平台，让每个人都能平等地进入全球金融市场。</p>
+<h2 id="第二周练习题思路总结"><a href="#第二周练习题思路总结" class="headerlink" title="第二周练习题思路总结"></a>第二周练习题思路总结</h2><h3 id="练习-1-和-2-的思路"><a href="#练习-1-和-2-的思路" class="headerlink" title="练习 1 和 2 的思路"></a>练习 1 和 2 的思路</h3><p>借鉴 Unix 协议的设计理念，将数据按照如下格式保存在 app.bin 文件中，以便 ArceOS 逐字节读取并采用循环机制顺序加载。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">App 数量 | App1 大小 | App1 内容 | App2 大小 | App2 内容 | ... | AppN 大小 | AppN 内容  </span><br></pre></td></tr></table></figure>
+
+<p>通过这种设计，可以方便地管理各个应用程序的尺寸和内容，从而实现应用程序的顺序加载和高效运行。在 ArceOS 读取到相应数据后，可以根据数据内容来调用相应的应用程序。</p>
+<h3 id="练习-3-的思路"><a href="#练习-3-的思路" class="headerlink" title="练习 3 的思路"></a>练习 3 的思路</h3><p>这道题目相对较为简单，主要需要注意一个小细节 —— <code>noop</code> 指令。在编译过程中，Rust 会提示不通过。</p>
+<p>起初，我以为该练习将 <code>nop</code> 指令加在 <code>options(noreturn)</code> 前面，但是运行的时候，程序会卡住半天不返回内核执行下一个应用。后来翻查指令解释资料，将 <code>options(noreturn)</code> 删除，练习 3 便顺利完成。</p>
+<p>在这道题中，需要注意 <code>nop</code> 指令的特殊性质，避免使其影响到程序的正常执行。通过细心观察和调整，可以顺利解决这个小问题，进而完成练习 3。</p>
+<h3 id="练习-4-的思路"><a href="#练习-4-的思路" class="headerlink" title="练习 4 的思路"></a>练习 4 的思路</h3><p>这道题较为简单，只需在 <code>ArceOS</code> 系统中添加 <code>SYS_TERMINATE</code> 系统调用。编写 <code>abi_terminate</code> 函数，并直接调用 <code>axstd::process::exit</code>。接着将此函数通过 <code>register_abi</code> 注册到系统中，并将 <code>abi_num</code> 指向 <code>SYS_TERMINATE</code>，如此便可顺利完成任务。</p>
+<h3 id="练习-5-的思路"><a href="#练习-5-的思路" class="headerlink" title="练习 5 的思路"></a>练习 5 的思路</h3><p>这道题具有一定难度，非常感谢<code>赫森</code>大佬在群里分享了思路。</p>
+<p>主要思路是参考了 rCore 教程中的链接章节，并在应用层引入了 <code>linker.ld</code> 链接汇编。这样做的目的是将字符串从 <code>.rodata</code> 区域读取出来，并将原始在 <code>ArceOS</code> 中的相关指令移动到 <code>hello_app</code> 应用中。为了实现 Hello、打印字符串和退出这三个功能，我将以下指令封装到 <code>abi_call</code> 宏中，使得代码看起来更加简洁明了。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">li      a0, &#123;abi_num&#125;</span><br><span class="line">slli    t0, t0, <span class="number">3</span></span><br><span class="line">la      t1, &#123;abi_entry&#125;</span><br><span class="line">ld      t1, (t1)</span><br><span class="line">jalr    t1</span><br></pre></td></tr></table></figure>
+
+<h3 id="练习-6-的思路"><a href="#练习-6-的思路" class="headerlink" title="练习 6 的思路"></a>练习 6 的思路</h3><p>在完成练习 5 之后，练习 6 就会变得相对容易。主要是基于之前的 <code>hello_app</code> 应用进行改造，仅保留 <code>putchar</code> 函数。</p>
+<p>需要注意的是，为了避免让控制权回到 <code>loader</code> 的条件，例如不能进行无限循环等阻塞操作，练习 5 中有一个 <code>wfi</code> 指令用于等待中断。只需将此指令删除，即可顺利完成任务。</p>
+<blockquote>
+<p> 以上是对 6 个练习的思路总结，希望能对你有所帮助，祝大家玩得开心 ^_^</p>
 </blockquote>
 <blockquote>
-<p>免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^</p>
+<p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
 </blockquote>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
 
     </div>
 
@@ -398,22 +399,20 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/MakerDAO/" rel="tag"><i class="fa fa-tag"></i> MakerDAO</a>
-              <a href="/tags/DAI/" rel="tag"><i class="fa fa-tag"></i> DAI</a>
+              <a href="/tags/author-lispking/" rel="tag"><i class="fa fa-tag"></i> author:lispking</a>
+              <a href="/tags/2023%E7%A7%8B%E5%86%AC%E5%AD%A3%E5%BC%80%E6%BA%90%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AE%AD%E7%BB%83%E8%90%A5/" rel="tag"><i class="fa fa-tag"></i> 2023秋冬季开源操作系统训练营</a>
+              <a href="/tags/%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/" rel="tag"><i class="fa fa-tag"></i> 第三阶段总结报告</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/09/12/about-site/" rel="prev" title="Hello, Web3!">
-                  <i class="fa fa-angle-left"></i> Hello, Web3!
+                <a href="/2023/11/13/rust-for-linux-ch2/" rel="prev" title="RustForLinux：跟着清华训练营从零打造 Linux 驱动【第二课】">
+                  <i class="fa fa-angle-left"></i> RustForLinux：跟着清华训练营从零打造 Linux 驱动【第二课】
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/09/22/dai-terminology/" rel="next" title="解读 DAI 架构流程图 —— 晦涩难懂的术语">
-                  解读 DAI 架构流程图 —— 晦涩难懂的术语 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
