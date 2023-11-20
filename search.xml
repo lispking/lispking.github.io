@@ -1939,7 +1939,7 @@
 <li>最后，在第六个环境中，探索如何实现内核与应用程序的分离，并将控制权回到 loader，再由 loader 执行下一个应用</li>
 </ul>
 </li>
-<li>通过这些练习将更加深入地了解 ArceOS 系统的运行机制和应用开发技巧。</li>
+<li>通过这些练习，将更加深入地了解 ArceOS 系统的运行机制和应用开发技巧。</li>
 </ul>
 <h2 id="第二周练习题思路总结"><a href="#第二周练习题思路总结" class="headerlink" title="第二周练习题思路总结"></a>第二周练习题思路总结</h2><h3 id="练习-1-和-2-的思路"><a href="#练习-1-和-2-的思路" class="headerlink" title="练习 1 和 2 的思路"></a>练习 1 和 2 的思路</h3><p>借鉴 Unix 协议的设计理念，将数据按照如下格式保存在 app.bin 文件中，以便 ArceOS 逐字节读取并采用循环机制顺序加载。</p>
 <figure class="highlight rust"><table><tr><td class="code"><pre><span class="line">App 数量 | App1 大小 | App1 内容 | App2 大小 | App2 内容 | ... | AppN 大小 | AppN 内容  </span><br></pre></td></tr></table></figure>
