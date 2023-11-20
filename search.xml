@@ -1945,7 +1945,7 @@
 <figure class="highlight rust"><table><tr><td class="code"><pre><span class="line">App 数量 | App1 大小 | App1 内容 | App2 大小 | App2 内容 | ... | AppN 大小 | AppN 内容  </span><br></pre></td></tr></table></figure>
 
 <p>通过这种设计，可以方便地管理各个应用程序的尺寸和内容，从而实现应用程序的顺序加载和高效运行。在 ArceOS 读取到相应数据后，可以根据数据内容来调用相应的应用程序。</p>
-<h3 id="练习-3-的思路"><a href="#练习-3-的思路" class="headerlink" title="练习 3 的思路"></a>练习 3 的思路</h3><p>这道题目相对较为简单，主要需要注意一个小细节 —— <code>noop</code> 指令。在编译过程中，Rust 会提示不通过。</p>
+<h3 id="练习-3-的思路"><a href="#练习-3-的思路" class="headerlink" title="练习 3 的思路"></a>练习 3 的思路</h3><p>这道题目相对较为简单，主要需要注意一个小细节 —— <code>noop</code> 指令。在编译过程中，<code>Rust</code> 会提示不通过，原因是 <code>typo</code>，多打了一个 <code>o</code>。</p>
 <p>起初，我以为该练习将 <code>nop</code> 指令加在 <code>options(noreturn)</code> 前面，但是运行的时候，程序会卡住半天不返回内核执行下一个应用。后来翻查指令解释资料，将 <code>options(noreturn)</code> 删除，练习 3 便顺利完成。</p>
 <p>在这道题中，需要注意 <code>nop</code> 指令的特殊性质，避免使其影响到程序的正常执行。通过细心观察和调整，可以顺利解决这个小问题，进而完成练习 3。</p>
 <h3 id="练习-4-的思路"><a href="#练习-4-的思路" class="headerlink" title="练习 4 的思路"></a>练习 4 的思路</h3><p>这道题较为简单，只需在 <code>ArceOS</code> 系统中添加 <code>SYS_TERMINATE</code> 系统调用。编写 <code>abi_terminate</code> 函数，并直接调用 <code>axstd::process::exit</code>。接着将此函数通过 <code>register_abi</code> 注册到系统中，并将 <code>abi_num</code> 指向 <code>SYS_TERMINATE</code>，如此便可顺利完成任务。</p>
