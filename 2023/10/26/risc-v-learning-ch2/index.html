@@ -26,19 +26,19 @@
 <meta property="og:site_name" content="Dive In Web3">
 <meta property="og:description" content="在 RISC-V：跟着清华训练营从零打造OS【第一课】中，我们学习了三叶虫LibOS总体结构以及相关环境的配置，本节课将主要探讨批处理系统的设计以及多道程序与分时任务设计，这两章节内容颇具启发性和趣味性，相信会引发大家的浓厚兴趣。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://lispking.github.io/images/risc-v/LibOS-arch.png">
-<meta property="og:image" content="http://lispking.github.io/images/risc-v/BatchOS-arch.png">
-<meta property="og:image" content="http://lispking.github.io/images/risc-v/execute-env.png">
-<meta property="og:image" content="http://lispking.github.io/images/risc-v/OS-M-Mode.png">
-<meta property="og:image" content="http://lispking.github.io/images/risc-v/TimesharingOS.png">
-<meta property="og:image" content="http://lispking.github.io/images/wechat-blog.png">
+<meta property="og:image" content="http://lispking.github.io/2023/10/26/risc-v-learning-ch2/images/risc-v/LibOS-arch.png">
+<meta property="og:image" content="http://lispking.github.io/2023/10/26/risc-v-learning-ch2/images/risc-v/BatchOS-arch.png">
+<meta property="og:image" content="http://lispking.github.io/2023/10/26/risc-v-learning-ch2/images/risc-v/execute-env.png">
+<meta property="og:image" content="http://lispking.github.io/2023/10/26/risc-v-learning-ch2/images/risc-v/OS-M-Mode.png">
+<meta property="og:image" content="http://lispking.github.io/2023/10/26/risc-v-learning-ch2/images/risc-v/TimesharingOS.png">
+<meta property="og:image" content="http://lispking.github.io/2023/10/26/risc-v-learning-ch2/images/wechat-blog.png">
 <meta property="article:published_time" content="2023-10-26T02:26:38.000Z">
-<meta property="article:modified_time" content="2023-11-20T23:39:27.462Z">
+<meta property="article:modified_time" content="2023-11-27T11:34:45.842Z">
 <meta property="article:author" content="King">
 <meta property="article:tag" content="Rust">
 <meta property="article:tag" content="RISC-V">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://lispking.github.io/images/risc-v/LibOS-arch.png">
+<meta name="twitter:image" content="http://lispking.github.io/2023/10/26/risc-v-learning-ch2/images/risc-v/LibOS-arch.png">
 
 
 <link rel="canonical" href="http://lispking.github.io/2023/10/26/risc-v-learning-ch2/">
@@ -106,7 +106,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">14</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">21</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">15</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">22</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -172,18 +172,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -284,7 +284,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-21 07:39:27" itemprop="dateModified" datetime="2023-11-21T07:39:27+08:00">2023-11-21</time>
+      <time title="修改时间：2023-11-27 19:34:45" itemprop="dateModified" datetime="2023-11-27T19:34:45+08:00">2023-11-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -322,10 +322,10 @@
     
     
     <div class="post-body" itemprop="articleBody"><h2 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h2><p>在<a href="https://lispking.github.io/2023/10/24/risc-v-learning-ch1/">RISC-V：跟着清华训练营从零打造OS【第一课】</a>中，我们学习了三叶虫LibOS总体结构以及相关环境的配置，本节课将主要探讨批处理系统的设计以及多道程序与分时任务设计，这两章节内容颇具启发性和趣味性，相信会引发大家的浓厚兴趣。</p>
-<h2 id="批处理系统设计"><a href="#批处理系统设计" class="headerlink" title="批处理系统设计"></a>批处理系统设计</h2><p>上一节课在 RISC-V 64 裸机平台上成功运行 <code>Hello, world! </code>。看起来这个过程非常顺利，只需要一条命令就能全部完成。架构也比较简单，通过Qemu加载App和LibOS镜像到内存中，由RustSBI完成硬件初始化后，跳转到OS起始位置，执行App相关逻辑。但实际上，在那个计算机刚刚诞生的年代，很多事情并不像我们想象的那么简单。</p>
-<p><img src="/images/risc-v/LibOS-arch.png" alt="LibOS-arch"></p>
+<h2 id="批处理系统设计"><a href="#批处理系统设计" class="headerlink" title="批处理系统设计"></a>批处理系统设计</h2><p>上一节课在 RISC-V 64 裸机平台上成功运行 <code>Hello, world!</code>。看起来这个过程非常顺利，只需要一条命令就能全部完成。架构也比较简单，通过Qemu加载App和LibOS镜像到内存中，由RustSBI完成硬件初始化后，跳转到OS起始位置，执行App相关逻辑。但实际上，在那个计算机刚刚诞生的年代，很多事情并不像我们想象的那么简单。</p>
+<p><img src="images/risc-v/LibOS-arch.png" alt="LibOS-arch"></p>
 <p>本节课的批处理系统（名为：邓氏鱼BatchOS操作系统）总体架构如图所示：</p>
-<p><img src="/images/risc-v/BatchOS-arch.png" alt="BatchOS-arch"></p>
+<p><img src="images/risc-v/BatchOS-arch.png" alt="BatchOS-arch"></p>
 <p>通过上图，我们可以大致了解到，<code>Qemu</code> 将包含多个 <code>app</code> 的列表以及 <code>BatchOS</code> 的 <code>image</code> 镜像加载到内存中。</p>
 <ol>
 <li>在 <code>RustSBI</code>（<code>bootloader</code>）完成基本硬件初始化后，跳转到 <code>BatchOS</code> 的起始位置。</li>
@@ -335,33 +335,30 @@
 </ol>
 <p>批处理系统将多个程序打包一起输入计算机并逐个执行，但由于应用程序可能存在错误，如果某个程序的错误导致整个操作系统无法运行，后果将不堪设想。</p>
 <p>为了保护操作系统免受错误程序的破坏，特权级（Privilege）机制应运而生，它实现了用户态和内核态的隔离。在RISC-V 架构中，一共定义了 4 种特权级：</p>
-<p><img src="/images/risc-v/execute-env.png" alt="执行环境"></p>
+<p><img src="images/risc-v/execute-env.png" alt="执行环境"></p>
 <blockquote>
 <p>其中，级别的数值越大，特权级越高，掌控硬件的能力越强。从表中可以看出， M 模式处在最高的特权级，而 U 模式处于最低的特权级。在CPU硬件层面，除了M模式必须存在外，其它模式可以不存在。</p>
 </blockquote>
 <p>接下来，让我们一起来回顾一下这两课的架构概述。在最右侧的图中，我们引入了一个名为 Hypervisor 的抽象层，用以服务于多个操作系统。</p>
-<p><img src="/images/risc-v/OS-M-Mode.png" alt="OS-M-Mode"></p>
+<p><img src="images/risc-v/OS-M-Mode.png" alt="OS-M-Mode"></p>
 <p> 通过 <code>link_app.S</code> 代码将应用程序链接到内核，接着，应用管理器 <code>AppManager</code> 加载应用程序二进制代码。在此过程中，强调了屏障指令 <code>fence.i</code> 的重要性。由于 CPU 对物理内存的缓存分为数据缓存（<code>d-cache</code>）和指令缓存（<code>i-cache</code>）两部分，在 CPU 访问内存和提取指令时分别使用。而 <code>fence.i</code> 的功能是确保其在后的取指过程能看到其在前的所有对取指内存区域的修改。</p>
 <p>最后，由于处理器具有硬件级特权级机制，应用程序在用户态特权级运行时，无法直接通过函数调用访问内核态特权级的批处理操作系统内核函数。然而，应用程序需要获得操作系统提供的服务，因此应用程序与操作系统需要通过某种合作机制完成特权级之间的切换，使得用户态应用程序可以获得内核态操作系统函数的服务。</p>
 <h2 id="多道程序与分时多任务"><a href="#多道程序与分时多任务" class="headerlink" title="多道程序与分时多任务"></a>多道程序与分时多任务</h2><p>批处理与多道程序的主要区别在于内存使用和处理器调度策略。</p>
 <p>批处理系统中，一段时间内可以处理一批程序，但内存中仅存放一个程序。处理器一次只能运行一个程序。当一个程序运行完毕后，才会将另一个程序调入内存并执行。换句话说，批处理系统无法交错地执行多个程序。</p>
 <p>而在支持多道程序的系统中，一段时间内也可处理一批程序，但内存中可以存放多个程序。在执行过程中，一个程序可以主动（协作式）或被动（抢占式）地放弃执行，让另一个程序得以执行。这意味着支持多道程序的系统能够交错地执行多个程序，从而提高系统利用率。</p>
 <p>总之，批处理系统和多道程序系统在内存管理和处理器调度策略上有显著差别，导致它们在执行多个程序时的效率不同。</p>
-<p><img src="/images/risc-v/TimesharingOS.png" alt="TimesharingOS"></p>
+<p><img src="images/risc-v/TimesharingOS.png" alt="TimesharingOS"></p>
 <p>站在系统的层面，还是需要有一种办法能强制打断应用程序的执行，来提高整个系统的效率，让在整个系统中执行的多个程序之间占用计算机资源的情况相对公平一些。</p>
-<p>根据计算机系统的硬件设计，为提高 I&#x2F;O 效率，外设可以通过硬件中断机制来与处理机进行 I&#x2F;O 交互操作。这种硬件中断机制可随时打断应用程序的执行，并让操作系统来完成对外设的 I&#x2F;O 响应。</p>
+<p>根据计算机系统的硬件设计，为提高 I/O 效率，外设可以通过硬件中断机制来与处理机进行 I/O 交互操作。这种硬件中断机制可随时打断应用程序的执行，并让操作系统来完成对外设的 I/O 响应。</p>
 <blockquote>
 <p>最后，让我们以一段关于「中断」的有趣、生动且形象的解释来总结本节所学到的关键内容。这段解释来源于老师在训练营群里分享的聊天记录：</p>
 </blockquote>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">这不就是中断模式下的CPU处理方式么？</span><br><span class="line"></span><br><span class="line">我有三个群，相当于三个外设，而我是一个逻辑核心，外设时不时的at我一下，就是发一个中断信号，而我需要中断现有的作业去进行一个拉人进群的任务处理。</span><br><span class="line"></span><br><span class="line">用NAPI就是在处理某个中断的时候，看见有别的人也要让我拉进去，就轮询一波把其他人也拉进去。</span><br><span class="line"></span><br><span class="line">用DPDK就是做一会作业，轮询一波看看是否有新的拉人请求（别管什么内核旁路了）。</span><br><span class="line"></span><br><span class="line">要是三个群都有一大堆人请求我拉人进群，就会产生资源争用，而我就是性能瓶颈。</span><br><span class="line"></span><br><span class="line">另外，拉人进群是一个短作业，要是突然来了一个请求让我看看某个其他的问题，就是来了个长作业，就会导致拉人速度变慢，任务延迟变高。你学会了么？</span><br></pre></td></tr></table></figure>
-
 <h2 id="未完待续-…-…"><a href="#未完待续-…-…" class="headerlink" title="未完待续 … …"></a>未完待续 … …</h2><blockquote>
 <p>以上就是关于 [清华开源操作系统训练营] 第二课学到的知识，希望对您有所帮助。祝大家玩得开心 ^_^</p>
-</blockquote>
-<blockquote>
 <p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
 </blockquote>
-<p><img src="/images/wechat-blog.png" alt="公众号"></p>
+<p><img src="images/wechat-blog.png" alt="公众号"></p>
 
     </div>
 
@@ -488,14 +485,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">91k</span>
+    <span title="站点总字数">94k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:23</span>
+    <span title="站点阅读时长">1:26</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动

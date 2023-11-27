@@ -26,19 +26,19 @@
 <meta property="og:site_name" content="Dive In Web3">
 <meta property="og:description" content="本文重点介绍 Robius 基本架构设计，Robius 是一个多平台应用开发的项目，它的设计基于 Rust 语言。项目的主要目标是为开发者提供一套全面的工具和库，使他们能够在多种设备和操作系统上创建高效、响应快速的应用。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://lispking.github.io/images/robius/TheRobiusArch.png">
-<meta property="og:image" content="http://lispking.github.io/images/robius/TheRobiusUIToolkit.png">
-<meta property="og:image" content="http://lispking.github.io/images/robius/TheRobiusChooseUI.png">
-<meta property="og:image" content="http://lispking.github.io/images/robius/TheRobiusBevy.png">
-<meta property="og:image" content="http://lispking.github.io/images/robius/TheRobiusOsris.png">
-<meta property="og:image" content="http://lispking.github.io/images/robius/TheRobiusPathTowards.png">
+<meta property="og:image" content="http://lispking.github.io/2023/10/13/join-rust-robius-project/images/robius/TheRobiusArch.png">
+<meta property="og:image" content="http://lispking.github.io/2023/10/13/join-rust-robius-project/images/robius/TheRobiusUIToolkit.png">
+<meta property="og:image" content="http://lispking.github.io/2023/10/13/join-rust-robius-project/images/robius/TheRobiusChooseUI.png">
+<meta property="og:image" content="http://lispking.github.io/2023/10/13/join-rust-robius-project/images/robius/TheRobiusBevy.png">
+<meta property="og:image" content="http://lispking.github.io/2023/10/13/join-rust-robius-project/images/robius/TheRobiusOsris.png">
+<meta property="og:image" content="http://lispking.github.io/2023/10/13/join-rust-robius-project/images/robius/TheRobiusPathTowards.png">
 <meta property="article:published_time" content="2023-10-13T23:00:00.000Z">
-<meta property="article:modified_time" content="2023-11-20T23:39:27.462Z">
+<meta property="article:modified_time" content="2023-11-27T11:34:45.842Z">
 <meta property="article:author" content="King">
 <meta property="article:tag" content="Robius">
 <meta property="article:tag" content="Rust">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://lispking.github.io/images/robius/TheRobiusArch.png">
+<meta name="twitter:image" content="http://lispking.github.io/2023/10/13/join-rust-robius-project/images/robius/TheRobiusArch.png">
 
 
 <link rel="canonical" href="http://lispking.github.io/2023/10/13/join-rust-robius-project/">
@@ -106,7 +106,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">14</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">21</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">15</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">22</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -172,18 +172,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -291,7 +291,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-21 07:39:27" itemprop="dateModified" datetime="2023-11-21T07:39:27+08:00">2023-11-21</time>
+      <time title="修改时间：2023-11-27 19:34:45" itemprop="dateModified" datetime="2023-11-27T19:34:45+08:00">2023-11-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -329,47 +329,45 @@
     
     
     <div class="post-body" itemprop="articleBody"><h3 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h3><p>Robius 是一个多平台应用开发的项目，它的设计基于 Rust 语言。项目的主要目标是为开发者提供一套全面的工具和库，使他们能够在多种设备和操作系统上创建高效、响应快速的应用。</p>
-<p><img src="/images/robius/TheRobiusArch.png" alt="TheRobiusArch"></p>
+<p><img src="images/robius/TheRobiusArch.png" alt="TheRobiusArch"></p>
 <h3 id="核心组件介绍"><a href="#核心组件介绍" class="headerlink" title="核心组件介绍"></a>核心组件介绍</h3><ol>
 <li><p><strong>应用(Application)</strong>: 这一层包含了 UI 逻辑、UX 逻辑、应用逻辑和业务逻辑。这些逻辑层为开发者提供了定义应用功能和界面的基础。</p>
 </li>
 <li><p><strong>UI 工具包(UI toolkit)</strong>: 包括 Makepad 和 Dioxus。这里定义了各种界面组件，例如小部件、动画、手势、事件和渲染。</p>
 </li>
 </ol>
-<p><img src="/images/robius/TheRobiusUIToolkit.png" alt="TheRobiusUIToolkit"><br><img src="/images/robius/TheRobiusChooseUI.png" alt="TheRobiusChooseUI"><br><img src="/images/robius/TheRobiusBevy.png" alt="Bevy"></p>
-<ol start="3">
+<p><img src="images/robius/TheRobiusUIToolkit.png" alt="TheRobiusUIToolkit"><br><img src="images/robius/TheRobiusChooseUI.png" alt="TheRobiusChooseUI"><br><img src="images/robius/TheRobiusBevy.png" alt="Bevy"></p>
+<ol>
 <li><p><strong>并发运行时(Concurrent Runtime)</strong>: 一个重要的部分，它提供了异步执行器、多线程和线程池，确保应用能够充分利用设备的计算能力，并快速响应用户操作。</p>
 </li>
 <li><p><strong>OSIRIS 平台抽象(OSIRIS Platform Abstractions)</strong>: 这是与底层操作系统和硬件交互的接口。从网络、存储、多媒体、权限到传感器和剪贴板，这一层为应用提供了一系列的服务和功能。</p>
 </li>
 </ol>
-<p><img src="/images/robius/TheRobiusOsris.png" alt="TheRobiusOsris"></p>
-<ol start="5">
-<li><strong>平台&#x2F;OS 原生层(Platform&#x2F;OS Native Layers)</strong>: 这是与特定操作系统和硬件进行交互的层，例如 Android、iOS、HarmonyOS 和桌面等。</li>
+<p><img src="images/robius/TheRobiusOsris.png" alt="TheRobiusOsris"></p>
+<ol>
+<li><strong>平台/OS 原生层(Platform/OS Native Layers)</strong>: 这是与特定操作系统和硬件进行交互的层，例如 Android、iOS、HarmonyOS 和桌面等。</li>
 </ol>
-<p><img src="/images/robius/TheRobiusPathTowards.png" alt="Alt text"></p>
+<p><img src="images/robius/TheRobiusPathTowards.png" alt="Alt text"></p>
 <blockquote>
 <p>从图中的说明文本可以了解到，这个框架的指导哲学是“让 UI 专家做他们最擅长的事情”。这意味着 Robius 旨在让 UI 和 UX 开发者能够专注于设计和用户体验，而不是底层的技术细节。</p>
-</blockquote>
-<blockquote>
 <p>总的来说，Robius 提供了一个完整的应用开发框架，从应用的逻辑和界面设计到与硬件和操作系统的交互，都有相应的工具和库来支持。这使得开发者能够专注于创造高质量的多平台应用，而不必担心底层的技术挑战。</p>
 </blockquote>
 <h3 id="Flutter-与-Robius-基本不同的方法"><a href="#Flutter-与-Robius-基本不同的方法" class="headerlink" title="Flutter 与 Robius - 基本不同的方法"></a>Flutter 与 Robius - 基本不同的方法</h3><ul>
 <li>Flutter 开发者需要学习新的语言，Dart  </li>
 <li>Robius 是一个去中心化、松耦合的努力  <ul>
 <li>不是由单个实体拥有  </li>
-<li>不是一个黑盒子，就像 Flutter 或 React Native</li>
+<li>不是一个黑盒子，就像 Flutter 或 React Native  </li>
 </ul>
 </li>
 <li>填补了 Rust 中的真空  <ul>
 <li>已经在 Rust 的许多相关子领域进行中  </li>
 <li>以服务于 Rust 社区为基础的建设：Rust 社区使用是我们的首要关注  </li>
-<li>组件化的架构支持选择针对您需求的特定组件：允许开发者深入到更低层次以理解、优化他们的应用和系统栈</li>
+<li>组件化的架构支持选择针对您需求的特定组件：允许开发者深入到更低层次以理解、优化他们的应用和系统栈  </li>
 </ul>
 </li>
 <li>没有与 Flutter 竞争或取代 Flutter 的意图</li>
 </ul>
-<h3 id="将反馈融入-Rust-cargo"><a href="#将反馈融入-Rust-cargo" class="headerlink" title="将反馈融入 Rust&#x2F;cargo"></a>将反馈融入 Rust&#x2F;cargo</h3><ul>
+<h3 id="将反馈融入-Rust-cargo"><a href="#将反馈融入-Rust-cargo" class="headerlink" title="将反馈融入 Rust/cargo"></a>将反馈融入 Rust/cargo</h3><ul>
 <li>利用应用程序和框架设计经验来改进 Rust  </li>
 <li>已经在进行中，由 UI 工具包和系统打包程序驱动    <ul>
 <li>需要更好的顶级构建工具周围的 cargo  </li>
@@ -377,8 +375,8 @@
 <li>需要在构建过程中注入元数据，稍后查询它    </li>
 <li>更好的统一配置空间来定义构建包含<ul>
 <li>外部 cargo 方式 (例如：Make vars)</li>
-<li>内部 cargo (例如：–features)</li>
-<li>内部 rustc (例如：–cfg)</li>
+<li>内部 cargo (例如：—features)</li>
+<li>内部 rustc (例如：—cfg)  </li>
 </ul>
 </li>
 <li>更好的、更灵活的功能，以及更合理的默认功能开关    </li>
@@ -389,12 +387,12 @@
 <h3 id="WebAssembly（WASM）的作用"><a href="#WebAssembly（WASM）的作用" class="headerlink" title="WebAssembly（WASM）的作用"></a>WebAssembly（WASM）的作用</h3><ul>
 <li>我们可能能够利用 WASM 进行更简单的部署  <ul>
 <li>主要用于网络应用程序，加上桌面平台  </li>
-<li>移动应用商店不允许下载和运行任意代码</li>
+<li>移动应用商店不允许下载和运行任意代码  </li>
 </ul>
 </li>
 <li>Rust 为 targeting WASM 提供了一等支持  <ul>
 <li>WASM 生态系统的大部分优先考虑 Rust 集成  </li>
-<li>组件模型可以帮助减轻大型应用二进制文件的影响</li>
+<li>组件模型可以帮助减轻大型应用二进制文件的影响    </li>
 </ul>
 </li>
 <li>通过网络交付的应用二进制文件仅能传输应用程序本身  <ul>
@@ -403,13 +401,13 @@
 </li>
 </ul>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li><p>Community of Developers for Mobile Applications in Rust: <a target="_blank" rel="noopener" href="https://github.com/project-robius">https://github.com/project-robius</a></p>
+<li><p>Community of Developers for Mobile Applications in Rust: <a target="_blank" rel="noopener" href="https://github.com/project-robius">https://github.com/project-robius</a></p>
 </li>
 <li><p>Robius是个雨伞项目，重点发展<a target="_blank" rel="noopener" href="https://github.com/makepad/makepad">Makepad</a>，<a target="_blank" rel="noopener" href="https://github.com/DioxusLabs/dioxus">Dioxus</a>，Ylong，Osiris这些重点项目，促成他们之间的紧密集成。</p>
 </li>
 <li><p>Robius项目是提供给Rust社区一套完整的App开发库和工具，上层app框架可能是<a target="_blank" rel="noopener" href="https://github.com/DioxusLabs/dioxus">Dioxus</a>这种类React的声明式框架，底层组件和UI库可以是<a target="_blank" rel="noopener" href="https://github.com/makepad/makepad">Makepad</a>，也可以是<a target="_blank" rel="noopener" href="https://github.com/emilk/egui">egui</a>或者<a target="_blank" rel="noopener" href="https://github.com/slint-ui/slint">slint</a>。</p>
 </li>
-<li><p>看视频了解 Robius【GOSIM WORKSHOP 开幕式 Kevin Boos：Robius：用 Rust 开发多平台应用程序的愿景-哔哩哔哩】: <a target="_blank" rel="noopener" href="https://b23.tv/FzhitOd">https://b23.tv/FzhitOd</a></p>
+<li><p>看视频了解 Robius【GOSIM WORKSHOP 开幕式 Kevin Boos：Robius：用 Rust 开发多平台应用程序的愿景-哔哩哔哩】: <a target="_blank" rel="noopener" href="https://b23.tv/FzhitOd">https://b23.tv/FzhitOd</a></p>
 </li>
 </ul>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
@@ -545,14 +543,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">91k</span>
+    <span title="站点总字数">94k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:23</span>
+    <span title="站点阅读时长">1:26</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动

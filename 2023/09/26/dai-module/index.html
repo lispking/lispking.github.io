@@ -26,14 +26,14 @@
 <meta property="og:site_name" content="Dive In Web3">
 <meta property="og:description" content="本文介绍了 DAI 合约模块的细节，包括 DAI 代币合约和所有的 DaiJoin 适配器。DAI 合约是用户面向的 ERC20 代币合约，具有根据签名消息发行转账批准的能力。与 ERC20 的区别在于 DAI 合约中的 transferFrom 函数允许进行“无限授权”。此外，文章还提到了 permit 函数和无限允许可能带来的风险。在 transferFrom 功能中存在轻微的偏差，如果 sr">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://lispking.github.io/images/makedao/DaiInteractions.png">
+<meta property="og:image" content="http://lispking.github.io/2023/09/26/dai-module/images/makedao/DaiInteractions.png">
 <meta property="article:published_time" content="2023-09-26T07:16:18.000Z">
-<meta property="article:modified_time" content="2023-11-20T23:39:27.462Z">
+<meta property="article:modified_time" content="2023-11-27T11:34:45.842Z">
 <meta property="article:author" content="King">
 <meta property="article:tag" content="MakerDAO">
 <meta property="article:tag" content="DAI">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://lispking.github.io/images/makedao/DaiInteractions.png">
+<meta name="twitter:image" content="http://lispking.github.io/2023/09/26/dai-module/images/makedao/DaiInteractions.png">
 
 
 <link rel="canonical" href="http://lispking.github.io/2023/09/26/dai-module/">
@@ -101,7 +101,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">14</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">21</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">15</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">22</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -167,18 +167,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -279,7 +279,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-21 07:39:27" itemprop="dateModified" datetime="2023-11-21T07:39:27+08:00">2023-11-21</time>
+      <time title="修改时间：2023-11-27 19:34:45" itemprop="dateModified" datetime="2023-11-27T19:34:45+08:00">2023-11-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -328,7 +328,7 @@
 <h3 id="DAI-合约交互流程图"><a href="#DAI-合约交互流程图" class="headerlink" title="DAI 合约交互流程图"></a>DAI 合约交互流程图</h3><blockquote>
 <p>DAI 合约是面向用户的 ERC20 代币合约，负责维护外部 DAI 余额的会计核算。大多数功能对于具有变动供应的代币来说是标准的，但它还值得注意的是具有根据签名消息发行转账批准的能力。</p>
 </blockquote>
-<p><img src="/images/makedao/DaiInteractions.png" alt="Dai Interactions with the Maker Protocol"></p>
+<p><img src="images/makedao/DaiInteractions.png" alt="Dai Interactions with the Maker Protocol"></p>
 <h3 id="DAI-关键机制和概念"><a href="#DAI-关键机制和概念" class="headerlink" title="DAI 关键机制和概念"></a>DAI 关键机制和概念</h3><ul>
 <li><p>在大多数情况下，<a target="_blank" rel="noopener" href="https://github.com/makerdao/dss/blob/master/src/dai.sol">dai.sol</a> 充当了一个典型的 ERC20 代币。这些代币已经被这里详细记录，建议阅读有关 ERC20 代币核心功能的文档。</p>
 </li>
@@ -341,22 +341,17 @@
 </li>
 <li><p><font color='red'>无限允许是一项相对不常见的做法（尽管变得越来越普遍）</font>。这可能是一种通过恶意合约欺骗用户，使其放弃所有 DAI 访问权限的手段。这在可升级合约中尤为令人担忧，因为合约可能在升级为恶意合约之前看起来无害。</p>
 </li>
-<li><p>DAI 也容易受到已知的 <a target="_blank" rel="noopener" href="https://github.com/0xProject/0x-monorepo/issues/850">ERC20 竞态条件的影响</a>，但在无限授权的情况下通常不应成为问题。我们建议使用特定金额授权的任何用户都应注意这个问题，并在授权其他合约代表他们执行转账时谨慎行事。</p>
-</li>
-<li><p>在 <code>transferFrom</code> 功能中存在轻微的偏差：如果 <code>src == msg.sender</code>，则该函数不需要事先获得批准，而是将其视为从 <code>msg.sender</code> 到 <code>dst</code> 的正常转账。</p>
-</li>
-<li><p>DAI 内置的元交易功能：DAI 代币提供了一种链下授权，这意味着作为以太坊地址的所有者，您可以使用 <code>permit()</code> 函数签署权限，基本上将允许另一以太坊地址获得额度。您授权的以太坊地址可以负责执行转账，但有一个额度限制。</p>
-</li>
+<li>DAI 也容易受到已知的 <a target="_blank" rel="noopener" href="https://github.com/0xProject/0x-monorepo/issues/850">ERC20 竞态条件的影响</a>，但在无限授权的情况下通常不应成为问题。我们建议使用特定金额授权的任何用户都应注意这个问题，并在授权其他合约代表他们执行转账时谨慎行事。</li>
+<li>在 <code>transferFrom</code> 功能中存在轻微的偏差：如果 <code>src == msg.sender</code>，则该函数不需要事先获得批准，而是将其视为从 <code>msg.sender</code> 到 <code>dst</code> 的正常转账。</li>
+<li>DAI 内置的元交易功能：DAI 代币提供了一种链下授权，这意味着作为以太坊地址的所有者，您可以使用 <code>permit()</code> 函数签署权限，基本上将允许另一以太坊地址获得额度。您授权的以太坊地址可以负责执行转账，但有一个额度限制。</li>
 </ul>
 <h3 id="DAI-常见问题"><a href="#DAI-常见问题" class="headerlink" title="DAI 常见问题"></a>DAI 常见问题</h3><blockquote>
 <p>为什么这些组件对多抵押物 Dai（MCD）系统如此重要？  </p>
-</blockquote>
 <ul>
 <li>Dai 合约是用户面向的 ERC20 合约，负责维护外部 Dai 余额的会计核算。</li>
 <li>大多数功能对于具有变动供应的代币都是标准的，但它还值得注意的是，具有根据签名消息发行转移批准的能力。</li>
 <li><code>join</code> 由三个智能合约组成，其中一个是 <code>DaiJoin</code> 合约。每个 <code>join</code> 合约都是专门为给定的代币类型加入 <code>vat</code> 而创建的。因此，每个 <code>join</code> 合约在系统中的代币类型略有不同的逻辑。<code>DaiJoin</code> 合约允许用户将其 Dai 从系统中撤回到标准 ERC20 代币中。</li>
 </ul>
-<blockquote>
 <p>需要注意的问题（潜在的用户错误来源）</p>
 </blockquote>
 <ul>
@@ -500,14 +495,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">91k</span>
+    <span title="站点总字数">94k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:23</span>
+    <span title="站点阅读时长">1:26</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动

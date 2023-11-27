@@ -26,16 +26,16 @@
 <meta property="og:site_name" content="Dive In Web3">
 <meta property="og:description" content="在 RISC-V：跟着清华训练营从零打造OS【第三课】中，我们学习了地址空间和进程管理的设计。本节课将主要探讨文件系统的设计，文件系统在 UNIX 操作系统中具有举足轻重的地位。根据史料《UNIX:A History and a Memoir》记载，1969 年，UNIX 的作者 Ken Thompson 在贝尔实验室的空闲时间里，编写了一个用于提高 PDP-7 计算机磁盘吞吐量的调度算法。为了测">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://lispking.github.io/images/risc-v/FilesystemOS.png">
-<meta property="og:image" content="http://lispking.github.io/images/risc-v/FilesystemStruct.png">
-<meta property="og:image" content="http://lispking.github.io/images/wechat-blog.png">
+<meta property="og:image" content="http://lispking.github.io/2023/11/01/risc-v-learning-ch4/images/risc-v/FilesystemOS.png">
+<meta property="og:image" content="http://lispking.github.io/2023/11/01/risc-v-learning-ch4/images/risc-v/FilesystemStruct.png">
+<meta property="og:image" content="http://lispking.github.io/2023/11/01/risc-v-learning-ch4/images/wechat-blog.png">
 <meta property="article:published_time" content="2023-11-01T08:52:38.000Z">
-<meta property="article:modified_time" content="2023-11-20T23:39:27.462Z">
+<meta property="article:modified_time" content="2023-11-27T11:34:45.846Z">
 <meta property="article:author" content="King">
 <meta property="article:tag" content="Rust">
 <meta property="article:tag" content="RISC-V">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://lispking.github.io/images/risc-v/FilesystemOS.png">
+<meta name="twitter:image" content="http://lispking.github.io/2023/11/01/risc-v-learning-ch4/images/risc-v/FilesystemOS.png">
 
 
 <link rel="canonical" href="http://lispking.github.io/2023/11/01/risc-v-learning-ch4/">
@@ -103,7 +103,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">14</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">21</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">15</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">22</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -169,18 +169,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -264,7 +264,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-21 07:39:27" itemprop="dateModified" datetime="2023-11-21T07:39:27+08:00">2023-11-21</time>
+      <time title="修改时间：2023-11-27 19:34:45" itemprop="dateModified" datetime="2023-11-27T19:34:45+08:00">2023-11-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -307,16 +307,16 @@
 <p>根据史料《UNIX: A History and a Memoir》记载，1969 年，UNIX 的作者 Ken Thompson 在贝尔实验室的空闲时间里，编写了一个用于提高 PDP-7 计算机磁盘吞吐量的调度算法。为了测试这个算法，他打算编写一个批量读写数据的测试程序。然而，在编写过程中，Thompson 在某一刻意识到，这个测试程序稍作扩展，就能成为一个文件系统，再进一步扩展，便可以成为一个完整的操作系统。他意识到，自己距离实现一个操作系统仅有短短三周的时间。</p>
 <p>第一周，他专注于编写代码编辑器；第二周，编写汇编器；第三周，编写 shell 程序。在编写这些程序的过程中，他还需添加操作系统的功能（如 exec 等系统调用），以支持这些应用程序。经过三周的努力，Thompson 成功创建了一个用于测试磁盘调度算法性能的 UNIX 操作系统雏形。 </p>
 </blockquote>
-<p>本节课将实现一个简单的文件系统 —— <code>EasyFS</code>，它能对持久存储设备（<code>Persistent Storage</code>）这种 I&#x2F;O 资源进行有效管理。</p>
+<p>本节课将实现一个简单的文件系统 —— <code>EasyFS</code>，它能对持久存储设备（<code>Persistent Storage</code>）这种 I/O 资源进行有效管理。</p>
 <p>为了满足应用程序对持久存储设备的访问需求，内核需新增两种文件类型：<code>常规文件</code>和<code>目录文件</code>。这两种文件均以文件系统所维护的磁盘文件形式组织并存储在持久存储设备上。从而，形成了具备强大 UNIX 操作系统基本功能的 <code>霸王龙</code> 操作系统。</p>
 <ul>
 <li>常规文件：用于存储应用程序的数据。</li>
 <li>目录文件：用于存储文件系统内部的信息。</li>
 </ul>
 <p>这两种文件类型共同构成了文件系统的基础，使得操作系统能够对存储设备进行高效的管理和访问。</p>
-<p><img src="/images/risc-v/FilesystemOS.png" alt="FilesystemOS"></p>
+<p><img src="images/risc-v/FilesystemOS.png" alt="FilesystemOS"></p>
 <p>通过上图，我们可以大致了解<code>霸王龙</code>操作系统 —— <code>FilesystemOS</code> 对文件系统的支持以及为应用程序提供的文件访问相关系统调用服务。在进程管理方面，<code>FilesystemOS</code> 进一步扩展了资源管理的范围，将打开文件的相关信息放入 <code>fd table</code> 数据结构中，纳入进程管理，并基于此提供了一系列与文件访问相关的系统调用服务，如 <code>sys_open</code>、<code>sys_close</code>、<code>sys_read</code>、<code>sys_write</code> 等。</p>
-<p>在设备管理层面，<code>FilesystemOS</code> 增加了块设备驱动 —— <code>BlockDrv</code>，通过访问块设备数据来实现对文件系统与文件各种数据的读写。文件系统 —— <code>EasyFS</code> 成为 <code>FilesystemOS</code> 的核心内核模块，负责完成文件与存储块之间的数据&#x2F;地址映射关系，并基于存储块进行读写操作。</p>
+<p>在设备管理层面，<code>FilesystemOS</code> 增加了块设备驱动 —— <code>BlockDrv</code>，通过访问块设备数据来实现对文件系统与文件各种数据的读写。文件系统 —— <code>EasyFS</code> 成为 <code>FilesystemOS</code> 的核心内核模块，负责完成文件与存储块之间的数据/地址映射关系，并基于存储块进行读写操作。</p>
 <p><code>EasyFS</code> 的核心数据结构包括：</p>
 <ul>
 <li><code>Superblock</code>：表示整个文件系统结构</li>
@@ -327,7 +327,7 @@
 </ul>
 <p>此外，<code>EasyFS</code> 中的块缓存管理器 <code>BlockManager</code> 在内存中管理有限个 <code>BlockCache</code> 磁盘块缓存，并通过 <code>Blk Interface</code>（与块设备驱动对接的读写操作接口）与 <code>BlockDrv</code> 块设备驱动程序进行互操作。</p>
 <p>接下来，让我们共同探讨文件系统的数据结构。</p>
-<p><img src="/images/risc-v/FilesystemStruct.png" alt="FilesystemStruct"></p>
+<p><img src="images/risc-v/FilesystemStruct.png" alt="FilesystemStruct"></p>
 <p>在 <code>EasyFS</code> 设计中，采用了松耦合的模块化设计理念。通过使用抽象接口 <code>BlockDevice</code>，<code>EasyFS</code> 与底层设备驱动之间实现了解耦，避免了与设备驱动的绑定。此外，<code>EasyFS</code> 借助 <code>Rust</code> 提供的 <code>alloc crate</code> 实现了对操作系统内核内存管理的隔离，避免了直接调用内存管理的内核函数。</p>
 <p>在底层驱动方面，采用轮询方式访问 <code>virtio_blk</code> 虚拟磁盘设备，从而避免了访问外设中断相关的内核函数。在设计过程中，<code>EasyFS</code> 充分考虑了避免直接访问进程相关的数据和函数，从而实现了与操作系统内核的进程管理隔离。</p>
 <p><code>EasyFS</code> <code>crate</code> 自下而上大致可以分成五个不同的层次：</p>
@@ -335,19 +335,16 @@
 <li>磁盘块设备接口层：定义了以块大小为单位对磁盘块设备进行读写的 <code>trait</code> 接口</li>
 <li>块缓存层：在内存中缓存磁盘块的数据，避免频繁读写磁盘</li>
 <li>磁盘数据结构层：磁盘上的超级块、位图、索引节点、数据块、目录项等核心数据结构和相关处理</li>
-<li>磁盘块管理器层：合并了上述核心数据结构和磁盘布局所形成的磁盘文件系统数据结构，以及基于这些结构的创建&#x2F;打开文件系统的相关处理和磁盘块的分配和回收处理</li>
-<li>索引节点层：管理索引节点（即文件控制块）数据结构，并实现文件创建&#x2F;文件打开&#x2F;文件读写等成员函数来向上支持文件操作相关的系统调用</li>
+<li>磁盘块管理器层：合并了上述核心数据结构和磁盘布局所形成的磁盘文件系统数据结构，以及基于这些结构的创建/打开文件系统的相关处理和磁盘块的分配和回收处理</li>
+<li>索引节点层：管理索引节点（即文件控制块）数据结构，并实现文件创建/文件打开/文件读写等成员函数来向上支持文件操作相关的系统调用</li>
 </ul>
 <p>最后，一起看看相关接口代码定义：</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// 块设备的抽象接口 BlockDevice</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">trait</span> <span class="title class_">BlockDevice</span> : <span class="built_in">Send</span> + <span class="built_in">Sync</span> + Any &#123;</span><br><span class="line">    <span class="comment">/// 将编号为 block_id 的块从磁盘读入内存中的缓冲区 buf ；</span></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">read_block</span>(&amp;<span class="keyword">self</span>, block_id: <span class="type">usize</span>, buf: &amp;<span class="keyword">mut</span> [<span class="type">u8</span>]);</span><br><span class="line">    <span class="comment">/// 将内存中的缓冲区 buf 中的数据写入磁盘编号为 block_id 的块。</span></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">write_block</span>(&amp;<span class="keyword">self</span>, block_id: <span class="type">usize</span>, buf: &amp;[<span class="type">u8</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">const</span> BLOCK_SZ: <span class="type">usize</span> = <span class="number">512</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 块缓存 BlockCache</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">struct</span> <span class="title class_">BlockCache</span> &#123;</span><br><span class="line">    <span class="comment">/// 一个 512 字节的数组，表示位于内存中的缓冲区；</span></span><br><span class="line">    cache: [<span class="type">u8</span>; BLOCK_SZ],</span><br><span class="line">    <span class="comment">/// 记录这个块缓存来自于磁盘中的块的编号</span></span><br><span class="line">    block_id: <span class="type">usize</span>,</span><br><span class="line">    <span class="comment">/// 一个底层块设备的引用，可通过它进行块读写</span></span><br><span class="line">    block_device: Arc&lt;<span class="keyword">dyn</span> BlockDevice&gt;,</span><br><span class="line">    <span class="comment">/// 记录这个块从磁盘载入内存缓存之后，它有没有被修改过</span></span><br><span class="line">    modified: <span class="type">bool</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 超级块 SuperBlock</span></span><br><span class="line"><span class="meta">#[repr(C)]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">struct</span> <span class="title class_">SuperBlock</span> &#123;</span><br><span class="line">    <span class="comment">/// 用于文件系统合法性验证的魔数</span></span><br><span class="line">    magic: <span class="type">u32</span>,</span><br><span class="line">    <span class="comment">/// 文件系统的总块数</span></span><br><span class="line">    <span class="keyword">pub</span> total_blocks: <span class="type">u32</span>,</span><br><span class="line">    <span class="comment">/// 索引节点位图，长度为若干个块。记录后面的索引节点区域中有哪些索引节点已经被分配出去使用了，而哪些还尚未被分配出去</span></span><br><span class="line">    <span class="keyword">pub</span> inode_bitmap_blocks: <span class="type">u32</span>,</span><br><span class="line">    <span class="comment">/// 索引节点区域，长度为若干个块。其中的每个块都存储了若干个索引节点</span></span><br><span class="line">    <span class="keyword">pub</span> inode_area_blocks: <span class="type">u32</span>,</span><br><span class="line">    <span class="comment">/// 数据块位图，长度为若干个块。记录后面的数据块区域中有哪些数据块已经被分配出去使用了，而哪些还尚未被分配出去。</span></span><br><span class="line">    <span class="keyword">pub</span> data_bitmap_blocks: <span class="type">u32</span>,</span><br><span class="line">    <span class="comment">/// 数据块区域，顾名思义，其中的每一个已经分配出去的块保存了文件或目录中的具体数据内容。</span></span><br><span class="line">    <span class="keyword">pub</span> data_area_blocks: <span class="type">u32</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 磁盘块管理器</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">struct</span> <span class="title class_">EasyFileSystem</span> &#123;</span><br><span class="line">    <span class="comment">/// 块设备指针</span></span><br><span class="line">    <span class="keyword">pub</span> block_device: Arc&lt;<span class="keyword">dyn</span> BlockDevice&gt;,</span><br><span class="line">    <span class="comment">/// 索引节点位图</span></span><br><span class="line">    <span class="keyword">pub</span> inode_bitmap: Bitmap,</span><br><span class="line">    <span class="comment">/// 数据块位图</span></span><br><span class="line">    <span class="keyword">pub</span> data_bitmap: Bitmap,</span><br><span class="line">    <span class="comment">/// 索引节点区域起始块编号</span></span><br><span class="line">    inode_area_start_block: <span class="type">u32</span>,</span><br><span class="line">    <span class="comment">/// 数据块区域起始块编号</span></span><br><span class="line">    data_area_start_block: <span class="type">u32</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 索引节点，在内存中记录文件索引节点信息</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">struct</span> <span class="title class_">Inode</span> &#123;</span><br><span class="line">    <span class="comment">/// 记录该 Inode 对应的 DiskInode 保存在磁盘上的 id</span></span><br><span class="line">    block_id: <span class="type">usize</span>,</span><br><span class="line">    <span class="comment">/// 记录该 Inode 对应的 DiskInode 保存在磁盘上的偏移量</span></span><br><span class="line">    block_offset: <span class="type">usize</span>,</span><br><span class="line">    <span class="comment">/// 指向 EasyFileSystem 的一个指针</span></span><br><span class="line">    fs: Arc&lt;Mutex&lt;EasyFileSystem&gt;&gt;,</span><br><span class="line">    block_device: Arc&lt;<span class="keyword">dyn</span> BlockDevice&gt;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h2 id="未完待续-…-…"><a href="#未完待续-…-…" class="headerlink" title="未完待续 … …"></a>未完待续 … …</h2><blockquote>
 <p>以上就是关于 [清华开源操作系统训练营] 第四课学到的知识，文件系统领域仍有很多待探索之处，后续的学习之路亦颇为漫长。希望这节课对您有所帮助。祝大家玩得开心 ^_^</p>
-</blockquote>
-<blockquote>
 <p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
 </blockquote>
-<p><img src="/images/wechat-blog.png" alt="公众号"></p>
+<p><img src="images/wechat-blog.png" alt="公众号"></p>
 
     </div>
 
@@ -474,14 +471,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">91k</span>
+    <span title="站点总字数">94k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:23</span>
+    <span title="站点阅读时长">1:26</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动

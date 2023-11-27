@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lispking.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言最近在学习 Rust 编写 Linux 网卡驱动时，发现了一篇有关网卡的精彩文章。英文原文请见此处。今天我将它翻译成中文，与大家分享。 这篇博客文章在之前的博客文章《监控和优化 Linux 网络堆栈：接收数据》基础上，通过一系列图表深入解释了 Linux 网络堆栈的工作原理，旨在帮助读者更清晰地了解其运作方式。 在监控或调整 Linux 网络堆栈方面，没有捷径可走。运维人员必须努力全面了解各个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图文指南：Linux 网络堆栈监控和优化 —— 接收数据">
+<meta property="og:url" content="http://lispking.github.io/2023/11/27/linux-networking-stack-receiving-data/index.html">
+<meta property="og:site_name" content="Dive In Web3">
+<meta property="og:description" content="前言最近在学习 Rust 编写 Linux 网卡驱动时，发现了一篇有关网卡的精彩文章。英文原文请见此处。今天我将它翻译成中文，与大家分享。 这篇博客文章在之前的博客文章《监控和优化 Linux 网络堆栈：接收数据》基础上，通过一系列图表深入解释了 Linux 网络堆栈的工作原理，旨在帮助读者更清晰地了解其运作方式。 在监控或调整 Linux 网络堆栈方面，没有捷径可走。运维人员必须努力全面了解各个">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://lispking.github.io/2023/11/27/linux-networking-stack-receiving-data/images/linux-network/00-settings.png">
+<meta property="og:image" content="http://lispking.github.io/2023/11/27/linux-networking-stack-receiving-data/images/linux-network/01-receive-steps.png">
+<meta property="og:image" content="http://lispking.github.io/2023/11/27/linux-networking-stack-receiving-data/images/linux-network/02-receive-processing.png">
+<meta property="og:image" content="http://lispking.github.io/2023/11/27/linux-networking-stack-receiving-data/images/linux-network/03-receive-continue.png">
+<meta property="og:image" content="http://lispking.github.io/2023/11/27/linux-networking-stack-receiving-data/images/wechat-blog.png">
+<meta property="article:published_time" content="2023-11-27T10:05:58.000Z">
+<meta property="article:modified_time" content="2023-11-27T11:34:45.846Z">
+<meta property="article:author" content="King">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Network">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lispking.github.io/2023/11/27/linux-networking-stack-receiving-data/images/linux-network/00-settings.png">
+
+
+<link rel="canonical" href="http://lispking.github.io/2023/11/27/linux-networking-stack-receiving-data/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://lispking.github.io/2023/11/27/linux-networking-stack-receiving-data/","path":"2023/11/27/linux-networking-stack-receiving-data/","title":"图文指南：Linux 网络堆栈监控和优化 —— 接收数据"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>图文指南：Linux 网络堆栈监控和优化 —— 接收数据 | Dive In Web3</title>
+  
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6255376809208012" crossorigin="anonymous"></script>
+
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-28440BWWYK"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-28440BWWYK","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?ea3634b85b5b23007bec7092a4735018"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Dive In Web3" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Dive In Web3</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">深入Web3世界</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">15</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">22</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A5%E9%97%A8"><span class="nav-number">2.</span> <span class="nav-text">入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E8%AE%BE%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">初始设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%88%B0%E8%BE%BE%E6%B5%81%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">数据到达流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%95%B0%E6%8D%AE%E5%BC%80%E5%A7%8B%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B"><span class="nav-number">5.</span> <span class="nav-text">网络数据开始处理流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%95%B0%E6%8D%AE%E7%BB%A7%E7%BB%AD%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B"><span class="nav-number">6.</span> <span class="nav-text">网络数据继续处理流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E5%A0%86%E6%A0%88%E5%92%8C%E7%94%A8%E6%88%B7%E6%80%81%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="nav-number">7.</span> <span class="nav-text">协议堆栈和用户态套接字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD"><span class="nav-number">9.</span> <span class="nav-text">未完待续</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="King"
+      src="https://avatars.githubusercontent.com/u/4446580?v=4">
+  <p class="site-author-name" itemprop="name">King</p>
+  <div class="site-description" itemprop="description">欢迎光临Web3世界，一起拥抱Web3</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lispking" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/lispking" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/lispking" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_nd.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="sidebar-inner sidebar-post-related">
+          <div class="animated">
+              <div class="links-of-blogroll-title"><i class="fa fa-signs-post fa-fw"></i>
+    相关文章
+  </div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2023/11/07/rust-for-linux-ch1/" rel="bookmark">
+        <time class="popular-posts-time">2023-11-07</time>
+        <br>
+      RustForLinux：跟着清华训练营从零打造 Linux 驱动【第一课】
+      </a>
+    </li>
+  </ul>
+
+          </div>
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lispking.github.io/2023/11/27/linux-networking-stack-receiving-data/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/4446580?v=4">
+      <meta itemprop="name" content="King">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dive In Web3">
+      <meta itemprop="description" content="欢迎光临Web3世界，一起拥抱Web3">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="图文指南：Linux 网络堆栈监控和优化 —— 接收数据 | Dive In Web3">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          图文指南：Linux 网络堆栈监控和优化 —— 接收数据
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-11-27 18:05:58 / 修改时间：19:34:45" itemprop="dateCreated datePublished" datetime="2023-11-27T18:05:58+08:00">2023-11-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在学习 <a href="https://lispking.github.io/2023/11/07/rust-for-linux-ch1/">Rust 编写 Linux 网卡驱动</a>时，发现了一篇有关网卡的精彩文章。英文原文请见<a target="_blank" rel="noopener" href="https://blog.packagecloud.io/illustrated-guide-monitoring-tuning-linux-networking-stack-receiving-data/">此处</a>。今天我将它翻译成中文，与大家分享。</p>
+<p>这篇博客文章在之前的博客文章《<a target="_blank" rel="noopener" href="https://blog.packagecloud.io/monitoring-tuning-linux-networking-stack-receiving-data/">监控和优化 Linux 网络堆栈：接收数据</a>》基础上，通过一系列图表深入解释了 Linux 网络堆栈的工作原理，旨在帮助读者更清晰地了解其运作方式。</p>
+<p>在监控或调整 Linux 网络堆栈方面，没有捷径可走。运维人员必须努力全面了解各个子系统及其相互作用，才能有望调整或优化它们。然而，之前的博客文章篇幅较长，可能让读者难以理解各个系统之间的交互关系。希望这篇博客文章能有助于澄清这些问题。</p>
+<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><p>这些图表旨在概述 Linux 网络堆栈的工作原理。因此，许多细节并未包括在内。为了获得完整的画面，读者们被鼓励阅读我们的一篇博客文章，其中详细介绍了网络堆栈的每个方面：<a target="_blank" rel="noopener" href="https://blog.packagecloud.io/monitoring-tuning-linux-networking-stack-receiving-data/">监控和优化 Linux 网络堆栈：接收数据</a>。这些绘图的目的是帮助读者在高层次上构建一个内核中某些系统之间互动的思维模型。</p>
+<p>让我们首先看一下在理解数据包处理之前必要的的重要设置。</p>
+<h2 id="初始设置"><a href="#初始设置" class="headerlink" title="初始设置"></a>初始设置</h2><p><img src="images/linux-network/00-settings.png" alt="00-settings"></p>
+<p>设备有多种方式警告计算机系统的其他部分准备处理的工作。在网络设备的情况下，网卡通常会 <code>raising IRQ</code> 信号，表示数据包已到达并准备好处理。当 <code>Linux</code> 内核执行 IRQ 处理程序时，它以非常高的优先级运行，通常会阻止生成额外的 <code>IRQ</code>。因此，设备驱动程序中的 <code>IRQ</code> 处理程序必须尽可能快地执行，并将所有长时间的工作推迟到这个上下文之外执行。这就是为什么存在<code>软 IRQ</code>系统的原因。</p>
+<p>Linux 内核中的<code>软 IRQ</code>系统是内核用于在设备驱动程序 <code>IRQ</code> 上下文之外处理工作的系统。在网络设备的情况下，<code>软 IRQ</code> 系统负责处理传入的数据包。<code>软 IRQ</code> 系统在内核启动过程的早期进行初始化。</p>
+<p>上面的图表与我们网络博客文章中的<code>软 IRQ</code> 部分相对应，展示了<code>软 IRQ</code> 系统的初始化和其每个 CPU 的内核线程。</p>
+<p><code>软 IRQ</code> 系统的初始化如下：</p>
+<ol>
+<li>在 <code>kernel/softirq.c</code> 中的 <code>spawn_ksoftirqd</code> 函数中创建<code>软 IRQ</code> 内核线程（每个 CPU 一个），并通过调用 <code>kernel/smpboot.c</code> 中的 <code>smpboot_register_percpu_thread</code> 函数来注册。在代码中，可以看到 <code>run_ksoftirqd</code> 函数被列为线程函数，这是将在循环中执行的函数。</li>
+<li><code>ksoftirqd</code> 线程在 <code>run_ksoftirqd</code> 函数中开始执行其处理循环。</li>
+<li>然后，为每个 CPU 创建一个 <code>softnet_data</code> 结构。这些结构持有处理网络数据的重要数据结构的引用。我们后面会看到的是 <code>poll_list</code>。设备驱动程序通过调用 <code>napi_schedule</code> 或其他 <code>NAPI API</code> 将 <code>NAPI</code> 轮询 <code>worker</code> 结构添加到 <code>poll_list</code> 中。</li>
+<li><code>net_dev_init</code> 然后通过调用 <code>open_softirq</code> 注册 <code>NET_RX_SOFTIRQ 软 IRQ</code>，如所示。注册的处理程序函数是 <code>net_rx_action</code>。这是<code>软 IRQ</code> 内核线程将执行的处理数据包的函数。<br>图表中的步骤 5-8 与准备处理的数据包到达有关，将在下一部分提到。请继续阅读！</li>
+</ol>
+<h2 id="数据到达流程"><a href="#数据到达流程" class="headerlink" title="数据到达流程"></a>数据到达流程</h2><p><img src="images/linux-network/01-receive-steps.png" alt="01-receive-steps"></p>
+<blockquote>
+<p>数据从网络到达！</p>
+</blockquote>
+<p>当网络数据到达网卡时，网卡将使用 DMA 将数据包写入内存。在 igb 网络驱动程序的情况下，它在内存中设置了一个环形缓冲区，该缓冲区指向接收到的数据包。需要注意的是，一些网卡是“多队列”网卡，这意味着它们可以将接收到的数据包写入内存中的多个环形缓冲区。如我们将看到的，这样的网卡能够利用多个处理器处理到来的网络数据。了解更多关于多队列网卡的信息。上述图表仅显示了一个简化的单一环形缓冲区，但根据您使用的网卡和硬件设置，您的系统上可能会有多个队列。</p>
+<p>在网络博客文章的这一部分中，详细介绍了以下过程。</p>
+<p>让我们详细了解数据接收过程：</p>
+<ol>
+<li>网卡从网络接收数据。</li>
+<li>网卡使用 DMA 将网络数据写入内存。</li>
+<li>网卡产生 IRQ。</li>
+<li>设备驱动程序注册的 IRQ 处理程序被执行。</li>
+<li>在 NIC 上清除 IRQ，以便它可以为新的数据包到达产生 IRQ。</li>
+<li>调用 <code>napi_schedule</code> 启动 NAPI 软 IRQ 轮询循环。</li>
+</ol>
+<p>调用 <code>napi_schedule</code> 触发前图中步骤 5-8 的开始。如我们将看到的，NAPI 软 IRQ 轮询循环是通过在位字段中切换一位并将结构添加到 poll_list 中来简单启动的。<code>napi_schedule</code> 没有执行其他工作，这就是驱动程序将处理推迟到软 IRQ 系统的精确方式。</p>
+<p>继续查看上一部分的图表，并使用那里找到的数字：</p>
+<ol>
+<li>驱动程序调用 <code>napi_schedule</code> 时，将驱动程序的 NAPI 轮询结构添加到当前 CPU 的 <code>poll_list</code> 中。</li>
+<li>设置 <code>softirq</code> 等待位，以便该 CPU 上的 <code>ksoftirqd</code> 进程知道有数据包需要处理。</li>
+<li><code>run_ksoftirqd</code> 函数（由 <code>ksoftirq</code> 内核线程以循环方式运行）执行。</li>
+<li>调用 <code>__do_softirq</code>，检查 <code>pending</code> 位字段，发现 <code>softIRQ</code> 等待，并调用注册的等待 <code>softIRQ</code> 的处理程序：<code>net_rx_action</code>，它负责处理到来网络数据的全部工作。</li>
+</ol>
+<p>值得注意的是，执行 <code>net_rx_action</code> 的是 <code>softIRQ</code> 内核线程，而不是设备驱动程序的 IRQ 处理程序。</p>
+<h2 id="网络数据开始处理流程"><a href="#网络数据开始处理流程" class="headerlink" title="网络数据开始处理流程"></a>网络数据开始处理流程</h2><p><img src="images/linux-network/02-receive-processing.png" alt="02-receive-processing"></p>
+<p>已将驱动程序的 NAPI 结构添加到当前 CPU 的 <code>poll_list</code> 中。Poll 结构通常在以下两种情况下添加：</p>
+<ol>
+<li>从调用 <code>napi_schedule</code> 的设备驱动程序。</li>
+<li>在接收数据包转向（RPS）的情况下，使用进程间中断（IPI）。了解更多关于如何使用 IPI 处理数据包的信息。</li>
+</ol>
+<p>我们现在将介绍从 <code>poll_list</code> 中检索驱动程序的 NAPI 结构时会发生什么。（下一节将介绍如何使用 IPI 注册 RPS 的 NAPI 结构。）</p>
+<p>上述图表在这里进行了详细解释，但可以总结如下：</p>
+<ol>
+<li><code>net_rx_action</code> 循环首先检查 <code>NAPI poll</code> 列表中的 NAPI 结构。</li>
+<li>检查预算和流逝时间，以确保软 IRQ 不会独占 CPU 时间。</li>
+<li>调用注册的 poll 函数。在本例中，igb 驱动程序注册了 <code>igb_poll</code> 函数。</li>
+<li>驱动程序的 poll 函数从内存中的环形缓冲区收集数据包。</li>
+<li>数据包传递给 <code>napi_gro_receive</code>，它将处理可能的通用接收卸载。</li>
+<li>数据包是保留用于 GRO，或者传递给 <code>net_receive_skb</code>，使其向上进入协议堆栈。</li>
+</ol>
+<p>接下来，我们将介绍 <code>net_receive_skb</code> 如何处理接收数据包转向，以在多个 CPU 之间分配数据包处理负载。</p>
+<h2 id="网络数据继续处理流程"><a href="#网络数据继续处理流程" class="headerlink" title="网络数据继续处理流程"></a>网络数据继续处理流程</h2><p><img src="images/linux-network/03-receive-continue.png" alt="03-receive-continue"></p>
+<p>网络数据处理继续从<code>netif_receive_skb</code>开始，但数据的路径取决于是否启用接收数据包引导（RPS）。默认情况下，Linux内核未启用RPS，如果您想要使用它，需要显式启用和配置。</p>
+<p>在RPS禁用的情况下，使用上述图表中的数字：</p>
+<ul>
+<li><code>netif_receive_skb</code>将数据传递给<code>__netif_receive_core</code>。</li>
+<li><code>__netif_receive_core</code>将数据交付给任何<code>tap</code>（如<code>PCAP</code>）。</li>
+<li><code>__netif_receive_core</code>将数据交付给已注册的协议层处理程序。在很多情况下，这是<code>IPv4</code>协议堆栈注册的<code>ip_rcv</code>函数。</li>
+</ul>
+<p>在<code>RPS</code>启用的情况下：</p>
+<ol>
+<li><code>netif_receive_skb</code>将数据传递给<code>enqueue_to_backlog</code>。</li>
+<li>数据包放置在 <code>per-CPU</code> 输入队列中以供处理。</li>
+<li>将远程<code>CPU</code>的<code>NAPI</code>结构添加到该<code>CPU</code>的<code>poll_list</code>中，并排队<code>IPI</code>，如果远程<code>CPU</code>上的软中断内核线程尚未运行，则触发唤醒。</li>
+<li>当远程<code>CPU</code>上的<code>ksoftirqd</code>内核线程运行时，它遵循前一节的相同模式，但这次，注册的<code>poll</code>函数是<code>process_backlog</code>，从当前CPU的输入队列中收获数据包。</li>
+<li>数据包传递给<code>__net_receive_skb_core</code>。</li>
+<li><code>__netif_receive_core</code>将数据交付给任何<code>tap</code>（如<code>PCAP</code>）。</li>
+<li><code>__netif_receive_core</code>将数据交付给已注册的协议层处理程序。在很多情况下，这是<code>IPv4</code>协议堆栈注册的<code>ip_rcv</code>函数。</li>
+</ol>
+<h2 id="协议堆栈和用户态套接字"><a href="#协议堆栈和用户态套接字" class="headerlink" title="协议堆栈和用户态套接字"></a>协议堆栈和用户态套接字</h2><p>接下来是<code>协议堆栈</code>、<code>netfilter</code>、<code>伯克利数据包过滤器</code>，最后是<code>用户态套接字</code>。这条代码路径较长，但线性且相对简单。</p>
+<p>您可以继续跟随网络数据的详细路径。该路径的简要高层次概述如下：</p>
+<ol>
+<li>数据包由<code>IPv4</code>协议层使用<code>ip_rcv</code>接收。</li>
+<li>执行<code>netfilter</code>和路由优化。</li>
+<li>将目标数据传递给较高层次的协议层，如<code>UDP</code>。</li>
+<li>数据包由<code>UDP</code>协议层使用<code>udp_rcv</code>接收，并通过<code>udp_queue_rcv_skb</code>和<code>sock_queue_rcv</code>将其放入用户态套接字的接收缓冲区。在放入接收缓冲区之前，处理伯克利数据包过滤器。</li>
+</ol>
+<blockquote>
+<p>请注意，在整个过程中多次查询 <code>netfilter</code>。详细位置可在我们的详细解析中找到。</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Linux 网络堆栈非常复杂，有许多不同的系统相互交互。调整或监控这些复杂系统时，必须努力理解它们之间的相互作用，以及更改其中一个系统的设置如何影响其他系统。<br>这篇（不佳）绘图的博客文章试图使我们的长篇博客文章更具可读性和易于理解。</p>
+<h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2><blockquote>
+<p>以上就是关于《图文指南：Linux 网络堆栈监控和优化 —— 接收数据》的全文，希望这些知识能对您有所帮助。祝大家玩得开心 ^_^</p>
+<p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
+</blockquote>
+<p><img src="images/wechat-blog.png" alt="公众号"></p>
+<!-- 参考资料 -->
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechat.png" alt="King 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="King 支付宝">
+        <span>支付宝</span>
+      </div>
+      <div>
+        <img src="/images/metamask.png" alt="King 比特币">
+        <span>比特币</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/lispking">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+              <a href="/tags/Network/" rel="tag"><i class="fa fa-tag"></i> Network</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/11/20/arceos-unikernel-summary/" rel="prev" title="2023秋冬季开源操作系统训练营第三阶段 - ArceOS Unikernel 总结报告">
+                  <i class="fa fa-angle-left"></i> 2023秋冬季开源操作系统训练营第三阶段 - ArceOS Unikernel 总结报告
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+  
+  <script type="text/javascript">
+    // 可修改，摘要将显示在这个选择器选中的元素之上。
+    var _xhh_selector = ".post-body";
+    // 可修改，定制最外层 DIV 的风格。
+    // 默认限制宽度为 750px，上下加 8px 的镶边，4 像素圆角。
+    var _xhh_style = "max-width: 100%; margin:8px 0px; border-radius: 4px;";
+
+    // 以下部分不要改动
+    var host = '///xhh.club';
+    var _xhh_service_url = host + '/summarize-this/';
+    (function() {
+      var smmr = document.createElement("script");
+      smmr.src = host + "/static/js/summarize_this.js";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(smmr, s);
+    })();
+  </script>
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">King</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">94k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:26</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lispking" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.3.0/mermaid.min.js","integrity":"sha256-9y71g5Lz/KLsHjB8uXwnkuWDtAMDSzD/HdIbqhJfTAI="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","mhchem":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
