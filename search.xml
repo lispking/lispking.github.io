@@ -6,7 +6,7 @@
     <content><![CDATA[<h2 id="欢迎光临小站"><a href="#欢迎光临小站" class="headerlink" title="欢迎光临小站"></a>欢迎光临小站</h2><h3 id="心路历程分享"><a href="#心路历程分享" class="headerlink" title="心路历程分享"></a>心路历程分享</h3><ul>
 <li><p>欢迎来到本站，这里是一位拥有近20年技术研发经验的专业人士与你分享编程知识和心得的地方。博主从接触计算机科学的那一刻起，就对编程和开发产生了浓厚的兴趣，从此踏上了探索各种编程语言和技术的征程。</p>
 </li>
-<li><p>博主在编程语言方面，具有丰富的实践经验。他从学习 PB（PowerBuilder）语言开始，逐渐掌握了 PHP、Python、Erlang、C/C++、Go、Java 等多种编程语言。最近，他主要关注 Rust 和 Solidity 这两门编程语言，致力于探索这些语言在各种领域的应用。博主将分享他在这些编程语言领域的心得体会，以及如何将这些编程语言应用到实际项目中的经验。</p>
+<li><p>博主在编程语言方面，具有丰富的实践经验。他从学习 PB（PowerBuilder）语言开始，逐渐掌握了 PHP、Python、Erlang、C&#x2F;C++、Go、Java 等多种编程语言。最近，他主要关注 Rust 和 Solidity 这两门编程语言，致力于探索这些语言在各种领域的应用。博主将分享他在这些编程语言领域的心得体会，以及如何将这些编程语言应用到实际项目中的经验。</p>
 </li>
 <li><p>在技术实践方面，博主也有着广泛的经验。他曾从事后端开发、网站开发、Android开发等多种不同的技术工作。无论是开发企业级应用、搭建 Web 网站，还是开发手机应用，博主都有着丰富的实践经验和技术积累。他将在这个技术博客中，分享这些实践中遇到的问题和挑战，以及如何解决这些问题的思路和方法。</p>
 </li>
@@ -62,10 +62,12 @@
 <li>MKR和治理保持不变</li>
 <li>Oasis交易</li>
 </ul>
-<h3 id="Maker协议智能合约模块系统："><a href="#Maker协议智能合约模块系统：" class="headerlink" title="Maker协议智能合约模块系统："></a>Maker协议智能合约模块系统：</h3><p><img src="images/makedao/TheMakerProtocolSystemDiagram.png" alt="SystemDiagram"></p>
-<h3 id="Maker-101协议交互："><a href="#Maker-101协议交互：" class="headerlink" title="Maker 101协议交互："></a>Maker 101协议交互：</h3><p><img src="images/makedao/TheMakerProtocol101.png" alt="MakerProtocol101"></p>
+<h3 id="Maker协议智能合约模块系统："><a href="#Maker协议智能合约模块系统：" class="headerlink" title="Maker协议智能合约模块系统："></a>Maker协议智能合约模块系统：</h3><p><img src="/images/makedao/TheMakerProtocolSystemDiagram.png" alt="SystemDiagram"></p>
+<h3 id="Maker-101协议交互："><a href="#Maker-101协议交互：" class="headerlink" title="Maker 101协议交互："></a>Maker 101协议交互：</h3><p><img src="/images/makedao/TheMakerProtocol101.png" alt="MakerProtocol101"></p>
 <h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><blockquote>
 <p>MakerDAO 是一个致力于为加密货币经济带来稳定性的去中心化组织。该组织采用双代币系统，包括稳定币 Dai 和治理令牌 MKR。Dai 是一种由抵押品支持的稳定币，而 MKR 则用于维护系统和管理 Dai。Maker 协议已发布新版本 Multi-Collaborate Dai（MCD），在以太坊主网络上线。此次升级允许以太坊上任何资产作为抵押品生成 Dai，并引入了新的功能。新功能包括新的 Dai 代币、支持多种 Vault 抵押品类型、Dai 储蓄率、更稳健的挂钩确保机制等。MKR 和治理保持不变，同时推出了 Oasis 交易。通过这些创新，MakerDAO 旨在打造一个包容性的经济赋权平台，让每个人都能平等地进入全球金融市场。</p>
+</blockquote>
+<blockquote>
 <p>免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^</p>
 </blockquote>
 ]]></content>
@@ -92,7 +94,7 @@
 <h3 id="Maker-晦涩难懂的代码是刻意的"><a href="#Maker-晦涩难懂的代码是刻意的" class="headerlink" title="Maker 晦涩难懂的代码是刻意的"></a>Maker 晦涩难懂的代码是刻意的</h3><blockquote>
 <p>乍一看，这些术语确实令人费解，许多研究 Maker 协议的开发者常常惊讶于其复杂且几乎晦涩的术语。实际上，这种复杂性是有意为之。变量名不同的字母长度和词性，严格而清晰地对应着不同的方程和模块。</p>
 </blockquote>
-<h3 id="架构流程图"><a href="#架构流程图" class="headerlink" title="架构流程图"></a>架构流程图</h3><p><img src="images/makedao/TheMakerActions.png" alt="MakerActions"></p>
+<h3 id="架构流程图"><a href="#架构流程图" class="headerlink" title="架构流程图"></a>架构流程图</h3><p><img src="/images/makedao/TheMakerActions.png" alt="MakerActions"></p>
 <h3 id="术语介绍"><a href="#术语介绍" class="headerlink" title="术语介绍"></a>术语介绍</h3><h4 id="Cat-Liquidator"><a href="#Cat-Liquidator" class="headerlink" title="Cat - Liquidator"></a><a href="https://github.com/makerdao/dss/blob/master/src/cat.sol">Cat</a> - Liquidator</h4><ul>
 <li>Bite - Trigger liquidation of an unsafe Cdp (vat.grab)</li>
 </ul>
@@ -171,7 +173,7 @@
 <li>Frob - Cdp Management</li>
 <li>Fork - Transfer Cdp balances</li>
 <li>Grab - Seize Cdp balances</li>
-<li>Heal - Balance system surplus/defecit</li>
+<li>Heal - Balance system surplus&#x2F;defecit</li>
 <li>Suck - Print Dai</li>
 <li>Fold - Apply rates across an Ilk</li>
 </ul>
@@ -201,28 +203,26 @@
     <url>/2023/09/25/web3-world-think/</url>
     <content><![CDATA[<p>亲们，是不是对现在的 Web 世界已经习以为常了？🤔 最近几个月，我一直在思考：<font color='red'><strong>下一个 Web 时代应该是怎样的呢？</strong></font></p>
 <p>在 Web 发展的历程中，我们已经经历了多个阶段，从静态网页到动态网页，再到社交媒体和移动应用的兴起。</p>
-<font color='red'>__而现在，随着技术的不断进步，我们正在迎来一个全新的 Web 时代。我要告诉你，Web3.0、AI、区块链、VR、IoT、5G/6G/7G、数字人，这些最新科技将带你进入一个全新的 Web 时代！🚀🚀🚀__</font>
-
+<p><font color='red'><strong>而现在，随着技术的不断进步，我们正在迎来一个全新的 Web 时代。我要告诉你，Web3.0、AI、区块链、VR、IoT、5G&#x2F;6G&#x2F;7G、数字人，这些最新科技将带你进入一个全新的 Web 时代！🚀🚀🚀</strong></font></p>
 <p>这个新时代的特点是，各种相关技术将得到更加深入和广泛的应用，包括人工智能、区块链、虚拟现实、增强现实等等。这些技术的结合将为我们带来更加丰富、智能和个性化的体验，同时也将改变我们的生产方式、交流方式和商业模式。</p>
 <p>在这个新时代，我们将进入一个<font color='red'>元宇宙 (Metaverse) </font>的新纪元。元宇宙是一个虚拟的数字世界，通过各种技术手段，将现实世界和虚拟世界相融合，创造出一个全新的虚拟世界。在元宇宙中，我们可以像现实世界一样自由地行走、交流、创造和分享，同时也能够享受到更加丰富和多样的体验。</p>
-<p><img src="images/think/Metaverse.png" alt="Metaverse"></p>
+<p><img src="/images/think/Metaverse.png" alt="Metaverse"></p>
 <p>Web3.0 将给我们带来更加个性化、智能化的网络体验。🌐🌐🌐 再也不会有千篇一律的网站，每个人都将拥有自己的网络空间。🎉🎉🎉</p>
 <p>AI，人工智能的大规模应用，将让我们的生活更加便捷。🤖🤖🤖 从此，AI 智能助手将成为我们生活的得力助手，让我们的生活更加高效。🎊🎊🎊</p>
-<p><img src="images/think/AI.png" alt="AI"></p>
+<p><img src="/images/think/AI.png" alt="AI"></p>
 <p>区块链技术将彻底改变我们的数字资产管理方式。💰💰💰 不仅让你的数字资产更加安全，还能实现全球范围内的即时交易。🚀🚀🚀</p>
-<p><img src="images/think/blocklink.png" alt="区块链"></p>
+<p><img src="/images/think/blocklink.png" alt="区块链"></p>
 <p>VR 技术让你在家就能体验到身临其境的现实。🎢🎢🎢 不论是旅游、购物还是娱乐，VR 都将给你带来全新的体验。🎊🎊🎊</p>
-<p><img src="images/think/VR.png" alt="VR"></p>
+<p><img src="/images/think/VR.png" alt="VR"></p>
 <p>IoT 让我们的家居生活更加智能化，电器设备都能联网，为我们提供更加便捷的服务。🔧🔧🔧</p>
-<p><img src="images/think/IoT.png" alt="IoT"></p>
-<p>5G/6G/7G，高速网络将无处不在。📶📶📶 不论是家庭、办公室还是户外，你都能享受到极速的网络体验。🎉🎉🎉</p>
+<p><img src="/images/think/IoT.png" alt="IoT"></p>
+<p>5G&#x2F;6G&#x2F;7G，高速网络将无处不在。📶📶📶 不论是家庭、办公室还是户外，你都能享受到极速的网络体验。🎉🎉🎉</p>
 <p>我国在 Web 新时代的技术研发和应用上，已经走在了世界的前列！👍👍👍 这是我们国家科技实力的体现，也是我们每一个中国人的骄傲！🌟🌟🌟</p>
 <p>这是一个充满无限可能的时代，这是一个让人激动的时代，这是一个属于我们的时代！🎊🎊🎊</p>
 <p>让我们一起期待，一起迎接，一起享受这个 Web 新时代的到来吧！🎉🎉🎉</p>
-<font color='red'>总结起来，下一个 Web 时代必须是各种相关技术的组合，而元宇宙将是这个新时代的重要特征。让我们一起期待并迎接这个全新的时代！</font>
-
+<p><font color='red'>总结起来，下一个 Web 时代必须是各种相关技术的组合，而元宇宙将是这个新时代的重要特征。让我们一起期待并迎接这个全新的时代！</font></p>
 <p>所以，亲们，别忘了关注我哦，我会持续为大家带来 Web 新时代的最新资讯和解读！😉😉😉</p>
-<p><img src="images/wechat-blog.png" alt="公众号"></p>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
 <blockquote>
 <p>免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^</p>
 </blockquote>
@@ -250,7 +250,7 @@
 <h3 id="DAI-合约交互流程图"><a href="#DAI-合约交互流程图" class="headerlink" title="DAI 合约交互流程图"></a>DAI 合约交互流程图</h3><blockquote>
 <p>DAI 合约是面向用户的 ERC20 代币合约，负责维护外部 DAI 余额的会计核算。大多数功能对于具有变动供应的代币来说是标准的，但它还值得注意的是具有根据签名消息发行转账批准的能力。</p>
 </blockquote>
-<p><img src="images/makedao/DaiInteractions.png" alt="Dai Interactions with the Maker Protocol"></p>
+<p><img src="/images/makedao/DaiInteractions.png" alt="Dai Interactions with the Maker Protocol"></p>
 <h3 id="DAI-关键机制和概念"><a href="#DAI-关键机制和概念" class="headerlink" title="DAI 关键机制和概念"></a>DAI 关键机制和概念</h3><ul>
 <li><p>在大多数情况下，<a href="https://github.com/makerdao/dss/blob/master/src/dai.sol">dai.sol</a> 充当了一个典型的 ERC20 代币。这些代币已经被这里详细记录，建议阅读有关 ERC20 代币核心功能的文档。</p>
 </li>
@@ -263,17 +263,22 @@
 </li>
 <li><p><font color='red'>无限允许是一项相对不常见的做法（尽管变得越来越普遍）</font>。这可能是一种通过恶意合约欺骗用户，使其放弃所有 DAI 访问权限的手段。这在可升级合约中尤为令人担忧，因为合约可能在升级为恶意合约之前看起来无害。</p>
 </li>
-<li>DAI 也容易受到已知的 <a href="https://github.com/0xProject/0x-monorepo/issues/850">ERC20 竞态条件的影响</a>，但在无限授权的情况下通常不应成为问题。我们建议使用特定金额授权的任何用户都应注意这个问题，并在授权其他合约代表他们执行转账时谨慎行事。</li>
-<li>在 <code>transferFrom</code> 功能中存在轻微的偏差：如果 <code>src == msg.sender</code>，则该函数不需要事先获得批准，而是将其视为从 <code>msg.sender</code> 到 <code>dst</code> 的正常转账。</li>
-<li>DAI 内置的元交易功能：DAI 代币提供了一种链下授权，这意味着作为以太坊地址的所有者，您可以使用 <code>permit()</code> 函数签署权限，基本上将允许另一以太坊地址获得额度。您授权的以太坊地址可以负责执行转账，但有一个额度限制。</li>
+<li><p>DAI 也容易受到已知的 <a href="https://github.com/0xProject/0x-monorepo/issues/850">ERC20 竞态条件的影响</a>，但在无限授权的情况下通常不应成为问题。我们建议使用特定金额授权的任何用户都应注意这个问题，并在授权其他合约代表他们执行转账时谨慎行事。</p>
+</li>
+<li><p>在 <code>transferFrom</code> 功能中存在轻微的偏差：如果 <code>src == msg.sender</code>，则该函数不需要事先获得批准，而是将其视为从 <code>msg.sender</code> 到 <code>dst</code> 的正常转账。</p>
+</li>
+<li><p>DAI 内置的元交易功能：DAI 代币提供了一种链下授权，这意味着作为以太坊地址的所有者，您可以使用 <code>permit()</code> 函数签署权限，基本上将允许另一以太坊地址获得额度。您授权的以太坊地址可以负责执行转账，但有一个额度限制。</p>
+</li>
 </ul>
 <h3 id="DAI-常见问题"><a href="#DAI-常见问题" class="headerlink" title="DAI 常见问题"></a>DAI 常见问题</h3><blockquote>
 <p>为什么这些组件对多抵押物 Dai（MCD）系统如此重要？  </p>
+</blockquote>
 <ul>
 <li>Dai 合约是用户面向的 ERC20 合约，负责维护外部 Dai 余额的会计核算。</li>
 <li>大多数功能对于具有变动供应的代币都是标准的，但它还值得注意的是，具有根据签名消息发行转移批准的能力。</li>
 <li><code>join</code> 由三个智能合约组成，其中一个是 <code>DaiJoin</code> 合约。每个 <code>join</code> 合约都是专门为给定的代币类型加入 <code>vat</code> 而创建的。因此，每个 <code>join</code> 合约在系统中的代币类型略有不同的逻辑。<code>DaiJoin</code> 合约允许用户将其 Dai 从系统中撤回到标准 ERC20 代币中。</li>
 </ul>
+<blockquote>
 <p>需要注意的问题（潜在的用户错误来源）</p>
 </blockquote>
 <ul>
@@ -332,7 +337,7 @@
 <ul>
 <li>编码错误风险 <ul>
 <li><code>Vat</code> - <code>Vat</code> 中的错误可能是灾难性的，可能导致系统中所有 <code>Dai</code> 和抵押品的丢失（或锁定）。这将使得无法修改金库或转移 <code>Dai</code>。拍卖可能会停止运作。关机可能会失败。  </li>
-<li><code>Spot</code> - <code>Spot</code> 中的错误很可能导致抵押品价格不再更新。在这种情况下，系统需要授权一个新的 <code>Spot</code>，然后该 <code>Spot</code> 将能够更新价格。总的来说，这不是一种灾难性的故障，因为这只会在某段时间内暂停所有价格波动。  </li>
+<li><code>Spot</code> - <code>Spot</code> 中的错误很可能导致抵押品价格不再更新。在这种情况下，系统需要授权一个新的 <code>Spot</code>，然后该 <code>Spot</code> 将能够更新价格。总的来说，这不是一种灾难性的故障，因为这只会在某段时间内暂停所有价格波动。</li>
 </ul>
 </li>
 <li>数据源风险 <ul>
@@ -347,7 +352,7 @@
 <h3 id="Vat合约详细介绍"><a href="#Vat合约详细介绍" class="headerlink" title="Vat合约详细介绍"></a><code>Vat</code>合约详细介绍</h3><blockquote>
 <p><code>Vat</code> 是 <code>dss</code> 的核心 <code>Vault</code> 引擎。它存储 <code>Vault</code> 并跟踪所有相关的 <code>Dai</code> 和抵押品余额。它还定义了可以通过操作 <code>Vault</code> 和余额的规则。<code>Vat</code> 中定义的规则是不可变的，因此在某种程度上，可以将 <code>Vat</code> 中的规则视为 <code>dss</code> 的宪法。</p>
 </blockquote>
-<p><img src="images/makedao/TheMakerProtocolSystemDiagram.png" alt="SystemDiagram"></p>
+<p><img src="/images/makedao/TheMakerProtocolSystemDiagram.png" alt="SystemDiagram"></p>
 <ul>
 <li><p><code>Vat</code> - <code>Vault</code>引擎术语解析</p>
 <ul>
@@ -374,8 +379,8 @@
 <li><code>flux</code>: transfer collateral between users.</li>
 <li><code>move</code>: transfer stablecoin between users.</li>
 <li><code>grab</code>: liquidate a Vault.</li>
-<li><code>heal</code>: create / destroy equal quantities of stablecoin and system debt (vice).</li>
-<li><code>fold</code>: modify the debt multiplier, creating / destroying corresponding debt.</li>
+<li><code>heal</code>: create &#x2F; destroy equal quantities of stablecoin and system debt (vice).</li>
+<li><code>fold</code>: modify the debt multiplier, creating &#x2F; destroying corresponding debt.</li>
 <li><code>suck</code>: mint unbacked stablecoin (accounted for with vice).</li>
 <li><code>Line</code>: the total debt ceiling for all collateral types.</li>
 <li><code>frob</code>: modify a Vault.<ul>
@@ -387,19 +392,18 @@
 <li><code>dart</code>: change in debt.</li>
 </ul>
 </li>
-<li><code>fork</code>: to split a Vault - binary approval or splitting/merging Vaults.<ul>
+<li><code>fork</code>: to split a Vault - binary approval or splitting&#x2F;merging Vaults.<ul>
 <li><code>dink</code>: amount of collateral to exchange.</li>
 <li><code>dart</code>: amount of stablecoin debt to exchange.</li>
 </ul>
 </li>
-<li><p><code>wish</code>: check whether an address is allowed to modify another address’s gem or dai balance.</p>
-<ul>
+<li><code>wish</code>: check whether an address is allowed to modify another address’s gem or dai balance.<ul>
 <li><code>hope</code>: enable wish for a pair of addresses.</li>
 <li><code>nope</code>: disable wish for a pair of addresses.</li>
 </ul>
-<p><font color='red'>注意</font>：<code>art</code> 和 <code>Art</code> 代表标准化债务，即当乘以正确的利率时，可以得到最新的、当前的稳定币债务。</p>
 </li>
 </ul>
+<p>  <font color='red'>注意</font>：<code>art</code> 和 <code>Art</code> 代表标准化债务，即当乘以正确的利率时，可以得到最新的、当前的稳定币债务。</p>
 </li>
 <li><p>Accounting</p>
 <ul>
@@ -424,29 +428,29 @@
 <h3 id="Vat合约的核心机制和概念"><a href="#Vat合约的核心机制和概念" class="headerlink" title="Vat合约的核心机制和概念"></a><code>Vat</code>合约的核心机制和概念</h3><ul>
 <li><p><code>Vat</code> 中的核心 <code>Vault</code>、<code>Dai</code> 和抵押状态由 <code>Vat</code> 维护。<code>Vat</code> 合约没有外部依赖关系，并维护 <code>Dai</code> 的中央“会计不变量”。适用于 <code>Vat</code> 的核心原则如下：  </p>
 <ol>
-<li><code>Dai</code> 不能没有抵押品存在：  </li>
+<li><code>Dai</code> 不能没有抵押品存在：</li>
 </ol>
 <ul>
 <li><code>Ilk</code> 是一种特殊类型的抵押品。  </li>
 <li>抵押品<code>gem</code>分配给具有<code>slip</code>的用户。  </li>
-<li>抵押品<code>gem</code>在用户之间转移<code>flux</code>。  </li>
+<li>抵押品<code>gem</code>在用户之间转移<code>flux</code>。</li>
 </ul>
-<ol>
-<li><code>Vault</code> 数据结构是 <code>Urn</code>：  </li>
+<ol start="2">
+<li><code>Vault</code> 数据结构是 <code>Urn</code>：</li>
 </ol>
 <ul>
 <li>has <code>ink</code> - 负担的抵押品  </li>
-<li>has <code>art</code> - 负担、标准化债务  </li>
+<li>has <code>art</code> - 负担、标准化债务</li>
 </ul>
-<ol>
-<li>类似地，一个抵押品是一个 <code>Ilk</code>：  </li>
+<ol start="3">
+<li>类似地，一个抵押品是一个 <code>Ilk</code>：</li>
 </ol>
 <ul>
 <li>has <code>Art</code> - 负担、标准化债务  </li>
 <li>has <code>rate</code> - 债务缩放因子（下面进一步讨论）  </li>
 <li>has <code>spot</code> - 带安全余量的价格  </li>
 <li>has <code>line</code> - 债务上限  </li>
-<li>has <code>dust</code> - 债务下限<br><font color='red'>注意</font>：在上面的使用“<code>encumbered</code>”一词时，这是指“被锁定在 <code>Vault</code> 中”。 </li>
+<li>has <code>dust</code> - 债务下限<br>  <font color='red'>注意</font>：在上面的使用“<code>encumbered</code>”一词时，这是指“被锁定在 <code>Vault</code> 中”。</li>
 </ul>
 </li>
 <li><p><code>Vault</code> 管理  </p>
@@ -471,15 +475,15 @@
 <h3 id="Spot合约详细介绍"><a href="#Spot合约详细介绍" class="headerlink" title="Spot合约详细介绍"></a><code>Spot</code>合约详细介绍</h3><blockquote>
 <p><code>Spot</code>是负责连接预言机（<code>Oracles</code>）与核心合约的现货接口。作为一个接口合约，它只存储当前的 <code>ilk</code> 列表。</p>
 </blockquote>
-<p><img src="images/makedao/TheMakerSpot.png" alt="SpotDiagram"></p>
+<p><img src="/images/makedao/TheMakerSpot.png" alt="SpotDiagram"></p>
 <h3 id="Spot合约的核心机制和概念"><a href="#Spot合约的核心机制和概念" class="headerlink" title="Spot合约的核心机制和概念"></a><code>Spot</code>合约的核心机制和概念</h3><blockquote>
 <p><code>Poke</code> 是 <code>spot</code> 中唯一的非认证函数。该函数接收一个要<code>poked</code>的 <code>ilk</code> 的 <code>bytes32</code>。<code>Poke</code> 调用两个外部函数：  </p>
+</blockquote>
 <ol>
 <li><code>Peek</code> 调用给定 <code>ilk</code> 的 <code>OSM</code> 并将 <code>val</code>（值）和 <code>has</code>（布尔值，如果 <code>OSM</code> 中发生错误则为 <code>false</code>）作为返回值。只有在 <code>has == true</code> 时才会发生第二次外部调用。  </li>
 <li>在计算现货价格时，<code>par</code>（基本价格单位）对于计算 <code>DAI</code> 与价格中的 1 个单位的关系至关重要。然后将 <code>val</code>（值）除以 <code>par</code>（得到 <code>val</code> 与 <code>DAI</code> 的比率），再将结果除以 <code>ilk.mat</code>。这给我们提供了给定 <code>ilk</code> 的当前现货价格。  </li>
 <li>在计算<code>spot</code>后调用 <code>file</code>。这个函数用于 <code>ilk</code> 的当前清算价格更新 <code>vat</code>。</li>
 </ol>
-</blockquote>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
 <li><a href="https://docs.makerdao.com/smart-contract-modules/core-module">Core Module</a></li>
 <li><a href="https://docs.makerdao.com/smart-contract-modules/core-module/vat-detailed-documentation">Vat Module</a></li>
@@ -508,12 +512,12 @@
 </blockquote>
 <ul>
 <li>抵押品模块组件概述  <ul>
-<li><code>Join</code> - 用于将未锁定的抵押品存入/提取到 <code>Vat</code> 的适配器。<code>Join</code> 包含三个智能合约：<code>GemJoin</code>、<code>ETHJoin</code>和<code>DaiJoin</code>。  </li>
-<li>每个 <code>join</code> 合约都专门用于将给定的代币类型加入到 <code>Vat</code> 中。正因为如此，每个 <code>join</code> 合约在处理系统内不同类型的代币时都有略微不同的逻辑。  </li>
+<li><code>Join</code> - 用于将未锁定的抵押品存入&#x2F;提取到 <code>Vat</code> 的适配器。<code>Join</code> 包含三个智能合约：<code>GemJoin</code>、<code>ETHJoin</code>和<code>DaiJoin</code>。  </li>
+<li>每个 <code>join</code> 合约都专门用于将给定的代币类型加入到 <code>Vat</code> 中。正因为如此，每个 <code>join</code> 合约在处理系统内不同类型的代币时都有略微不同的逻辑。</li>
 </ul>
 </li>
 <li><code>Join</code> 合约究竟如何帮助 MCD 系统运行？  <ul>
-<li><code>Join</code> - <code>join</code> 适配器的目的是保留系统的安全性，只允许可信任的智能合约将值添加/删除到/从 <code>Vat</code> 中。存放在金库中已存入/已锁定的抵押品的位置在相应的 <code>Join</code> 适配器中。</li>
+<li><code>Join</code> - <code>join</code> 适配器的目的是保留系统的安全性，只允许可信任的智能合约将值添加&#x2F;删除到&#x2F;从 <code>Vat</code> 中。存放在金库中已存入&#x2F;已锁定的抵押品的位置在相应的 <code>Join</code> 适配器中。</li>
 </ul>
 </li>
 </ul>
@@ -529,7 +533,7 @@
 </blockquote>
 <ul>
 <li>可能会有一个 <code>vat</code> 升级，需要创建新的 <code>join</code> 合约    <ul>
-<li>如果一个 <code>gem</code> 合约在用户的抵押品在系统中时进行代币升级或冻结，可能会出现一种情况，即在冻结或升级完成后，用户无法兑换他们的抵押品。虽然这似乎是一个小风险，因为似乎进行这种升级的代币很可能希望与制造商社区合作，以确保这不是问题。    </li>
+<li>如果一个 <code>gem</code> 合约在用户的抵押品在系统中时进行代币升级或冻结，可能会出现一种情况，即在冻结或升级完成后，用户无法兑换他们的抵押品。虽然这似乎是一个小风险，因为似乎进行这种升级的代币很可能希望与制造商社区合作，以确保这不是问题。</li>
 </ul>
 </li>
 <li>潜在的网络钓鱼攻击    <ul>
@@ -543,12 +547,12 @@
 <ul>
 <li><code>GemJoin</code> - 允许将标准 <code>ERC20</code> 代币存入系统以供使用。</li>
 <li><code>ETHJoin</code> - 允许使用本地 <code>Ether</code>。  </li>
-<li><code>DaiJoin</code> - 允许用户将其 <code>Dai</code> 从系统中提取到标准 <code>ERC20</code> 代币。  </li>
+<li><code>DaiJoin</code> - 允许用户将其 <code>Dai</code> 从系统中提取到标准 <code>ERC20</code> 代币。</li>
 </ul>
 <blockquote>
 <p>每个 <code>join</code> 合约都是专门为允许给定的代币类型加入到 <code>Vat</code> 而创建的。正因为如此，每个 <code>join</code> 合约在处理系统内不同类型的代币时都有略微不同的逻辑。下面来看看<code>join</code>合约的交互流程以及其所在的位置（用黄色标注出来了）</p>
 </blockquote>
-<p><img src="images/makedao/TheMakerJoin.png" alt="JoinDiagram"></p>
+<p><img src="/images/makedao/TheMakerJoin.png" alt="JoinDiagram"></p>
 <h3 id="Join合约细节说明"><a href="#Join合约细节说明" class="headerlink" title="Join合约细节说明"></a><code>Join</code>合约细节说明</h3><blockquote>
 <p>词汇表（<code>Join</code>）  </p>
 </blockquote>
@@ -559,7 +563,7 @@
 <li><code>dai</code> - <code>Dai</code> 代币的地址。  </li>
 <li><code>one</code> - <code>DaiJoin</code> 中用于数学的 <code>10^27 uint</code>。  </li>
 <li><code>live</code> - <code>join</code>适配器的访问标志。  </li>
-<li><code>dec</code> - <code>Gem</code> 的小数位数。  </li>
+<li><code>dec</code> - <code>Gem</code> 的小数位数。</li>
 </ul>
 <blockquote>
 <p>每个 <code>Join</code> 合约都有 4 个公共函数：构造函数、<code>join</code> 函数、<code>exit</code> 函数和<code>cage</code> 函数。</p>
@@ -615,77 +619,88 @@
 </blockquote>
 <h3 id="清算模块的那些特征"><a href="#清算模块的那些特征" class="headerlink" title="清算模块的那些特征"></a>清算模块的那些特征</h3><blockquote>
 <p>即时结算</p>
+</blockquote>
 <ul>
 <li>与旧版 Liquidation 1.2 系统不同，该系统使用英语拍卖，其中 DAI 投标不断叠加，参与者的资金将在他们被竞标或拍卖结束之前一直处于锁定状态。Liquidation 2.0 使用荷兰拍卖，实现即时结算。这是根据起始价格以及自拍卖开始以来经过的时间计算的价格。关于价格与时间的曲线，我们将在后面进行更详细的讨论。缺乏锁定期大大减轻了拍卖参与者的价格波动风险，并允许更快地回收资金。</li>
 </ul>
+<blockquote>
 <p>抵押品闪电借贷  </p>
+</blockquote>
 <ul>
 <li>此功能由即时结算启用，消除了投标人（除燃气外）的任何资本要求 —— 换句话说，即使一个拥有零 DAI（没有可以用于交易 DAI 的资产）的参与者仍然可以通过将拍卖抵押品的销售引导到其他协议以换取 DAI 来购买拍卖品。因此，DeFi 中可用的所有 DAI 流动性都可以被任何参与者用于购买抵押品，仅受燃气要求限制。上述确切机制已进行讨论，但本质上，参与者需要指定一个符合特定接口的合约，以及提供给该合约的调用数据，拍卖合约将自动调用外部合约中的任何逻辑。</li>
 </ul>
+<blockquote>
 <p>价格作为时间的函数  </p>
+</blockquote>
 <ul>
 <li>价格 - 与时间曲线是通过一个接口来指定的，该接口将当前时间的价格视为拍卖初始价格的函数以及该价格设置的时间。如何确定给定抵押品最有效的价格曲线仍然是一个活跃的研究领域；一些初始选项（线性、分段指数和连续指数）已经为研究目的和初始部署而实施。除了这些选项之外，还包括分段线性曲线和分段指数曲线。此模块是可配置的，可以在创新过程中进行替换。</li>
 <li>投标人应注意，尽管价格通常会随着时间的推移而下降，但偶尔会发生活跃拍卖的价格上升的情况，这可能导致以高于预期的价格购买抵押品。在运行拍卖中增加价格的最明显事件是重置拍卖（通过重做），但治理可以通过更改价格下降计算器（或甚至用另一个计算器替换）的可配置参数来增加价格。建议投标人（或抽象出此详细信息的投标 UI）选择最大可接受价格（max）参数仔细考虑，以确保在价格意外上升时获得理想的结果。</li>
 </ul>
+<blockquote>
 <p>重置拍卖  </p>
+</blockquote>
 <ul>
 <li>如上文所述，拍卖可能因以下两个原因进入失效状态而需要重置：  </li>
 <li>自拍卖开始以来已经过去了太多时间（由尾随治理参数控制）  </li>
 <li>当前价格与初始价格的比率已降至某一水平以下（由尖点治理参数指定）。  </li>
 <li>当调用重置函数时，首先确保至少满足其中之一条件。然后，将拍卖的开始时间调整为当前时间，并将起始价格设置为初始化函数中执行的方式（即当前 OSM 价格百分比增加由 buf 参数确定）。这个过程将重复进行，直到所有抵押品都已售出或已收取全部债务（除非通过 yank 取消拍卖，例如在紧急关机期间），否则对比当前拍卖，在至少收到一个投标之前重置。</li>
 </ul>
+<blockquote>
 <p>提高 Keeper 钱包安全性</p>
-<ul>
-<li>如果保管人选择使用 <code>clipperCallee</code> 模式，那么他们就不需要在该账户上存储 DAI 或抵押品。这意味着保管人只需持有足够的 ETH 来执行可以协调 <code>Clipper.take</code> 调用的交易，将抵押品发送到一个返回 DAI 给 <code>msg.sender</code> 的合约以在一次交易中支付抵押品。实现 <code>clipperCallee</code> 接口的合约可以将保管人无法访问的冷钱包地址的任何剩余抵押品或 DAI 发送至保管人无法访问的冷钱包地址。<font color='red'><strong> 注意：如果保管人选择作为一个 EOA 地址行为，那么除非特别小心地创建一个代理合同，否则 DAI 和抵押品将像 LIQ-1.2 一样暴露。</strong></font></li>
-</ul>
 </blockquote>
+<ul>
+<li>如果保管人选择使用 <code>clipperCallee</code> 模式，那么他们就不需要在该账户上存储 DAI 或抵押品。这意味着保管人只需持有足够的 ETH 来执行可以协调 <code>Clipper.take</code> 调用的交易，将抵押品发送到一个返回 DAI 给 <code>msg.sender</code> 的合约以在一次交易中支付抵押品。实现 <code>clipperCallee</code> 接口的合约可以将保管人无法访问的冷钱包地址的任何剩余抵押品或 DAI 发送至保管人无法访问的冷钱包地址。<font color='red'>** 注意：如果保管人选择作为一个 EOA 地址行为，那么除非特别小心地创建一个代理合同，否则 DAI 和抵押品将像 LIQ-1.2 一样暴露。**</font></li>
+</ul>
 <h3 id="清算模块的合约细节"><a href="#清算模块的合约细节" class="headerlink" title="清算模块的合约细节"></a>清算模块的合约细节</h3><blockquote>
 <p>通过文件设置的治理参数  </p>
+</blockquote>
 <ul>
-<li>Abacus/LinearDecrease — tau [秒]  ：拍卖开始后价格达到零时的秒数。  </li>
-<li>Abacus/StairstepExponentialDecrease — cut [ray]  ：每步乘法因子。cut = 0.99 * RAY 指定每步秒数下降 1%。  </li>
-<li>Abacus/StairstepExponentialDecrease — step [秒]  ：价格下降之间的时间间隔。  </li>
-<li>Abacus/ExponentialDecrease — cut [ray]  ：每秒乘法因子。cut = 0.99 * RAY 指定每秒下降 1%。  </li>
-<li>Clipper — buf [ray]  ：增加拍卖起始价格的乘法因子。例如，如果某种资产的当前 OSM 价格为 1,000，而 buf = 1.2 * RAY（高出 20%），则该拍卖的初始价格将为 1,200。  </li>
-<li>Clipper — calc [地址]  ：价格计算器函数的合约地址。遵循 Abacus 接口。有关价格函数的一些示例可以在 abaci.sol 文件中找到。  </li>
-<li>Clipper — chip [wad]  ：从 vow 吸筹以激励保管人在清算金库或重置现有拍卖时的百分比。chip = 0.02 * WAD 为 2%。  </li>
-<li>Clipper — cusp [ray]  ：在拍卖必须重置之前可以发生的价格下降百分比。与 tail 一起，此参数确定何时需要重置拍卖。例如，如果拍卖的初始价格（top）设定为 1,200，而 cusp = 0.6 * RAY（起始价格的 60%），则拍卖在达到刚好低于 720 的价格时需要重置。  </li>
-<li>Clipper — dog [地址]  ：清算模块合约的地址。  </li>
-<li>Clipper — spotter [地址]  ：抵押品价格模块合约地址。  </li>
-<li>Clipper — tail [秒]  ：拍卖必须重置之前可以流逝的秒数。与 cusp 一起，此参数确定何时需要重置拍卖。例如，如果 tail 为 1800 秒，则如果拍卖在 30 分钟过去后仍未完成，它将需要重置。</li>
-<li>Clipper — tip [rad]  ：从 vow 中提取的扁平费用，用于在清算金库或重置现有拍卖时激励保管人。tip = 100 * RAD 为 100 DAI。  </li>
-<li>Clipper — vow [地址]  ：会计系统合约的地址。拍卖中筹集的 DAI 的接收者。  </li>
-<li>Dog — Hole [rad]  ：用于支付活跃拍卖中的债务 + 清算罚款所需的最大 DAI。Hole = 10,000,000 * RAD 为 10M DAI。  </li>
-<li>Dog — ilk.chop [wad]  ：每个抵押品（ilk）的清算罚款。例如，如果有一个准备清算的金库，其债务为 1,000 DAI，而 chop = 1.13 * WAD（高出 13%），则拍卖筹集的最大金额将为 1,130 DAI。  </li>
-<li>Dog — ilk.clip [地址]  ：拍卖模块合约的地址。每个抵押品（ilk）有一个剪辑。  </li>
-<li>Dog — ilk.hole [rad]  ：每个抵押品（ilk）用于支付活跃拍卖中的债务 + 清算罚款所需的最大 DAI。hole = 10,000,000 * RAD 为 10M DAI。  </li>
-<li>Dog — vow [地址]  ：会计系统合约的地址。当金库被清算时，来自金库的坏账的接收者。</li>
+<li>Abacus&#x2F;LinearDecrease – tau [秒]  ：拍卖开始后价格达到零时的秒数。  </li>
+<li>Abacus&#x2F;StairstepExponentialDecrease – cut [ray]  ：每步乘法因子。cut &#x3D; 0.99 * RAY 指定每步秒数下降 1%。  </li>
+<li>Abacus&#x2F;StairstepExponentialDecrease – step [秒]  ：价格下降之间的时间间隔。  </li>
+<li>Abacus&#x2F;ExponentialDecrease – cut [ray]  ：每秒乘法因子。cut &#x3D; 0.99 * RAY 指定每秒下降 1%。  </li>
+<li>Clipper – buf [ray]  ：增加拍卖起始价格的乘法因子。例如，如果某种资产的当前 OSM 价格为 1,000，而 buf &#x3D; 1.2 * RAY（高出 20%），则该拍卖的初始价格将为 1,200。  </li>
+<li>Clipper – calc [地址]  ：价格计算器函数的合约地址。遵循 Abacus 接口。有关价格函数的一些示例可以在 abaci.sol 文件中找到。  </li>
+<li>Clipper – chip [wad]  ：从 vow 吸筹以激励保管人在清算金库或重置现有拍卖时的百分比。chip &#x3D; 0.02 * WAD 为 2%。  </li>
+<li>Clipper – cusp [ray]  ：在拍卖必须重置之前可以发生的价格下降百分比。与 tail 一起，此参数确定何时需要重置拍卖。例如，如果拍卖的初始价格（top）设定为 1,200，而 cusp &#x3D; 0.6 * RAY（起始价格的 60%），则拍卖在达到刚好低于 720 的价格时需要重置。  </li>
+<li>Clipper – dog [地址]  ：清算模块合约的地址。  </li>
+<li>Clipper – spotter [地址]  ：抵押品价格模块合约地址。  </li>
+<li>Clipper – tail [秒]  ：拍卖必须重置之前可以流逝的秒数。与 cusp 一起，此参数确定何时需要重置拍卖。例如，如果 tail 为 1800 秒，则如果拍卖在 30 分钟过去后仍未完成，它将需要重置。</li>
+<li>Clipper – tip [rad]  ：从 vow 中提取的扁平费用，用于在清算金库或重置现有拍卖时激励保管人。tip &#x3D; 100 * RAD 为 100 DAI。  </li>
+<li>Clipper – vow [地址]  ：会计系统合约的地址。拍卖中筹集的 DAI 的接收者。  </li>
+<li>Dog – Hole [rad]  ：用于支付活跃拍卖中的债务 + 清算罚款所需的最大 DAI。Hole &#x3D; 10,000,000 * RAD 为 10M DAI。  </li>
+<li>Dog – ilk.chop [wad]  ：每个抵押品（ilk）的清算罚款。例如，如果有一个准备清算的金库，其债务为 1,000 DAI，而 chop &#x3D; 1.13 * WAD（高出 13%），则拍卖筹集的最大金额将为 1,130 DAI。  </li>
+<li>Dog – ilk.clip [地址]  ：拍卖模块合约的地址。每个抵押品（ilk）有一个剪辑。  </li>
+<li>Dog – ilk.hole [rad]  ：每个抵押品（ilk）用于支付活跃拍卖中的债务 + 清算罚款所需的最大 DAI。hole &#x3D; 10,000,000 * RAD 为 10M DAI。  </li>
+<li>Dog – vow [地址]  ：会计系统合约的地址。当金库被清算时，来自金库的坏账的接收者。</li>
 </ul>
+<blockquote>
 <p><code>Vault</code>清算函数（<code>Dog.bark</code>）</p>
+</blockquote>
 <ul>
-<li>接受三个调用者提供的参数：  <ul>
+<li><p>接受三个调用者提供的参数：  </p>
+<ul>
 <li><code>ilk</code>：抵押品类型  </li>
 <li><code>urn</code>：要清算的金库  </li>
-<li><code>kpr</code>：DAI 激励将发送到的地址  </li>
+<li><code>kpr</code>：DAI 激励将发送到的地址</li>
 </ul>
 </li>
-<li><code>Dog.bark</code> 执行以下操作：  <ul>
+<li><p><code>Dog.bark</code> 执行以下操作：  </p>
+<ul>
 <li>如果金库 <code>urn</code> 资本不足，则没收该金库 <code>urn</code>  <ul>
 <li>将抵押品发送到 <code>ilk</code> 的 <code>Clipper</code>  </li>
-<li>增加 <code>vow</code> 的坏账累积器  </li>
+<li>增加 <code>vow</code> 的坏账累积器</li>
 </ul>
 </li>
 <li>将坏账推入债务队列  </li>
 <li>将坏账加清算罚款添加到带有 <code>Dirt</code> 累积器的 <code>Hole</code> 中  </li>
 <li>将坏账加清算罚款添加到 <code>ilk.hole</code> 中，使用 <code>ilk.dirt</code> 累积器  </li>
 <li>通过调用 <code>Clipper.kick()</code> 启动拍卖  </li>
-<li>触发 `Bark()`` 事件  </li>
+<li>触发 &#96;Bark()&#96;&#96; 事件</li>
 </ul>
 </li>
-<li>在 <code>Maker</code> 协议的背景下，”清算” 是将抵押品从资本不足的金库自动转移，以及将该金库的债务转移到协议。在清算 1.2 版本（<code>Cat</code>）和清算 2.0 版本（<code>Dog</code>）中，都会迅速启动拍卖，试图将转移的抵押品出售为 DAI，以抵消现在分配给协议的债务。这使得新合约的行为与旧合约非常相似，但有一些重要的区别，如下所述。</li>
-</ul>
-</blockquote>
-<ul>
+<li><p>在 <code>Maker</code> 协议的背景下，”清算” 是将抵押品从资本不足的金库自动转移，以及将该金库的债务转移到协议。在清算 1.2 版本（<code>Cat</code>）和清算 2.0 版本（<code>Dog</code>）中，都会迅速启动拍卖，试图将转移的抵押品出售为 DAI，以抵消现在分配给协议的债务。这使得新合约的行为与旧合约非常相似，但有一些重要的区别，如下所述。</p>
+</li>
 <li><p>部分清算与全部清算  </p>
 <ul>
 <li>在当前系统中，每次调用清算函数（<code>Cat.bite</code>）都会从受影响的金库中转移固定数量的债务（<code>dunk</code>），以及相应的金库抵押品数量到协议。例如，如果协议接收了金库的 50% 的债务，那么也会接收其 50% 的抵押品。如果金库的债务少于 <code>dunk</code>，那么所有债务和抵押品都会被接收。</li>
@@ -705,12 +720,13 @@
 </ul>
 <blockquote>
 <p>拍卖启动函数（Clipper.kick）</p>
+</blockquote>
 <ul>
 <li>接受四个调用者提供的参数：  <ul>
 <li><code>tab</code>：从拍卖中增加的目标 DAI（债务 + 稳定性费用 + 清算罚款）[rad]  </li>
 <li><code>lot</code>：可用于购买的抵押品数量 [wad]  </li>
 <li><code>usr</code>：将任何剩余抵押品退回的地址  </li>
-<li><code>kpr</code>：将 DAI 激励发送到的地址  </li>
+<li><code>kpr</code>：将 DAI 激励发送到的地址</li>
 </ul>
 </li>
 <li><code>Clipper.kick</code> 执行以下检查和操作：  <ul>
@@ -724,20 +740,22 @@
 <li>可用于购买的抵押品数量（<code>lot</code>）  </li>
 <li>为创建此拍卖而清算的 <code>Vault</code>  <ul>
 <li>如果抵押品未全部售出，则允许退回抵押品  </li>
-<li>当 <code>End.snip</code> 调用 <code>Clipper.yank</code> 时，允许退回抵押品和 <code>tab</code>  </li>
+<li>当 <code>End.snip</code> 调用 <code>Clipper.yank</code> 时，允许退回抵押品和 <code>tab</code></li>
 </ul>
 </li>
 <li>拍卖创建的时间戳（作为 Unix 时代）  </li>
-<li>拍卖中抵押品的初始价格（<code>top</code>）  </li>
+<li>拍卖中抵押品的初始价格（<code>top</code>）</li>
 </ul>
 </li>
 <li>向 <code>kpr</code> 发送以 DAI 计价的激励  </li>
-<li>触发 <code>Kick()</code> 事件  </li>
+<li>触发 <code>Kick()</code> 事件</li>
 </ul>
 </li>
 <li>初始价格是通过读取相应 <code>Oracle</code> 安全模块（<code>OSM</code>）中的当前价格并将其乘以一个可配置的百分比（<code>buf</code> 参数）来设置的。请注意，当前的 <code>OSM</code> 价格与实际市场价格之间相差一到两个小时。守护者不会直接调用 <code>Clipper.kick</code>，而是调用 <code>Dog.bark</code>，后者会调用 <code>Clipper.kick</code>。</li>
 </ul>
+<blockquote>
 <p>清算激励机制  </p>
+</blockquote>
 <ul>
 <li>在这个设计中，迅速清算金库的动力不如当前系统，因为并没有通过这样做获得内在优势。相比之下，当前的拍卖系统赋予触发清算的账户在产生的拍卖中进行第一轮竞标的特权。目前尚不清楚这在实践中是否具有重要意义，还是应该添加更强的激励（例如，向清算者支付的小额 DAI 奖励）。  </li>
 <li>为了确保解决这个潜在问题，为清算者添加了一个激励机制。激励的形式是，按抵押品类型为基础，清算债务的固定数量的 DAI 加上一个与清算债务成线性比例的 DAI。两个贡献都可以设置为零。这种结构有以下理由：  <ul>
@@ -748,45 +766,51 @@
 </li>
 <li>这些参数必须非常小心地设置，以免通过<code>farming</code>清算奖励（例如，创建意图清算的 <code>Vault</code> 并从过高的奖励中获利）来利用系统。通常，清算奖励应保持在低于最低清算惩罚的某个安全余量，以使系统不太可能累积赤字。这并不一定阻止耕作，只是确保系统保持偿债能力。例如，当 <code>Dirt</code> 接近 <code>Hole</code>，或者对于某种抵押品类型，<code>ilk.dirt</code> 接近 <code>ilk.hole</code> 时，可以以资本高效的方式耕作激励。攻击者会从正在进行的拍卖中购买少量抵押品，释放相对于 <code>Hole</code> 或 <code>ilk.hole</code> 的少量空间，然后清算现有 <code>Vault</code> 的一小部分以收集奖励，并重复此过程。在同一交易中可以反复进行此操作，<code>EIP 2929</code> 的激活将显著降低相关 <code>gas</code> 费用（由于温存储读取和写入）。请注意，由于攻击者无需创建自己的 <code>Vault</code>，因此清算惩罚与激励价值之比不是阻止因素；攻击者只关心 <code>gas</code> 费用。<code>Dog</code>阻止从 <code>Vault</code> 中移除小于 <code>ilk.dust</code> 债务的部分清算有助于减轻这种情况 —— 只要清算惩罚超过此最小清算尺寸的总奖励，并且清算惩罚可靠地由结果拍卖收取（在市场或网络扰动条件下可能不适用），系统总体上不应累积坏账。</li>
 </ul>
+<blockquote>
 <p>四阶段清算断路器  </p>
+</blockquote>
 <ul>
 <li>在本节中，我们将介绍清算断路器的四个阶段。与 LIQ-1.2 不同，Liquidations 2.0 在 <code>Clipper</code> 合约中内置了四个阶段的断路器。这些阶段是：<ul>
 <li>清算启用 (<code>0</code>)：这意味着断路器未跳闸，协议可以清算新 <code>Vault</code> 以及服务旧清算。  </li>
 <li>新清算禁用 (<code>1</code>)：这意味着没有新的清算（<code>Clipper.kick</code>）。  </li>
 <li>新清算和重置禁用 (<code>2</code>)：这意味着没有新的清算（<code>Clipper.kick</code>），而且达到价格或时间终点的拍卖不能被重置（<code>Clipper.redo</code>）。  </li>
-<li>清算禁用 (<code>3</code>)：这意味着没有新的清算（<code>Clipper.kick</code>），没有接收（<code>Clipper.take</code>），也没有重置（<code>Clipper.redo</code>）。  </li>
+<li>清算禁用 (<code>3</code>)：这意味着没有新的清算（<code>Clipper.kick</code>），没有接收（<code>Clipper.take</code>），也没有重置（<code>Clipper.redo</code>）。</li>
 </ul>
 </li>
 <li>与 LIQ-1.2 一样，断路器将通过 <code>ClipperMom</code> 合约提供，使治理能够绕过 <code>GSM</code> 延迟来执行断路器操作。</li>
 </ul>
+<blockquote>
 <p>紧急关停机制<a href="https://github.com/makerdao/dss/blob/liq-2.0/src/end.sol"><code>end.sol</code></a></p>
+</blockquote>
 <ul>
 <li>一个已开始的拍卖可以通过调用 <code>Clipper</code> 合约中的 <code>yank</code> 认证函数来回滚。这个函数需要拍卖存在，并执行以下操作：  <ul>
 <li>调用 <code>dog.digs</code> 以降低其 <code>Dirt</code> 和 <code>ilk.dirt</code> 值的剩余拍卖选项卡  </li>
 <li>将剩余的抵押品发送给它的 <code>msg.sender</code> </li>
 <li>删除拍卖结构数据  </li>
-<li>触发 `Yank()`` 事件  </li>
+<li>触发 &#96;Yank()&#96;&#96; 事件</li>
 </ul>
 </li>
 <li>这个函数可能被认为是一个通用的操作，将现有的拍卖迁移到新的合约；然而，现在唯一的用例是在 <code>End</code> 模块中，负责系统关停。  </li>
 <li><code>End</code> 模块将随着拍卖合约一起升级，因为需要一个新的 <code>End.snip</code> 函数。  </li>
 <li><code>End.snip</code> 函数负责在关停被触发时调用 <code>Clipper.yank</code> 的任何运行拍卖。它将从 <code>Clipper.yank</code> 接收抵押品，并将其与剩余债务一起发送回金库所有者以进行恢复。需要注意的一个考虑是，金库所有者将收到的债务包括已经收取的清算罚款部分。</li>
 </ul>
-</blockquote>
 <h3 id="清算模块的那些已知风险"><a href="#清算模块的那些已知风险" class="headerlink" title="清算模块的那些已知风险"></a>清算模块的那些已知风险</h3><blockquote>
 <p>激励耕作 </p>
+</blockquote>
 <ul>
 <li>时而，治理可能会增加 <code>ilk.dust</code> 的数量。当这种情况发生时，通常是因为气体变得如此昂贵，以至于影响了清算的效率。也就是说，调用 <code>Dog.bark()</code>、<code>Clipper.take()</code> 或 <code>Clipper.redo()</code> 的成本可能超过提供的抵押品。激励可能被用作解决这个问题的一种方法，也可能是协议保持 <code>ilk.dust</code> 较低的一种方式；然而，在增加 <code>ilks dust</code>、<code>tip</code> 或 <code>chip</code> 时，治理必须小心，不要激励创建许多 <code>Vaults</code> 来耕作这种激励。一个利用示例如下：  <ul>
 <li>治理决定在同一时刻将 <code>dust</code> 增加 <code>1500 DAI</code>，同时将 <code>ilk.tip</code> 调整为补贴拍卖。  </li>
 <li>攻击者意识到，在气体和砍柴之间，将现有的 <code>Vault</code> 分裂成许多 <code>Vaults</code> 或创建许多新的 <code>Vaults</code> 将是有利可图的。  </li>
 <li>该法案被投票通过并获得通过  </li>
 <li>通过一笔交易，攻击者将其 <code>Vaults</code> 置于不安全的边缘，在价格下次下跌时戳一下 <code>OSM</code>，然后对所有 <code>Vaults</code> 调用 <code>Dog.bark()</code> 以收集激励。  </li>
-<li>利用这些收益，他们还可以稍微过高竞标自己的 <code>Vaults</code> 拍卖。  </li>
+<li>利用这些收益，他们还可以稍微过高竞标自己的 <code>Vaults</code> 拍卖。</li>
 </ul>
 </li>
 <li>为了挫败这种攻击，治理必须在设置 <code>ilk.tip</code> 和 <code>ilk.chip</code> 时要小心，不要创造这种扭曲的激励。</li>
 </ul>
+<blockquote>
 <p>价格下降过快  </p>
+</blockquote>
 <ul>
 <li>如果价格下降过快，可能会导致以下后果：  <ul>
 <li>拍卖在没有任何出价的情况下结束，然后需要重置，可能还会一直发生这种情况  </li>
@@ -795,7 +819,9 @@
 </ul>
 </li>
 </ul>
+<blockquote>
 <p>价格下降过慢  </p>
+</blockquote>
 <ul>
 <li>如果价格下降过慢，可能会导致以下后果：  <ul>
 <li>拍卖价格始终赶不上市场价格，最终被重置  </li>
@@ -805,29 +831,38 @@
 </ul>
 </li>
 </ul>
+<blockquote>
 <p>抢跑  </p>
+</blockquote>
 <ul>
 <li>在 LIQ-1.2 中，由于参与拍卖需要资金，因此抢跑风险有限；</li>
 <li>然而，在清算 2.0 中，如果保管人选择不使用资金参与，则来自通用抢跑机器人的抢跑风险很大。替换交易发送地址为自己的地址越容易，风险就越大。</li>
 <li>为了减轻这种风险，鼓励保管人使用经过授权的代理合同与清算 2.0 互动，并在竞标时提供部分自有资金。更高的燃料价格也可能起作用。然而，我们没有找到一种能防止通用抢跑且保持单块可组合性的好方法。</li>
 </ul>
+<blockquote>
 <p>起始价格 <code>OSM</code> 风险  </p>
+</blockquote>
 <ul>
 <li>由于 <code>Clipper.kick</code> 和 <code>Clipper.redo</code> 会咨询 <code>OSM</code> 来确定抵押物价格，因此我们容易受到只能通过 <code>oracle</code> 延迟、<code>Dog.Hole</code> 和 <code>ilk.hole</code> 等措施来减轻的 <code>oracle</code> 攻击。我们必须依靠已经设置的守卫数量来防止价格操纵和 <code>oracle</code> 攻击。然而，价格延迟一小时的事实也带来了一种风险：由于价格与市场的相对时间不同步，它可能要么过高，要么过低，无法在考虑其他参数如<code>buf</code>和价格下降函数的情况下实现有效的结算。上述两种情况的后果实际上都包含在关于价格下降过快或过慢的风险部分。</li>
 </ul>
+<blockquote>
 <p>设置 <code>Dog.Hole</code> 或 <code>ilk.hole</code> 过高  </p>
+</blockquote>
 <ul>
 <li>虽然在清算 2.0 中，<code>Dog.Hole</code> 和 <code>ilk.hole</code> 可以设置得更高，但仍然存在设置过高的风险。过高的 <code>Dog.Hole</code> 值可能导致对 DAI 的需求过高，打破高挂起。<code>PSM</code> 和稳定币抵押品类型对此有所缓解，但在设置此参数时应予以考虑。如果 <code>ilk.hole</code> 设置过高，可能会导致清算推动资产价格走低的恶性循环。此外，如果发生 <code>oracle</code> 攻击，这个参数可以被认为是我们的最大敞口。</li>
 </ul>
+<blockquote>
 <p>设置 Dog.Hole 或 ilk.hole 过低  </p>
+</blockquote>
 <ul>
 <li>如果我们将 <code>Dog.Hole</code> 或 <code>ilk.hole</code> 设置得太低，我们将面临无法一次性清算足够抵押品的风险。这可能导致系统中不足抵押的头寸逐渐累积，最终导致坏账的增加。</li>
 </ul>
+<blockquote>
 <p>拍卖参数更改会影响进行中的拍卖  </p>
+</blockquote>
 <ul>
 <li>尾数、临界值或价格下降函数及其任何参数都可以在任何时候通过治理进行更改，并会影响进行中的拍卖的行为。整合者应考虑到这种可能性，推理出参数突然变化将对其投标策略产生何种影响。治理应尽量减少参数更改的频率，如果可能的话，只在没有受影响的拍卖时进行更改。</li>
 </ul>
-</blockquote>
 ]]></content>
       <categories>
         <category>MakerDAO</category>
@@ -841,45 +876,47 @@
     <title>Robius基础架构介绍</title>
     <url>/2023/10/13/join-rust-robius-project/</url>
     <content><![CDATA[<h3 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h3><p>Robius 是一个多平台应用开发的项目，它的设计基于 Rust 语言。项目的主要目标是为开发者提供一套全面的工具和库，使他们能够在多种设备和操作系统上创建高效、响应快速的应用。</p>
-<p><img src="images/robius/TheRobiusArch.png" alt="TheRobiusArch"></p>
+<p><img src="/images/robius/TheRobiusArch.png" alt="TheRobiusArch"></p>
 <h3 id="核心组件介绍"><a href="#核心组件介绍" class="headerlink" title="核心组件介绍"></a>核心组件介绍</h3><ol>
 <li><p><strong>应用(Application)</strong>: 这一层包含了 UI 逻辑、UX 逻辑、应用逻辑和业务逻辑。这些逻辑层为开发者提供了定义应用功能和界面的基础。</p>
 </li>
 <li><p><strong>UI 工具包(UI toolkit)</strong>: 包括 Makepad 和 Dioxus。这里定义了各种界面组件，例如小部件、动画、手势、事件和渲染。</p>
 </li>
 </ol>
-<p><img src="images/robius/TheRobiusUIToolkit.png" alt="TheRobiusUIToolkit"><br><img src="images/robius/TheRobiusChooseUI.png" alt="TheRobiusChooseUI"><br><img src="images/robius/TheRobiusBevy.png" alt="Bevy"></p>
-<ol>
+<p><img src="/images/robius/TheRobiusUIToolkit.png" alt="TheRobiusUIToolkit"><br><img src="/images/robius/TheRobiusChooseUI.png" alt="TheRobiusChooseUI"><br><img src="/images/robius/TheRobiusBevy.png" alt="Bevy"></p>
+<ol start="3">
 <li><p><strong>并发运行时(Concurrent Runtime)</strong>: 一个重要的部分，它提供了异步执行器、多线程和线程池，确保应用能够充分利用设备的计算能力，并快速响应用户操作。</p>
 </li>
 <li><p><strong>OSIRIS 平台抽象(OSIRIS Platform Abstractions)</strong>: 这是与底层操作系统和硬件交互的接口。从网络、存储、多媒体、权限到传感器和剪贴板，这一层为应用提供了一系列的服务和功能。</p>
 </li>
 </ol>
-<p><img src="images/robius/TheRobiusOsris.png" alt="TheRobiusOsris"></p>
-<ol>
-<li><strong>平台/OS 原生层(Platform/OS Native Layers)</strong>: 这是与特定操作系统和硬件进行交互的层，例如 Android、iOS、HarmonyOS 和桌面等。</li>
+<p><img src="/images/robius/TheRobiusOsris.png" alt="TheRobiusOsris"></p>
+<ol start="5">
+<li><strong>平台&#x2F;OS 原生层(Platform&#x2F;OS Native Layers)</strong>: 这是与特定操作系统和硬件进行交互的层，例如 Android、iOS、HarmonyOS 和桌面等。</li>
 </ol>
-<p><img src="images/robius/TheRobiusPathTowards.png" alt="Alt text"></p>
+<p><img src="/images/robius/TheRobiusPathTowards.png" alt="Alt text"></p>
 <blockquote>
 <p>从图中的说明文本可以了解到，这个框架的指导哲学是“让 UI 专家做他们最擅长的事情”。这意味着 Robius 旨在让 UI 和 UX 开发者能够专注于设计和用户体验，而不是底层的技术细节。</p>
+</blockquote>
+<blockquote>
 <p>总的来说，Robius 提供了一个完整的应用开发框架，从应用的逻辑和界面设计到与硬件和操作系统的交互，都有相应的工具和库来支持。这使得开发者能够专注于创造高质量的多平台应用，而不必担心底层的技术挑战。</p>
 </blockquote>
 <h3 id="Flutter-与-Robius-基本不同的方法"><a href="#Flutter-与-Robius-基本不同的方法" class="headerlink" title="Flutter 与 Robius - 基本不同的方法"></a>Flutter 与 Robius - 基本不同的方法</h3><ul>
 <li>Flutter 开发者需要学习新的语言，Dart  </li>
 <li>Robius 是一个去中心化、松耦合的努力  <ul>
 <li>不是由单个实体拥有  </li>
-<li>不是一个黑盒子，就像 Flutter 或 React Native  </li>
+<li>不是一个黑盒子，就像 Flutter 或 React Native</li>
 </ul>
 </li>
 <li>填补了 Rust 中的真空  <ul>
 <li>已经在 Rust 的许多相关子领域进行中  </li>
 <li>以服务于 Rust 社区为基础的建设：Rust 社区使用是我们的首要关注  </li>
-<li>组件化的架构支持选择针对您需求的特定组件：允许开发者深入到更低层次以理解、优化他们的应用和系统栈  </li>
+<li>组件化的架构支持选择针对您需求的特定组件：允许开发者深入到更低层次以理解、优化他们的应用和系统栈</li>
 </ul>
 </li>
 <li>没有与 Flutter 竞争或取代 Flutter 的意图</li>
 </ul>
-<h3 id="将反馈融入-Rust-cargo"><a href="#将反馈融入-Rust-cargo" class="headerlink" title="将反馈融入 Rust/cargo"></a>将反馈融入 Rust/cargo</h3><ul>
+<h3 id="将反馈融入-Rust-cargo"><a href="#将反馈融入-Rust-cargo" class="headerlink" title="将反馈融入 Rust&#x2F;cargo"></a>将反馈融入 Rust&#x2F;cargo</h3><ul>
 <li>利用应用程序和框架设计经验来改进 Rust  </li>
 <li>已经在进行中，由 UI 工具包和系统打包程序驱动    <ul>
 <li>需要更好的顶级构建工具周围的 cargo  </li>
@@ -887,8 +924,8 @@
 <li>需要在构建过程中注入元数据，稍后查询它    </li>
 <li>更好的统一配置空间来定义构建包含<ul>
 <li>外部 cargo 方式 (例如：Make vars)</li>
-<li>内部 cargo (例如：—features)</li>
-<li>内部 rustc (例如：—cfg)  </li>
+<li>内部 cargo (例如：–features)</li>
+<li>内部 rustc (例如：–cfg)</li>
 </ul>
 </li>
 <li>更好的、更灵活的功能，以及更合理的默认功能开关    </li>
@@ -899,12 +936,12 @@
 <h3 id="WebAssembly（WASM）的作用"><a href="#WebAssembly（WASM）的作用" class="headerlink" title="WebAssembly（WASM）的作用"></a>WebAssembly（WASM）的作用</h3><ul>
 <li>我们可能能够利用 WASM 进行更简单的部署  <ul>
 <li>主要用于网络应用程序，加上桌面平台  </li>
-<li>移动应用商店不允许下载和运行任意代码  </li>
+<li>移动应用商店不允许下载和运行任意代码</li>
 </ul>
 </li>
 <li>Rust 为 targeting WASM 提供了一等支持  <ul>
 <li>WASM 生态系统的大部分优先考虑 Rust 集成  </li>
-<li>组件模型可以帮助减轻大型应用二进制文件的影响    </li>
+<li>组件模型可以帮助减轻大型应用二进制文件的影响</li>
 </ul>
 </li>
 <li>通过网络交付的应用二进制文件仅能传输应用程序本身  <ul>
@@ -913,13 +950,13 @@
 </li>
 </ul>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li><p>Community of Developers for Mobile Applications in Rust: <a href="https://github.com/project-robius">https://github.com/project-robius</a></p>
+<li><p>Community of Developers for Mobile Applications in Rust: <a href="https://github.com/project-robius">https://github.com/project-robius</a></p>
 </li>
 <li><p>Robius是个雨伞项目，重点发展<a href="https://github.com/makepad/makepad">Makepad</a>，<a href="https://github.com/DioxusLabs/dioxus">Dioxus</a>，Ylong，Osiris这些重点项目，促成他们之间的紧密集成。</p>
 </li>
 <li><p>Robius项目是提供给Rust社区一套完整的App开发库和工具，上层app框架可能是<a href="https://github.com/DioxusLabs/dioxus">Dioxus</a>这种类React的声明式框架，底层组件和UI库可以是<a href="https://github.com/makepad/makepad">Makepad</a>，也可以是<a href="https://github.com/emilk/egui">egui</a>或者<a href="https://github.com/slint-ui/slint">slint</a>。</p>
 </li>
-<li><p>看视频了解 Robius【GOSIM WORKSHOP 开幕式 Kevin Boos：Robius：用 Rust 开发多平台应用程序的愿景-哔哩哔哩】: <a href="https://b23.tv/FzhitOd">https://b23.tv/FzhitOd</a></p>
+<li><p>看视频了解 Robius【GOSIM WORKSHOP 开幕式 Kevin Boos：Robius：用 Rust 开发多平台应用程序的愿景-哔哩哔哩】: <a href="https://b23.tv/FzhitOd">https://b23.tv/FzhitOd</a></p>
 </li>
 </ul>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
@@ -954,24 +991,24 @@
 <li>使用其他语言的前端开发人员受到鼓励，尝试投身于 Rust 的世界，并实现无缝过渡体验，以克服通常与 Rust 相关的陡峭的学习曲线。  </li>
 <li>Rust 生态系统得到拓展和加强，向其他领域的 Rust 专家展示 Rust 非常适合应用开发，不仅仅局限于低级系统和嵌入式编程。</li>
 </ol>
-<h3 id="Robius的名字意味着什么？"><a href="#Robius的名字意味着什么？" class="headerlink" title="Robius的名字意味着什么？"></a>Robius的名字意味着什么？</h3><p>Robius 的名字来源于拉丁语单词 <a href="http://latin-dictionary.net/definition/33662/robius-robia-robium">robius</a>，意为红色，如牛、小麦、铁锈等。这使得这个名字与 Rust（我们选择的编程语言）有了基于颜色的联系。<br>Robius 与 Mobius 押韵，我们的标志/图标从“Rust”和“Mobius 带”的文字游戏组合中获取灵感。</p>
+<h3 id="Robius的名字意味着什么？"><a href="#Robius的名字意味着什么？" class="headerlink" title="Robius的名字意味着什么？"></a>Robius的名字意味着什么？</h3><p>Robius 的名字来源于拉丁语单词 <a href="http://latin-dictionary.net/definition/33662/robius-robia-robium">robius</a>，意为红色，如牛、小麦、铁锈等。这使得这个名字与 Rust（我们选择的编程语言）有了基于颜色的联系。<br>Robius 与 Mobius 押韵，我们的标志&#x2F;图标从“Rust”和“Mobius 带”的文字游戏组合中获取灵感。</p>
 <blockquote>
-<p>是的，从技术上讲，原来的德国名字是 Möbius，但我们都使用美式发音，并带有长 “o” 音： “Roe-bee-us” / ˈɹoʊˈbiəs。</p>
+<p>是的，从技术上讲，原来的德国名字是 Möbius，但我们都使用美式发音，并带有长 “o” 音： “Roe-bee-us” &#x2F; ˈɹoʊˈbiəs。</p>
 </blockquote>
 <h2 id="当前状态"><a href="#当前状态" class="headerlink" title="当前状态"></a>当前状态</h2><p>Robius 是一个全新的愿景，我们刚刚开始启动。</p>
-<p>目前，开始使用它的最佳方法是直接使用<a href="#关键社区项目">推荐的 UI 工具包</a>来构建应用程序的 UI 并定义其 UX 行为。目前，除了 UI 之外，其他一切都要求您自己添加缺失的部分，例如网络连接、异步多任务处理和对其他设备外设或系统服务的访问。</p>
-<p>所有东西都在这里公开开发，所以请经常查看<a href="https://github.com/project-robius/.github/blob/main/profile/README.md">更新</a>！我们计划在 2024 年初至中旬推出 Robius 系统的pre-alpha版本（包括应用程序下面的所有内容），这将使您更容易访问和整合其他平台/操作系统功能，同时还可以使用 UI 工具包。</p>
+<p>目前，开始使用它的最佳方法是直接使用<a href="#%E5%85%B3%E9%94%AE%E7%A4%BE%E5%8C%BA%E9%A1%B9%E7%9B%AE">推荐的 UI 工具包</a>来构建应用程序的 UI 并定义其 UX 行为。目前，除了 UI 之外，其他一切都要求您自己添加缺失的部分，例如网络连接、异步多任务处理和对其他设备外设或系统服务的访问。</p>
+<p>所有东西都在这里公开开发，所以请经常查看<a href="https://github.com/project-robius/.github/blob/main/profile/README.md">更新</a>！我们计划在 2024 年初至中旬推出 Robius 系统的pre-alpha版本（包括应用程序下面的所有内容），这将使您更容易访问和整合其他平台&#x2F;操作系统功能，同时还可以使用 UI 工具包。</p>
 <h4 id="平台支持"><a href="#平台支持" class="headerlink" title="平台支持"></a>平台支持</h4><p>即将推出：一个表格，其中列出了在哪些平台上支持哪些应用开发功能。</p>
 <h2 id="关键社区项目"><a href="#关键社区项目" class="headerlink" title="关键社区项目"></a>关键社区项目</h2><p>Robius 生态系统包括几个独立的项目，这些项目可以组合成一个完整的系统堆栈，实现跨多个平台的快速、无痛的纯 Rust 应用开发。组件之间松耦合，允许开发人员（在未来）自定义使用哪些组件来组成底层系统，例如选择</p>
 <ul>
 <li><p><a href="https://makepad.nl/">Makepad</a> 是一个正在积极开发的跨平台 UI 工具包，提供了一种混合的保留模式和即时模式 UI 模型。</p>
 <ul>
 <li>快速开发周期：由于自定义的最小依赖集和用于实时设计的自定义 DSL，编译时间非常快，同时还支持 UI 元素的的热重载。</li>
-<li>Makepad Studio：一个使用 Makepad 本身构建的 IDE 原型，具有独特的功能，如跨进程共享纹理以实现窗口内 UI 应用的实时重载，文件/窗口视图的停靠标签，超平滑的代码折叠等。</li>
-<li>Makepad 框架：一个（不断增长的）高性能小部件和最小、零/低开销平台抽象的集合。</li>
+<li>Makepad Studio：一个使用 Makepad 本身构建的 IDE 原型，具有独特的功能，如跨进程共享纹理以实现窗口内 UI 应用的实时重载，文件&#x2F;窗口视图的停靠标签，超平滑的代码折叠等。</li>
+<li>Makepad 框架：一个（不断增长的）高性能小部件和最小、零&#x2F;低开销平台抽象的集合。</li>
 </ul>
 </li>
-<li><p><a href="https://dioxuslabs.com/">Dioxus</a> 是一个跨平台的、生产就绪的 UI 工具包，受 React 启发，使用自定义金属语言 RSX 声明 UI 元素/布局，采用类似 HTML 的风格。</p>
+<li><p><a href="https://dioxuslabs.com/">Dioxus</a> 是一个跨平台的、生产就绪的 UI 工具包，受 React 启发，使用自定义金属语言 RSX 声明 UI 元素&#x2F;布局，采用类似 HTML 的风格。</p>
 <ul>
 <li>支持许多平台，有一套可互换的目标渲染器，包括桌面、网络应用、静态网站、文本 UI、实时查看和移动设备。</li>
 <li>快速且内存高效，具有完美的 Lighthouse 分数，性能比 Node 或 Python 好几个数量级。</li>
@@ -994,7 +1031,7 @@
 <ul>
 <li>基于优先级的任务调度。  </li>
 <li>用于自动并行化计算的抽象，以类似于 <a href="https://crates.io/crates/rayon">rayon</a> 的方式提供并行迭代器，但适用于异步任务而不是本地（OS 级别）线程。  </li>
-<li>用于非阻塞异步 I/O、异步同步和异步计时的标准原语。  </li>
+<li>用于非阻塞异步 I&#x2F;O、异步同步和异步计时的标准原语。  </li>
 <li>执行器和反应堆，分别用于调度任务和响应系统事件。</li>
 </ul>
 </li>
@@ -1019,7 +1056,7 @@
 <li><a href="https://github.com/project-robius/makepad_tiktok"><code>makepad_tiktok</code></a>：类似于 TikTok 的短视频浏览应用的 UI 演示。  </li>
 <li><a href="https://github.com/project-robius/makepad_widgets_sample"><code>makepad_widgets_sample</code></a>：展示 Makepad 提供的各种部件的应用程序。  </li>
 <li><a href="https://github.com/project-robius/makepad_image_manipulation"><code>makepad_image_manipulation</code></a>：展示 Makepad 对高性能图片进行有趣转换的能力的示例。  </li>
-<li>7 个 GUI：在 Makepad 和 Dioxus 上选择实现的 7 个 GUI 基准测试。  </li>
+<li>7 个 GUI：在 Makepad 和 Dioxus 上选择实现的 7 个 GUI 基准测试。</li>
 </ul>
 <blockquote>
 <p>更多示例，请查看 <a href="https://github.com/DioxusLabs/example-projects">Dioxus 示例应用程序</a>和 <a href="https://github.com/makepad/makepad/tree/master/examples">Makepad 示例应用程序</a>。Osiris 特定示例即将推出。</p>
@@ -1049,24 +1086,33 @@
 <p>首先，我们需要安装 Rust。可以访问 Rust 官方网站 <a href="https://www.rust-lang.org/tools/install">https://www.rust-lang.org/tools/install</a> 下载安装程序并按照指示进行安装。</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">rustc --version</span></span><br><span class="line">rustc 1.73.0 (cc66ad468 2023-10-03)</span><br></pre></td></tr></table></figure>
+
 <h2 id="创建-Rust-项目"><a href="#创建-Rust-项目" class="headerlink" title="创建 Rust 项目"></a>创建 Rust 项目</h2><blockquote>
 <p>安装完成后，可执行上述命令查看 Rust 版本，接下来，我们打开终端并输入以下命令来创建一个新的 Rust 项目：</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">cargo new hello_world</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> hello_world</span>  </span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tree</span></span><br><span class="line">.</span><br><span class="line">├── Cargo.toml</span><br><span class="line">└── src</span><br><span class="line">    ├── main.rs</span><br></pre></td></tr></table></figure>
+
 <p>这将会创建一个名为 <code>hello_world</code> 的新文件夹，并在其中生成一个名为 <code>Cargo.toml</code> 文件。这个文件是 Rust 项目的配置文件，我们可以在这里添加依赖项和其他项目设置。</p>
 <blockquote>
 <p>执行<code>cargo new hello_world</code>命令后，会自动在<code>src</code>目录下创建一个 <code>main.rs</code> 源码文件，<code>cat src/main.rs</code>可以看到默认<code>cargo</code>已为您实现了 <code>Hello World</code> 程序：</p>
 </blockquote>
 <figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;  </span><br><span class="line">   <span class="built_in">println!</span>(<span class="string">&quot;Hello, world!&quot;</span>);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>这段代码定义了一个名为 <code>main</code> 的函数，这是 Rust 程序的入口点。在 main 函数中，我们使用 println! 宏来输出”Hello, world!”。</p>
 <blockquote>
-<p>现在，我们可以使用 cargo 命令来构建并运行程序。在终端中输入以下命令：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">cargo run</span>  </span><br></pre></td></tr></table></figure><br>这将会在终端中输出”Hello, world!”。</p>
+<p>现在，我们可以使用 cargo 命令来构建并运行程序。在终端中输入以下命令：</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">cargo run</span>  </span><br></pre></td></tr></table></figure>
+<p>这将会在终端中输出”Hello, world!”。</p>
+<blockquote>
 <p>但是，这只是一个表面上的 Hello World 程序。如果我们想要深入了解 Rust，我们就需要了解一些底层汇编知识。</p>
 </blockquote>
 <h2 id="编译汇编源码"><a href="#编译汇编源码" class="headerlink" title="编译汇编源码"></a>编译汇编源码</h2><p><code>cargo</code>工具包带有<code>rustc</code>命令封装，可以执行以下命令将rs源码翻译为汇编。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">cargo rustc -- --emit=asm</span></span><br><span class="line">   Compiling hello_world v0.1.0 (/Users/xxx/Projects/demo/hello_world)</span><br><span class="line">    Finished dev [unoptimized + debuginfo] target(s) in 0.21s</span><br></pre></td></tr></table></figure>
+
 <p>生成的汇编代码会放在<code>target/debug/deps</code>目录下，名为<code>hello_world-xxx.s</code>，但是该汇编会包含很多和<code>cargo</code>工具相关的信息，不利于进一步学习分析，因此，可直接使用<code>rustc</code>工具来生成汇编代码<code>main.s</code>，命令如下：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> src</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">rustc --emit=asm main.rs</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">ls</span></span></span><br><span class="line">main.rs main.s</span><br></pre></td></tr></table></figure>
+
 <h2 id="汇编源码解读"><a href="#汇编源码解读" class="headerlink" title="汇编源码解读"></a>汇编源码解读</h2><h3 id="主要组成介绍"><a href="#主要组成介绍" class="headerlink" title="主要组成介绍"></a>主要组成介绍</h3><p>由于<code>main.s</code>文件内容较长，这里只分析关键部分代码，首先，一起回顾一些基础知识，这是一个 ELF（可执行链接格式）文件的分析，它包含了程序的代码和数据段。以下是该 ELF 文件的主要组成部分：</p>
 <ul>
 <li><code>.section</code> 指令：这些指令用于定义程序中的各个段，如代码段、数据段和栈。  </li>
@@ -1090,6 +1136,7 @@
 <p>此外，还有一些全局变量和局部变量，如<code>x0</code>、<code>x1</code>、<code>x2</code>、<code>x3</code>等。这些变量在程序中用于各种计算和数据存储。根据给定的 ELF 文件，我们可以看到程序的结构和功能。要深入了解程序的实现，我们需要分析每个函数和变量，以及它们之间的关系。</p>
 </blockquote>
 <h3 id="汇编代码解读"><a href="#汇编代码解读" class="headerlink" title="汇编代码解读"></a>汇编代码解读</h3><h4 id="启动函数解读"><a href="#启动函数解读" class="headerlink" title="启动函数解读"></a>启动函数解读</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">    .section	__TEXT,__text,regular,pure_instructions</span><br><span class="line">	.build_version macos, 11, 0</span><br><span class="line">	.p2align	2</span><br><span class="line">__ZN3std10sys_common9backtrace28__rust_begin_short_backtrace17h41d6339a4d6b9b77E:</span><br><span class="line">    ... ...</span><br><span class="line">__ZN3std2rt10lang_start17h8b3af1e9d6ac7258E:</span><br><span class="line">    ... ...</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>.section 指示段落为文本段，.build_version 表示构建的版本为 macos 11.0。</li>
 <li><code>__ZN3std2rt10lang_start17h8b3af1e9d6ac7258E</code>是启动时调用的一个函数。这个函数的主要作用是初始化 Rust 运行时的各个组件，为程序的执行做好准备。下面是代码的主要步骤：<ol>
@@ -1108,6 +1155,7 @@
 <p>整个代码的执行过程可以概括为：保存寄存器 -&gt; 调用初始化函数 -&gt; 恢复寄存器 -&gt; 调用内部初始化函数 -&gt; 恢复寄存器 -&gt; 返回。这个过程为 Rust 程序的执行奠定基础，确保运行时的各个组件处于正确的状态。</p>
 </blockquote>
 <h4 id="解读main函数"><a href="#解读main函数" class="headerlink" title="解读main函数"></a>解读<code>main</code>函数</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">__ZN4main4main17hdd2613d9f6a2edd6E:</span><br><span class="line">	.cfi_startproc</span><br><span class="line">	sub	sp, sp, #80</span><br><span class="line">	.cfi_def_cfa_offset 80</span><br><span class="line">	stp	x29, x30, [sp, #64]</span><br><span class="line">	add	x29, sp, #64</span><br><span class="line">	.cfi_def_cfa w29, 16</span><br><span class="line">	.cfi_offset w30, -8</span><br><span class="line">	.cfi_offset w29, -16</span><br><span class="line">	add	x8, sp, #16</span><br><span class="line">	str	x8, [sp, #8]</span><br><span class="line">	adrp	x0, l___unnamed_5@PAGE</span><br><span class="line">	add	x0, x0, l___unnamed_5@PAGEOFF</span><br><span class="line">	mov	w9, #1</span><br><span class="line">	mov	x1, x9</span><br><span class="line">	bl	__ZN4core3fmt9Arguments9new_const17h71bd3e081e7c68d0E</span><br><span class="line">	ldr	x0, [sp, #8]</span><br><span class="line">	bl	__ZN3std2io5stdio6_print17ha1fabf8eb351d161E</span><br><span class="line">	.cfi_def_cfa wsp, 80</span><br><span class="line">	ldp	x29, x30, [sp, #64]</span><br><span class="line">	add	sp, sp, #80</span><br><span class="line">	.cfi_def_cfa_offset 0</span><br><span class="line">	.cfi_restore w30</span><br><span class="line">	.cfi_restore w29</span><br><span class="line">	ret</span><br><span class="line">	.cfi_endproc</span><br><span class="line"></span><br><span class="line">	.globl	_main</span><br><span class="line">	.p2align	2</span><br><span class="line">_main:</span><br><span class="line">	.cfi_startproc</span><br><span class="line">	stp	x29, x30, [sp, #-16]!</span><br><span class="line">	mov	x29, sp</span><br><span class="line">	.cfi_def_cfa w29, 16</span><br><span class="line">	.cfi_offset w30, -8</span><br><span class="line">	.cfi_offset w29, -16</span><br><span class="line">	mov	x2, x1</span><br><span class="line">	mov	x8, x0</span><br><span class="line">	sxtw	x1, w8</span><br><span class="line">	adrp	x0, __ZN4main4main17hdd2613d9f6a2edd6E@PAGE</span><br><span class="line">	add	x0, x0, __ZN4main4main17hdd2613d9f6a2edd6E@PAGEOFF</span><br><span class="line">	mov	w3, #0</span><br><span class="line">	bl	__ZN3std2rt10lang_start17h8b3af1e9d6ac7258E</span><br><span class="line">	ldp	x29, x30, [sp], #16</span><br><span class="line">	ret</span><br><span class="line">	.cfi_endproc</span><br><span class="line"></span><br><span class="line">	.section	__DATA,__const</span><br><span class="line">	.p2align	3, 0x0</span><br><span class="line">... ...</span><br><span class="line">l___unnamed_8:</span><br><span class="line">	.ascii	&quot;Hello, world!\n&quot;</span><br><span class="line"></span><br><span class="line">	.section	__DATA,__const</span><br><span class="line">	.p2align	3, 0x0</span><br><span class="line">l___unnamed_5:</span><br><span class="line">	.quad	l___unnamed_8</span><br><span class="line">	.asciz	&quot;\016\000\000\000\000\000\000&quot;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>这段代码是 Rust 程序的入口点，即 <code>main</code> 函数。<code>main</code> 函数是 Rust 程序的起始点，程序从这里开始执行。这段代码的主要任务是初始化 Rust 运行时，并调用真正的程序入口点。</li>
 <li>代码主要步骤如下：<ol>
@@ -1124,10 +1172,14 @@
 </ul>
 <blockquote>
 <p>整个代码的执行过程可以概括为：保存寄存器 -&gt; 初始化运行时 -&gt; 调用真正的程序入口点 -&gt; 恢复寄存器 -&gt; 返回。这个过程为 Rust 程序的执行奠定基础，确保运行时的各个组件处于正确的状态。</p>
+</blockquote>
+<blockquote>
 <p>以上就是 Hello World 汇编初探解读，希望对你有用，祝大家玩得开心 ^_^</p>
+</blockquote>
+<blockquote>
 <p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
 </blockquote>
-<p><img src="images/wechat-blog.png" alt="公众号"></p>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
 ]]></content>
       <categories>
         <category>Rust</category>
@@ -1143,8 +1195,8 @@
 <h2 id="Makepad-项目介绍"><a href="#Makepad-项目介绍" class="headerlink" title="Makepad 项目介绍"></a>Makepad 项目介绍</h2><p>在开始解剖 <code>Wechat</code> 项目之前，我们先来学习一下所使用的 <a href="https://makepad.nl/">Makepad</a> 项目的基本知识。</p>
 <ul>
 <li><a href="https://makepad.nl/">Makepad</a> 包括 Makepad Framework 和 Makepad Studio。  </li>
-<li>Makepad Framework 是一个跨平台的 <code>UI 框架</code>。包括多个 crate，顶级 crate 是 <a href="https://crates.io/crates/makepad-widgets">makepad-widgets</a>。有关 Makepad Framework 的更多详细解释，请参阅<a href="#makepad-widgets介绍">makepad-widgets组件介绍</a>。  </li>
-<li>Makepad Studio 是使用 Makepad Framework 构建的一个 <code>IDE 原型</code>。它仍然在重度开发中，但我们的最终目标是创建一个可以在运行时更改应用程序设计的 IDE。Makepad Studio 的主 crate 是 <a href="https://crates.io/crates/makepad-studio">makepad-studio</a>。有关更多信息，请参阅<a href="#makepad-studio介绍">makepad-studio章节介绍</a>。</li>
+<li>Makepad Framework 是一个跨平台的 <code>UI 框架</code>。包括多个 crate，顶级 crate 是 <a href="https://crates.io/crates/makepad-widgets">makepad-widgets</a>。有关 Makepad Framework 的更多详细解释，请参阅<a href="#makepad-widgets%E4%BB%8B%E7%BB%8D">makepad-widgets组件介绍</a>。  </li>
+<li>Makepad Studio 是使用 Makepad Framework 构建的一个 <code>IDE 原型</code>。它仍然在重度开发中，但我们的最终目标是创建一个可以在运行时更改应用程序设计的 IDE。Makepad Studio 的主 crate 是 <a href="https://crates.io/crates/makepad-studio">makepad-studio</a>。有关更多信息，请参阅<a href="#makepad-studio%E4%BB%8B%E7%BB%8D">makepad-studio章节介绍</a>。</li>
 </ul>
 <h3 id="makepad-widgets介绍"><a href="#makepad-widgets介绍" class="headerlink" title="makepad-widgets介绍"></a>makepad-widgets介绍</h3><ul>
 <li>这是 Makepad Framework 的顶级 crate，它是一个为 Rust 开发的下一代 UI 框架。使用 Makepad Framework 构建的应用程序可以在本地和 web 上运行，完全在 GPU 上渲染，并支持名为 live design 的新颖功能。</li>
@@ -1155,23 +1207,24 @@
 </ul>
 <blockquote>
 <p>简而言之，要在 Makepad Framework 中构建应用程序，大多数时候，这个 crate 是您唯一需要的。</p>
+</blockquote>
+<blockquote>
 <p><font color='red'>注意事项</font>：尽管 <a href="https://makepad.nl/">Makepad</a> 框架已经足够完整，可以让你使用它来编写自己的应用程序，但目前它<code>仍然处于激烈的开发阶段</code>。目前，我们只支持 <code>Mac</code> 和 <code>Web</code>（尽管我们很快就会添加对 Windows 和 Linux 的支持）。在此阶段，我们无法保证 API 的稳定性。请在使用 <a href="https://makepad.nl/">Makepad</a> 框架为自己的应用程序时牢记这一点。最后，我们在<code>字体渲染</code>、<code>国际化</code>等领域仍然缺乏许多功能。</p>
 </blockquote>
 <h3 id="makepad-studio介绍"><a href="#makepad-studio介绍" class="headerlink" title="makepad-studio介绍"></a>makepad-studio介绍</h3><ul>
-<li>这是一个使用 <a href="https://makepad.nl/">Makepad</a> 框架编写的 IDE 原型。关于 <a href="https://makepad.nl/">Makepad</a> 框架的解释，请参阅 <a href="#makepad-widgets介绍">makepad-widgets 组件介绍</a>。  </li>
+<li>这是一个使用 <a href="https://makepad.nl/">Makepad</a> 框架编写的 IDE 原型。关于 <a href="https://makepad.nl/">Makepad</a> 框架的解释，请参阅 <a href="#makepad-widgets%E4%BB%8B%E7%BB%8D">makepad-widgets 组件介绍</a>。  </li>
 <li>最终目标是将其开发成为一个支持实时设计意识的 IDE。这样的 IDE 能够检测到描述应用程序样式的 DSL 代码（而非本地 Rust 代码）发生更改时，无需重新编译，而是将更改发送到 DSL 代码的应用程序，使其自行更新。  </li>
 <li>尽管如此，这个组件目前<code>仍然处于激烈的开发阶段</code>。在撰写本文时，它具有一个带有选项卡的工作栏系统，一个带有折叠的文件树，以及一个基本代码编辑器，支持语法高亮。我们目前的主要挑战是重新设计 IDE，使其具有适当的扩展模型和沙箱化。</li>
 </ul>
 <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h3 id="安装-Makepad"><a href="#安装-Makepad" class="headerlink" title="安装 Makepad"></a>安装 <a href="https://makepad.nl/">Makepad</a></h3><ul>
 <li>构建 <a href="https://makepad.nl/">Makepad</a> 组件之前，首先，需要安装 <code>Rust</code>，<code>Rust</code> 的安装指南请参考：<a href="https://www.rust-lang.org/tools/install">https://www.rust-lang.org/tools/install</a></li>
-<li>本地构建通常会使用<code>stable</code>版本的 Rust 工具链，然而，<a href="https://makepad.nl/">Makepad</a> 在运行时生成的一些错误（尤其是来自 DSL 的错误）除非你使用<code>nightly</code>版本的 Rust 工具链，否则，不会包含行信息。<em>此外，<a href="https://makepad.nl/">Makepad</a> 的 <code>Web</code> 构建目前仅在<code>nightly</code>版本工作。因此，建议您使用<code>nightly</code>版本的 Rust 工具链来构建 <a href="https://makepad.nl/">Makepad</a></em>。  </li>
+<li>本地构建通常会使用<code>stable</code>版本的 Rust 工具链，然而，<a href="https://makepad.nl/">Makepad</a> 在运行时生成的一些错误（尤其是来自 DSL 的错误）除非你使用<code>nightly</code>版本的 Rust 工具链，否则，不会包含行信息。_此外，<a href="https://makepad.nl/">Makepad</a> 的 <code>Web</code> 构建目前仅在<code>nightly</code>版本工作。因此，建议您使用<code>nightly</code>版本的 Rust 工具链来构建 <a href="https://makepad.nl/">Makepad</a>_。  </li>
 <li>对于非标准构建目标（<code>ios</code>、<code>android</code>、<code>wasm</code>），需要安装一个名为 <code>cargo-makepad</code> 的构建工具，有两种安装方式。  <ul>
 <li>仓库安装： <code>git clone https://github.com/makepad/makepad.git &amp;&amp; cd makepad &amp;&amp; cargo install --path=./tools/cargo_makepad</code></li>
 <li><code>cargo</code> 安装：<code>cargo install cargo-makepad</code> (推荐用该方法，省心)</li>
 </ul>
 </li>
-<li><code>cargo-makepad</code>工具安装成功后，可根据平台所需安装相应的工具链，具体命令如下：  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cargo makepad wasm install-toolchain</span><br><span class="line">cargo makepad ios install-toolchain</span><br><span class="line">cargo makepad android --abi=all install-toolchain</span><br></pre></td></tr></table></figure>
-</li>
+<li><code>cargo-makepad</code>工具安装成功后，可根据平台所需安装相应的工具链，具体命令如下：  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cargo makepad wasm install-toolchain</span><br><span class="line">cargo makepad ios install-toolchain</span><br><span class="line">cargo makepad android --abi=all install-toolchain</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="在-iOS-安装-makepad-wechat-应用"><a href="#在-iOS-安装-makepad-wechat-应用" class="headerlink" title="在 iOS 安装 makepad_wechat 应用"></a>在 <code>iOS</code> 安装 <a href="https://github.com/project-robius/makepad_wechat"><code>makepad_wechat</code></a> 应用</h3><blockquote>
 <p>鉴于 <code>iOS</code> 模拟器的安装过程相对较为复杂，本章节将仅针对 <code>iOS</code> 模拟器的安装进行讲解。而 <code>Android</code> 的安装过程类似，因此不再赘述。</p>
@@ -1186,12 +1239,12 @@
 <li>创建一个 <code>Apple 开发者账户</code>  </li>
 <li>在 XCode 中创建一个空白的骨架项目  <ul>
 <li>文件 -&gt; 新建 -&gt; 项目: 创建一个新 “App”  </li>
-<li>将产品名称设置为 <code>WeChat</code>（后面 —org 参数中使用）  </li>
-<li>将组织标识符设置为您选择的任何值，例如，本示例将使用 <code>rs.robius</code>（后面 —app 参数中使用）  </li>
-<li>设置项目签名和功能，选择正确的团队账户  </li>
+<li>将产品名称设置为 <code>WeChat</code>（后面 –org 参数中使用）  </li>
+<li>将组织标识符设置为您选择的任何值，例如，本示例将使用 <code>rs.robius</code>（后面 –app 参数中使用）  </li>
+<li>设置项目签名和功能，选择正确的团队账户</li>
 </ul>
 </li>
-<li>在 <code>XCode</code> 中，构建/运行此项目以在模拟器和设备上安装并运行应用  </li>
+<li>在 <code>XCode</code> 中，构建&#x2F;运行此项目以在模拟器和设备上安装并运行应用  </li>
 <li>一旦模拟器和设备上正确安装并运行了 “skeleton” 应用，接下来，就可以使用 <a href="https://makepad.nl/">Makepad</a> 安装其应用程序。</li>
 </ul>
 </li>
@@ -1200,13 +1253,14 @@
 </li>
 <li><p>在 <code>iOS</code> 设备上安装应用</p>
   <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd ~/makepad_wechat</span><br><span class="line">cargo makepad ios --ios-version=16 --org-id=&lt;ORGIDVALUE&gt; --org=rs.robius --app=WeChat run-device -p makepad_wechat --release</span><br></pre></td></tr></table></figure>
+
 <p>  其中，<code>--org-id</code>：这是位于 <code>~/Library/MobileDevice/Provisioning Profiles</code> 目录中的 <code>**.mobileprovision</code> 文件中的 ApplicationIdentifierPrefix <key> 的 <string> 值。它应该是一个 10 位数的字母数字值。</p>
 </li>
 <li><p>以下是在 <code>iOS</code> 模拟器安装成功运行效果图</p>
-<p>  <img src="images/robius/TheRobiusWechatDemo.png" alt="iOS模块器效果"></p>
+<p>  <img src="/images/robius/TheRobiusWechatDemo.png" alt="iOS模块器效果"></p>
 </li>
 </ul>
-<h2 id="makepad-wechat-应用源码解读"><a href="#makepad-wechat-应用源码解读" class="headerlink" title="makepad_wechat 应用源码解读"></a><a href="https://github.com/project-robius/makepad_wechat"><code>makepad_wechat</code></a> 应用源码解读</h2><h3 id="源码结构分析"><a href="#源码结构分析" class="headerlink" title="源码结构分析"></a>源码结构分析</h3><p><img src="images/robius/TheRobiusWechatDemoSource.png" alt="makepad_wechat源码目录"></p>
+<h2 id="makepad-wechat-应用源码解读"><a href="#makepad-wechat-应用源码解读" class="headerlink" title="makepad_wechat 应用源码解读"></a><a href="https://github.com/project-robius/makepad_wechat"><code>makepad_wechat</code></a> 应用源码解读</h2><h3 id="源码结构分析"><a href="#源码结构分析" class="headerlink" title="源码结构分析"></a>源码结构分析</h3><p><img src="/images/robius/TheRobiusWechatDemoSource.png" alt="makepad_wechat源码目录"></p>
 <p><code>Demo</code> 源码目录整体较为简洁，具体解析如下：</p>
 <ul>
 <li><code>resources</code>：资源目录，主要存放字体、图标、图片等。</li>
@@ -1224,6 +1278,7 @@
 </ul>
 <h3 id="项目依赖分析"><a href="#项目依赖分析" class="headerlink" title="项目依赖分析"></a>项目依赖分析</h3><p>从 <code>Cargo.toml</code> 文件分析，<code>Demo</code> 项目主要引入了 <code>makepad-widgets</code> 依赖。初步浏览了所有源代码，由于没有第三方服务相关调用，因此，暂不需要其他依赖。</p>
 <figure class="highlight toml"><table><tr><td class="code"><pre><span class="line"><span class="section">[dependencies]</span></span><br><span class="line"><span class="attr">makepad-widgets</span> = &#123; path = <span class="string">&quot;../makepad/widgets&quot;</span>, version = <span class="string">&quot;0.6.0&quot;</span> &#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="app-rs-框架分析"><a href="#app-rs-框架分析" class="headerlink" title="app.rs 框架分析"></a><code>app.rs</code> 框架分析</h3><p>关键源码框架解读如下：</p>
 <ul>
 <li><code>live_design!</code>宏: 定义了一个 <code>live_design</code> 函数，该函数将一个 <code>Live DSL</code> 代码块注册到 <code>live</code> 系统中。宏中的代码被序列化为一个字符串，稍后由 <code>live</code> 系统解析。新创建的 Rust 结构体的字段被初始化为对应默认值，<a href="https://makepad.nl/">Makepad</a> 的 <code>live</code> 系统应用该结构的 <code>Live DSL</code> 定义，覆盖所有 <code>Live DSL</code> 有定义的字段。导入了相关的模块和主题，并且定义应用相关组件及布局。</li>
@@ -1233,12 +1288,18 @@
 <li><code>impl AppMain for App &#123; ... &#125;</code>: <code>AppMain</code> 是为 <code>App</code> 实现的特质。它提供了从系统进入应用程序的唯一入口点：<code>fn handle_event</code>。该特质提供了鼠标、计时器和滑动事件，这些事件被传递到 <code>UI</code> 树中进行处理。该示例中，<code>Event::Draw</code> 事件是系统请求应用程序生成必要渲染结构的地方。</li>
 </ul>
 <figure class="highlight rust"><table><tr><td class="code"><pre><span class="line">live_design! &#123;</span><br><span class="line">    import makepad_widgets::base::*;</span><br><span class="line">    import makepad_widgets::theme_desktop_dark::*;</span><br><span class="line"></span><br><span class="line">    ... ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">app_main!(App);</span><br><span class="line"></span><br><span class="line"><span class="meta">#[derive(Live)]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">struct</span> <span class="title class_">App</span> &#123;</span><br><span class="line">    <span class="meta">#[live]</span></span><br><span class="line">    ui: WidgetRef,</span><br><span class="line"></span><br><span class="line">    <span class="meta">#[rust]</span></span><br><span class="line">    navigation_destinations: HashMap&lt;StackViewAction, LiveId&gt;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">LiveHook</span> <span class="keyword">for</span> <span class="title class_">App</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">before_live_design</span>(cx: &amp;<span class="keyword">mut</span> Cx) &#123;</span><br><span class="line">        ... ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">AppMain</span> <span class="keyword">for</span> <span class="title class_">App</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">handle_event</span>(&amp;<span class="keyword">mut</span> <span class="keyword">self</span>, cx: &amp;<span class="keyword">mut</span> Cx, event: &amp;Event) &#123;</span><br><span class="line">        ... ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 <blockquote>
 <p>由于 <a href="https://makepad.nl/">Makepad</a> 文档较少，我们需要花费更多时间来分析其底层设计。</p>
+</blockquote>
+<blockquote>
 <p>以上就是关于 <code>Robius Demo</code> 中的 <code>Wechat</code> 应用源码剖析过程，希望对您有所帮助。祝大家玩得开心 ^_^</p>
+</blockquote>
+<blockquote>
 <p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
 </blockquote>
-<p><img src="images/wechat-blog.png" alt="公众号"></p>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
 <!-- Links below -->
 ]]></content>
       <categories>
@@ -1284,19 +1345,19 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export QEMU_PATH=&quot;$HOME/qemu-7.0.0&quot;</span><br><span class="line">export PATH=&quot;$QEMU_PATH/build:$PATH&quot;</span><br><span class="line">export PATH=&quot;$QEMU_PATH/build/riscv64-softmmu:$PATH&quot;</span><br><span class="line">export PATH=&quot;$QEMU_PATH/build/riscv64-linux-user:$PATH&quot;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>验证 <code>Qemu</code> 和 <code>Rust</code> 版本，若效果如下所示，即代表环境​准备完成</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">qemu-system-riscv64 --version</span></span><br><span class="line">QEMU emulator version 7.0.0</span><br><span class="line">Copyright (c) 2003-2022 Fabrice Bellard and the QEMU Project developers</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">qemu-riscv64 --version</span></span><br><span class="line">qemu-riscv64 version 7.0.0</span><br><span class="line">Copyright (c) 2003-2022 Fabrice Bellard and the QEMU Project developers</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">rustc -Vv</span></span><br><span class="line">rustc 1.75.0-nightly (1c05d50c8 2023-10-21)</span><br><span class="line">binary: rustc</span><br><span class="line">commit-hash: 1c05d50c8403c56d9a8b6fb871f15aaa26fb5d07</span><br><span class="line">commit-date: 2023-10-21</span><br><span class="line">host: aarch64-unknown-linux-gnu</span><br><span class="line">release: 1.75.0-nightly</span><br><span class="line">LLVM version: 17.0.3</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">qemu-system-riscv64 --version</span></span><br><span class="line">QEMU emulator version 7.0.0</span><br><span class="line">Copyright (c) 2003-2022 Fabrice Bellard and the QEMU Project developers</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">qemu-riscv64 --version</span></span><br><span class="line">qemu-riscv64 version 7.0.0</span><br><span class="line">Copyright (c) 2003-2022 Fabrice Bellard and the QEMU Project developers</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">rustc -Vv</span></span><br><span class="line">rustc 1.75.0-nightly (1c05d50c8 2023-10-21)</span><br><span class="line">binary: rustc</span><br><span class="line">commit-hash: 1c05d50c8403c56d9a8b6fb871f15aaa26fb5d07</span><br><span class="line">commit-date: 2023-10-21</span><br><span class="line">host: aarch64-unknown-linux-gnu</span><br><span class="line">release: 1.75.0-nightly</span><br><span class="line">LLVM version: 17.0.3</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="理解App执行环境"><a href="#理解App执行环境" class="headerlink" title="理解App执行环境"></a>理解App执行环境</h2><h3 id="三叶虫LibOS总体结构"><a href="#三叶虫LibOS总体结构" class="headerlink" title="三叶虫LibOS总体结构"></a>三叶虫LibOS总体结构</h3><p>通过下图，大致可以看出Qemu把包含app和三叶虫LibOS的image镜像加载到内存中，RustSBI（bootloader）完成基本的硬件初始化后，跳转到三叶虫LibOS起始位置，三叶虫LibOS首先进行app执行前的初始化工作，即建立栈空间和清零bss段，然后跳转到app去执行。app在执行过程中，会通过函数调用的方式得到三叶虫LibOS提供的OS服务，如输出字符串等，避免了app与硬件直接交互的繁琐过程。</p>
-<p><img src="images/risc-v/LibOS-arch.png" alt="LibOS-arch"></p>
+<p><img src="/images/risc-v/LibOS-arch.png" alt="LibOS-arch"></p>
 <blockquote>
 <p>注: 图中的<code>S-Mode</code>和<code>M-Mode</code>是<code>RISC-V</code> 处理器架构中的两种特权级别。<code>S-Mode</code> 指的是 <code>Supervisor</code> 模式，是操作系统使用的特权级别，可执行特权指令等。<code>M-Mode</code>是 <code>Machine</code>模式，其特权级别比<code>S-Mode</code>还高，可以访问<code>RISC-V</code>处理器中的所有系统资源。</p>
 </blockquote>
 <h3 id="App执行环境栈介绍"><a href="#App执行环境栈介绍" class="headerlink" title="App执行环境栈介绍"></a>App执行环境栈介绍</h3><blockquote>
 <p>在现代通用操作系统（如 Linux）上运行应用程序，需要多层次的执行环境栈支持，图中的白色块自上而下表示各级执行环境，黑色块则表示相邻两层执行环境之间的接口。下层作为上层的执行环境，支持上层代码运行。</p>
 </blockquote>
-<p><img src="images/risc-v/os-env-stack.png" alt="OS环境栈"></p>
+<p><img src="/images/risc-v/os-env-stack.png" alt="OS环境栈"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">计算机科学中遇到的所有问题都可通过增加一层抽象来解决。</span><br><span class="line">All problems in computer science can be solved by another level of indirection。</span><br><span class="line">—— 计算机科学家 David Wheeler</span><br></pre></td></tr></table></figure>
+
 <h3 id="编译器工作流程介绍"><a href="#编译器工作流程介绍" class="headerlink" title="编译器工作流程介绍"></a>编译器工作流程介绍</h3><blockquote>
 <p>现代编译器工具集（以C或Rust编译器为例）的主要工作流程如下：</p>
 </blockquote>
@@ -1313,12 +1374,14 @@
 <li>执行<code>make run</code>命令后，可能没有任何响应。这可能是由于 <a href="https://github.com/rustsbi/rustsbi-qemu/releases"><code>rustsbi-qemu</code></a> <code>bootloader</code>包需要更新。在本文撰写时，建议使用最新<a href="https://gitee.com/lispking/rCore-Tutorial-v3/blob/master/bootloader/rustsbi-qemu.bin"><code>Prereleased 2023-03-06</code>版本</a>。</li>
 <li>完成教程中所有代码后，可能会发现持续打印出 <code>It should shutdown!</code> 信息，并出现各种乱码。这主要是因为<code>sbi 标准</code>已经更改，原代码不再适用。我们已经在 <a href="https://gitee.com/lispking/rCore-Tutorial-v3/blob/master/ch1/os/src/sbi.rs">这里</a> 提供了新版本的代码，并将相关代码上传到了 <a href="https://gitee.com/lispking/rCore-Tutorial-v3/tree/master/ch1/os">ch1 目录</a>。执行<code>make run</code>后，若看到效果如下所示，那就代表第一课 <code>Hello World</code> 内容准备完成了。</li>
 </ul>
-<p><img src="images/risc-v/hello-world.png" alt="Hello World运行效果图"></p>
+<p><img src="/images/risc-v/hello-world.png" alt="Hello World运行效果图"></p>
 <h2 id="未完待续-…-…"><a href="#未完待续-…-…" class="headerlink" title="未完待续 … …"></a>未完待续 … …</h2><blockquote>
 <p>以上就是关于 <a href="https://os2edu.cn/">清华开源操作系统训练营</a> 第一课学到的知识，希望对您有所帮助。祝大家玩得开心 ^_^</p>
+</blockquote>
+<blockquote>
 <p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
 </blockquote>
-<p><img src="images/wechat-blog.png" alt="公众号"></p>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
 <!-- 参考资料 -->
 ]]></content>
       <categories>
@@ -1333,10 +1396,10 @@
     <title>RISC-V：跟着清华训练营从零打造OS【第二课】</title>
     <url>/2023/10/26/risc-v-learning-ch2/</url>
     <content><![CDATA[<h2 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h2><p>在<a href="https://lispking.github.io/2023/10/24/risc-v-learning-ch1/">RISC-V：跟着清华训练营从零打造OS【第一课】</a>中，我们学习了三叶虫LibOS总体结构以及相关环境的配置，本节课将主要探讨批处理系统的设计以及多道程序与分时任务设计，这两章节内容颇具启发性和趣味性，相信会引发大家的浓厚兴趣。</p>
-<h2 id="批处理系统设计"><a href="#批处理系统设计" class="headerlink" title="批处理系统设计"></a>批处理系统设计</h2><p>上一节课在 RISC-V 64 裸机平台上成功运行 <code>Hello, world!</code>。看起来这个过程非常顺利，只需要一条命令就能全部完成。架构也比较简单，通过Qemu加载App和LibOS镜像到内存中，由RustSBI完成硬件初始化后，跳转到OS起始位置，执行App相关逻辑。但实际上，在那个计算机刚刚诞生的年代，很多事情并不像我们想象的那么简单。</p>
-<p><img src="images/risc-v/LibOS-arch.png" alt="LibOS-arch"></p>
+<h2 id="批处理系统设计"><a href="#批处理系统设计" class="headerlink" title="批处理系统设计"></a>批处理系统设计</h2><p>上一节课在 RISC-V 64 裸机平台上成功运行 <code>Hello, world! </code>。看起来这个过程非常顺利，只需要一条命令就能全部完成。架构也比较简单，通过Qemu加载App和LibOS镜像到内存中，由RustSBI完成硬件初始化后，跳转到OS起始位置，执行App相关逻辑。但实际上，在那个计算机刚刚诞生的年代，很多事情并不像我们想象的那么简单。</p>
+<p><img src="/images/risc-v/LibOS-arch.png" alt="LibOS-arch"></p>
 <p>本节课的批处理系统（名为：邓氏鱼BatchOS操作系统）总体架构如图所示：</p>
-<p><img src="images/risc-v/BatchOS-arch.png" alt="BatchOS-arch"></p>
+<p><img src="/images/risc-v/BatchOS-arch.png" alt="BatchOS-arch"></p>
 <p>通过上图，我们可以大致了解到，<code>Qemu</code> 将包含多个 <code>app</code> 的列表以及 <code>BatchOS</code> 的 <code>image</code> 镜像加载到内存中。</p>
 <ol>
 <li>在 <code>RustSBI</code>（<code>bootloader</code>）完成基本硬件初始化后，跳转到 <code>BatchOS</code> 的起始位置。</li>
@@ -1346,30 +1409,33 @@
 </ol>
 <p>批处理系统将多个程序打包一起输入计算机并逐个执行，但由于应用程序可能存在错误，如果某个程序的错误导致整个操作系统无法运行，后果将不堪设想。</p>
 <p>为了保护操作系统免受错误程序的破坏，特权级（Privilege）机制应运而生，它实现了用户态和内核态的隔离。在RISC-V 架构中，一共定义了 4 种特权级：</p>
-<p><img src="images/risc-v/execute-env.png" alt="执行环境"></p>
+<p><img src="/images/risc-v/execute-env.png" alt="执行环境"></p>
 <blockquote>
 <p>其中，级别的数值越大，特权级越高，掌控硬件的能力越强。从表中可以看出， M 模式处在最高的特权级，而 U 模式处于最低的特权级。在CPU硬件层面，除了M模式必须存在外，其它模式可以不存在。</p>
 </blockquote>
 <p>接下来，让我们一起来回顾一下这两课的架构概述。在最右侧的图中，我们引入了一个名为 Hypervisor 的抽象层，用以服务于多个操作系统。</p>
-<p><img src="images/risc-v/OS-M-Mode.png" alt="OS-M-Mode"></p>
+<p><img src="/images/risc-v/OS-M-Mode.png" alt="OS-M-Mode"></p>
 <p> 通过 <code>link_app.S</code> 代码将应用程序链接到内核，接着，应用管理器 <code>AppManager</code> 加载应用程序二进制代码。在此过程中，强调了屏障指令 <code>fence.i</code> 的重要性。由于 CPU 对物理内存的缓存分为数据缓存（<code>d-cache</code>）和指令缓存（<code>i-cache</code>）两部分，在 CPU 访问内存和提取指令时分别使用。而 <code>fence.i</code> 的功能是确保其在后的取指过程能看到其在前的所有对取指内存区域的修改。</p>
 <p>最后，由于处理器具有硬件级特权级机制，应用程序在用户态特权级运行时，无法直接通过函数调用访问内核态特权级的批处理操作系统内核函数。然而，应用程序需要获得操作系统提供的服务，因此应用程序与操作系统需要通过某种合作机制完成特权级之间的切换，使得用户态应用程序可以获得内核态操作系统函数的服务。</p>
 <h2 id="多道程序与分时多任务"><a href="#多道程序与分时多任务" class="headerlink" title="多道程序与分时多任务"></a>多道程序与分时多任务</h2><p>批处理与多道程序的主要区别在于内存使用和处理器调度策略。</p>
 <p>批处理系统中，一段时间内可以处理一批程序，但内存中仅存放一个程序。处理器一次只能运行一个程序。当一个程序运行完毕后，才会将另一个程序调入内存并执行。换句话说，批处理系统无法交错地执行多个程序。</p>
 <p>而在支持多道程序的系统中，一段时间内也可处理一批程序，但内存中可以存放多个程序。在执行过程中，一个程序可以主动（协作式）或被动（抢占式）地放弃执行，让另一个程序得以执行。这意味着支持多道程序的系统能够交错地执行多个程序，从而提高系统利用率。</p>
 <p>总之，批处理系统和多道程序系统在内存管理和处理器调度策略上有显著差别，导致它们在执行多个程序时的效率不同。</p>
-<p><img src="images/risc-v/TimesharingOS.png" alt="TimesharingOS"></p>
+<p><img src="/images/risc-v/TimesharingOS.png" alt="TimesharingOS"></p>
 <p>站在系统的层面，还是需要有一种办法能强制打断应用程序的执行，来提高整个系统的效率，让在整个系统中执行的多个程序之间占用计算机资源的情况相对公平一些。</p>
-<p>根据计算机系统的硬件设计，为提高 I/O 效率，外设可以通过硬件中断机制来与处理机进行 I/O 交互操作。这种硬件中断机制可随时打断应用程序的执行，并让操作系统来完成对外设的 I/O 响应。</p>
+<p>根据计算机系统的硬件设计，为提高 I&#x2F;O 效率，外设可以通过硬件中断机制来与处理机进行 I&#x2F;O 交互操作。这种硬件中断机制可随时打断应用程序的执行，并让操作系统来完成对外设的 I&#x2F;O 响应。</p>
 <blockquote>
 <p>最后，让我们以一段关于「中断」的有趣、生动且形象的解释来总结本节所学到的关键内容。这段解释来源于老师在训练营群里分享的聊天记录：</p>
 </blockquote>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">这不就是中断模式下的CPU处理方式么？</span><br><span class="line"></span><br><span class="line">我有三个群，相当于三个外设，而我是一个逻辑核心，外设时不时的at我一下，就是发一个中断信号，而我需要中断现有的作业去进行一个拉人进群的任务处理。</span><br><span class="line"></span><br><span class="line">用NAPI就是在处理某个中断的时候，看见有别的人也要让我拉进去，就轮询一波把其他人也拉进去。</span><br><span class="line"></span><br><span class="line">用DPDK就是做一会作业，轮询一波看看是否有新的拉人请求（别管什么内核旁路了）。</span><br><span class="line"></span><br><span class="line">要是三个群都有一大堆人请求我拉人进群，就会产生资源争用，而我就是性能瓶颈。</span><br><span class="line"></span><br><span class="line">另外，拉人进群是一个短作业，要是突然来了一个请求让我看看某个其他的问题，就是来了个长作业，就会导致拉人速度变慢，任务延迟变高。你学会了么？</span><br></pre></td></tr></table></figure>
+
 <h2 id="未完待续-…-…"><a href="#未完待续-…-…" class="headerlink" title="未完待续 … …"></a>未完待续 … …</h2><blockquote>
 <p>以上就是关于 [清华开源操作系统训练营] 第二课学到的知识，希望对您有所帮助。祝大家玩得开心 ^_^</p>
+</blockquote>
+<blockquote>
 <p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
 </blockquote>
-<p><img src="images/wechat-blog.png" alt="公众号"></p>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
 ]]></content>
       <categories>
         <category>RISC-V</category>
@@ -1386,19 +1452,19 @@
 <h2 id="地址空间"><a href="#地址空间" class="headerlink" title="地址空间"></a>地址空间</h2><p> 在<a href="https://lispking.github.io/2023/10/26/risc-v-learning-ch2/">多道程序与分时多任务设计</a>中，为了提高计算机系统整体性能，操作系统会在一个应用程序执行一段时间后，暂停该程序并切换至另一个应用程序执行。随后，在指定的时刻，操作系统再将控制权切换回原应用，使其继续执行。这种机制实现了内核的核心功能 —— <code>任务切换</code>。对于每个应用程序来说，它始终认为自己独占处理器资源，但这只是内核对处理器资源进行恰当抽象所产生的一种错觉。实际上，操作系统在动态分配和切换任务时，保证了各个应用程序在处理器上的执行顺序和时间片。</p>
 <p>本节通过利用硬件的分页机制，实现了内核的安全核心机制 —— <code>内存隔离</code>，构建了一种经典的抽象 —— <code>地址空间</code>。这种机制使得应用程序在操作系统管控的内存空间中执行，替代了过去应用程序对物理内存的直接访问方式。</p>
 <p>由此，每个应用都独占一个访问空间，与其他应用相互隔离。这是通过内核设置应用的页表来确保不同应用的数据（不包括共享数据）在物理内存区域不相交。这样一来，开发者在编写应用程序时无需考虑其他应用的影响，从而确保了整个系统的安全性。</p>
-<p><img src="images/risc-v/AddressSpaceOS.png" alt="AddressSpaceOS"></p>
+<p><img src="/images/risc-v/AddressSpaceOS.png" alt="AddressSpaceOS"></p>
 <p>从上图可以看出，头甲龙操作系统（<code>Address Space OS</code>）为了提高操作系统和应用程序执行的安全性，加强了内存管理能力，并提供地址空间隔离机制。这一机制为应用程序的内存地址空间设立边界，防止其越界访问操作系统和其他应用程序。</p>
 <p>在具体实现上，操作系统扩展了 <code>TaskManager</code> 的管理范围，使得每个任务的上下文（<code>Task Context</code>）包括任务地址空间。在进行任务切换时，也会切换相应的地址空间。新增的内存管理模块主要涉及与内核中动态内存分配相关的<code>页帧分配</code>、<code>堆分配</code>，以及表示应用程序地址空间的 <code>Apps MemSets</code> 类型和内核自身地址空间的 <code>Kernel MemSet</code> 类型。</p>
 <p><code>MemSet</code> 类型包含的页表（<code>PageTable</code>）建立了<code>虚实地址映射关系</code>，而<code>MemArea</code> 表示<code>任务的合法空间范围</code>。这种设计确保了操作系统在内存管理方面的高效性和安全性，有利于提高整个系统的稳定性和性能。通过这些改进，开发者可以更安心地开发和部署应用程序，用户也可以享受到更为稳定和安全的操作系统环境。</p>
 <p>由于代表应用程序运行的任务和管理应用的操作系统各自拥有独立的页表和虚拟地址空间，因此在操作系统的设计和实现过程中需面临两个挑战。</p>
 <ul>
-<li>挑战一：<code>页表切换</code>。由于系统调用、中断或异常导致的应用程序和操作系统之间的上下文切换变得复杂。在处理这些过程时，需要切换页表。此外，还需对来自用户态和内核态的异常/中断进行分别处理。</li>
+<li>挑战一：<code>页表切换</code>。由于系统调用、中断或异常导致的应用程序和操作系统之间的上下文切换变得复杂。在处理这些过程时，需要切换页表。此外，还需对来自用户态和内核态的异常&#x2F;中断进行分别处理。</li>
 </ul>
-<p><img src="images/risc-v/MIT-6.828-SV39-address-trans.png" alt="MIT-6.828-SV39-address-trans"></p>
+<p><img src="/images/risc-v/MIT-6.828-SV39-address-trans.png" alt="MIT-6.828-SV39-address-trans"></p>
 <ul>
 <li>挑战二：<code>访问不同地址空间的数据时需要查页表</code>。在内核地址空间中执行的内核代码经常需要读写应用程序地址空间中的数据，这并不仅仅是通过一次访存就能解决的问题。而是需要手动查找用户态应用程序的地址空间页表，知道用户态应用程序的虚地址对应的物理地址后，再将其转换为对应的内核态虚地址，以便访问应用程序地址空间中的数据。如果访问应用程序地址空间中的数据跨了多个页，还需要注意处理地址的边界条件。</li>
 </ul>
-<p><img src="images/risc-v/MMU-PageTable.png" alt="MMU-PageTable"></p>
+<p><img src="/images/risc-v/MMU-PageTable.png" alt="MMU-PageTable"></p>
 <p>在本节中，我们用了大半节课的时间讲解了地址转换。总的来说，在设计和实现操作系统时，必须克服这两个挑战，确保系统在处理不同地址空间的数据访问和上下文切换时具有稳定性和高效性。通过这些改进，我们可以为应用程序提供更流畅、更安全的运行环境。</p>
 <p>地址转换是操作系统中至关重要的一个环节，它涉及到应用程序与操作系统之间的交互。为了实现这一目标，我们需要充分了解并克服相关挑战，从而确保操作系统的性能和稳定性。通过不断完善和优化地址转换机制，我们可以为应用程序提供更优质、更可靠的运行平台。</p>
 <h2 id="进程和进程管理"><a href="#进程和进程管理" class="headerlink" title="进程和进程管理"></a>进程和进程管理</h2><blockquote>
@@ -1406,11 +1472,11 @@
 </blockquote>
 <p>迄今为止，所有应用程序均在内核初始化阶段一并加载到内存中，且无法在运行过程中动态增删。从一般用户的角度来看，<code>地址空间</code>和<code>批处理系统</code>似乎没有太大差别。然而，实际上，由于我们尚未充分利用硬件机制和抽象概念，应用程序的开发和应用仍受限制，用户在应用运行过程中的动态控制能力也相对较弱。</p>
 <p>实际上，用户与操作系统之间可以建立一个交互界面。在应用程序执行过程中，用户可以通过该界面主动向操作系统发出请求，创建并执行新应用程序，暂停或停止应用程序的执行等。这将极大提高用户在应用程序运行过程中的动态控制能力，进一步发挥硬件资源和操作系统功能的潜力。通过这个交互界面，用户可以更灵活地管理和调度应用程序，以满足不同场景和需求。从而实现对系统资源的高效利用，提升用户体验。</p>
-<p><img src="images/risc-v/ProcessOS.png" alt="ProcessOS"></p>
+<p><img src="/images/risc-v/ProcessOS.png" alt="ProcessOS"></p>
 <p>从上图可以看出，伤齿龙操作系统 <code>ProcessOS</code> 在内部结构上并无重大更改，但将任务抽象升级为进程抽象。其主要改动集中在进程管理功能方面，即通过提供新的系统调用服务：<code>sys_fork</code>（用于创建子进程）、<code>sys_waitpid</code>（用于等待子进程结束并回收子进程资源）、<code>sys_exec</code>（用新的应用内容覆盖当前进程，实现执行新应用的目标）。</p>
 <p>为了让用户能够输入命令或执行程序名称，<code>ProcessOS</code> 还增加了一个 <code>read</code> 系统调用服务。用户可以通过操作系统的命令行接口 —— 新添加的 <code>shell</code> 应用程序发出命令，动态地执行各种新应用，从而提高用户与操作系统之间的交互能力。</p>
 <p>总之，通过对进程管理功能的改进和优化，<code>ProcessOS</code> 为用户提供了更为便捷、高效的操作系统环境，使用户能够更轻松地执行各种应用程序，提升操作系统与用户之间的交互体验。</p>
-<p><img src="images/risc-v/PCB.png" alt="PCB"></p>
+<p><img src="/images/risc-v/PCB.png" alt="PCB"></p>
 <p>根据上图，我们可以看到进程控制块 <code>TaskControlBlock</code> 包含了与进程运行、切换、调度以及地址空间相关的各种资源和信息。原先的任务管理器 <code>TaskManager</code> 已被拆分为处理器管理结构 <code>Processor</code> 和新的任务管理器 <code>TaskManager</code>。</p>
 <ul>
 <li>处理器管理结构 <code>Processor</code> 负责管理正在执行任务以及与之相关的信息</li>
@@ -1419,9 +1485,11 @@
 <p>这样的调整使得任务管理和处理器管理更加分工明确，有利于提高操作系统的运行效率和性能。通过优化 <code>TaskControlBlock</code> 的设计和使用，可以为进程提供更为稳定、高效的运行环境，同时简化用户与操作系统之间的交互。</p>
 <h2 id="未完待续-…-…"><a href="#未完待续-…-…" class="headerlink" title="未完待续 … …"></a>未完待续 … …</h2><blockquote>
 <p>以上就是关于 [清华开源操作系统训练营] 第三课学到的知识，希望对您有所帮助。祝大家玩得开心 ^_^</p>
+</blockquote>
+<blockquote>
 <p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
 </blockquote>
-<p><img src="images/wechat-blog.png" alt="公众号"></p>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
 ]]></content>
       <categories>
         <category>RISC-V</category>
@@ -1440,16 +1508,16 @@
 <p>根据史料《UNIX: A History and a Memoir》记载，1969 年，UNIX 的作者 Ken Thompson 在贝尔实验室的空闲时间里，编写了一个用于提高 PDP-7 计算机磁盘吞吐量的调度算法。为了测试这个算法，他打算编写一个批量读写数据的测试程序。然而，在编写过程中，Thompson 在某一刻意识到，这个测试程序稍作扩展，就能成为一个文件系统，再进一步扩展，便可以成为一个完整的操作系统。他意识到，自己距离实现一个操作系统仅有短短三周的时间。</p>
 <p>第一周，他专注于编写代码编辑器；第二周，编写汇编器；第三周，编写 shell 程序。在编写这些程序的过程中，他还需添加操作系统的功能（如 exec 等系统调用），以支持这些应用程序。经过三周的努力，Thompson 成功创建了一个用于测试磁盘调度算法性能的 UNIX 操作系统雏形。 </p>
 </blockquote>
-<p>本节课将实现一个简单的文件系统 —— <code>EasyFS</code>，它能对持久存储设备（<code>Persistent Storage</code>）这种 I/O 资源进行有效管理。</p>
+<p>本节课将实现一个简单的文件系统 —— <code>EasyFS</code>，它能对持久存储设备（<code>Persistent Storage</code>）这种 I&#x2F;O 资源进行有效管理。</p>
 <p>为了满足应用程序对持久存储设备的访问需求，内核需新增两种文件类型：<code>常规文件</code>和<code>目录文件</code>。这两种文件均以文件系统所维护的磁盘文件形式组织并存储在持久存储设备上。从而，形成了具备强大 UNIX 操作系统基本功能的 <code>霸王龙</code> 操作系统。</p>
 <ul>
 <li>常规文件：用于存储应用程序的数据。</li>
 <li>目录文件：用于存储文件系统内部的信息。</li>
 </ul>
 <p>这两种文件类型共同构成了文件系统的基础，使得操作系统能够对存储设备进行高效的管理和访问。</p>
-<p><img src="images/risc-v/FilesystemOS.png" alt="FilesystemOS"></p>
+<p><img src="/images/risc-v/FilesystemOS.png" alt="FilesystemOS"></p>
 <p>通过上图，我们可以大致了解<code>霸王龙</code>操作系统 —— <code>FilesystemOS</code> 对文件系统的支持以及为应用程序提供的文件访问相关系统调用服务。在进程管理方面，<code>FilesystemOS</code> 进一步扩展了资源管理的范围，将打开文件的相关信息放入 <code>fd table</code> 数据结构中，纳入进程管理，并基于此提供了一系列与文件访问相关的系统调用服务，如 <code>sys_open</code>、<code>sys_close</code>、<code>sys_read</code>、<code>sys_write</code> 等。</p>
-<p>在设备管理层面，<code>FilesystemOS</code> 增加了块设备驱动 —— <code>BlockDrv</code>，通过访问块设备数据来实现对文件系统与文件各种数据的读写。文件系统 —— <code>EasyFS</code> 成为 <code>FilesystemOS</code> 的核心内核模块，负责完成文件与存储块之间的数据/地址映射关系，并基于存储块进行读写操作。</p>
+<p>在设备管理层面，<code>FilesystemOS</code> 增加了块设备驱动 —— <code>BlockDrv</code>，通过访问块设备数据来实现对文件系统与文件各种数据的读写。文件系统 —— <code>EasyFS</code> 成为 <code>FilesystemOS</code> 的核心内核模块，负责完成文件与存储块之间的数据&#x2F;地址映射关系，并基于存储块进行读写操作。</p>
 <p><code>EasyFS</code> 的核心数据结构包括：</p>
 <ul>
 <li><code>Superblock</code>：表示整个文件系统结构</li>
@@ -1460,7 +1528,7 @@
 </ul>
 <p>此外，<code>EasyFS</code> 中的块缓存管理器 <code>BlockManager</code> 在内存中管理有限个 <code>BlockCache</code> 磁盘块缓存，并通过 <code>Blk Interface</code>（与块设备驱动对接的读写操作接口）与 <code>BlockDrv</code> 块设备驱动程序进行互操作。</p>
 <p>接下来，让我们共同探讨文件系统的数据结构。</p>
-<p><img src="images/risc-v/FilesystemStruct.png" alt="FilesystemStruct"></p>
+<p><img src="/images/risc-v/FilesystemStruct.png" alt="FilesystemStruct"></p>
 <p>在 <code>EasyFS</code> 设计中，采用了松耦合的模块化设计理念。通过使用抽象接口 <code>BlockDevice</code>，<code>EasyFS</code> 与底层设备驱动之间实现了解耦，避免了与设备驱动的绑定。此外，<code>EasyFS</code> 借助 <code>Rust</code> 提供的 <code>alloc crate</code> 实现了对操作系统内核内存管理的隔离，避免了直接调用内存管理的内核函数。</p>
 <p>在底层驱动方面，采用轮询方式访问 <code>virtio_blk</code> 虚拟磁盘设备，从而避免了访问外设中断相关的内核函数。在设计过程中，<code>EasyFS</code> 充分考虑了避免直接访问进程相关的数据和函数，从而实现了与操作系统内核的进程管理隔离。</p>
 <p><code>EasyFS</code> <code>crate</code> 自下而上大致可以分成五个不同的层次：</p>
@@ -1468,16 +1536,19 @@
 <li>磁盘块设备接口层：定义了以块大小为单位对磁盘块设备进行读写的 <code>trait</code> 接口</li>
 <li>块缓存层：在内存中缓存磁盘块的数据，避免频繁读写磁盘</li>
 <li>磁盘数据结构层：磁盘上的超级块、位图、索引节点、数据块、目录项等核心数据结构和相关处理</li>
-<li>磁盘块管理器层：合并了上述核心数据结构和磁盘布局所形成的磁盘文件系统数据结构，以及基于这些结构的创建/打开文件系统的相关处理和磁盘块的分配和回收处理</li>
-<li>索引节点层：管理索引节点（即文件控制块）数据结构，并实现文件创建/文件打开/文件读写等成员函数来向上支持文件操作相关的系统调用</li>
+<li>磁盘块管理器层：合并了上述核心数据结构和磁盘布局所形成的磁盘文件系统数据结构，以及基于这些结构的创建&#x2F;打开文件系统的相关处理和磁盘块的分配和回收处理</li>
+<li>索引节点层：管理索引节点（即文件控制块）数据结构，并实现文件创建&#x2F;文件打开&#x2F;文件读写等成员函数来向上支持文件操作相关的系统调用</li>
 </ul>
 <p>最后，一起看看相关接口代码定义：</p>
 <figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="comment">/// 块设备的抽象接口 BlockDevice</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">trait</span> <span class="title class_">BlockDevice</span> : <span class="built_in">Send</span> + <span class="built_in">Sync</span> + Any &#123;</span><br><span class="line">    <span class="comment">/// 将编号为 block_id 的块从磁盘读入内存中的缓冲区 buf ；</span></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">read_block</span>(&amp;<span class="keyword">self</span>, block_id: <span class="type">usize</span>, buf: &amp;<span class="keyword">mut</span> [<span class="type">u8</span>]);</span><br><span class="line">    <span class="comment">/// 将内存中的缓冲区 buf 中的数据写入磁盘编号为 block_id 的块。</span></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">write_block</span>(&amp;<span class="keyword">self</span>, block_id: <span class="type">usize</span>, buf: &amp;[<span class="type">u8</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">const</span> BLOCK_SZ: <span class="type">usize</span> = <span class="number">512</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 块缓存 BlockCache</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">struct</span> <span class="title class_">BlockCache</span> &#123;</span><br><span class="line">    <span class="comment">/// 一个 512 字节的数组，表示位于内存中的缓冲区；</span></span><br><span class="line">    cache: [<span class="type">u8</span>; BLOCK_SZ],</span><br><span class="line">    <span class="comment">/// 记录这个块缓存来自于磁盘中的块的编号</span></span><br><span class="line">    block_id: <span class="type">usize</span>,</span><br><span class="line">    <span class="comment">/// 一个底层块设备的引用，可通过它进行块读写</span></span><br><span class="line">    block_device: Arc&lt;<span class="keyword">dyn</span> BlockDevice&gt;,</span><br><span class="line">    <span class="comment">/// 记录这个块从磁盘载入内存缓存之后，它有没有被修改过</span></span><br><span class="line">    modified: <span class="type">bool</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 超级块 SuperBlock</span></span><br><span class="line"><span class="meta">#[repr(C)]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">struct</span> <span class="title class_">SuperBlock</span> &#123;</span><br><span class="line">    <span class="comment">/// 用于文件系统合法性验证的魔数</span></span><br><span class="line">    magic: <span class="type">u32</span>,</span><br><span class="line">    <span class="comment">/// 文件系统的总块数</span></span><br><span class="line">    <span class="keyword">pub</span> total_blocks: <span class="type">u32</span>,</span><br><span class="line">    <span class="comment">/// 索引节点位图，长度为若干个块。记录后面的索引节点区域中有哪些索引节点已经被分配出去使用了，而哪些还尚未被分配出去</span></span><br><span class="line">    <span class="keyword">pub</span> inode_bitmap_blocks: <span class="type">u32</span>,</span><br><span class="line">    <span class="comment">/// 索引节点区域，长度为若干个块。其中的每个块都存储了若干个索引节点</span></span><br><span class="line">    <span class="keyword">pub</span> inode_area_blocks: <span class="type">u32</span>,</span><br><span class="line">    <span class="comment">/// 数据块位图，长度为若干个块。记录后面的数据块区域中有哪些数据块已经被分配出去使用了，而哪些还尚未被分配出去。</span></span><br><span class="line">    <span class="keyword">pub</span> data_bitmap_blocks: <span class="type">u32</span>,</span><br><span class="line">    <span class="comment">/// 数据块区域，顾名思义，其中的每一个已经分配出去的块保存了文件或目录中的具体数据内容。</span></span><br><span class="line">    <span class="keyword">pub</span> data_area_blocks: <span class="type">u32</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 磁盘块管理器</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">struct</span> <span class="title class_">EasyFileSystem</span> &#123;</span><br><span class="line">    <span class="comment">/// 块设备指针</span></span><br><span class="line">    <span class="keyword">pub</span> block_device: Arc&lt;<span class="keyword">dyn</span> BlockDevice&gt;,</span><br><span class="line">    <span class="comment">/// 索引节点位图</span></span><br><span class="line">    <span class="keyword">pub</span> inode_bitmap: Bitmap,</span><br><span class="line">    <span class="comment">/// 数据块位图</span></span><br><span class="line">    <span class="keyword">pub</span> data_bitmap: Bitmap,</span><br><span class="line">    <span class="comment">/// 索引节点区域起始块编号</span></span><br><span class="line">    inode_area_start_block: <span class="type">u32</span>,</span><br><span class="line">    <span class="comment">/// 数据块区域起始块编号</span></span><br><span class="line">    data_area_start_block: <span class="type">u32</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 索引节点，在内存中记录文件索引节点信息</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">struct</span> <span class="title class_">Inode</span> &#123;</span><br><span class="line">    <span class="comment">/// 记录该 Inode 对应的 DiskInode 保存在磁盘上的 id</span></span><br><span class="line">    block_id: <span class="type">usize</span>,</span><br><span class="line">    <span class="comment">/// 记录该 Inode 对应的 DiskInode 保存在磁盘上的偏移量</span></span><br><span class="line">    block_offset: <span class="type">usize</span>,</span><br><span class="line">    <span class="comment">/// 指向 EasyFileSystem 的一个指针</span></span><br><span class="line">    fs: Arc&lt;Mutex&lt;EasyFileSystem&gt;&gt;,</span><br><span class="line">    block_device: Arc&lt;<span class="keyword">dyn</span> BlockDevice&gt;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h2 id="未完待续-…-…"><a href="#未完待续-…-…" class="headerlink" title="未完待续 … …"></a>未完待续 … …</h2><blockquote>
 <p>以上就是关于 [清华开源操作系统训练营] 第四课学到的知识，文件系统领域仍有很多待探索之处，后续的学习之路亦颇为漫长。希望这节课对您有所帮助。祝大家玩得开心 ^_^</p>
+</blockquote>
+<blockquote>
 <p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
 </blockquote>
-<p><img src="images/wechat-blog.png" alt="公众号"></p>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
 ]]></content>
       <categories>
         <category>RISC-V</category>
@@ -1491,19 +1562,20 @@
     <title>逆境中的学习与成长：我的开源操作系统训练营之旅</title>
     <url>/2023/11/01/risc-v-learning-summary/</url>
     <content><![CDATA[<h2 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h2><p>今年的经济形势确实不容乐观。没错，我就是那位大龄失业的程序员。在寻找工作的同时，我尝试将自己的经验和心得整理成文章，发布在名为《猿禹宙》的微信公众号上，希望能为广大读者提供一些帮助。如果这些文章对您有所启发，请您不吝啬地关注、转发、点个赞、赏 1 元以示支持。广告部分到此结束，接下来我要分享一次偶然的相遇。</p>
-<p><img src="images/wechat-blog.png" alt="微信公众号"></p>
+<p><img src="/images/wechat-blog.png" alt="微信公众号"></p>
 <span id="more"></span>
+
 <h2 id="偶遇-rCore-经历"><a href="#偶遇-rCore-经历" class="headerlink" title="偶遇 rCore 经历"></a>偶遇 rCore 经历</h2><p>在一次无意间的机会，Rust 中文社区创始人 MT 在群里推荐了《2023 秋冬季开源操作系统训练营》活动。操作系统一直是我想深入学习的领域，因此，我毫不犹豫地报名并坚定地参与了整个过程。根据操作系统官网对该活动的介绍，这无疑是一次难得的学习机会。</p>
 <p>在这个训练营中，我结识了许多志同道合的朋友，共同探讨开源操作系统的未来发展。我们深入交流了许多技术话题，分享了各自的心得体会。这次经历让我受益匪浅，也让我对这个领域有了更为深入的了解。</p>
 <p>尽管目前的经济形势不容乐观，但我相信只要我们不断学习、充实自己，总会迎来属于自己的春天。希望我的经历和分享能给大家带来一些启示。再次感谢各位的支持，我会继续努力，为大家带来更多有价值的内容。</p>
 <p>让我们共同期待，在未来的某一天，当我们迈向成功的道路上时，会遇到更多美好的机遇。愿我们都能在不断学习和成长中，找到属于自己的价值和幸福。</p>
 <h2 id="课程总结"><a href="#课程总结" class="headerlink" title="课程总结"></a>课程总结</h2><h3 id="第一阶段总结"><a href="#第一阶段总结" class="headerlink" title="第一阶段总结"></a>第一阶段总结</h3><p>在第一阶段的 Rust 编程培训中，虽然我觉得过程相对顺利，但在工作中用得却不多。不过，我在查阅过去的代码仓库时，发现了一个有趣的事实：原来早在两年前，我就已经开始接触 Rust，并已做过 Rustlings 题目，当时的版本还是 1.53。令人难以置信的是，Rust 已经发展到了 1.73 版本，并且开源项目也如雨后春笋般涌现。这让我对 Rust 的未来充满期待，也坚定了我在这条路上继续前行的决心。</p>
 <h3 id="第二阶段总结"><a href="#第二阶段总结" class="headerlink" title="第二阶段总结"></a>第二阶段总结</h3><h4 id="那段回忆"><a href="#那段回忆" class="headerlink" title="那段回忆"></a>那段回忆</h4><p>由于这些年我的工作主要集中在上层应用开发，对操作系统的了解仅限于学生时代的点滴记忆。因此，在第二阶段的学习中，许多不懂的知识点会让我卡住很长时间。然而，得益于失业这段时间，我能够投入更多的时间来深入学习课程。从早上 7 点多起床，一直到晚上 11 点，我才会愿意结束学习，洗漱后入睡。这样的努力让我在操作系统领域取得了显著的进步。</p>
-<h4 id="粉丝认可"><a href="#粉丝认可" class="headerlink" title="粉丝认可"></a>粉丝认可</h4><p>在失业半年里，养成了写文章的习惯。于是，我将这门课程的学习过程及时记录在了 <a href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg4Nzk4MTY3Nw==&amp;action=getalbum&amp;album_id=3162993568748208133&amp;scene=173&amp;from_msgid=2247483973&amp;from_itemidx=1&amp;count=3&amp;nolastread=1#wechat_redirect">#RISC-V</a> 系列笔记中。在总结的过程中，我不仅巩固了自己的所学，还能为他人在成长过程中提供帮助。一些粉丝在后台留言表示，清华的这份笔记非常精彩。看到这些肯定与鼓励，我倍感欣慰，这也激发了我继续在求学道路上前行的信心和动力。同时，我也深感荣幸能为他们的学习提供帮助。我会继续努力，为大家分享更多有价值的内容。</p>
+<h4 id="粉丝认可"><a href="#粉丝认可" class="headerlink" title="粉丝认可"></a>粉丝认可</h4><p>在失业半年里，养成了写文章的习惯。于是，我将这门课程的学习过程及时记录在了 <a href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg4Nzk4MTY3Nw==&action=getalbum&album_id=3162993568748208133&scene=173&from_msgid=2247483973&from_itemidx=1&count=3&nolastread=1#wechat_redirect">#RISC-V</a> 系列笔记中。在总结的过程中，我不仅巩固了自己的所学，还能为他人在成长过程中提供帮助。一些粉丝在后台留言表示，清华的这份笔记非常精彩。看到这些肯定与鼓励，我倍感欣慰，这也激发了我继续在求学道路上前行的信心和动力。同时，我也深感荣幸能为他们的学习提供帮助。我会继续努力，为大家分享更多有价值的内容。</p>
 <h4 id="硬啃术语"><a href="#硬啃术语" class="headerlink" title="硬啃术语"></a>硬啃术语</h4><p>面对众多术语，如 rCore、bare metal、qemu、elf、abi、sbi、RISC-V 等，感到各种困惑和不解。尤其是那些汇编代码，以及为何指令对齐要设置为 align 3 这样的问题，更是让人摸不着头脑。</p>
 <p>后来查阅资料逐渐了解这些术语和概念。</p>
 <ul>
-<li>rCore 是一个用 Rust 编写的操作系统，兼容 Linux，支持 x86_64、RISCV32/64、AArch64 与 MIPS32 平台</li>
+<li>rCore 是一个用 Rust 编写的操作系统，兼容 Linux，支持 x86_64、RISCV32&#x2F;64、AArch64 与 MIPS32 平台</li>
 <li>bare metal 是指没有操作系统的硬件</li>
 <li>qemu 是一个开源的硬件仿真器</li>
 <li>ELF 是 Executable and Linkable Format（可执行和可链接格式）的缩写，是一种计算机可执行文件格式；</li>
@@ -1522,6 +1594,7 @@
 <p>感谢老师们辛勤付出，为我们奠定扎实的专业基础。这次学习经历对我们来说，无疑是人生中难能可贵的财富。</p>
 <p>再次向清华的老师们表达诚挚的感谢，愿我们在未来的学习和工作中，秉持清华精神，为社会和国家的发展贡献自己的力量。</p>
 <!-- link -->
+
 ]]></content>
       <categories>
         <category>report</category>
@@ -1535,31 +1608,31 @@
   <entry>
     <title>RISC-V：跟着清华训练营从零打造OS【第五课】</title>
     <url>/2023/11/04/risc-v-learning-ch5/</url>
-    <content><![CDATA[<h2 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h2><p>在 <a href="http://lispking.github.io/2023/11/01/risc-v-learning-ch4/">RISC-V：跟着清华训练营从零打造OS【第四课】</a>中，我们主要讲解了文件系统在操作系统中的重要性，并讲述了UNIX操作系统的创始人 Ken Thompson 在编写一个测试程序时，意识到可以将其扩展成一个文件系统，从而创造了UNIX操作系统的故事。还介绍了EasyFS文件系统的设计和实现，包括常规文件和目录文件的新增，以及文件系统的核心数据结构和块缓存管理器的实现。最后，还介绍了EasyFS的五个不同层次的设计和相关接口代码定义，本节课是第二阶段的最后一节课，主要讲解进程间通信、I/O重定向和并发的设计。</p>
-<h2 id="进程间通信与I-O重定向"><a href="#进程间通信与I-O重定向" class="headerlink" title="进程间通信与I/O重定向"></a>进程间通信与I/O重定向</h2><p>截至目前，进程在输入和输出方面仍存在不少限制。尤其是进程能够进行交互的 I/O 资源相当有限，仅能接收用户在键盘上的输入，并将字符输出到屏幕上。我们通常将这些 I/O 通道分别称为标准输入和标准输出。更令应用开发者感到受限的是，进程被操作系统完全隔离。由于进程间无法方便地“沟通”，它们很难共同协作完成“大事”。</p>
+    <content><![CDATA[<h2 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h2><p>在 <a href="http://lispking.github.io/2023/11/01/risc-v-learning-ch4/">RISC-V：跟着清华训练营从零打造OS【第四课】</a>中，我们主要讲解了文件系统在操作系统中的重要性，并讲述了UNIX操作系统的创始人 Ken Thompson 在编写一个测试程序时，意识到可以将其扩展成一个文件系统，从而创造了UNIX操作系统的故事。还介绍了EasyFS文件系统的设计和实现，包括常规文件和目录文件的新增，以及文件系统的核心数据结构和块缓存管理器的实现。最后，还介绍了EasyFS的五个不同层次的设计和相关接口代码定义，本节课是第二阶段的最后一节课，主要讲解进程间通信、I&#x2F;O重定向和并发的设计。</p>
+<h2 id="进程间通信与I-O重定向"><a href="#进程间通信与I-O重定向" class="headerlink" title="进程间通信与I&#x2F;O重定向"></a>进程间通信与I&#x2F;O重定向</h2><p>截至目前，进程在输入和输出方面仍存在不少限制。尤其是进程能够进行交互的 I&#x2F;O 资源相当有限，仅能接收用户在键盘上的输入，并将字符输出到屏幕上。我们通常将这些 I&#x2F;O 通道分别称为标准输入和标准输出。更令应用开发者感到受限的是，进程被操作系统完全隔离。由于进程间无法方便地“沟通”，它们很难共同协作完成“大事”。</p>
 <p>如果能实现不同进程之间的数据共享与交互，就可以将各种程序的功能组合在一起，形成更强大且灵活的功能。为了让简单的应用程序能够通过组合形成各种强大和复杂的功能，本章将介绍操作系统的核心目标：<strong>实现不同应用通过进程间通信的方式组合在一起运行。</strong></p>
-<p>首先，我们建立一个基于文件的统一 <strong>I/O 抽象</strong>，将标准输入/标准输出的访问转换为文件描述符。接着，我们基于文件描述符实现了一种父子进程之间的通信机制 —— <strong>管道</strong>，从而实现灵活的进程间通信。通过文件抽象和管道，我们支持不同的独立进程之间动态组合，以实现复杂功能。</p>
+<p>首先，我们建立一个基于文件的统一 <strong>I&#x2F;O 抽象</strong>，将标准输入&#x2F;标准输出的访问转换为文件描述符。接着，我们基于文件描述符实现了一种父子进程之间的通信机制 —— <strong>管道</strong>，从而实现灵活的进程间通信。通过文件抽象和管道，我们支持不同的独立进程之间动态组合，以实现复杂功能。</p>
 <p>此外，通过实现信号机制，进程和操作系统可以主动发出信号，异步地通知其他进程相关事件。这样，我们就构建了一个具有团队协作能力的白垩纪 <strong>“迅猛龙”</strong> 操作系统。在这个操作系统中，进程间可以高效地协作，实现更强大的功能，犹如迅猛龙一般迅猛且灵活。</p>
-<p><img src="images/risc-v/IPCOS.png" alt="IPCOS"></p>
+<p><img src="/images/risc-v/IPCOS.png" alt="IPCOS"></p>
 <p>从上图可以看出，迅猛龙操作系统 —— <strong>IPCOS</strong> 增加了两种通信机制：</p>
 <ol>
 <li>用于交换数据的管道（<code>Pipe</code>）机制</li>
 <li>用于发送异步通知事件的信号（<code>signal</code>）机制。</li>
 </ol>
 <p>应用程序可以通过新增的管道和信号相关的系统调用实现进程间通信。这两种机制所对应的资源均由进程管理。如下图所示：</p>
-<p><img src="images/risc-v/PCB-PIPE.png" alt="PCB-PIPE"></p>
+<p><img src="/images/risc-v/PCB-PIPE.png" alt="PCB-PIPE"></p>
 <p>这里将管道视为一种特殊的内存文件，并在进程的打开文件表 <code>fd_table</code> 中进行管理。进程可以通过文件读写系统调用方便地实现基于管道的中间数据交换。而信号作为一种进程管理的资源，发送信号的进程可以通过系统调用向接收信号的目标进程的控制块中的 <code>signal</code> 结构更新所发信号信息。</p>
 <p>操作系统通过扩展 <code>trap_handler</code> 中从内核态返回到用户态的处理流程，改变了接收信号的目标进程的执行上下文。这样，接收信号的目标进程可以优先执行处理信号事件的预设函数 <code>signal_handler</code>。在处理完信号后，进程将继续执行之前暂停的工作。这种设计使得进程能够更加高效地响应和处理各种信号事件，进一步提高系统的稳定性和可靠性。</p>
 <p>实现迅猛龙操作系统的过程主要涉及对各种内核数据结构和相关操作的不断扩展，以支持以下功能：</p>
 <ol>
-<li><strong>标准输入/输出文件</strong>：确保操作系统支持标准输入（如键盘）和标准输出（如屏幕）文件，以便进程能够读取和输出数据。</li>
+<li><strong>标准输入&#x2F;输出文件</strong>：确保操作系统支持标准输入（如键盘）和标准输出（如屏幕）文件，以便进程能够读取和输出数据。</li>
 <li><strong>管道文件</strong>：实现管道文件，支持进程间数据传输和通信。这是一种特殊的文件，允许一个进程将输出传递给另一个进程作为输入。</li>
 <li><strong>应用程序命令行参数解析和传递</strong>：完善操作系统功能，使应用程序能够方便地解析和传递命令行参数，以便更好地控制程序行为。</li>
-<li><strong>标准 I/O 重定向功能</strong>：支持将进程的输入和输出重定向到其他文件或设备，以便在程序运行过程中灵活地调整数据传输路径。</li>
+<li><strong>标准 I&#x2F;O 重定向功能</strong>：支持将进程的输入和输出重定向到其他文件或设备，以便在程序运行过程中灵活地调整数据传输路径。</li>
 <li><strong>信号支持</strong>：实现信号机制，使进程和操作系统能够主动发出信号，异步地通知其他进程相关事件。这有助于提高系统的响应速度和稳定性。</li>
 </ol>
 <p>最后，一起看看信号的处理流程：</p>
-<p><img src="images/risc-v/sigaction.png" alt="sigaction"></p>
+<p><img src="/images/risc-v/sigaction.png" alt="sigaction"></p>
 <p>信号主要有两种来源：</p>
 <ol>
 <li><strong>异步信号</strong>：在进程正常执行过程中，内核或其他进程向其发送信号。这些信号称为异步信号，是信号的第一种来源。</li>
@@ -1581,7 +1654,7 @@
 <p>贝尔实验室 Victor A. Vyssotsky 提出线程（thread）概念</p>
 <p>1964年开始设计的 Multics 操作系统已经有进程的概念，也有多处理器并行处理的 GE 645 硬件设计，甚至提出了线程（ thread ）的概念。1966年，参与 Multics 开发的 MIT 博士生 Jerome Howard Saltzer 在其博士毕业论文的一个注脚提到贝尔实验室的 Victor A. Vyssotsky 用 thread 这个名称来表示处理器（processor）执行程序（program）代码序列这个过程的抽象概念，Saltzer 进一步把”进程（process）”描述为处理器执行程序代码的当前状态（即线程）和可访问的地址空间。但他们并没有建立类似信号量这样的有效机制来避免并发带来的同步互斥问题。</p>
 </blockquote>
-<p>引入线程（Thread）的主要原因是为了提高整个系统的并行/并发执行效率。考虑以下情况：许多应用程序（以单一进程的形式运行）在逻辑上由多个可并行执行的任务组成。如果其中一个任务受到阻塞，整个进程也将被阻塞。这意味着与阻塞任务无关的其他任务也会受到影响，尽管它们实际上本不应受到干扰。这种情况降低了系统的并发执行效率。</p>
+<p>引入线程（Thread）的主要原因是为了提高整个系统的并行&#x2F;并发执行效率。考虑以下情况：许多应用程序（以单一进程的形式运行）在逻辑上由多个可并行执行的任务组成。如果其中一个任务受到阻塞，整个进程也将被阻塞。这意味着与阻塞任务无关的其他任务也会受到影响，尽管它们实际上本不应受到干扰。这种情况降低了系统的并发执行效率。</p>
 <p>为了解决这个问题，引入了线程这一概念。线程是进程内部的一个轻量级执行单元，它们可以独立地执行任务并进行任务切换。当一个任务被阻塞时，线程可以根据需要切换到其他可执行的任务，从而避免整个进程受到阻塞的影响。这样，系统的并发执行效率得到提高，资源利用率也得到优化。同时，线程还可以充分利用多核 CPU 的性能，进一步提高了整个系统的执行效率。</p>
 <h4 id="线程与进程的区别："><a href="#线程与进程的区别：" class="headerlink" title="线程与进程的区别："></a>线程与进程的区别：</h4><ul>
 <li>进程之间相互独立（即资源隔离），而同一进程内的各线程共享进程资源（即资源共享）。</li>
@@ -1594,27 +1667,27 @@
 <p>总之，线程和进程在资源管理、通信机制和执行上下文方面存在显著差异。这些差异使得线程在多任务处理、资源利用和通信效率方面具有优势，从而提高了整个系统的性能。</p>
 </blockquote>
 <h4 id="并发相关术语："><a href="#并发相关术语：" class="headerlink" title="并发相关术语："></a>并发相关术语：</h4><ul>
-<li>共享资源（shared resource）：不同的线程/进程都能访问的变量或数据结构。</li>
+<li>共享资源（shared resource）：不同的线程&#x2F;进程都能访问的变量或数据结构。</li>
 <li>临界区（critical section）：访问共享资源的一段代码。</li>
-<li>竞态条件（race condition）：多个线程/进程都进入临界区时，都试图更新共享的数据结构，导致产生了不期望的结果。</li>
-<li>不确定性（indeterminate）： 多个线程/进程在执行过程中出现了竞态条件，导致执行结果取决于哪些线程在何时运行，即执行结果不确定，而开发者期望得到的是确定的结果。</li>
+<li>竞态条件（race condition）：多个线程&#x2F;进程都进入临界区时，都试图更新共享的数据结构，导致产生了不期望的结果。</li>
+<li>不确定性（indeterminate）： 多个线程&#x2F;进程在执行过程中出现了竞态条件，导致执行结果取决于哪些线程在何时运行，即执行结果不确定，而开发者期望得到的是确定的结果。</li>
 <li>原子性（atomic）：一系列操作要么全部完成，要么一个都没执行，不会看到中间状态。在数据库领域，具有原子性的一系列操作称为事务（transaction）。</li>
 <li>互斥（mutual exclusion）：一种原子性操作，能保证同一时间只有一个线程进入临界区，从而避免出现竞态条件，并产生确定的预期执行结果。</li>
-<li>同步（synchronization）：多个并发执行的进程/线程在一些关键点上需要互相等待，这种相互制约的等待称为进程/线程同步。</li>
-<li>死锁（dead lock）：一个线程/进程集合里面的每个线程/进程都在等待只能由这个集合中的其他一个线程/进程（包括他自身）才能引发的事件，这种情况就是死锁。</li>
-<li>饥饿（hungry）：指一个可运行的线程/进程尽管能继续执行，但由于操作系统的调度而被无限期地忽视，导致不能执行的情况。</li>
+<li>同步（synchronization）：多个并发执行的进程&#x2F;线程在一些关键点上需要互相等待，这种相互制约的等待称为进程&#x2F;线程同步。</li>
+<li>死锁（dead lock）：一个线程&#x2F;进程集合里面的每个线程&#x2F;进程都在等待只能由这个集合中的其他一个线程&#x2F;进程（包括他自身）才能引发的事件，这种情况就是死锁。</li>
+<li>饥饿（hungry）：指一个可运行的线程&#x2F;进程尽管能继续执行，但由于操作系统的调度而被无限期地忽视，导致不能执行的情况。</li>
 </ul>
-<p><img src="images/risc-v/ThreadCoroutineOS.png" alt="ThreadCoroutineOS"></p>
-<p>从上图中可以看到，Thread&amp;Coroutine OS 引入了用户态管理的用户态线程/用户态协程以及内核态管理的用户态线程。针对用户态管理的用户态线程和协程，新增了一个运行在用户态的 Thread/Coroutine Manager 运行时库（Runtime Lib），无需修改操作系统内核。</p>
+<p><img src="/images/risc-v/ThreadCoroutineOS.png" alt="ThreadCoroutineOS"></p>
+<p>从上图中可以看到，Thread&amp;Coroutine OS 引入了用户态管理的用户态线程&#x2F;用户态协程以及内核态管理的用户态线程。针对用户态管理的用户态线程和协程，新增了一个运行在用户态的 Thread&#x2F;Coroutine Manager 运行时库（Runtime Lib），无需修改操作系统内核。</p>
 <p>对于内核态管理的用户态线程，需要新增线程控制块（Thread Control Block, TCB）结构，将之前进程控制块（Process Control Block, PCB）中与执行相关的内容剥离给线程控制块。同时，对进程控制块进行进一步重构，将线程控制块列表作为进程控制块中的一部分资源，使一个进程控制块能够管理多个线程。最后，还提供了与线程相关的系统调用，如创建线程、等待线程结束等，以支持多线程应用的执行。</p>
 <p>通过这些改进，Thread&amp;Coroutine OS 实现了对用户态线程和协程的有效管理，提高了系统的并发性能和资源利用率。同时，内核态线程管理的改进使得多线程应用能够更加高效地运行，降低了操作系统复杂性，并为开发者提供了更加便捷的多线程编程接口。</p>
 <p>在这里可以将进程、线程和协程中的控制流执行视为任务（Task）的执行过程，如下图所示：</p>
-<p><img src="images/risc-v/TaskProcess.png" alt="TaskProcess"></p>
+<p><img src="/images/risc-v/TaskProcess.png" alt="TaskProcess"></p>
 <p>在上图所示的层次结构中，进程包含线程（即有栈协程），线程包含无栈协程。它们的层次包含关系体现了任务在不同抽象层次上的组织和管理。</p>
 <p>任务切换是进程、线程和协程执行过程中的关键环节，涉及到控制流的切换。任务切换的核心是上下文保存与恢复，而任务上下文的核心部分是各个任务分时共享的硬件寄存器内容。<br>对于无栈协程，只需切换这些寄存器；对于拥有独立栈的线程，还需要切换线程栈；而对于拥有独立地址空间的进程，还需进一步切换地址空间（即切换页表）。</p>
 <p>这种层次化的任务切换策略使得操作系统能够高效地管理不同层次的任务，实现任务之间的协同执行。理解这些层次关系和切换机制有助于我们更好地利用多核处理器资源，提高系统的并发性能和资源利用率。同时，为开发者提供了更加便捷的多线程、多进程和协程编程接口，降低了编写高性能并发程序的难度。</p>
 <p>进一步增加了同步互斥机制的慈母龙操作系统 – SyncMutexOS的总体结构如下图所示：</p>
-<p><img src="images/risc-v/SyncMutexOS.png" alt="SyncMutexOS"></p>
+<p><img src="/images/risc-v/SyncMutexOS.png" alt="SyncMutexOS"></p>
 <p>在上图所示的进程控制块中，增加了互斥锁（Mutex）、信号量（Semaphore）和条件变量（Condvar）这三种资源，并提供了与这些同步互斥资源相关的系统调用。这使得多线程应用能够利用这些同步互斥机制来解决各种同步互斥问题，例如生产者消费者问题、哲学家问题、读者写者问题等。</p>
 <p>互斥锁、信号量和条件变量是多线程编程中常见的同步互斥工具，它们可以帮助线程在共享资源访问过程中避免竞争条件和死锁。</p>
 <p>互斥锁用于保护共享资源，确保同一时间只有一个线程可以访问资源。当一个线程需要访问受保护的资源时，它必须先获得互斥锁，访问完成后释放互斥锁，以便其他线程访问该资源。</p>
@@ -1622,9 +1695,11 @@
 <p>通过提供这些同步互斥机制，操作系统为多线程应用提供了强大的工具来解决各种同步互斥问题。这有助于确保多线程应用在共享资源访问方面的正确性和稳定性，同时提高了系统的并发性能。理解和使用这些同步互斥机制是多线程编程的关键，有助于避免潜在的并发问题，确保程序正确运行。</p>
 <h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2><blockquote>
 <p>以上就是关于 [清华开源操作系统训练营] 第五课学到的知识，同时也是第二阶段的最后一节课。接下来，我们将迈入富有挑战的第三阶段。第三阶段将持续一个月，涵盖众多课程，如 ArceOS、Rust for Linux、协程异步 OS 等。我已选修《Rust for Linux》这门课程，初衷是为了为未来的 Linux 设备驱动开发贡献力量。实际上，我对这些课程都充满兴趣，待后续开课时再报名继续学习。最后，希望这节课能对您有所帮助。祝大家玩得开心 ^_^</p>
+</blockquote>
+<blockquote>
 <p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
 </blockquote>
-<p><img src="images/wechat-blog.png" alt="公众号"></p>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
 ]]></content>
       <categories>
         <category>RISC-V</category>
@@ -1644,6 +1719,7 @@
 <p>首先，让我们一起来查看本节课的练习题目：<code>Rust for Linux</code> 仓库源码获取，编译环境部署，及Rust内核编译。之后尝试在模拟器 <code>Qemu</code> 上运行起来。</p>
 <h3 id="练习过程及运行结果"><a href="#练习过程及运行结果" class="headerlink" title="练习过程及运行结果"></a>练习过程及运行结果</h3><p>因为 <code>Rust-for-Linux/linux</code> 仓库下载确实太慢，所以，这次实验使用仓库是 <code>fujita/linux</code>：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone git@github.com:fujita/linux.git -b rust-e1000 --depth 1 linux-rust-e1000</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>注：这里用了两个小技巧：</p>
 <ol>
@@ -1657,55 +1733,66 @@
 <li>虚拟机：<code>Ubuntu 23.04</code></li>
 </ul>
 <h4 id="环境依赖"><a href="#环境依赖" class="headerlink" title="环境依赖"></a>环境依赖</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># first Update</span></span></span><br><span class="line">sudo apt-get update</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Install dependency packages</span></span></span><br><span class="line">sudo apt-get -y install \</span><br><span class="line">  binutils build-essential libtool texinfo \</span><br><span class="line">  gzip zip unzip patchutils curl git \</span><br><span class="line">  make cmake ninja-build automake bison flex gperf \</span><br><span class="line">  grep sed gawk bc \</span><br><span class="line">  zlib1g-dev libexpat1-dev libmpc-dev \</span><br><span class="line">  libglib2.0-dev libfdt-dev libpixman-1-dev libelf-dev libssl-dev</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Install the LLVM</span></span></span><br><span class="line">sudo apt-get install clang-format clang-tidy clang-tools clang clangd libc++-dev libc++1 libc++abi-dev libc++abi1 libclang-dev libclang1 liblldb-dev libllvm-ocaml-dev libomp-dev libomp5 lld lldb llvm-dev llvm-runtime llvm python3-clang</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Add Rust environment</span></span></span><br><span class="line">cd linux</span><br><span class="line">make LLVM=1 rustavailable</span><br><span class="line">rustup override set $(scripts/min-tool-version.sh rustc)</span><br><span class="line">rustup component add rust-src</span><br><span class="line">cargo install --locked --version $(scripts/min-tool-version.sh bindgen) bindgen</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>小技巧：若本地已经安装过 <code>bindgen</code>，在执行 <code>make LLVM=1 rustavailable</code> 会提示版本有差异，可以使用 <code>--force</code> 命令强制安装当前 <code>linux</code> 源码需要用到的版本。</p>
 </blockquote>
 <h3 id="1-生成默认配置"><a href="#1-生成默认配置" class="headerlink" title="1. 生成默认配置"></a>1. 生成默认配置</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">make ARCH=arm64 LLVM=1 O=build defconfig</span><br></pre></td></tr></table></figure>
-<p><img src="images/rust-for-linux/make-defconfig-result.png" alt="make-defconfig-result"></p>
+
+<p><img src="/images/rust-for-linux/make-defconfig-result.png" alt="make-defconfig-result"></p>
 <h3 id="2-支持-Rust-选项开启"><a href="#2-支持-Rust-选项开启" class="headerlink" title="2. 支持 Rust 选项开启"></a>2. 支持 Rust 选项开启</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">make ARCH=arm64 LLVM=1 O=build menuconfig</span><br></pre></td></tr></table></figure>
-<h4 id="2-1-进入配置页面，按回车选择-General-setup"><a href="#2-1-进入配置页面，按回车选择-General-setup" class="headerlink" title="2.1 进入配置页面，按回车选择 General setup"></a>2.1 进入配置页面，按回车选择 <code>General setup</code></h4><p><img src="images/rust-for-linux/General-setup.png" alt="General-setup"></p>
-<h4 id="2-2-滚动到最下方，按空格选择-Rust-support，然后，按-ESC-返回上一层"><a href="#2-2-滚动到最下方，按空格选择-Rust-support，然后，按-ESC-返回上一层" class="headerlink" title="2.2 滚动到最下方，按空格选择 Rust support，然后，按 ESC 返回上一层"></a>2.2 滚动到最下方，按空格选择 <code>Rust support</code>，然后，按 <code>ESC</code> 返回上一层</h4><p><img src="images/rust-for-linux/make-menuconfig-result.png" alt="make-menuconfig-result"></p>
-<h4 id="2-3-再按一次-ESC-弹窗，按回车确认-Yes-即可保存配置"><a href="#2-3-再按一次-ESC-弹窗，按回车确认-Yes-即可保存配置" class="headerlink" title="2.3 再按一次 ESC 弹窗，按回车确认 Yes 即可保存配置"></a>2.3 再按一次 <code>ESC</code> 弹窗，按回车确认 <code>Yes</code> 即可保存配置</h4><p><img src="images/rust-for-linux/Yes-confirm.png" alt="Yes-confirm"></p>
-<h4 id="2-4-配置保存结果如下图所示："><a href="#2-4-配置保存结果如下图所示：" class="headerlink" title="2.4 配置保存结果如下图所示："></a>2.4 配置保存结果如下图所示：</h4><p><img src="images/rust-for-linux/save-config.png" alt="save-config"></p>
+
+<h4 id="2-1-进入配置页面，按回车选择-General-setup"><a href="#2-1-进入配置页面，按回车选择-General-setup" class="headerlink" title="2.1 进入配置页面，按回车选择 General setup"></a>2.1 进入配置页面，按回车选择 <code>General setup</code></h4><p><img src="/images/rust-for-linux/General-setup.png" alt="General-setup"></p>
+<h4 id="2-2-滚动到最下方，按空格选择-Rust-support，然后，按-ESC-返回上一层"><a href="#2-2-滚动到最下方，按空格选择-Rust-support，然后，按-ESC-返回上一层" class="headerlink" title="2.2 滚动到最下方，按空格选择 Rust support，然后，按 ESC 返回上一层"></a>2.2 滚动到最下方，按空格选择 <code>Rust support</code>，然后，按 <code>ESC</code> 返回上一层</h4><p><img src="/images/rust-for-linux/make-menuconfig-result.png" alt="make-menuconfig-result"></p>
+<h4 id="2-3-再按一次-ESC-弹窗，按回车确认-Yes-即可保存配置"><a href="#2-3-再按一次-ESC-弹窗，按回车确认-Yes-即可保存配置" class="headerlink" title="2.3 再按一次 ESC 弹窗，按回车确认 Yes 即可保存配置"></a>2.3 再按一次 <code>ESC</code> 弹窗，按回车确认 <code>Yes</code> 即可保存配置</h4><p><img src="/images/rust-for-linux/Yes-confirm.png" alt="Yes-confirm"></p>
+<h4 id="2-4-配置保存结果如下图所示："><a href="#2-4-配置保存结果如下图所示：" class="headerlink" title="2.4 配置保存结果如下图所示："></a>2.4 配置保存结果如下图所示：</h4><p><img src="/images/rust-for-linux/save-config.png" alt="save-config"></p>
 <h3 id="3-编译内核"><a href="#3-编译内核" class="headerlink" title="3. 编译内核"></a>3. 编译内核</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd build &amp;&amp; time make ARCH=arm64 LLVM=1 -j8</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>编译结果如下图所示，代表编译成功（整体时间花费约 <code>半小时</code>），若编译出错，最后会出现 <code>Error</code> 字眼</p>
 </blockquote>
-<p><img src="images/rust-for-linux/compile-result.png" alt="compile-result"></p>
+<p><img src="/images/rust-for-linux/compile-result.png" alt="compile-result"></p>
 <h3 id="4-进入-Qemu-环境验证"><a href="#4-进入-Qemu-环境验证" class="headerlink" title="4. 进入 Qemu 环境验证"></a>4. 进入 <code>Qemu</code> 环境验证</h3><h4 id="4-1-准备-busybox-工具"><a href="#4-1-准备-busybox-工具" class="headerlink" title="4.1 准备 busybox 工具"></a>4.1 准备 <code>busybox</code> 工具</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 下载，写作时，最新版本是 busybox-1.36.1</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">wget https://busybox.net/downloads/busybox-1.36.1.tar.bz2</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 解压</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tar xjf busybox-1.36.1.tar.bz2</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 进入目录</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> busybox-1.36.1</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 开启静态二进制，架构用 arm64</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make menuconfig ARCH=arm64</span></span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>进入 <code>busybox</code> 菜单选择页，在 <code>Settings</code> 按回车进入下一个页面</p>
 </blockquote>
-<p><img src="images/rust-for-linux/busybox-setting.png" alt="busybox-setting"></p>
+<p><img src="/images/rust-for-linux/busybox-setting.png" alt="busybox-setting"></p>
 <blockquote>
 <p>找到 <code>Build static binary (no shared libs)</code> 选项，并按空格选中后，按 <code>ESC</code> 返回上层，再按一次进入提示保存页面，回车选择 <code>Yes</code> 保存即完成静态二进制编译支持。</p>
 </blockquote>
-<p><img src="images/rust-for-linux/busybox-setting-build-static-binary.png" alt="busybox-setting-build-staice-binary"></p>
+<p><img src="/images/rust-for-linux/busybox-setting-build-static-binary.png" alt="busybox-setting-build-staice-binary"></p>
 <blockquote>
 <p>编译 busybox 二进制文件，并将该执行文件 copy 到 linux 源码目录</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 编译 busybox，编译成功后，会生成 busybox 可执行文件在 busybox-1.36.1 目录下</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make -j8</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 拷贝文件到 rust-for-linux 工程项目根目录</span></span></span><br><span class="line">cp /tmp/busybox-1.36.1/busybox $HOME/linux/</span><br></pre></td></tr></table></figure>
+
 <h4 id="4-2-开启-Rust-Samples"><a href="#4-2-开启-Rust-Samples" class="headerlink" title="4.2 开启 Rust Samples"></a>4.2 开启 <code>Rust Samples</code></h4><ul>
-<li><p>按 <a href="#2-支持-rust-选项开启">2. 支持 Rust 选项开启</a> 步骤，重新进入 <code>menuconfig</code>，开启所有 <code>Rust Samples</code></p>
+<li><p>按 <a href="#2-%E6%94%AF%E6%8C%81-rust-%E9%80%89%E9%A1%B9%E5%BC%80%E5%90%AF">2. 支持 Rust 选项开启</a> 步骤，重新进入 <code>menuconfig</code>，开启所有 <code>Rust Samples</code></p>
 </li>
 <li><p>增加 <code>rust_module_parameters</code> 模块，并将文件名及源码内容作如下修改</p>
 </li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd $HOME/linux</span><br><span class="line"></span><br><span class="line">cp samples/rust/rust_module_parameters.rs samples/rust/rust_module_parameters_builtin_default.rs</span><br><span class="line">cp samples/rust/rust_module_parameters.rs samples/rust/rust_module_parameters_builtin_custom.rs</span><br><span class="line">cp samples/rust/rust_module_parameters.rs samples/rust/rust_module_parameters_loadable_default.rs</span><br><span class="line">cp samples/rust/rust_module_parameters.rs samples/rust/rust_module_parameters_loadable_custom.rs</span><br><span class="line"></span><br><span class="line">sed -i &#x27;s:rust_module_parameters:rust_module_parameters_builtin_default:g&#x27;  samples/rust/rust_module_parameters_builtin_default.rs</span><br><span class="line">sed -i &#x27;s:rust_module_parameters:rust_module_parameters_builtin_custom:g&#x27;   samples/rust/rust_module_parameters_builtin_custom.rs</span><br><span class="line">sed -i &#x27;s:rust_module_parameters:rust_module_parameters_loadable_default:g&#x27; samples/rust/rust_module_parameters_loadable_default.rs</span><br><span class="line">sed -i &#x27;s:rust_module_parameters:rust_module_parameters_loadable_custom:g&#x27;  samples/rust/rust_module_parameters_loadable_custom.rs</span><br><span class="line"></span><br><span class="line">echo &#x27;obj-y	+= rust_module_parameters_builtin_default.o&#x27;  &gt;&gt; samples/rust/Makefile</span><br><span class="line">echo &#x27;obj-y	+= rust_module_parameters_builtin_custom.o&#x27;   &gt;&gt; samples/rust/Makefile</span><br><span class="line">echo &#x27;obj-m	+= rust_module_parameters_loadable_default.o&#x27; &gt;&gt; samples/rust/Makefile</span><br><span class="line">echo &#x27;obj-m	+= rust_module_parameters_loadable_custom.o&#x27;  &gt;&gt; samples/rust/Makefile</span><br></pre></td></tr></table></figure>
 <ul>
-<li>按 <a href="#3-编译内核">3. 编译内核</a> 命令，将 <code>Rust Samples</code> 源码编译成 <code>.ko</code> 文件</li>
+<li>按 <a href="#3-%E7%BC%96%E8%AF%91%E5%86%85%E6%A0%B8">3. 编译内核</a> 命令，将 <code>Rust Samples</code> 源码编译成 <code>.ko</code> 文件</li>
 </ul>
 <h4 id="4-3-生成-qemu-initramfs-img-镜像"><a href="#4-3-生成-qemu-initramfs-img-镜像" class="headerlink" title="4.3 生成 qemu-initramfs.img 镜像"></a>4.3 生成 <code>qemu-initramfs.img</code> 镜像</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed -i <span class="string">&#x27;s:samples/rust/:build/samples/rust/:&#x27;</span> .github/workflows/qemu-initramfs.desc</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">build/usr/gen_init_cpio .github/workflows/qemu-initramfs.desc &gt; qemu-initramfs.img</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="4-4-执行-qemu-命令验证结果"><a href="#4-4-执行-qemu-命令验证结果" class="headerlink" title="4.4 执行 qemu 命令验证结果"></a>4.4 执行 <code>qemu</code> 命令验证结果</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">qemu-system-aarch64 \</span><br><span class="line">  -kernel build/arch/arm64/boot/Image.gz \</span><br><span class="line">  -initrd qemu-initramfs.img \</span><br><span class="line">  -M virt \</span><br><span class="line">  -cpu cortex-a72 \</span><br><span class="line">  -smp 2 \</span><br><span class="line">  -nographic \</span><br><span class="line">  -vga none \</span><br><span class="line">  -no-reboot \</span><br><span class="line">  -append &#x27; \</span><br><span class="line">    rust_module_parameters_builtin_custom.my_bool=n \</span><br><span class="line">    rust_module_parameters_builtin_custom.my_i32=345543 \</span><br><span class="line">    rust_module_parameters_builtin_custom.my_str=🦀mod \</span><br><span class="line">    rust_module_parameters_builtin_custom.my_usize=84 \</span><br><span class="line">    rust_module_parameters_builtin_custom.my_array=1,2,3 \</span><br><span class="line">  &#x27; \</span><br><span class="line">  | sed &#x27;s:\r$::&#x27;</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>若执行结果如下所示，则代表内核准备一切就绪，然后，就可以愉快地开始编写内核驱动了。</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x410fd083]</span><br><span class="line">[    0.000000] Linux version 6.1.0-rc1-gbb59bfc550bc-dirty (lispking@ubuntu) (Ubuntu clang version 15.0.7, Ubuntu LLD 15.0.7) #4 SMP PREEMPT Tue Nov  7 00:39:03 CST 2023</span><br><span class="line">[    0.000000] random: crng init done</span><br><span class="line">[    0.000000] Machine model: linux,dummy-virt</span><br><span class="line">[    0.000000] efi: UEFI not found.</span><br><span class="line">[    0.000000] NUMA: No NUMA configuration found</span><br><span class="line">[    0.000000] NUMA: Faking a node at [mem 0x0000000040000000-0x0000000047ffffff]</span><br><span class="line">[    0.000000] NUMA: NODE_DATA [mem 0x47fb0a00-0x47fb2fff]</span><br><span class="line">[    0.000000] Zone ranges:</span><br><span class="line">[    0.000000]   DMA      [mem 0x0000000040000000-0x0000000047ffffff]</span><br><span class="line">[    0.000000]   DMA32    empty</span><br><span class="line">[    0.000000]   Normal   empty</span><br><span class="line">[    0.000000] Movable zone start for each node</span><br><span class="line">[    0.000000] Early memory node ranges</span><br><span class="line">[    0.000000]   node   0: [mem 0x0000000040000000-0x0000000047ffffff]</span><br><span class="line">[    0.000000] Initmem setup node 0 [mem 0x0000000040000000-0x0000000047ffffff]</span><br><span class="line">[    0.000000] cma: Reserved 32 MiB at 0x0000000045c00000</span><br><span class="line">[    0.000000] psci: probing for conduit method from DT.</span><br><span class="line">[    0.000000] psci: PSCIv1.1 detected in firmware.</span><br><span class="line">[    0.000000] psci: Using standard PSCI v0.2 function IDs</span><br><span class="line">[    0.000000] psci: Trusted OS migration not required</span><br><span class="line">[    0.000000] psci: SMC Calling Convention v1.0</span><br><span class="line">[    0.000000] percpu: Embedded 20 pages/cpu s44840 r8192 d28888 u81920</span><br><span class="line">[    0.000000] Detected PIPT I-cache on CPU0</span><br><span class="line">[    0.000000] CPU features: detected: Spectre-v2</span><br><span class="line">[    0.000000] CPU features: detected: Spectre-v3a</span><br><span class="line">[    0.000000] CPU features: detected: Spectre-v4</span><br><span class="line">[    0.000000] CPU features: detected: Spectre-BHB</span><br><span class="line">[    0.000000] CPU features: kernel page table isolation forced ON by KASLR</span><br><span class="line">[    0.000000] CPU features: detected: Kernel page table isolation (KPTI)</span><br><span class="line">[    0.000000] CPU features: detected: ARM erratum 1742098</span><br><span class="line">[    0.000000] CPU features: detected: ARM errata 1165522, 1319367, or 1530923</span><br><span class="line">[    0.000000] alternatives: applying boot alternatives</span><br><span class="line">[    0.000000] Fallback order for Node 0: 0</span><br><span class="line">[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 32256</span><br><span class="line">[    0.000000] Policy zone: DMA</span><br><span class="line">[    0.000000] Kernel command line:  \</span><br><span class="line">[    0.000000]     rust_module_parameters_builtin_custom.my_bool=n \</span><br><span class="line">[    0.000000]     rust_module_parameters_builtin_custom.my_i32=345543 \</span><br><span class="line">[    0.000000]     rust_module_parameters_builtin_custom.my_str=🦀mod \</span><br><span class="line">[    0.000000]     rust_module_parameters_builtin_custom.my_usize=84 \</span><br><span class="line">[    0.000000]     rust_module_parameters_builtin_custom.my_array=1,2,3 \</span><br><span class="line">[    0.000000]</span><br><span class="line">[    0.000000] Unknown kernel command line parameters &quot;\ \ \ \ \ \&quot;, will be passed to user space.</span><br><span class="line">[    0.000000] Dentry cache hash table entries: 16384 (order: 5, 131072 bytes, linear)</span><br><span class="line">[    0.000000] Inode-cache hash table entries: 8192 (order: 4, 65536 bytes, linear)</span><br><span class="line">[    0.000000] mem auto-init: stack:all(zero), heap alloc:off, heap free:off</span><br><span class="line">[    0.000000] Memory: 58068K/131072K available (16640K kernel code, 3724K rwdata, 9340K rodata, 1920K init, 610K bss, 40236K reserved, 32768K cma-reserved)</span><br><span class="line">[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=2, Nodes=1</span><br><span class="line">[    0.000000] rcu: Preemptible hierarchical RCU implementation.</span><br><span class="line">[    0.000000] rcu: 	RCU event tracing is enabled.</span><br><span class="line">[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=256 to nr_cpu_ids=2.</span><br><span class="line">[    0.000000] 	Trampoline variant of Tasks RCU enabled.</span><br><span class="line">[    0.000000] 	Tracing variant of Tasks RCU enabled.</span><br><span class="line">[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.</span><br><span class="line">[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=2</span><br><span class="line">[    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0</span><br><span class="line">[    0.000000] Root IRQ handler: gic_handle_irq</span><br><span class="line">[    0.000000] GICv2m: range[mem 0x08020000-0x08020fff], SPI[80:143]</span><br><span class="line">[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.</span><br><span class="line">[    0.000000] arch_timer: cp15 timer(s) running at 62.50MHz (virt).</span><br><span class="line">[    0.000000] clocksource: arch_sys_counter: mask: 0x1ffffffffffffff max_cycles: 0x1cd42e208c, max_idle_ns: 881590405314 ns</span><br><span class="line">[    0.000034] sched_clock: 57 bits at 63MHz, resolution 16ns, wraps every 4398046511096ns</span><br><span class="line">[    0.002980] Console: colour dummy device 80x25</span><br><span class="line">[    0.004651] printk: console [tty0] enabled</span><br><span class="line">[    0.007369] Calibrating delay loop (skipped), value calculated using timer frequency.. 125.00 BogoMIPS (lpj=250000)</span><br><span class="line">[    0.007492] pid_max: default: 32768 minimum: 301</span><br><span class="line">[    0.008003] LSM: Security Framework initializing</span><br><span class="line">[    0.009418] Mount-cache hash table entries: 512 (order: 0, 4096 bytes, linear)</span><br><span class="line">[    0.009460] Mountpoint-cache hash table entries: 512 (order: 0, 4096 bytes, linear)</span><br><span class="line">[    0.026170] cacheinfo: Unable to detect cache hierarchy for CPU 0</span><br><span class="line">[    0.029376] cblist_init_generic: Setting adjustable number of callback queues.</span><br><span class="line">[    0.029473] cblist_init_generic: Setting shift to 1 and lim to 1.</span><br><span class="line">[    0.029646] cblist_init_generic: Setting shift to 1 and lim to 1.</span><br><span class="line">[    0.030432] rcu: Hierarchical SRCU implementation.</span><br><span class="line">[    0.030469] rcu: 	Max phase no-delay instances is 1000.</span><br><span class="line">[    0.033692] EFI services will not be available.</span><br><span class="line">[    0.034218] smp: Bringing up secondary CPUs ...</span><br><span class="line">[    0.036121] Detected PIPT I-cache on CPU1</span><br><span class="line">[    0.036535] cacheinfo: Unable to detect cache hierarchy for CPU 1</span><br><span class="line">[    0.036748] CPU1: Booted secondary processor 0x0000000001 [0x410fd083]</span><br><span class="line">[    0.038806] smp: Brought up 1 node, 2 CPUs</span><br><span class="line">[    0.038882] SMP: Total of 2 processors activated.</span><br><span class="line">[    0.038931] CPU features: detected: 32-bit EL0 Support</span><br><span class="line">[    0.038972] CPU features: detected: 32-bit EL1 Support</span><br><span class="line">[    0.039029] CPU features: detected: CRC32 instructions</span><br><span class="line">[    0.040936] CPU: All CPU(s) started at EL1</span><br><span class="line">[    0.041181] alternatives: applying system-wide alternatives</span><br><span class="line">[    0.051596] devtmpfs: initialized</span><br><span class="line">[    0.059255] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns</span><br><span class="line">[    0.059383] futex hash table entries: 512 (order: 3, 32768 bytes, linear)</span><br><span class="line">[    0.061648] pinctrl core: initialized pinctrl subsystem</span><br><span class="line">[    0.067754] DMI not present or invalid.</span><br><span class="line">[    0.073072] NET: Registered PF_NETLINK/PF_ROUTE protocol family</span><br><span class="line">[    0.078576] DMA: preallocated 128 KiB GFP_KERNEL pool for atomic allocations</span><br><span class="line">[    0.078836] DMA: preallocated 128 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations</span><br><span class="line">[    0.078989] DMA: preallocated 128 KiB GFP_KERNEL|GFP_DMA32 pool for atomic allocations</span><br><span class="line">[    0.079167] audit: initializing netlink subsys (disabled)</span><br><span class="line">[    0.080306] audit: type=2000 audit(0.060:1): state=initialized audit_enabled=0 res=1</span><br><span class="line">[    0.082648] thermal_sys: Registered thermal governor &#x27;step_wise&#x27;</span><br><span class="line">[    0.082679] thermal_sys: Registered thermal governor &#x27;power_allocator&#x27;</span><br><span class="line">[    0.082882] cpuidle: using governor menu</span><br><span class="line">[    0.083577] hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.</span><br><span class="line">[    0.083998] ASID allocator initialised with 32768 entries</span><br><span class="line">[    0.086946] Serial: AMBA PL011 UART driver</span><br><span class="line">[    0.109495] 9000000.pl011: ttyAMA0 at MMIO 0x9000000 (irq = 13, base_baud = 0) is a PL011 rev1</span><br><span class="line">[    0.119838] printk: console [ttyAMA0] enabled</span><br><span class="line">[    0.126688] KASLR enabled</span><br><span class="line">[    0.141667] HugeTLB: registered 1.00 GiB page size, pre-allocated 0 pages</span><br><span class="line">[    0.141915] HugeTLB: 16380 KiB vmemmap can be freed for a 1.00 GiB page</span><br><span class="line">[    0.142109] HugeTLB: registered 32.0 MiB page size, pre-allocated 0 pages</span><br><span class="line">[    0.142461] HugeTLB: 508 KiB vmemmap can be freed for a 32.0 MiB page</span><br><span class="line">[    0.142690] HugeTLB: registered 2.00 MiB page size, pre-allocated 0 pages</span><br><span class="line">[    0.142918] HugeTLB: 28 KiB vmemmap can be freed for a 2.00 MiB page</span><br><span class="line">[    0.143139] HugeTLB: registered 64.0 KiB page size, pre-allocated 0 pages</span><br><span class="line">[    0.143369] HugeTLB: 0 KiB vmemmap can be freed for a 64.0 KiB page</span><br><span class="line">[    0.149168] ACPI: Interpreter disabled.</span><br><span class="line">[    0.153037] iommu: Default domain type: Translated</span><br><span class="line">[    0.153210] iommu: DMA domain TLB invalidation policy: strict mode</span><br><span class="line">[    0.154257] SCSI subsystem initialized</span><br><span class="line">[    0.156496] usbcore: registered new interface driver usbfs</span><br><span class="line">[    0.156855] usbcore: registered new interface driver hub</span><br><span class="line">[    0.157162] usbcore: registered new device driver usb</span><br><span class="line">[    0.158855] pps_core: LinuxPPS API ver. 1 registered</span><br><span class="line">[    0.159028] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti &lt;giometti@linux.it&gt;</span><br><span class="line">[    0.159383] PTP clock support registered</span><br><span class="line">[    0.159870] EDAC MC: Ver: 3.0.0</span><br><span class="line">[    0.163239] FPGA manager framework</span><br><span class="line">[    0.163795] Advanced Linux Sound Architecture Driver Initialized.</span><br><span class="line">[    0.169565] vgaarb: loaded</span><br><span class="line">[    0.171109] clocksource: Switched to clocksource arch_sys_counter</span><br><span class="line">[    0.171928] VFS: Disk quotas dquot_6.6.0</span><br><span class="line">[    0.172122] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)</span><br><span class="line">[    0.172992] pnp: PnP ACPI: disabled</span><br><span class="line">[    0.193200] NET: Registered PF_INET protocol family</span><br><span class="line">[    0.194162] IP idents hash table entries: 2048 (order: 2, 16384 bytes, linear)</span><br><span class="line">[    0.196748] tcp_listen_portaddr_hash hash table entries: 256 (order: 0, 4096 bytes, linear)</span><br><span class="line">[    0.197047] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)</span><br><span class="line">[    0.197220] TCP established hash table entries: 1024 (order: 1, 8192 bytes, linear)</span><br><span class="line">[    0.197443] TCP bind hash table entries: 1024 (order: 3, 32768 bytes, linear)</span><br><span class="line">[    0.197638] TCP: Hash tables configured (established 1024 bind 1024)</span><br><span class="line">[    0.198354] UDP hash table entries: 256 (order: 1, 8192 bytes, linear)</span><br><span class="line">[    0.198603] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes, linear)</span><br><span class="line">[    0.199405] NET: Registered PF_UNIX/PF_LOCAL protocol family</span><br><span class="line">[    0.202377] RPC: Registered named UNIX socket transport module.</span><br><span class="line">[    0.202521] RPC: Registered udp transport module.</span><br><span class="line">[    0.202608] RPC: Registered tcp transport module.</span><br><span class="line">[    0.202683] RPC: Registered tcp NFSv4.1 backchannel transport module.</span><br><span class="line">[    0.202833] PCI: CLS 0 bytes, default 64</span><br><span class="line">[    0.205553] Unpacking initramfs...</span><br><span class="line">[    0.213224] hw perfevents: enabled with armv8_pmuv3 PMU driver, 7 counters available</span><br><span class="line">[    0.214024] kvm [1]: HYP mode not available</span><br><span class="line">[    0.216554] Initialise system trusted keyrings</span><br><span class="line">[    0.217642] workingset: timestamp_bits=42 max_order=15 bucket_order=0</span><br><span class="line">[    0.220620] Freeing initrd memory: 4044K</span><br><span class="line">[    0.226110] squashfs: version 4.0 (2009/01/31) Phillip Lougher</span><br><span class="line">[    0.227693] NFS: Registering the id_resolver key type</span><br><span class="line">[    0.227973] Key type id_resolver registered</span><br><span class="line">[    0.228052] Key type id_legacy registered</span><br><span class="line">[    0.228325] nfs4filelayout_init: NFSv4 File Layout Driver Registering...</span><br><span class="line">[    0.228437] nfs4flexfilelayout_init: NFSv4 Flexfile Layout Driver Registering...</span><br><span class="line">[    0.229037] 9p: Installing v9fs 9p2000 file system support</span><br><span class="line">[    0.257877] Key type asymmetric registered</span><br><span class="line">[    0.258024] Asymmetric key parser &#x27;x509&#x27; registered</span><br><span class="line">[    0.258280] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 245)</span><br><span class="line">[    0.258430] io scheduler mq-deadline registered</span><br><span class="line">[    0.258528] io scheduler kyber registered</span><br><span class="line">[    0.281173] pl061_gpio 9030000.pl061: PL061 GPIO chip registered</span><br><span class="line">[    0.284802] pci-host-generic 4010000000.pcie: host bridge /pcie@10000000 ranges:</span><br><span class="line">[    0.285298] pci-host-generic 4010000000.pcie:       IO 0x003eff0000..0x003effffff -&gt; 0x0000000000</span><br><span class="line">[    0.285706] pci-host-generic 4010000000.pcie:      MEM 0x0010000000..0x003efeffff -&gt; 0x0010000000</span><br><span class="line">[    0.285822] pci-host-generic 4010000000.pcie:      MEM 0x8000000000..0xffffffffff -&gt; 0x8000000000</span><br><span class="line">[    0.286200] pci-host-generic 4010000000.pcie: Memory resource size exceeds max for 32 bits</span><br><span class="line">[    0.286582] pci-host-generic 4010000000.pcie: ECAM at [mem 0x4010000000-0x401fffffff] for [bus 00-ff]</span><br><span class="line">[    0.287438] pci-host-generic 4010000000.pcie: PCI host bridge to bus 0000:00</span><br><span class="line">[    0.287643] pci_bus 0000:00: root bus resource [bus 00-ff]</span><br><span class="line">[    0.287751] pci_bus 0000:00: root bus resource [io  0x0000-0xffff]</span><br><span class="line">[    0.287839] pci_bus 0000:00: root bus resource [mem 0x10000000-0x3efeffff]</span><br><span class="line">[    0.287906] pci_bus 0000:00: root bus resource [mem 0x8000000000-0xffffffffff]</span><br><span class="line">[    0.288793] pci 0000:00:00.0: [1b36:0008] type 00 class 0x060000</span><br><span class="line">[    0.290987] pci 0000:00:01.0: [1af4:1000] type 00 class 0x020000</span><br><span class="line">[    0.291333] pci 0000:00:01.0: reg 0x10: [io  0x0000-0x001f]</span><br><span class="line">[    0.291441] pci 0000:00:01.0: reg 0x14: [mem 0x00000000-0x00000fff]</span><br><span class="line">[    0.291557] pci 0000:00:01.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]</span><br><span class="line">[    0.291702] pci 0000:00:01.0: reg 0x30: [mem 0x00000000-0x0007ffff pref]</span><br><span class="line">[    0.299655] pci 0000:00:01.0: BAR 6: assigned [mem 0x10000000-0x1007ffff pref]</span><br><span class="line">[    0.299938] pci 0000:00:01.0: BAR 4: assigned [mem 0x8000000000-0x8000003fff 64bit pref]</span><br><span class="line">[    0.300120] pci 0000:00:01.0: BAR 1: assigned [mem 0x10080000-0x10080fff]</span><br><span class="line">[    0.300216] pci 0000:00:01.0: BAR 0: assigned [io  0x1000-0x101f]</span><br><span class="line">[    0.304368] EINJ: ACPI disabled.</span><br><span class="line">[    0.325575] virtio-pci 0000:00:01.0: enabling device (0000 -&gt; 0003)</span><br><span class="line">[    0.337729] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled</span><br><span class="line">[    0.342061] SuperH (H)SCI(F) driver initialized</span><br><span class="line">[    0.342814] msm_serial: driver initialized</span><br><span class="line">[    0.345114] cacheinfo: Unable to detect cache hierarchy for CPU 0</span><br><span class="line">[    0.363970] loop: module loaded</span><br><span class="line">[    0.365534] megasas: 07.719.03.00-rc1</span><br><span class="line">[    0.369024] physmap-flash 0.flash: physmap platform flash device: [mem 0x00000000-0x03ffffff]</span><br><span class="line">[    0.370110] 0.flash: Found 2 x16 devices at 0x0 in 32-bit bank. Manufacturer ID 0x000000 Chip ID 0x000000</span><br><span class="line">[    0.370513] Intel/Sharp Extended Query Table at 0x0031</span><br><span class="line">[    0.371197] Using buffer write method</span><br><span class="line">[    0.372739] physmap-flash 0.flash: physmap platform flash device: [mem 0x04000000-0x07ffffff]</span><br><span class="line">[    0.373227] 0.flash: Found 2 x16 devices at 0x0 in 32-bit bank. Manufacturer ID 0x000000 Chip ID 0x000000</span><br><span class="line">[    0.373411] Intel/Sharp Extended Query Table at 0x0031</span><br><span class="line">[    0.373823] Using buffer write method</span><br><span class="line">[    0.374013] Concatenating MTD devices:</span><br><span class="line">[    0.374080] (0): &quot;0.flash&quot;</span><br><span class="line">[    0.374135] (1): &quot;0.flash&quot;</span><br><span class="line">[    0.374183] into device &quot;0.flash&quot;</span><br><span class="line">[    0.402443] tun: Universal TUN/TAP device driver, 1.6</span><br><span class="line">[    0.412486] thunder_xcv, ver 1.0</span><br><span class="line">[    0.412655] thunder_bgx, ver 1.0</span><br><span class="line">[    0.412775] nicpf, ver 1.0</span><br><span class="line">[    0.414505] hns3: Hisilicon Ethernet Network Driver for Hip08 Family - version</span><br><span class="line">[    0.414606] hns3: Copyright (c) 2017 Huawei Corporation.</span><br><span class="line">[    0.414884] hclge is initializing</span><br><span class="line">[    0.415188] e1000: Intel(R) PRO/1000 Network Driver</span><br><span class="line">[    0.415334] e1000: Copyright (c) 1999-2006 Intel Corporation.</span><br><span class="line">[    0.415495] e1000e: Intel(R) PRO/1000 Network Driver</span><br><span class="line">[    0.415565] e1000e: Copyright(c) 1999 - 2015 Intel Corporation.</span><br><span class="line">[    0.415691] igb: Intel(R) Gigabit Ethernet Network Driver</span><br><span class="line">[    0.415762] igb: Copyright (c) 2007-2014 Intel Corporation.</span><br><span class="line">[    0.415936] igbvf: Intel(R) Gigabit Virtual Function Network Driver</span><br><span class="line">[    0.416031] igbvf: Copyright (c) 2009 - 2012 Intel Corporation.</span><br><span class="line">[    0.416566] sky2: driver version 1.30</span><br><span class="line">[    0.418481] VFIO - User Level meta-driver version: 0.3</span><br><span class="line">[    0.424271] usbcore: registered new interface driver usb-storage</span><br><span class="line">[    0.430233] rtc-pl031 9010000.pl031: registered as rtc0</span><br><span class="line">[    0.430844] rtc-pl031 9010000.pl031: setting system clock to 2023-11-07T02:07:24 UTC (1699322844)</span><br><span class="line">[    0.432472] i2c_dev: i2c /dev entries driver</span><br><span class="line">[    0.441267] sdhci: Secure Digital Host Controller Interface driver</span><br><span class="line">[    0.441431] sdhci: Copyright(c) Pierre Ossman</span><br><span class="line">[    0.442435] Synopsys Designware Multimedia Card Interface Driver</span><br><span class="line">[    0.443827] sdhci-pltfm: SDHCI platform and OF driver helper</span><br><span class="line">[    0.446804] ledtrig-cpu: registered to indicate activity on CPUs</span><br><span class="line">[    0.450360] usbcore: registered new interface driver usbhid</span><br><span class="line">[    0.450516] usbhid: USB HID core driver</span><br><span class="line">[    0.460351] NET: Registered PF_PACKET protocol family</span><br><span class="line">[    0.461240] 9pnet: Installing 9P2000 support</span><br><span class="line">[    0.461505] Key type dns_resolver registered</span><br><span class="line">[    0.462550] registered taskstats version 1</span><br><span class="line">[    0.462788] Loading compiled-in X.509 certificates</span><br><span class="line">[    0.478386] input: gpio-keys as /devices/platform/gpio-keys/input/input0</span><br><span class="line">[    0.485333] ALSA device list:</span><br><span class="line">[    0.485476]   No soundcards found.</span><br><span class="line">[    0.487838] uart-pl011 9000000.pl011: no DMA platform data</span><br><span class="line">[    0.552766] Freeing unused kernel memory: 1920K</span><br><span class="line">[    0.554425] Run /init as init process</span><br><span class="line">[    0.599959] rust_minimal: Rust minimal sample (init)</span><br><span class="line">[    0.600217] rust_minimal: Am I built-in? false</span><br><span class="line">[    0.608276] rust_minimal: My numbers are [72, 108, 200]</span><br><span class="line">[    0.608700] rust_minimal: Rust minimal sample (exit)</span><br><span class="line">[    0.634221] rust_print: Rust printing macros sample (init)</span><br><span class="line">[    0.634386] rust_print: Emergency message (level 0) without args</span><br><span class="line">[    0.634500] rust_print: Alert message (level 1) without args</span><br><span class="line">[    0.634600] rust_print: Critical message (level 2) without args</span><br><span class="line">[    0.634698] rust_print: Error message (level 3) without args</span><br><span class="line">[    0.634792] rust_print: Warning message (level 4) without args</span><br><span class="line">[    0.634893] rust_print: Notice message (level 5) without args</span><br><span class="line">[    0.635004] rust_print: Info message (level 6) without args</span><br><span class="line">[    0.635326] rust_print: A line that is continued without args</span><br><span class="line">[    0.635472] rust_print: Emergency message (level 0) with args</span><br><span class="line">[    0.635612] rust_print: Alert message (level 1) with args</span><br><span class="line">[    0.635717] rust_print: Critical message (level 2) with args</span><br><span class="line">[    0.635832] rust_print: Error message (level 3) with args</span><br><span class="line">[    0.635923] rust_print: Warning message (level 4) with args</span><br><span class="line">[    0.636029] rust_print: Notice message (level 5) with args</span><br><span class="line">[    0.636168] rust_print: Info message (level 6) with args</span><br><span class="line">[    0.636271] rust_print: A line that is continued with args</span><br><span class="line">[    0.641051] rust_print: Rust printing macros sample (exit)</span><br><span class="line">[    0.661989] rust_module_parameters: Rust module parameters sample (init)</span><br><span class="line">[    0.662277] rust_module_parameters: Parameters:</span><br><span class="line">[    0.662482] rust_module_parameters:   my_bool:    true</span><br><span class="line">[    0.662831] rust_module_parameters:   my_i32:     42</span><br><span class="line">[    0.663290] rust_module_parameters:   my_str:     default str val</span><br><span class="line">[    0.663454] rust_module_parameters:   my_usize:   42</span><br><span class="line">[    0.663619] rust_module_parameters:   my_array:   [0, 1]</span><br><span class="line">[    0.668656] rust_module_parameters: Rust module parameters sample (exit)</span><br><span class="line">[    0.706889] rust_sync: Rust synchronisation primitives sample (init)</span><br><span class="line">[    0.707309] rust_sync: Value: 10</span><br><span class="line">[    0.707539] rust_sync: Value: 10</span><br><span class="line">[    0.712511] rust_sync: Rust synchronisation primitives sample (exit)</span><br><span class="line">[    0.738252] rust_chrdev: Rust character device sample (init)</span><br><span class="line">[    0.748668] rust_chrdev: Rust character device sample (exit)</span><br><span class="line">[    0.774016] rust_miscdev: Rust miscellaneous device sample (init)</span><br><span class="line">[    0.779921] rust_miscdev: Rust miscellaneous device sample (exit)</span><br><span class="line">[    0.805377] rust_stack_probing: Rust stack probing sample (init)</span><br><span class="line">[    0.805577] rust_stack_probing: Large array has length: 514</span><br><span class="line">[    0.810494] rust_stack_probing: Rust stack probing sample (exit)</span><br><span class="line">[    0.830702] rust_semaphore: Rust semaphore sample (init)</span><br><span class="line">[    0.836407] rust_semaphore: Rust semaphore sample (exit)</span><br><span class="line">[    0.857872] rust_semaphore_c: Rust semaphore sample (in C, for comparison) (init)</span><br><span class="line">[    0.863246] rust_semaphore_c: Rust semaphore sample (in C, for comparison) (exit)</span><br><span class="line">[    0.906868] rust_selftests: Rust self tests (init)</span><br><span class="line">[    0.907530] rust_selftests: test_example passed!</span><br><span class="line">[    0.907692] rust_selftests: 1 tests run, 1 passed, 0 failed, 0 hit errors</span><br><span class="line">[    0.908698] rust_selftests: All tests passed. Congratulations!</span><br><span class="line">[    0.918844] rust_selftests: Rust self tests (exit)</span><br><span class="line">[    0.946373] rust_module_parameters: Rust module parameters sample (init)</span><br><span class="line">[    0.946562] rust_module_parameters: Parameters:</span><br><span class="line">[    0.946660] rust_module_parameters:   my_bool:    true</span><br><span class="line">[    0.946769] rust_module_parameters:   my_i32:     42</span><br><span class="line">[    0.946883] rust_module_parameters:   my_str:     default str val</span><br><span class="line">[    0.947132] rust_module_parameters:   my_usize:   42</span><br><span class="line">[    0.947252] rust_module_parameters:   my_array:   [0, 1]</span><br><span class="line">[    0.955361] rust_module_parameters: Rust module parameters sample (init)</span><br><span class="line">[    0.955539] rust_module_parameters: Parameters:</span><br><span class="line">[    0.955638] rust_module_parameters:   my_bool:    false</span><br><span class="line">[    0.955742] rust_module_parameters:   my_i32:     345543</span><br><span class="line">[    0.955977] rust_module_parameters:   my_str:     🦀mod</span><br><span class="line">[    0.956086] rust_module_parameters:   my_usize:   84</span><br><span class="line">[    0.956192] rust_module_parameters:   my_array:   [1, 2, 3]</span><br><span class="line">[    0.961556] rust_module_parameters: Rust module parameters sample (exit)</span><br><span class="line">[    0.984385] rust_module_parameters: Rust module parameters sample (exit)</span><br><span class="line">[    1.021134] Flash device refused suspend due to active operation (state 20)</span><br><span class="line">[    1.021312] Flash device refused suspend due to active operation (state 20)</span><br><span class="line">[    1.021651] reboot: Restarting system</span><br></pre></td></tr></table></figure>
+
 <h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2><blockquote>
 <p>以上就是关于 [清华开源操作系统训练营] 《Rust fox Linux》第一课学到的知识，希望这节课能对您有所帮助。祝大家玩得开心 ^_^</p>
+</blockquote>
+<blockquote>
 <p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
 </blockquote>
-<p><img src="images/wechat-blog.png" alt="公众号"></p>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
 ]]></content>
       <categories>
         <category>RustForLinux</category>
@@ -1723,11 +1810,12 @@
 <p>为了后续实验能够顺利开展，需要使用最新 <code>6.6.0-rc4</code> 版本内核，因此，本文将使用官方仓库中的 <code>rust-dev</code> 分支进行探讨和分析。</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone git@github.com:Rust-for-Linux/linux.git -b rust-dev --depth 1</span><br></pre></td></tr></table></figure>
+
 <p>目前，<code>Rust for Linux</code> 官方主要维护四个分支：</p>
 <ul>
 <li><code>rust-next</code>：包含将在<code>下一个 Linux 内核合并窗口</code>提交的 <code>Rust</code> 的新功能分支。通过邮件列表发送补丁更新。</li>
 <li><code>rust-fixes</code>：包含针对<code>当前 Linux 内核周期的 Rust 修复</code>。通过邮件列表发送补丁更新。</li>
-<li><code>rust-dev</code>：实验性分支，用于集成目的，是<code>看起来足够好</code>的补丁队列。尚未进入<code>主线</code>或 <code>rust-next</code> 的功能开发提供基础，例如，给予早期访问其他子系统相关的 <code>Rust</code> 更改。有一个注意点，这个分支可能会频繁更新/重排，并且在未来可能会消失。（<strong>注：课程主要基于该分支做实验</strong>）</li>
+<li><code>rust-dev</code>：实验性分支，用于集成目的，是<code>看起来足够好</code>的补丁队列。尚未进入<code>主线</code>或 <code>rust-next</code> 的功能开发提供基础，例如，给予早期访问其他子系统相关的 <code>Rust</code> 更改。有一个注意点，这个分支可能会频繁更新&#x2F;重排，并且在未来可能会消失。（<strong>注：课程主要基于该分支做实验</strong>）</li>
 <li><code>rust</code>：在 <code>Rust</code> 支持合并到内核之前两年进行开发的原生分支，<font color='red'>该分支实际上已经冻结</font>。</li>
 </ul>
 <blockquote>
@@ -1735,12 +1823,12 @@
 </blockquote>
 <ul>
 <li>arch: 体系结构相关代码，比如，x86、arm64、risc-v等等，与系统架构和硬件规范相关，底层代码多用汇编实现</li>
-<li>block: Block I/O layer, 块设备抽象层</li>
+<li>block: Block I&#x2F;O layer, 块设备抽象层</li>
 <li>certs: 数字签名相关证书</li>
 <li>crypto: 通用加密算法代码，比如，md5、sha、rsa、lz4等等。</li>
 <li>driver: 通用驱动代码，比如，电源、usb串行通信、pci、输入输出设备驱动等等</li>
 <li>fs: File system，虚拟文件系统（VFS）代码，以及各种文件系统的代码</li>
-<li>include: C语言头文件，#include <linux/***.h></li>
+<li>include: C语言头文件，#include &lt;linux&#x2F;***.h&gt;</li>
 <li>ipc: Inter-process communication，进程间通信</li>
 <li>mm: Memory management，内存管理</li>
 <li>net: 网络设备驱动代码</li>
@@ -1748,9 +1836,9 @@
 <li>samples: 样例代码</li>
 <li>sound：音频设备驱动代码</li>
 <li>tools: 一些用于开发和维护内核的工具</li>
-<li>init-env.sh/make-aarch64.sh/qemu-aarch64-test.sh：细心的读者可能会发现，文章目录比官方多了几个脚本。这些额外的脚本是我自行添加的，其主要作用在<a href="https://lispking.github.io/2023/11/07/rust-for-linux-ch1/">第一节课</a>中已经详细讲解过。在日常开发和测试过程中，这些脚本非常有用。</li>
+<li>init-env.sh&#x2F;make-aarch64.sh&#x2F;qemu-aarch64-test.sh：细心的读者可能会发现，文章目录比官方多了几个脚本。这些额外的脚本是我自行添加的，其主要作用在<a href="https://lispking.github.io/2023/11/07/rust-for-linux-ch1/">第一节课</a>中已经详细讲解过。在日常开发和测试过程中，这些脚本非常有用。</li>
 </ul>
-<p><img src="images/rust-for-linux/rust-dev-source.png" alt="rust-dev-source.png"></p>
+<p><img src="/images/rust-for-linux/rust-dev-source.png" alt="rust-dev-source.png"></p>
 <h2 id="常用-Linux-内核模块命令"><a href="#常用-Linux-内核模块命令" class="headerlink" title="常用 Linux 内核模块命令"></a>常用 Linux 内核模块命令</h2><p>在内核编译配置过程中，可以在 <code>menuconfig</code> 界面中，通过按下 <code>Y</code> 键来编译内核模块并将其编译集成到内核中，或者按下 <code>M</code> 键将内核模块编译为独立的可加载模块。</p>
 <p>接下来，将介绍在开发过程中，较为常用的内核模块相关命令：</p>
 <ul>
@@ -1764,17 +1852,21 @@
 </ul>
 <h2 id="创建内核模块：探索所需步骤与实现功能"><a href="#创建内核模块：探索所需步骤与实现功能" class="headerlink" title="创建内核模块：探索所需步骤与实现功能"></a>创建内核模块：探索所需步骤与实现功能</h2><p>首先，在 <code>samples/rust</code> 目录下创建 <code>rust_helloworld.rs</code> 源文件，内容如下：</p>
 <figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: GPL-2.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//! hello world module in rust</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> kernel::prelude::*;</span><br><span class="line"></span><br><span class="line">module! &#123;</span><br><span class="line">    <span class="keyword">type</span>: RustHelloWorld,</span><br><span class="line">    name: <span class="string">&quot;rust_helloworld&quot;</span>,</span><br><span class="line">    author: <span class="string">&quot;Rust for Linux Contributors&quot;</span>,</span><br><span class="line">    description: <span class="string">&quot;hello world module in rust&quot;</span>,</span><br><span class="line">    license: <span class="string">&quot;GPL&quot;</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">RustHelloWorld</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">kernel</span>::Module <span class="keyword">for</span> <span class="title class_">RustHelloWorld</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">init</span>(_module: &amp;<span class="symbol">&#x27;static</span> ThisModule) <span class="punctuation">-&gt;</span> <span class="type">Result</span>&lt;<span class="keyword">Self</span>&gt; &#123;</span><br><span class="line">        pr_info!(<span class="string">&quot;Hello World from Rust module (init)\n&quot;</span>);</span><br><span class="line">        <span class="title function_ invoke__">Ok</span>(RustHelloWorld)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">Drop</span> <span class="keyword">for</span> <span class="title class_">RustHelloWorld</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">drop</span>(&amp;<span class="keyword">mut</span> <span class="keyword">self</span>) &#123;</span><br><span class="line">        pr_info!(<span class="string">&quot;Hello World from Rust module (exit)\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>接下来，参考 <code>samples/rust/Kconfig</code> 文件并将 <code>rust_helloworld</code> 模块补充进去，在 <code>menuconfig</code> 命令中添加 <code>rust_helloworld</code> 模块。</p>
 <p>最后，参考 <code>samples/rust/Makefile</code> 文件并将 <code>rust_helloworld</code> 模块补充进去，以便在编译过程中包含 <code>rust_helloworld</code> 模块。</p>
 <p>现在，可以使用 <code>make menuconfig</code> 命令配置内核，并使用 <code>make build</code> 命令编译包含 <code>rust_helloworld</code> 模块的内核。编译完成后，将 <code>rust_helloworld</code> 加载到内核，将会看到 <code>Hello World from Rust module (init)</code> 的输出信息，同时，可用 <code>lsmod</code> 命令进一步验证模块加载是否成功。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 加载成功示例</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">加载模块</span></span><br><span class="line">(kernel) &gt;insmod rust_helloworld.ko</span><br><span class="line">[   14.939902] rust_helloworld: loading out-of-tree module taints kernel.</span><br><span class="line">[   14.948683] rust_helloworld: Hello World from Rust module (init)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">显示已加载哪些模块</span></span><br><span class="line">(kernel) &gt; lsmod</span><br><span class="line">rust_helloworld 12288 0 - Live 0xffffb891261ea000 (O)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">卸载模块</span></span><br><span class="line">(kernel) &gt;rmmod rust_helloworld</span><br><span class="line">[   30.893186] rust_helloworld: Hello World from Rust module (exit)</span><br></pre></td></tr></table></figure>
+
 <h2 id="深入探索内核模块：逐步剖析其实现与工作机制"><a href="#深入探索内核模块：逐步剖析其实现与工作机制" class="headerlink" title="深入探索内核模块：逐步剖析其实现与工作机制"></a>深入探索内核模块：逐步剖析其实现与工作机制</h2><p>为了实现一个 <code>module</code> 做的事情，在 <code>macro/lib.rs</code> 中通过 <code>proc_macro</code> 过程宏定义了 <code>module!</code> 宏，然后，去调用 <code>macro/module.rs</code> 中的 <code>module</code> 函数其中，<code>TokenStream</code> 是传入的参数。</p>
 <figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="comment">/// Declares a kernel module.</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">/// The `type` argument should be a type which implements the [`Module`] trait.</span></span><br><span class="line"><span class="comment">/// Also accepts various forms of kernel metadata.</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">/// # Supported argument types</span></span><br><span class="line"><span class="comment">///   - `type`: type which implements the [`Module`] trait (required).</span></span><br><span class="line"><span class="comment">///   - `name`: byte array of the name of the kernel module (required).</span></span><br><span class="line"><span class="comment">///   - `author`: byte array of the author of the kernel module.</span></span><br><span class="line"><span class="comment">///   - `description`: byte array of the description of the kernel module.</span></span><br><span class="line"><span class="comment">///   - `license`: byte array of the license of the kernel module (required).</span></span><br><span class="line"><span class="comment">///   - `alias`: byte array of alias name of the kernel module.</span></span><br><span class="line"><span class="meta">#[proc_macro]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">module</span>(ts: TokenStream) <span class="punctuation">-&gt;</span> TokenStream &#123;</span><br><span class="line">    module::<span class="title function_ invoke__">module</span>(ts)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p><code>module</code> 函数对各个参数进行解析，然后，使用 <code>format!</code> 宏返回一串字符串。这串字符串是在 <code>Rust</code> 中实现 <code>Linux</code> 内核 <code>C</code> 模块所需的大量定义。在其中，同样生成了 <code>C</code> 代码中实现模块所必需的<code>入口函数</code>、<code>出口函数</code>等一系列内容，并通过 <a href="https://doc.rust-lang.org/nomicon/ffi.html"><code>Foreign Function Interface</code></a>（<code>FFI</code>）形式最终调用了 <code>C</code> 模块的代码。</p>
 <ul>
 <li>FFI 详情介绍：<a href="https://doc.rust-lang.org/nomicon/ffi.html">https://doc.rust-lang.org/nomicon/ffi.html</a></li>
 </ul>
 <figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="title function_ invoke__">pub</span>(<span class="keyword">crate</span>) <span class="keyword">fn</span> <span class="title function_">module</span>(ts: TokenStream) <span class="punctuation">-&gt;</span> TokenStream &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">it</span> = ts.<span class="title function_ invoke__">into_iter</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">info</span> = ModuleInfo::<span class="title function_ invoke__">parse</span>(&amp;<span class="keyword">mut</span> it);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">modinfo</span> = ModInfoBuilder::<span class="title function_ invoke__">new</span>(info.name.<span class="title function_ invoke__">as_ref</span>());</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(author) = info.author &#123;</span><br><span class="line">        modinfo.<span class="title function_ invoke__">emit</span>(<span class="string">&quot;author&quot;</span>, &amp;author);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(description) = info.description &#123;</span><br><span class="line">        modinfo.<span class="title function_ invoke__">emit</span>(<span class="string">&quot;description&quot;</span>, &amp;description);</span><br><span class="line">    &#125;</span><br><span class="line">    modinfo.<span class="title function_ invoke__">emit</span>(<span class="string">&quot;license&quot;</span>, &amp;info.license);</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(aliases) = info.alias &#123;</span><br><span class="line">        <span class="keyword">for</span> <span class="variable">alias</span> <span class="keyword">in</span> aliases &#123;</span><br><span class="line">            modinfo.<span class="title function_ invoke__">emit</span>(<span class="string">&quot;alias&quot;</span>, &amp;alias);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Built-in modules also export the `file` modinfo string.</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">file</span> =</span><br><span class="line">        std::env::<span class="title function_ invoke__">var</span>(<span class="string">&quot;RUST_MODFILE&quot;</span>).<span class="title function_ invoke__">expect</span>(<span class="string">&quot;Unable to fetch RUST_MODFILE environmental variable&quot;</span>);</span><br><span class="line">    modinfo.<span class="title function_ invoke__">emit_only_builtin</span>(<span class="string">&quot;file&quot;</span>, &amp;file);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">format!</span>(</span><br><span class="line">        <span class="string">&quot;</span></span><br><span class="line"><span class="string">            /// The module name.</span></span><br><span class="line"><span class="string">            ///</span></span><br><span class="line"><span class="string">            /// Used by the printing macros, e.g. [`info!`].</span></span><br><span class="line"><span class="string">            const __LOG_PREFIX: &amp;[u8] = b\&quot;&#123;name&#125;\\0\&quot;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            /// The \&quot;Rust loadable module\&quot; mark.</span></span><br><span class="line"><span class="string">            //</span></span><br><span class="line"><span class="string">            // This may be best done another way later on, e.g. as a new modinfo</span></span><br><span class="line"><span class="string">            // key or a new section. For the moment, keep it simple.</span></span><br><span class="line"><span class="string">            #[cfg(MODULE)]</span></span><br><span class="line"><span class="string">            #[doc(hidden)]</span></span><br><span class="line"><span class="string">            #[used]</span></span><br><span class="line"><span class="string">            static __IS_RUST_MODULE: () = ();</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            static mut __MOD: Option&lt;&#123;type_&#125;&gt; = None;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            // SAFETY: `__this_module` is constructed by the kernel at load time and will not be</span></span><br><span class="line"><span class="string">            // freed until the module is unloaded.</span></span><br><span class="line"><span class="string">            #[cfg(MODULE)]</span></span><br><span class="line"><span class="string">            static THIS_MODULE: kernel::ThisModule = unsafe &#123;&#123;</span></span><br><span class="line"><span class="string">                kernel::ThisModule::from_ptr(&amp;kernel::bindings::__this_module as *const _ as *mut _)</span></span><br><span class="line"><span class="string">            &#125;&#125;;</span></span><br><span class="line"><span class="string">            #[cfg(not(MODULE))]</span></span><br><span class="line"><span class="string">            static THIS_MODULE: kernel::ThisModule = unsafe &#123;&#123;</span></span><br><span class="line"><span class="string">                kernel::ThisModule::from_ptr(core::ptr::null_mut())</span></span><br><span class="line"><span class="string">            &#125;&#125;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            // Loadable modules need to export the `&#123;&#123;init,cleanup&#125;&#125;_module` identifiers.</span></span><br><span class="line"><span class="string">            #[cfg(MODULE)]</span></span><br><span class="line"><span class="string">            #[doc(hidden)]</span></span><br><span class="line"><span class="string">            #[no_mangle]</span></span><br><span class="line"><span class="string">            pub extern \&quot;C\&quot; fn init_module() -&gt; core::ffi::c_int &#123;&#123;</span></span><br><span class="line"><span class="string">                __init()</span></span><br><span class="line"><span class="string">            &#125;&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            #[cfg(MODULE)]</span></span><br><span class="line"><span class="string">            #[doc(hidden)]</span></span><br><span class="line"><span class="string">            #[no_mangle]</span></span><br><span class="line"><span class="string">            pub extern \&quot;C\&quot; fn cleanup_module() &#123;&#123;</span></span><br><span class="line"><span class="string">                __exit()</span></span><br><span class="line"><span class="string">            &#125;&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            // Built-in modules are initialized through an initcall pointer</span></span><br><span class="line"><span class="string">            // and the identifiers need to be unique.</span></span><br><span class="line"><span class="string">            #[cfg(not(MODULE))]</span></span><br><span class="line"><span class="string">            #[cfg(not(CONFIG_HAVE_ARCH_PREL32_RELOCATIONS))]</span></span><br><span class="line"><span class="string">            #[doc(hidden)]</span></span><br><span class="line"><span class="string">            #[link_section = \&quot;&#123;initcall_section&#125;\&quot;]</span></span><br><span class="line"><span class="string">            #[used]</span></span><br><span class="line"><span class="string">            pub static __&#123;name&#125;_initcall: extern \&quot;C\&quot; fn() -&gt; core::ffi::c_int = __&#123;name&#125;_init;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            #[cfg(not(MODULE))]</span></span><br><span class="line"><span class="string">            #[cfg(CONFIG_HAVE_ARCH_PREL32_RELOCATIONS)]</span></span><br><span class="line"><span class="string">            core::arch::global_asm!(</span></span><br><span class="line"><span class="string">                r#\&quot;.section \&quot;&#123;initcall_section&#125;\&quot;, \&quot;a\&quot;</span></span><br><span class="line"><span class="string">                __&#123;name&#125;_initcall:</span></span><br><span class="line"><span class="string">                    .long   __&#123;name&#125;_init - .</span></span><br><span class="line"><span class="string">                    .previous</span></span><br><span class="line"><span class="string">                \&quot;#</span></span><br><span class="line"><span class="string">            );</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            #[cfg(not(MODULE))]</span></span><br><span class="line"><span class="string">            #[doc(hidden)]</span></span><br><span class="line"><span class="string">            #[no_mangle]</span></span><br><span class="line"><span class="string">            pub extern \&quot;C\&quot; fn __&#123;name&#125;_init() -&gt; core::ffi::c_int &#123;&#123;</span></span><br><span class="line"><span class="string">                __init()</span></span><br><span class="line"><span class="string">            &#125;&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            #[cfg(not(MODULE))]</span></span><br><span class="line"><span class="string">            #[doc(hidden)]</span></span><br><span class="line"><span class="string">            #[no_mangle]</span></span><br><span class="line"><span class="string">            pub extern \&quot;C\&quot; fn __&#123;name&#125;_exit() &#123;&#123;</span></span><br><span class="line"><span class="string">                __exit()</span></span><br><span class="line"><span class="string">            &#125;&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            fn __init() -&gt; core::ffi::c_int &#123;&#123;</span></span><br><span class="line"><span class="string">                match &lt;&#123;type_&#125; as kernel::Module&gt;::init(&amp;THIS_MODULE) &#123;&#123;</span></span><br><span class="line"><span class="string">                    Ok(m) =&gt; &#123;&#123;</span></span><br><span class="line"><span class="string">                        unsafe &#123;&#123;</span></span><br><span class="line"><span class="string">                            __MOD = Some(m);</span></span><br><span class="line"><span class="string">                        &#125;&#125;</span></span><br><span class="line"><span class="string">                        return 0;</span></span><br><span class="line"><span class="string">                    &#125;&#125;</span></span><br><span class="line"><span class="string">                    Err(e) =&gt; &#123;&#123;</span></span><br><span class="line"><span class="string">                        return e.to_errno();</span></span><br><span class="line"><span class="string">                    &#125;&#125;</span></span><br><span class="line"><span class="string">                &#125;&#125;</span></span><br><span class="line"><span class="string">            &#125;&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            fn __exit() &#123;&#123;</span></span><br><span class="line"><span class="string">                unsafe &#123;&#123;</span></span><br><span class="line"><span class="string">                    // Invokes `drop()` on `__MOD`, which should be used for cleanup.</span></span><br><span class="line"><span class="string">                    __MOD = None;</span></span><br><span class="line"><span class="string">                &#125;&#125;</span></span><br><span class="line"><span class="string">            &#125;&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            &#123;modinfo&#125;</span></span><br><span class="line"><span class="string">        &quot;</span>,</span><br><span class="line">        type_ = info.type_,</span><br><span class="line">        name = info.name,</span><br><span class="line">        modinfo = modinfo.buffer,</span><br><span class="line">        initcall_section = <span class="string">&quot;.initcall6.init&quot;</span></span><br><span class="line">    )</span><br><span class="line">    .<span class="title function_ invoke__">parse</span>()</span><br><span class="line">    .<span class="title function_ invoke__">expect</span>(<span class="string">&quot;Error parsing formatted string into token stream.&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>在阅读生成的代码时，发现了一个 <code>#[no_mangle]</code> 属性，该属性用于关闭 <code>Rust</code> 的名称修改。<code>Rust</code> 编译器在编译过程中会修改我们定义的名称以进行某些分析。然而，如果直接将这些名称用于 <code>C</code> 语言，可能会导致符号名称不匹配。通过使用 <code>#[no_mangle]</code> 属性，可以确保名称的一致性。</p>
 <blockquote>
 <p>总结：在 <code>Rust for Linux</code> 中声明一个模块时，尽管外部看起来平静如水，但实际上 <code>Rust for Linux</code> 正在负重前行。</p>
@@ -1783,11 +1875,14 @@
 <p>值得关注的是，在 <code>Linux</code> 内核所提供的众多内核接口中，大部分尚未被 <code>Rust for Linux</code> 封装。因此，如需直接调用 <code>Linux</code> 内核中的接口，可直接调用 <code>bindings</code> 和 <code>helper</code>。</p>
 <h3 id="Bindings-使用方式"><a href="#Bindings-使用方式" class="headerlink" title="Bindings 使用方式"></a>Bindings 使用方式</h3><p>在 <code>Linux</code> 中，通过头文件方式提供的接口可以在 <code>/rust/kernel/bindings_helper.h</code> 文件中直接添加相应的头文件。例如：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/of_platform.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/security.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;asm/io.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/example.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+
 <p>只需将需要使用的头文件添加到该列表中，即可在 <code>Rust</code> 代码中使用相应的内核接口。</p>
 <p>对于头文件中使用的宏等代码，可以在 <code>/rust/helpers.c</code> 文件中添加对应的函数封装来使用。例如，在 <code>examples.h</code> 中定义如下宏：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> example(attr) \  </span></span><br><span class="line">    example(attr)  </span><br></pre></td></tr></table></figure>
+
 <p>在 <code>helpers.c</code> 文件中添加如下内容：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/of_platform.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/security.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;asm/io.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/example.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">u32 <span class="title function_">rust_helper_example</span><span class="params">(u32 attr)</span> &#123;  </span><br><span class="line">    <span class="keyword">return</span> example(attr);  </span><br><span class="line">&#125;</span><br><span class="line">EXPORT_SYMBOL_GPL(rust_helper_example);  </span><br></pre></td></tr></table></figure>
+
 <p>通过这种方式，可以在 <code>Rust</code> 代码中方便地使用这些封装好的函数。</p>
 <p>在编译过程中，<code>bindgen</code> 工具会生成两个文件。</p>
 <ul>
@@ -1799,12 +1894,14 @@
 <p>注意，直接从 <code>bindings</code> 获取的内核代码接口通常是 <code>unsafe</code> 的，但可以通过封装将其转变为 <code>safe</code> 的代码。这意味着开发者可以放心地在 <code>Rust</code> 代码中使用这些接口，而不必担心安全问题。通过封装，开发者可以隐藏底层内核接口的复杂性，同时提供一种更安全、易于使用的替代方案。</p>
 </blockquote>
 <p>最后，以下面这张图生动地概括整个描述过程，相信您会认为这个过程颇具趣味性。</p>
-<p><img src="images/rust-for-linux/bindings-unsafe-safe.png" alt="bindings-unsafe-safe"></p>
+<p><img src="/images/rust-for-linux/bindings-unsafe-safe.png" alt="bindings-unsafe-safe"></p>
 <h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2><blockquote>
 <p>以上就是关于 [清华开源操作系统训练营] 《Rust fox Linux》第二课学到的知识，希望这节课能对您有所帮助。祝大家玩得开心 ^_^</p>
+</blockquote>
+<blockquote>
 <p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
 </blockquote>
-<p><img src="images/wechat-blog.png" alt="公众号"></p>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
 ]]></content>
       <categories>
         <category>RustForLinux</category>
@@ -1828,6 +1925,7 @@
 </ul>
 <p>通过本周学习对 ArceOS 的整体架构、内存分配及调度算法有更深入的了解。</p>
 <span id="more"></span>
+
 <blockquote>
 <p>进入第二周的练习，主要包含以下内容：</p>
 </blockquote>
@@ -1845,6 +1943,7 @@
 </ul>
 <h2 id="第二周练习题思路总结"><a href="#第二周练习题思路总结" class="headerlink" title="第二周练习题思路总结"></a>第二周练习题思路总结</h2><h3 id="练习-1-和-2-的思路"><a href="#练习-1-和-2-的思路" class="headerlink" title="练习 1 和 2 的思路"></a>练习 1 和 2 的思路</h3><p>借鉴 Unix 协议的设计理念，将数据按照如下格式保存在 app.bin 文件中，以便 ArceOS 逐字节读取并采用循环机制顺序加载。</p>
 <figure class="highlight rust"><table><tr><td class="code"><pre><span class="line">App 数量 | App1 大小 | App1 内容 | App2 大小 | App2 内容 | ... | AppN 大小 | AppN 内容  </span><br></pre></td></tr></table></figure>
+
 <p>通过这种设计，可以方便地管理各个应用程序的尺寸和内容，从而实现应用程序的顺序加载和高效运行。在 ArceOS 读取到相应数据后，可以根据数据内容来调用相应的应用程序。</p>
 <h3 id="练习-3-的思路"><a href="#练习-3-的思路" class="headerlink" title="练习 3 的思路"></a>练习 3 的思路</h3><p>这道题目相对较为简单，主要需要注意一个小细节 —— <code>noop</code> 指令。在编译过程中，<code>Rust</code> 会提示不通过，原因是 <code>typo</code>，多打了一个 <code>o</code>。</p>
 <p>起初，我以为该练习将 <code>nop</code> 指令加在 <code>options(noreturn)</code> 前面，但是运行的时候，程序会卡住半天不返回内核执行下一个应用。后来翻查指令解释资料，将 <code>options(noreturn)</code> 删除，练习 3 便顺利完成。</p>
@@ -1853,13 +1952,16 @@
 <h3 id="练习-5-的思路"><a href="#练习-5-的思路" class="headerlink" title="练习 5 的思路"></a>练习 5 的思路</h3><p>这道题具有一定难度，非常感谢<code>赫森</code>大佬在群里分享了思路。</p>
 <p>主要思路是参考了 rCore 教程中的链接章节，并在应用层引入了 <code>linker.ld</code> 链接汇编。这样做的目的是将字符串从 <code>.rodata</code> 区域读取出来，并将原始在 <code>ArceOS</code> 中的相关指令移动到 <code>hello_app</code> 应用中。为了实现 Hello、打印字符串和退出这三个功能，我将以下指令封装到 <code>abi_call</code> 宏中，使得代码看起来更加简洁明了。</p>
 <figure class="highlight rust"><table><tr><td class="code"><pre><span class="line">li      a0, &#123;abi_num&#125;</span><br><span class="line">slli    t0, t0, <span class="number">3</span></span><br><span class="line">la      t1, &#123;abi_entry&#125;</span><br><span class="line">ld      t1, (t1)</span><br><span class="line">jalr    t1</span><br></pre></td></tr></table></figure>
+
 <h3 id="练习-6-的思路"><a href="#练习-6-的思路" class="headerlink" title="练习 6 的思路"></a>练习 6 的思路</h3><p>在完成练习 5 之后，练习 6 就会变得相对容易。主要是基于之前的 <code>hello_app</code> 应用进行改造，仅保留 <code>putchar</code> 函数。</p>
 <p>需要注意的是，为了避免让控制权回到 <code>loader</code> 的条件，例如不能进行无限循环等阻塞操作，练习 5 中有一个 <code>wfi</code> 指令用于等待中断。只需将此指令删除，即可顺利完成任务。</p>
 <blockquote>
 <p> 以上是对 6 个练习的思路总结，希望能对你有所帮助，祝大家玩得开心 ^_^</p>
+</blockquote>
+<blockquote>
 <p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
 </blockquote>
-<p><img src="images/wechat-blog.png" alt="公众号"></p>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
 ]]></content>
       <categories>
         <category>oscamp 2023fall arceos unikernel</category>
@@ -1876,9 +1978,11 @@
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在学习 <a href="https://lispking.github.io/2023/11/07/rust-for-linux-ch1/">Rust 编写 Linux 网卡驱动</a>时，发现了一篇有关网卡的精彩文章。英文原文请见<a href="https://blog.packagecloud.io/illustrated-guide-monitoring-tuning-linux-networking-stack-receiving-data/">此处</a>。今天我将它翻译成中文，与大家分享。</p>
 <p>这篇博客文章在之前的博客文章《<a href="https://blog.packagecloud.io/monitoring-tuning-linux-networking-stack-receiving-data/">监控和优化 Linux 网络堆栈：接收数据</a>》基础上，通过一系列图表深入解释了 Linux 网络堆栈的工作原理，旨在帮助读者更清晰地了解其运作方式。</p>
 <p>在监控或调整 Linux 网络堆栈方面，没有捷径可走。运维人员必须努力全面了解各个子系统及其相互作用，才能有望调整或优化它们。然而，之前的博客文章篇幅较长，可能让读者难以理解各个系统之间的交互关系。希望这篇博客文章能有助于澄清这些问题。</p>
+<span id="more"></span>
+
 <h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><p>这些图表旨在概述 Linux 网络堆栈的工作原理。因此，许多细节并未包括在内。为了获得完整的画面，读者们被鼓励阅读我们的一篇博客文章，其中详细介绍了网络堆栈的每个方面：<a href="https://blog.packagecloud.io/monitoring-tuning-linux-networking-stack-receiving-data/">监控和优化 Linux 网络堆栈：接收数据</a>。这些绘图的目的是帮助读者在高层次上构建一个内核中某些系统之间互动的思维模型。</p>
 <p>让我们首先看一下在理解数据包处理之前必要的的重要设置。</p>
-<h2 id="初始设置"><a href="#初始设置" class="headerlink" title="初始设置"></a>初始设置</h2><p><img src="images/linux-network/00-settings.png" alt="00-settings"></p>
+<h2 id="初始设置"><a href="#初始设置" class="headerlink" title="初始设置"></a>初始设置</h2><p><img src="/images/linux-network/00-settings.png" alt="00-settings"></p>
 <p>设备有多种方式警告计算机系统的其他部分准备处理的工作。在网络设备的情况下，网卡通常会 <code>raising IRQ</code> 信号，表示数据包已到达并准备好处理。当 <code>Linux</code> 内核执行 IRQ 处理程序时，它以非常高的优先级运行，通常会阻止生成额外的 <code>IRQ</code>。因此，设备驱动程序中的 <code>IRQ</code> 处理程序必须尽可能快地执行，并将所有长时间的工作推迟到这个上下文之外执行。这就是为什么存在<code>软 IRQ</code>系统的原因。</p>
 <p>Linux 内核中的<code>软 IRQ</code>系统是内核用于在设备驱动程序 <code>IRQ</code> 上下文之外处理工作的系统。在网络设备的情况下，<code>软 IRQ</code> 系统负责处理传入的数据包。<code>软 IRQ</code> 系统在内核启动过程的早期进行初始化。</p>
 <p>上面的图表与我们网络博客文章中的<code>软 IRQ</code> 部分相对应，展示了<code>软 IRQ</code> 系统的初始化和其每个 CPU 的内核线程。</p>
@@ -1889,7 +1993,7 @@
 <li>然后，为每个 CPU 创建一个 <code>softnet_data</code> 结构。这些结构持有处理网络数据的重要数据结构的引用。我们后面会看到的是 <code>poll_list</code>。设备驱动程序通过调用 <code>napi_schedule</code> 或其他 <code>NAPI API</code> 将 <code>NAPI</code> 轮询 <code>worker</code> 结构添加到 <code>poll_list</code> 中。</li>
 <li><code>net_dev_init</code> 然后通过调用 <code>open_softirq</code> 注册 <code>NET_RX_SOFTIRQ 软 IRQ</code>，如所示。注册的处理程序函数是 <code>net_rx_action</code>。这是<code>软 IRQ</code> 内核线程将执行的处理数据包的函数。<br>图表中的步骤 5-8 与准备处理的数据包到达有关，将在下一部分提到。请继续阅读！</li>
 </ol>
-<h2 id="数据到达流程"><a href="#数据到达流程" class="headerlink" title="数据到达流程"></a>数据到达流程</h2><p><img src="images/linux-network/01-receive-steps.png" alt="01-receive-steps"></p>
+<h2 id="数据到达流程"><a href="#数据到达流程" class="headerlink" title="数据到达流程"></a>数据到达流程</h2><p><img src="/images/linux-network/01-receive-steps.png" alt="01-receive-steps"></p>
 <blockquote>
 <p>数据从网络到达！</p>
 </blockquote>
@@ -1913,7 +2017,7 @@
 <li>调用 <code>__do_softirq</code>，检查 <code>pending</code> 位字段，发现 <code>softIRQ</code> 等待，并调用注册的等待 <code>softIRQ</code> 的处理程序：<code>net_rx_action</code>，它负责处理到来网络数据的全部工作。</li>
 </ol>
 <p>值得注意的是，执行 <code>net_rx_action</code> 的是 <code>softIRQ</code> 内核线程，而不是设备驱动程序的 IRQ 处理程序。</p>
-<h2 id="网络数据开始处理流程"><a href="#网络数据开始处理流程" class="headerlink" title="网络数据开始处理流程"></a>网络数据开始处理流程</h2><p><img src="images/linux-network/02-receive-processing.png" alt="02-receive-processing"></p>
+<h2 id="网络数据开始处理流程"><a href="#网络数据开始处理流程" class="headerlink" title="网络数据开始处理流程"></a>网络数据开始处理流程</h2><p><img src="/images/linux-network/02-receive-processing.png" alt="02-receive-processing"></p>
 <p>已将驱动程序的 NAPI 结构添加到当前 CPU 的 <code>poll_list</code> 中。Poll 结构通常在以下两种情况下添加：</p>
 <ol>
 <li>从调用 <code>napi_schedule</code> 的设备驱动程序。</li>
@@ -1930,7 +2034,7 @@
 <li>数据包是保留用于 GRO，或者传递给 <code>net_receive_skb</code>，使其向上进入协议堆栈。</li>
 </ol>
 <p>接下来，我们将介绍 <code>net_receive_skb</code> 如何处理接收数据包转向，以在多个 CPU 之间分配数据包处理负载。</p>
-<h2 id="网络数据继续处理流程"><a href="#网络数据继续处理流程" class="headerlink" title="网络数据继续处理流程"></a>网络数据继续处理流程</h2><p><img src="images/linux-network/03-receive-continue.png" alt="03-receive-continue"></p>
+<h2 id="网络数据继续处理流程"><a href="#网络数据继续处理流程" class="headerlink" title="网络数据继续处理流程"></a>网络数据继续处理流程</h2><p><img src="/images/linux-network/03-receive-continue.png" alt="03-receive-continue"></p>
 <p>网络数据处理继续从<code>netif_receive_skb</code>开始，但数据的路径取决于是否启用接收数据包引导（RPS）。默认情况下，Linux内核未启用RPS，如果您想要使用它，需要显式启用和配置。</p>
 <p>在RPS禁用的情况下，使用上述图表中的数字：</p>
 <ul>
@@ -1962,10 +2066,13 @@
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Linux 网络堆栈非常复杂，有许多不同的系统相互交互。调整或监控这些复杂系统时，必须努力理解它们之间的相互作用，以及更改其中一个系统的设置如何影响其他系统。<br>这篇（不佳）绘图的博客文章试图使我们的长篇博客文章更具可读性和易于理解。</p>
 <h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2><blockquote>
 <p>以上就是关于《图文指南：Linux 网络堆栈监控和优化 —— 接收数据》的全文，希望这些知识能对您有所帮助。祝大家玩得开心 ^_^</p>
+</blockquote>
+<blockquote>
 <p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
 </blockquote>
-<p><img src="images/wechat-blog.png" alt="公众号"></p>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
 <!-- 参考资料 -->
+
 ]]></content>
       <categories>
         <category>Linux</category>

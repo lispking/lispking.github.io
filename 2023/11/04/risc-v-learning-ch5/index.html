@@ -26,20 +26,20 @@
 <meta property="og:site_name" content="Dive In Web3">
 <meta property="og:description" content="在 RISC-V：跟着清华训练营从零打造OS【第四课】中，我们主要讲解了文件系统在操作系统中的重要性，并讲述了UNIX操作系统的创始人 Ken Thompson 在编写一个测试程序时，意识到可以将其扩展成一个文件系统，从而创造了UNIX操作系统的故事。还介绍了EasyFS文件系统的设计和实现，包括常规文件和目录文件的新增，以及文件系统的核心数据结构和块缓存管理器的实现。最后，还介绍了EasyFS的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://lispking.github.io/2023/11/04/risc-v-learning-ch5/images/risc-v/IPCOS.png">
-<meta property="og:image" content="http://lispking.github.io/2023/11/04/risc-v-learning-ch5/images/risc-v/PCB-PIPE.png">
-<meta property="og:image" content="http://lispking.github.io/2023/11/04/risc-v-learning-ch5/images/risc-v/sigaction.png">
-<meta property="og:image" content="http://lispking.github.io/2023/11/04/risc-v-learning-ch5/images/risc-v/ThreadCoroutineOS.png">
-<meta property="og:image" content="http://lispking.github.io/2023/11/04/risc-v-learning-ch5/images/risc-v/TaskProcess.png">
-<meta property="og:image" content="http://lispking.github.io/2023/11/04/risc-v-learning-ch5/images/risc-v/SyncMutexOS.png">
-<meta property="og:image" content="http://lispking.github.io/2023/11/04/risc-v-learning-ch5/images/wechat-blog.png">
+<meta property="og:image" content="http://lispking.github.io/images/risc-v/IPCOS.png">
+<meta property="og:image" content="http://lispking.github.io/images/risc-v/PCB-PIPE.png">
+<meta property="og:image" content="http://lispking.github.io/images/risc-v/sigaction.png">
+<meta property="og:image" content="http://lispking.github.io/images/risc-v/ThreadCoroutineOS.png">
+<meta property="og:image" content="http://lispking.github.io/images/risc-v/TaskProcess.png">
+<meta property="og:image" content="http://lispking.github.io/images/risc-v/SyncMutexOS.png">
+<meta property="og:image" content="http://lispking.github.io/images/wechat-blog.png">
 <meta property="article:published_time" content="2023-11-04T09:08:26.000Z">
-<meta property="article:modified_time" content="2023-11-27T11:34:45.846Z">
+<meta property="article:modified_time" content="2023-11-27T11:35:40.359Z">
 <meta property="article:author" content="King">
 <meta property="article:tag" content="Rust">
 <meta property="article:tag" content="RISC-V">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://lispking.github.io/2023/11/04/risc-v-learning-ch5/images/risc-v/IPCOS.png">
+<meta name="twitter:image" content="http://lispking.github.io/images/risc-v/IPCOS.png">
 
 
 <link rel="canonical" href="http://lispking.github.io/2023/11/04/risc-v-learning-ch5/">
@@ -268,7 +268,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-27 19:34:45" itemprop="dateModified" datetime="2023-11-27T19:34:45+08:00">2023-11-27</time>
+      <time title="修改时间：2023-11-27 19:35:40" itemprop="dateModified" datetime="2023-11-27T19:35:40+08:00">2023-11-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -287,7 +287,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>5.9k</span>
+      <span>6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -305,31 +305,31 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h2><p>在 <a href="http://lispking.github.io/2023/11/01/risc-v-learning-ch4/">RISC-V：跟着清华训练营从零打造OS【第四课】</a>中，我们主要讲解了文件系统在操作系统中的重要性，并讲述了UNIX操作系统的创始人 Ken Thompson 在编写一个测试程序时，意识到可以将其扩展成一个文件系统，从而创造了UNIX操作系统的故事。还介绍了EasyFS文件系统的设计和实现，包括常规文件和目录文件的新增，以及文件系统的核心数据结构和块缓存管理器的实现。最后，还介绍了EasyFS的五个不同层次的设计和相关接口代码定义，本节课是第二阶段的最后一节课，主要讲解进程间通信、I/O重定向和并发的设计。</p>
-<h2 id="进程间通信与I-O重定向"><a href="#进程间通信与I-O重定向" class="headerlink" title="进程间通信与I/O重定向"></a>进程间通信与I/O重定向</h2><p>截至目前，进程在输入和输出方面仍存在不少限制。尤其是进程能够进行交互的 I/O 资源相当有限，仅能接收用户在键盘上的输入，并将字符输出到屏幕上。我们通常将这些 I/O 通道分别称为标准输入和标准输出。更令应用开发者感到受限的是，进程被操作系统完全隔离。由于进程间无法方便地“沟通”，它们很难共同协作完成“大事”。</p>
+    <div class="post-body" itemprop="articleBody"><h2 id="上一节回顾"><a href="#上一节回顾" class="headerlink" title="上一节回顾"></a>上一节回顾</h2><p>在 <a href="http://lispking.github.io/2023/11/01/risc-v-learning-ch4/">RISC-V：跟着清华训练营从零打造OS【第四课】</a>中，我们主要讲解了文件系统在操作系统中的重要性，并讲述了UNIX操作系统的创始人 Ken Thompson 在编写一个测试程序时，意识到可以将其扩展成一个文件系统，从而创造了UNIX操作系统的故事。还介绍了EasyFS文件系统的设计和实现，包括常规文件和目录文件的新增，以及文件系统的核心数据结构和块缓存管理器的实现。最后，还介绍了EasyFS的五个不同层次的设计和相关接口代码定义，本节课是第二阶段的最后一节课，主要讲解进程间通信、I&#x2F;O重定向和并发的设计。</p>
+<h2 id="进程间通信与I-O重定向"><a href="#进程间通信与I-O重定向" class="headerlink" title="进程间通信与I&#x2F;O重定向"></a>进程间通信与I&#x2F;O重定向</h2><p>截至目前，进程在输入和输出方面仍存在不少限制。尤其是进程能够进行交互的 I&#x2F;O 资源相当有限，仅能接收用户在键盘上的输入，并将字符输出到屏幕上。我们通常将这些 I&#x2F;O 通道分别称为标准输入和标准输出。更令应用开发者感到受限的是，进程被操作系统完全隔离。由于进程间无法方便地“沟通”，它们很难共同协作完成“大事”。</p>
 <p>如果能实现不同进程之间的数据共享与交互，就可以将各种程序的功能组合在一起，形成更强大且灵活的功能。为了让简单的应用程序能够通过组合形成各种强大和复杂的功能，本章将介绍操作系统的核心目标：<strong>实现不同应用通过进程间通信的方式组合在一起运行。</strong></p>
-<p>首先，我们建立一个基于文件的统一 <strong>I/O 抽象</strong>，将标准输入/标准输出的访问转换为文件描述符。接着，我们基于文件描述符实现了一种父子进程之间的通信机制 —— <strong>管道</strong>，从而实现灵活的进程间通信。通过文件抽象和管道，我们支持不同的独立进程之间动态组合，以实现复杂功能。</p>
+<p>首先，我们建立一个基于文件的统一 <strong>I&#x2F;O 抽象</strong>，将标准输入&#x2F;标准输出的访问转换为文件描述符。接着，我们基于文件描述符实现了一种父子进程之间的通信机制 —— <strong>管道</strong>，从而实现灵活的进程间通信。通过文件抽象和管道，我们支持不同的独立进程之间动态组合，以实现复杂功能。</p>
 <p>此外，通过实现信号机制，进程和操作系统可以主动发出信号，异步地通知其他进程相关事件。这样，我们就构建了一个具有团队协作能力的白垩纪 <strong>“迅猛龙”</strong> 操作系统。在这个操作系统中，进程间可以高效地协作，实现更强大的功能，犹如迅猛龙一般迅猛且灵活。</p>
-<p><img src="images/risc-v/IPCOS.png" alt="IPCOS"></p>
+<p><img src="/images/risc-v/IPCOS.png" alt="IPCOS"></p>
 <p>从上图可以看出，迅猛龙操作系统 —— <strong>IPCOS</strong> 增加了两种通信机制：</p>
 <ol>
 <li>用于交换数据的管道（<code>Pipe</code>）机制</li>
 <li>用于发送异步通知事件的信号（<code>signal</code>）机制。</li>
 </ol>
 <p>应用程序可以通过新增的管道和信号相关的系统调用实现进程间通信。这两种机制所对应的资源均由进程管理。如下图所示：</p>
-<p><img src="images/risc-v/PCB-PIPE.png" alt="PCB-PIPE"></p>
+<p><img src="/images/risc-v/PCB-PIPE.png" alt="PCB-PIPE"></p>
 <p>这里将管道视为一种特殊的内存文件，并在进程的打开文件表 <code>fd_table</code> 中进行管理。进程可以通过文件读写系统调用方便地实现基于管道的中间数据交换。而信号作为一种进程管理的资源，发送信号的进程可以通过系统调用向接收信号的目标进程的控制块中的 <code>signal</code> 结构更新所发信号信息。</p>
 <p>操作系统通过扩展 <code>trap_handler</code> 中从内核态返回到用户态的处理流程，改变了接收信号的目标进程的执行上下文。这样，接收信号的目标进程可以优先执行处理信号事件的预设函数 <code>signal_handler</code>。在处理完信号后，进程将继续执行之前暂停的工作。这种设计使得进程能够更加高效地响应和处理各种信号事件，进一步提高系统的稳定性和可靠性。</p>
 <p>实现迅猛龙操作系统的过程主要涉及对各种内核数据结构和相关操作的不断扩展，以支持以下功能：</p>
 <ol>
-<li><strong>标准输入/输出文件</strong>：确保操作系统支持标准输入（如键盘）和标准输出（如屏幕）文件，以便进程能够读取和输出数据。</li>
+<li><strong>标准输入&#x2F;输出文件</strong>：确保操作系统支持标准输入（如键盘）和标准输出（如屏幕）文件，以便进程能够读取和输出数据。</li>
 <li><strong>管道文件</strong>：实现管道文件，支持进程间数据传输和通信。这是一种特殊的文件，允许一个进程将输出传递给另一个进程作为输入。</li>
 <li><strong>应用程序命令行参数解析和传递</strong>：完善操作系统功能，使应用程序能够方便地解析和传递命令行参数，以便更好地控制程序行为。</li>
-<li><strong>标准 I/O 重定向功能</strong>：支持将进程的输入和输出重定向到其他文件或设备，以便在程序运行过程中灵活地调整数据传输路径。</li>
+<li><strong>标准 I&#x2F;O 重定向功能</strong>：支持将进程的输入和输出重定向到其他文件或设备，以便在程序运行过程中灵活地调整数据传输路径。</li>
 <li><strong>信号支持</strong>：实现信号机制，使进程和操作系统能够主动发出信号，异步地通知其他进程相关事件。这有助于提高系统的响应速度和稳定性。</li>
 </ol>
 <p>最后，一起看看信号的处理流程：</p>
-<p><img src="images/risc-v/sigaction.png" alt="sigaction"></p>
+<p><img src="/images/risc-v/sigaction.png" alt="sigaction"></p>
 <p>信号主要有两种来源：</p>
 <ol>
 <li><strong>异步信号</strong>：在进程正常执行过程中，内核或其他进程向其发送信号。这些信号称为异步信号，是信号的第一种来源。</li>
@@ -351,7 +351,7 @@
 <p>贝尔实验室 Victor A. Vyssotsky 提出线程（thread）概念</p>
 <p>1964年开始设计的 Multics 操作系统已经有进程的概念，也有多处理器并行处理的 GE 645 硬件设计，甚至提出了线程（ thread ）的概念。1966年，参与 Multics 开发的 MIT 博士生 Jerome Howard Saltzer 在其博士毕业论文的一个注脚提到贝尔实验室的 Victor A. Vyssotsky 用 thread 这个名称来表示处理器（processor）执行程序（program）代码序列这个过程的抽象概念，Saltzer 进一步把”进程（process）”描述为处理器执行程序代码的当前状态（即线程）和可访问的地址空间。但他们并没有建立类似信号量这样的有效机制来避免并发带来的同步互斥问题。</p>
 </blockquote>
-<p>引入线程（Thread）的主要原因是为了提高整个系统的并行/并发执行效率。考虑以下情况：许多应用程序（以单一进程的形式运行）在逻辑上由多个可并行执行的任务组成。如果其中一个任务受到阻塞，整个进程也将被阻塞。这意味着与阻塞任务无关的其他任务也会受到影响，尽管它们实际上本不应受到干扰。这种情况降低了系统的并发执行效率。</p>
+<p>引入线程（Thread）的主要原因是为了提高整个系统的并行&#x2F;并发执行效率。考虑以下情况：许多应用程序（以单一进程的形式运行）在逻辑上由多个可并行执行的任务组成。如果其中一个任务受到阻塞，整个进程也将被阻塞。这意味着与阻塞任务无关的其他任务也会受到影响，尽管它们实际上本不应受到干扰。这种情况降低了系统的并发执行效率。</p>
 <p>为了解决这个问题，引入了线程这一概念。线程是进程内部的一个轻量级执行单元，它们可以独立地执行任务并进行任务切换。当一个任务被阻塞时，线程可以根据需要切换到其他可执行的任务，从而避免整个进程受到阻塞的影响。这样，系统的并发执行效率得到提高，资源利用率也得到优化。同时，线程还可以充分利用多核 CPU 的性能，进一步提高了整个系统的执行效率。</p>
 <h4 id="线程与进程的区别："><a href="#线程与进程的区别：" class="headerlink" title="线程与进程的区别："></a>线程与进程的区别：</h4><ul>
 <li>进程之间相互独立（即资源隔离），而同一进程内的各线程共享进程资源（即资源共享）。</li>
@@ -364,27 +364,27 @@
 <p>总之，线程和进程在资源管理、通信机制和执行上下文方面存在显著差异。这些差异使得线程在多任务处理、资源利用和通信效率方面具有优势，从而提高了整个系统的性能。</p>
 </blockquote>
 <h4 id="并发相关术语："><a href="#并发相关术语：" class="headerlink" title="并发相关术语："></a>并发相关术语：</h4><ul>
-<li>共享资源（shared resource）：不同的线程/进程都能访问的变量或数据结构。</li>
+<li>共享资源（shared resource）：不同的线程&#x2F;进程都能访问的变量或数据结构。</li>
 <li>临界区（critical section）：访问共享资源的一段代码。</li>
-<li>竞态条件（race condition）：多个线程/进程都进入临界区时，都试图更新共享的数据结构，导致产生了不期望的结果。</li>
-<li>不确定性（indeterminate）： 多个线程/进程在执行过程中出现了竞态条件，导致执行结果取决于哪些线程在何时运行，即执行结果不确定，而开发者期望得到的是确定的结果。</li>
+<li>竞态条件（race condition）：多个线程&#x2F;进程都进入临界区时，都试图更新共享的数据结构，导致产生了不期望的结果。</li>
+<li>不确定性（indeterminate）： 多个线程&#x2F;进程在执行过程中出现了竞态条件，导致执行结果取决于哪些线程在何时运行，即执行结果不确定，而开发者期望得到的是确定的结果。</li>
 <li>原子性（atomic）：一系列操作要么全部完成，要么一个都没执行，不会看到中间状态。在数据库领域，具有原子性的一系列操作称为事务（transaction）。</li>
 <li>互斥（mutual exclusion）：一种原子性操作，能保证同一时间只有一个线程进入临界区，从而避免出现竞态条件，并产生确定的预期执行结果。</li>
-<li>同步（synchronization）：多个并发执行的进程/线程在一些关键点上需要互相等待，这种相互制约的等待称为进程/线程同步。</li>
-<li>死锁（dead lock）：一个线程/进程集合里面的每个线程/进程都在等待只能由这个集合中的其他一个线程/进程（包括他自身）才能引发的事件，这种情况就是死锁。</li>
-<li>饥饿（hungry）：指一个可运行的线程/进程尽管能继续执行，但由于操作系统的调度而被无限期地忽视，导致不能执行的情况。</li>
+<li>同步（synchronization）：多个并发执行的进程&#x2F;线程在一些关键点上需要互相等待，这种相互制约的等待称为进程&#x2F;线程同步。</li>
+<li>死锁（dead lock）：一个线程&#x2F;进程集合里面的每个线程&#x2F;进程都在等待只能由这个集合中的其他一个线程&#x2F;进程（包括他自身）才能引发的事件，这种情况就是死锁。</li>
+<li>饥饿（hungry）：指一个可运行的线程&#x2F;进程尽管能继续执行，但由于操作系统的调度而被无限期地忽视，导致不能执行的情况。</li>
 </ul>
-<p><img src="images/risc-v/ThreadCoroutineOS.png" alt="ThreadCoroutineOS"></p>
-<p>从上图中可以看到，Thread&amp;Coroutine OS 引入了用户态管理的用户态线程/用户态协程以及内核态管理的用户态线程。针对用户态管理的用户态线程和协程，新增了一个运行在用户态的 Thread/Coroutine Manager 运行时库（Runtime Lib），无需修改操作系统内核。</p>
+<p><img src="/images/risc-v/ThreadCoroutineOS.png" alt="ThreadCoroutineOS"></p>
+<p>从上图中可以看到，Thread&amp;Coroutine OS 引入了用户态管理的用户态线程&#x2F;用户态协程以及内核态管理的用户态线程。针对用户态管理的用户态线程和协程，新增了一个运行在用户态的 Thread&#x2F;Coroutine Manager 运行时库（Runtime Lib），无需修改操作系统内核。</p>
 <p>对于内核态管理的用户态线程，需要新增线程控制块（Thread Control Block, TCB）结构，将之前进程控制块（Process Control Block, PCB）中与执行相关的内容剥离给线程控制块。同时，对进程控制块进行进一步重构，将线程控制块列表作为进程控制块中的一部分资源，使一个进程控制块能够管理多个线程。最后，还提供了与线程相关的系统调用，如创建线程、等待线程结束等，以支持多线程应用的执行。</p>
 <p>通过这些改进，Thread&amp;Coroutine OS 实现了对用户态线程和协程的有效管理，提高了系统的并发性能和资源利用率。同时，内核态线程管理的改进使得多线程应用能够更加高效地运行，降低了操作系统复杂性，并为开发者提供了更加便捷的多线程编程接口。</p>
 <p>在这里可以将进程、线程和协程中的控制流执行视为任务（Task）的执行过程，如下图所示：</p>
-<p><img src="images/risc-v/TaskProcess.png" alt="TaskProcess"></p>
+<p><img src="/images/risc-v/TaskProcess.png" alt="TaskProcess"></p>
 <p>在上图所示的层次结构中，进程包含线程（即有栈协程），线程包含无栈协程。它们的层次包含关系体现了任务在不同抽象层次上的组织和管理。</p>
 <p>任务切换是进程、线程和协程执行过程中的关键环节，涉及到控制流的切换。任务切换的核心是上下文保存与恢复，而任务上下文的核心部分是各个任务分时共享的硬件寄存器内容。<br>对于无栈协程，只需切换这些寄存器；对于拥有独立栈的线程，还需要切换线程栈；而对于拥有独立地址空间的进程，还需进一步切换地址空间（即切换页表）。</p>
 <p>这种层次化的任务切换策略使得操作系统能够高效地管理不同层次的任务，实现任务之间的协同执行。理解这些层次关系和切换机制有助于我们更好地利用多核处理器资源，提高系统的并发性能和资源利用率。同时，为开发者提供了更加便捷的多线程、多进程和协程编程接口，降低了编写高性能并发程序的难度。</p>
 <p>进一步增加了同步互斥机制的慈母龙操作系统 – SyncMutexOS的总体结构如下图所示：</p>
-<p><img src="images/risc-v/SyncMutexOS.png" alt="SyncMutexOS"></p>
+<p><img src="/images/risc-v/SyncMutexOS.png" alt="SyncMutexOS"></p>
 <p>在上图所示的进程控制块中，增加了互斥锁（Mutex）、信号量（Semaphore）和条件变量（Condvar）这三种资源，并提供了与这些同步互斥资源相关的系统调用。这使得多线程应用能够利用这些同步互斥机制来解决各种同步互斥问题，例如生产者消费者问题、哲学家问题、读者写者问题等。</p>
 <p>互斥锁、信号量和条件变量是多线程编程中常见的同步互斥工具，它们可以帮助线程在共享资源访问过程中避免竞争条件和死锁。</p>
 <p>互斥锁用于保护共享资源，确保同一时间只有一个线程可以访问资源。当一个线程需要访问受保护的资源时，它必须先获得互斥锁，访问完成后释放互斥锁，以便其他线程访问该资源。</p>
@@ -392,9 +392,11 @@
 <p>通过提供这些同步互斥机制，操作系统为多线程应用提供了强大的工具来解决各种同步互斥问题。这有助于确保多线程应用在共享资源访问方面的正确性和稳定性，同时提高了系统的并发性能。理解和使用这些同步互斥机制是多线程编程的关键，有助于避免潜在的并发问题，确保程序正确运行。</p>
 <h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2><blockquote>
 <p>以上就是关于 [清华开源操作系统训练营] 第五课学到的知识，同时也是第二阶段的最后一节课。接下来，我们将迈入富有挑战的第三阶段。第三阶段将持续一个月，涵盖众多课程，如 ArceOS、Rust for Linux、协程异步 OS 等。我已选修《Rust for Linux》这门课程，初衷是为了为未来的 Linux 设备驱动开发贡献力量。实际上，我对这些课程都充满兴趣，待后续开课时再报名继续学习。最后，希望这节课能对您有所帮助。祝大家玩得开心 ^_^</p>
+</blockquote>
+<blockquote>
 <p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
 </blockquote>
-<p><img src="images/wechat-blog.png" alt="公众号"></p>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
 
     </div>
 
@@ -521,7 +523,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">94k</span>
+    <span title="站点总字数">95k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
