@@ -96,7 +96,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">15</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">22</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">16</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">23</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -161,7 +161,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -172,7 +172,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -219,6 +219,120 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://lispking.github.io/2023/11/30/PuzzleFS-source-reports/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/4446580?v=4">
+      <meta itemprop="name" content="King">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dive In Web3">
+      <meta itemprop="description" content="欢迎光临Web3世界，一起拥抱Web3">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Dive In Web3">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/11/30/PuzzleFS-source-reports/" class="post-title-link" itemprop="url">PuzzleFS - 下一代 Linux 容器文件系统之源码分析报告</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-11-30 22:16:59 / 修改时间：22:23:11" itemprop="dateCreated datePublished" datetime="2023-11-30T22:16:59+08:00">2023-11-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>34k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>31 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>PuzzleFS 项目地址：<a target="_blank" rel="noopener" href="https://github.com/project-machine/puzzlefs">https://github.com/project-machine/puzzlefs</a></p>
+<blockquote>
+<p>PuzzleFS 号称是<code>下一代 Linux 容器文件系统</code>，采用 Rust 语言编写，具有<code>快速镜像构建</code>、<code>直接挂载支持</code>、<code>内存安全保证</code>等功能。</p>
+</blockquote>
+<hr>
+<h2 id="PuzzleFS-项目介绍"><a href="#PuzzleFS-项目介绍" class="headerlink" title="PuzzleFS 项目介绍"></a>PuzzleFS 项目介绍</h2><p>思科开发者 <code>Ariel Miculas</code> 在<a target="_blank" rel="noopener" href="https://lore.kernel.org/rust-for-linux/20230609063118.24852-1-amiculas@cisco.com/">内核邮件列表</a>中，发布了用 Rust 写的 PuzzleFS 文件系统驱动，以征求其他开发者的意见，目前这一驱动程序处于“概念验证”阶段。</p>
+<p>PuzzleFS 是一种<code>只读</code>的文件系统，与 <code>Open Container Initiative (OCI) v2 image specification</code> 的设计目标相符，它使用内容定义进行分块，并且使用内容寻址的数据存储，旨在解决现有 OCI 格式的限制。</p>
+<blockquote>
+<p>OCI 镜像规范的第一个版本存在许多问题，这些问题的根源都是来自依赖 tar 存档来保存文件系统中的层，事实上 <code>tar 不适合解决容器文件系统问题</code>。</p>
+</blockquote>
+<p>PuzzleFS 旨在解决 tar 的问题。文件系统镜像本身由一组放置在底层文件系统上的文件组成。与 <code>OCI 镜像格式一样</code>，存在一个顶级 <code>index.json</code> 文件，其中包含一组标签，每个标签代表某一个版本的文件系统，并指向一个清单文件（<code>manifest file</code>）。清单文件又指向镜像配置和存储在实际镜像层中的数据。其他所有内容都存储为 <code>blobs/sha256</code> 目录中的一组 <code>blob</code>。</p>
+<p>文件系统中的大多数数据都被分成可变大小的块（<code>chunk</code>），以内容的 <code>SHA256</code> 哈希作为文件名来存储为 <code>blob</code>。这个分块动作本身是使用 <code>FastCDC 算法</code>进行的，该算法查找 “切割点（<code>cut points</code>）”，把数据流分为不同大小的 <code>blob</code>。任何一个特定的流（例如文件的内容）都可以分成<code>五个</code>或<code>五十个块</code>，这取决于如何确定这些切割点；然后，每个块都以不同的 <code>blob</code> 方式落在 <code>blobs/sha256</code> 下，并将其哈希添加到清单中。</p>
+<hr>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/11/30/PuzzleFS-source-reports/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://lispking.github.io/2023/11/27/linux-networking-stack-receiving-data/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -247,9 +361,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-11-27 18:05:58 / 修改时间：19:35:40" itemprop="dateCreated datePublished" datetime="2023-11-27T18:05:58+08:00">2023-11-27</time>
+      <time title="创建时间：2023-11-27 18:05:58" itemprop="dateCreated datePublished" datetime="2023-11-27T18:05:58+08:00">2023-11-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-11-30 22:23:11" itemprop="dateModified" datetime="2023-11-30T22:23:11+08:00">2023-11-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -359,7 +479,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-27 19:35:40" itemprop="dateModified" datetime="2023-11-27T19:35:40+08:00">2023-11-27</time>
+      <time title="修改时间：2023-11-30 22:23:11" itemprop="dateModified" datetime="2023-11-30T22:23:11+08:00">2023-11-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -476,7 +596,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-27 19:35:40" itemprop="dateModified" datetime="2023-11-27T19:35:40+08:00">2023-11-27</time>
+      <time title="修改时间：2023-11-30 22:23:11" itemprop="dateModified" datetime="2023-11-30T22:23:11+08:00">2023-11-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -584,7 +704,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-27 19:35:40" itemprop="dateModified" datetime="2023-11-27T19:35:40+08:00">2023-11-27</time>
+      <time title="修改时间：2023-11-30 22:23:11" itemprop="dateModified" datetime="2023-11-30T22:23:11+08:00">2023-11-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -692,7 +812,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-27 19:35:40" itemprop="dateModified" datetime="2023-11-27T19:35:40+08:00">2023-11-27</time>
+      <time title="修改时间：2023-11-30 22:23:11" itemprop="dateModified" datetime="2023-11-30T22:23:11+08:00">2023-11-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -800,7 +920,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-27 19:35:40" itemprop="dateModified" datetime="2023-11-27T19:35:40+08:00">2023-11-27</time>
+      <time title="修改时间：2023-11-30 22:23:11" itemprop="dateModified" datetime="2023-11-30T22:23:11+08:00">2023-11-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -909,7 +1029,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-27 19:35:40" itemprop="dateModified" datetime="2023-11-27T19:35:40+08:00">2023-11-27</time>
+      <time title="修改时间：2023-11-30 22:23:11" itemprop="dateModified" datetime="2023-11-30T22:23:11+08:00">2023-11-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1017,7 +1137,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-27 19:35:40" itemprop="dateModified" datetime="2023-11-27T19:35:40+08:00">2023-11-27</time>
+      <time title="修改时间：2023-11-30 22:23:11" itemprop="dateModified" datetime="2023-11-30T22:23:11+08:00">2023-11-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1125,7 +1245,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-27 19:35:40" itemprop="dateModified" datetime="2023-11-27T19:35:40+08:00">2023-11-27</time>
+      <time title="修改时间：2023-11-30 22:23:11" itemprop="dateModified" datetime="2023-11-30T22:23:11+08:00">2023-11-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1189,114 +1309,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://lispking.github.io/2023/10/24/risc-v-learning-ch1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/4446580?v=4">
-      <meta itemprop="name" content="King">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dive In Web3">
-      <meta itemprop="description" content="欢迎光临Web3世界，一起拥抱Web3">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Dive In Web3">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/10/24/risc-v-learning-ch1/" class="post-title-link" itemprop="url">RISC-V：跟着清华训练营从零打造OS【第一课】</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-10-24 11:16:37" itemprop="dateCreated datePublished" datetime="2023-10-24T11:16:37+08:00">2023-10-24</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-27 19:35:40" itemprop="dateModified" datetime="2023-11-27T19:35:40+08:00">2023-11-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/RISC-V/" itemprop="url" rel="index"><span itemprop="name">RISC-V</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.7k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>本文主要分享了我在参加清华开源操作系统训练营第一节课时遇到的一些问题，希望对后续同学的学习能够有所帮助，让大家少走弯路，更高效地开展操作系统学习。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/24/risc-v-learning-ch1/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
@@ -1321,14 +1333,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">95k</span>
+    <span title="站点总字数">129k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:26</span>
+    <span title="站点阅读时长">1:57</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动

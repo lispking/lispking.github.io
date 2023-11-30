@@ -6,7 +6,7 @@
   <link href="http://lispking.github.io/atom.xml" rel="self"/>
   
   <link href="http://lispking.github.io/"/>
-  <updated>2023-11-27T11:35:40.359Z</updated>
+  <updated>2023-11-30T14:23:11.105Z</updated>
   <id>http://lispking.github.io/</id>
   
   <author>
@@ -17,11 +17,46 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>PuzzleFS - 下一代 Linux 容器文件系统之源码分析报告</title>
+    <link href="http://lispking.github.io/2023/11/30/PuzzleFS-source-reports/"/>
+    <id>http://lispking.github.io/2023/11/30/PuzzleFS-source-reports/</id>
+    <published>2023-11-30T14:16:59.000Z</published>
+    <updated>2023-11-30T14:23:11.105Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;PuzzleFS 项目地址：&lt;a href=&quot;https://github.com/project-machine/puzzlefs&quot;&gt;https://github.com/project-machine/puzzlefs&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;PuzzleFS 号称是&lt;code&gt;下一代 Linux 容器文件系统&lt;/code&gt;，采用 Rust 语言编写，具有&lt;code&gt;快速镜像构建&lt;/code&gt;、&lt;code&gt;直接挂载支持&lt;/code&gt;、&lt;code&gt;内存安全保证&lt;/code&gt;等功能。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;PuzzleFS-项目介绍&quot;&gt;&lt;a href=&quot;#PuzzleFS-项目介绍&quot; class=&quot;headerlink&quot; title=&quot;PuzzleFS 项目介绍&quot;&gt;&lt;/a&gt;PuzzleFS 项目介绍&lt;/h2&gt;&lt;p&gt;思科开发者 &lt;code&gt;Ariel Miculas&lt;/code&gt; 在&lt;a href=&quot;https://lore.kernel.org/rust-for-linux/20230609063118.24852-1-amiculas@cisco.com/&quot;&gt;内核邮件列表&lt;/a&gt;中，发布了用 Rust 写的 PuzzleFS 文件系统驱动，以征求其他开发者的意见，目前这一驱动程序处于“概念验证”阶段。&lt;/p&gt;
+&lt;p&gt;PuzzleFS 是一种&lt;code&gt;只读&lt;/code&gt;的文件系统，与 &lt;code&gt;Open Container Initiative (OCI) v2 image specification&lt;/code&gt; 的设计目标相符，它使用内容定义进行分块，并且使用内容寻址的数据存储，旨在解决现有 OCI 格式的限制。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;OCI 镜像规范的第一个版本存在许多问题，这些问题的根源都是来自依赖 tar 存档来保存文件系统中的层，事实上 &lt;code&gt;tar 不适合解决容器文件系统问题&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;PuzzleFS 旨在解决 tar 的问题。文件系统镜像本身由一组放置在底层文件系统上的文件组成。与 &lt;code&gt;OCI 镜像格式一样&lt;/code&gt;，存在一个顶级 &lt;code&gt;index.json&lt;/code&gt; 文件，其中包含一组标签，每个标签代表某一个版本的文件系统，并指向一个清单文件（&lt;code&gt;manifest file&lt;/code&gt;）。清单文件又指向镜像配置和存储在实际镜像层中的数据。其他所有内容都存储为 &lt;code&gt;blobs/sha256&lt;/code&gt; 目录中的一组 &lt;code&gt;blob&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;文件系统中的大多数数据都被分成可变大小的块（&lt;code&gt;chunk&lt;/code&gt;），以内容的 &lt;code&gt;SHA256&lt;/code&gt; 哈希作为文件名来存储为 &lt;code&gt;blob&lt;/code&gt;。这个分块动作本身是使用 &lt;code&gt;FastCDC 算法&lt;/code&gt;进行的，该算法查找 “切割点（&lt;code&gt;cut points&lt;/code&gt;）”，把数据流分为不同大小的 &lt;code&gt;blob&lt;/code&gt;。任何一个特定的流（例如文件的内容）都可以分成&lt;code&gt;五个&lt;/code&gt;或&lt;code&gt;五十个块&lt;/code&gt;，这取决于如何确定这些切割点；然后，每个块都以不同的 &lt;code&gt;blob&lt;/code&gt; 方式落在 &lt;code&gt;blobs/sha256&lt;/code&gt; 下，并将其哈希添加到清单中。&lt;/p&gt;
+&lt;hr&gt;</summary>
+    
+    
+    
+    <category term="Linux" scheme="http://lispking.github.io/categories/Linux/"/>
+    
+    
+    <category term="Rust" scheme="http://lispking.github.io/tags/Rust/"/>
+    
+    <category term="Linux" scheme="http://lispking.github.io/tags/Linux/"/>
+    
+    <category term="PuzzleFS" scheme="http://lispking.github.io/tags/PuzzleFS/"/>
+    
+  </entry>
+  
+  <entry>
     <title>图文指南：Linux 网络堆栈监控和优化 —— 接收数据</title>
     <link href="http://lispking.github.io/2023/11/27/linux-networking-stack-receiving-data/"/>
     <id>http://lispking.github.io/2023/11/27/linux-networking-stack-receiving-data/</id>
     <published>2023-11-27T10:05:58.000Z</published>
-    <updated>2023-11-27T11:35:40.359Z</updated>
+    <updated>2023-11-30T14:23:11.105Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;最近在学习 &lt;a href=&quot;https://lispking.github.io/2023/11/07/rust-for-linux-ch1/&quot;&gt;Rust 编写 Linux 网卡驱动&lt;/a&gt;时，发现了一篇有关网卡的精彩文章。英文原文请见&lt;a href=&quot;https://blog.packagecloud.io/illustrated-guide-monitoring-tuning-linux-networking-stack-receiving-data/&quot;&gt;此处&lt;/a&gt;。今天我将它翻译成中文，与大家分享。&lt;/p&gt;
@@ -44,7 +79,7 @@
     <link href="http://lispking.github.io/2023/11/20/arceos-unikernel-summary/"/>
     <id>http://lispking.github.io/2023/11/20/arceos-unikernel-summary/</id>
     <published>2023-11-20T08:04:04.000Z</published>
-    <updated>2023-11-27T11:35:40.359Z</updated>
+    <updated>2023-11-30T14:23:11.105Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;ArceOS-Unikernel-总结报告&quot;&gt;&lt;a href=&quot;#ArceOS-Unikernel-总结报告&quot; class=&quot;headerlink&quot; title=&quot;ArceOS Unikernel 总结报告&quot;&gt;&lt;/a&gt;ArceOS Unikernel 总结报告&lt;/h1&gt;&lt;p&gt;不知不觉，ArceOS Unikernel 课程的学习已经过去了一半。回顾过去这两周，我深感学习过程中的磨砺与成长。感谢石磊老师的细心指导，从基础概念入手，让我们逐渐掌握 Unikernel 的奥秘。谁曾想到，Unikernel 的设计竟如此强大。每次回顾这个过程，我都会重新阅读&lt;a href=&quot;https://mp.weixin.qq.com/s/-birTWw6kZQ9oyCzjTAntg&quot;&gt;陈渝老师的著作《像开发应用一样开发操作系统》&lt;/a&gt;，从中汲取启示。我对操作系统可以如同应用一般，通过组件化思维实现感到震惊。过去曾听说过鸿蒙分布式部署等新闻，也阅读过一些关于鸿蒙的相关文章，但亲身参与组件化操作系统的学习，完全是不同于以往的体验。&lt;/p&gt;
@@ -76,7 +111,7 @@
     <link href="http://lispking.github.io/2023/11/13/rust-for-linux-ch2/"/>
     <id>http://lispking.github.io/2023/11/13/rust-for-linux-ch2/</id>
     <published>2023-11-13T16:25:26.000Z</published>
-    <updated>2023-11-27T11:35:40.359Z</updated>
+    <updated>2023-11-30T14:23:11.105Z</updated>
     
     
     <summary type="html">本节课一起动手实践 Hello World 内核模块，逐步剖析驱动程序的开发过程，从而掌握 Linux 驱动的基本知识。</summary>
@@ -97,7 +132,7 @@
     <link href="http://lispking.github.io/2023/11/07/rust-for-linux-ch1/"/>
     <id>http://lispking.github.io/2023/11/07/rust-for-linux-ch1/</id>
     <published>2023-11-07T02:26:33.000Z</published>
-    <updated>2023-11-27T11:35:40.359Z</updated>
+    <updated>2023-11-30T14:23:11.105Z</updated>
     
     
     <summary type="html">不知不觉，我已经步入清华训练营的第三阶段。第一阶段主要学习了 `Rust` 编程语言，并完成了 `Rustlings` 题目训练。在第二阶段，老师引导我们运用 `Rust` 从零开始构建一个小型操作系统。在这个过程中，我掌握了从裸机、批处理程序、分时系统、地址转换，到虚拟地址与物理内存页表映射处理，再到进程管理、文件系统以及并发设计等知识。一个名为 `rCore OS` 的操作系统便如此一步步地呈现在眼前。作业撰写属实不易，历经艰辛，我终于迎来了第三阶段。在这个阶段，我选修了《Rust fox Linux》课程，以期为未来的 `Linux` 设备驱动开发贡献力量。昨日是课程的第一节课，我又开始了各种环境准备工作。</summary>
@@ -118,7 +153,7 @@
     <link href="http://lispking.github.io/2023/11/04/risc-v-learning-ch5/"/>
     <id>http://lispking.github.io/2023/11/04/risc-v-learning-ch5/</id>
     <published>2023-11-04T09:08:26.000Z</published>
-    <updated>2023-11-27T11:35:40.359Z</updated>
+    <updated>2023-11-30T14:23:11.105Z</updated>
     
     
     <summary type="html">在 RISC-V：跟着清华训练营从零打造OS【第四课】中，我们主要讲解了文件系统在操作系统中的重要性，并讲述了UNIX操作系统的创始人 Ken Thompson 在编写一个测试程序时，意识到可以将其扩展成一个文件系统，从而创造了UNIX操作系统的故事。还介绍了EasyFS文件系统的设计和实现，包括常规文件和目录文件的新增，以及文件系统的核心数据结构和块缓存管理器的实现。最后，还介绍了EasyFS的五个不同层次的设计和相关接口代码定义，本节课是第二阶段最后一节课，主要讲解进程间通信、I/O重定向和并发的设计。</summary>
@@ -139,7 +174,7 @@
     <link href="http://lispking.github.io/2023/11/01/risc-v-learning-summary/"/>
     <id>http://lispking.github.io/2023/11/01/risc-v-learning-summary/</id>
     <published>2023-11-01T14:10:55.000Z</published>
-    <updated>2023-11-27T11:35:40.359Z</updated>
+    <updated>2023-11-30T14:23:11.105Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;自我介绍&quot;&gt;&lt;a href=&quot;#自我介绍&quot; class=&quot;headerlink&quot; title=&quot;自我介绍&quot;&gt;&lt;/a&gt;自我介绍&lt;/h2&gt;&lt;p&gt;今年的经济形势确实不容乐观。没错，我就是那位大龄失业的程序员。在寻找工作的同时，我尝试将自己的经验和心得整理成文章，发布在名为《猿禹宙》的微信公众号上，希望能为广大读者提供一些帮助。如果这些文章对您有所启发，请您不吝啬地关注、转发、点个赞、赏 1 元以示支持。广告部分到此结束，接下来我要分享一次偶然的相遇。&lt;/p&gt;
@@ -163,7 +198,7 @@
     <link href="http://lispking.github.io/2023/11/01/risc-v-learning-ch4/"/>
     <id>http://lispking.github.io/2023/11/01/risc-v-learning-ch4/</id>
     <published>2023-11-01T08:52:38.000Z</published>
-    <updated>2023-11-27T11:35:40.359Z</updated>
+    <updated>2023-11-30T14:23:11.105Z</updated>
     
     
     <summary type="html">在 RISC-V：跟着清华训练营从零打造OS【第三课】中，我们学习了地址空间和进程管理的设计。本节课将主要探讨文件系统的设计，文件系统在 UNIX 操作系统中具有举足轻重的地位。根据史料《UNIX:A History and a Memoir》记载，1969 年，UNIX 的作者 Ken Thompson 在贝尔实验室的空闲时间里，编写了一个用于提高 PDP-7 计算机磁盘吞吐量的调度算法。为了测试这个算法，他打算编写一个批量读写数据的测试程序。然而，在编写过程中，Thompson 在某一刻意识到，这个测试程序稍作扩展，就能成为一个文件系统，再进一步扩展，便可以成为一个完整的操作系统。他意识到，自己距离实现一个操作系统仅有短短三周的时间。</summary>
@@ -184,7 +219,7 @@
     <link href="http://lispking.github.io/2023/10/30/risc-v-learning-ch3/"/>
     <id>http://lispking.github.io/2023/10/30/risc-v-learning-ch3/</id>
     <published>2023-10-30T07:32:38.000Z</published>
-    <updated>2023-11-27T11:35:40.359Z</updated>
+    <updated>2023-11-30T14:23:11.101Z</updated>
     
     
     <summary type="html">在 RISC-V：跟着清华训练营从零打造OS【第二课】中，我们学习了批处理系统的设计以及多道程序与分时任务设计。本节课将主要探讨地址空间和进程管理的设计，让应用程序在操作系统管控的内存空间中执行，取代了过去应用程序对物理内存的直接访问方式。同时，我们将逐步引入进程管理机制的设计与实现，以满足多道程序在系统中高效运行的需求。</summary>
@@ -205,7 +240,7 @@
     <link href="http://lispking.github.io/2023/10/26/risc-v-learning-ch2/"/>
     <id>http://lispking.github.io/2023/10/26/risc-v-learning-ch2/</id>
     <published>2023-10-26T02:26:38.000Z</published>
-    <updated>2023-11-27T11:35:40.359Z</updated>
+    <updated>2023-11-30T14:23:11.101Z</updated>
     
     
     <summary type="html">在 RISC-V：跟着清华训练营从零打造OS【第一课】中，我们学习了三叶虫LibOS总体结构以及相关环境的配置，本节课将主要探讨批处理系统的设计以及多道程序与分时任务设计，这两章节内容颇具启发性和趣味性，相信会引发大家的浓厚兴趣。</summary>
@@ -226,7 +261,7 @@
     <link href="http://lispking.github.io/2023/10/24/risc-v-learning-ch1/"/>
     <id>http://lispking.github.io/2023/10/24/risc-v-learning-ch1/</id>
     <published>2023-10-24T03:16:37.000Z</published>
-    <updated>2023-11-27T11:35:40.359Z</updated>
+    <updated>2023-11-30T14:23:11.101Z</updated>
     
     
     <summary type="html">本文主要分享了我在参加清华开源操作系统训练营第一节课时遇到的一些问题，希望对后续同学的学习能够有所帮助，让大家少走弯路，更高效地开展操作系统学习。</summary>
@@ -247,7 +282,7 @@
     <link href="http://lispking.github.io/2023/10/22/rust-robius-wechat-demo/"/>
     <id>http://lispking.github.io/2023/10/22/rust-robius-wechat-demo/</id>
     <published>2023-10-22T12:00:33.000Z</published>
-    <updated>2023-11-27T11:35:40.359Z</updated>
+    <updated>2023-11-30T14:23:11.101Z</updated>
     
     
     <summary type="html">在本篇文章中，我们将对 Robius Demo 中的 Wechat 应用进行解剖。通过对这个示例应用的深入分析，你将能够更好地理解其内部工作原理和实现细节。通过阅读这篇文章，你将能够掌握如何在 Robius Demo 中构建和实现 Wechat 应用，以及如何利用其提供的工具和组件来创建具有相似功能和性能的实际应用程序。让我们开始吧！</summary>
@@ -268,7 +303,7 @@
     <link href="http://lispking.github.io/2023/10/17/rust-hello-world-asm/"/>
     <id>http://lispking.github.io/2023/10/17/rust-hello-world-asm/</id>
     <published>2023-10-17T03:43:51.000Z</published>
-    <updated>2023-11-27T11:35:40.359Z</updated>
+    <updated>2023-11-30T14:23:11.101Z</updated>
     
     
     <summary type="html">本文介绍了在Rust中编写Hello World程序的方法，并探索了底层汇编知识。通过分析汇编代码，可以了解程序的结构和功能，以及各个函数和变量之间的关系。本文主要介绍了启动函数和main函数的解读，以及整个代码的执行过程。</summary>
@@ -287,7 +322,7 @@
     <link href="http://lispking.github.io/2023/10/15/rust-robius-project-update/"/>
     <id>http://lispking.github.io/2023/10/15/rust-robius-project-update/</id>
     <published>2023-10-15T03:00:33.000Z</published>
-    <updated>2023-11-27T11:35:40.359Z</updated>
+    <updated>2023-11-30T14:23:11.101Z</updated>
     
     
     <summary type="html">本文重点介绍 Robius 的愿景和未来的一些规划，Robius 是一个完全开源的、去中心化的、由社区驱动的项目，旨在让 Rust 成为多平台应用开发的理想选择。 Robius 生态系统包括几个独立的项目，这些项目可以组合成一个完整的系统堆栈，实现跨多个平台的快速、无痛的纯 Rust 应用开发。</summary>
@@ -308,7 +343,7 @@
     <link href="http://lispking.github.io/2023/10/13/join-rust-robius-project/"/>
     <id>http://lispking.github.io/2023/10/13/join-rust-robius-project/</id>
     <published>2023-10-13T23:00:00.000Z</published>
-    <updated>2023-11-27T11:35:40.359Z</updated>
+    <updated>2023-11-30T14:23:11.101Z</updated>
     
     
     <summary type="html">本文重点介绍 Robius 基本架构设计，Robius 是一个多平台应用开发的项目，它的设计基于 Rust 语言。项目的主要目标是为开发者提供一套全面的工具和库，使他们能够在多种设备和操作系统上创建高效、响应快速的应用。</summary>
@@ -329,7 +364,7 @@
     <link href="http://lispking.github.io/2023/10/12/dai-liquidation-module/"/>
     <id>http://lispking.github.io/2023/10/12/dai-liquidation-module/</id>
     <published>2023-10-12T02:15:36.000Z</published>
-    <updated>2023-11-27T11:35:40.359Z</updated>
+    <updated>2023-11-30T14:23:11.101Z</updated>
     
     
     <summary type="html">本文着重讲解清算2.0模块的细节，这是Maker协议的抵押物拍卖行，主要解决从不足以抵押的 Vault 中自动转移抵押品，并同时将该 Vault 的债务转移至协议。在清算合约（Dog）中，会立即启动拍卖，试图通过出售转移的抵押品来换取 DAI，以抵消已分配给协议的债务。</summary>
@@ -350,7 +385,7 @@
     <link href="http://lispking.github.io/2023/10/11/dai-collateral-module/"/>
     <id>http://lispking.github.io/2023/10/11/dai-collateral-module/</id>
     <published>2023-10-11T06:30:52.000Z</published>
-    <updated>2023-11-27T11:35:40.359Z</updated>
+    <updated>2023-11-30T14:23:11.101Z</updated>
     
     
     <summary type="html">本文讲解了Collateral模块的细节，前文已经介绍了Core模块中的Vat和Spot合约。Vat是dss的核心Vault引擎，存储Vault和跟踪相关的Dai和抵押品余额，定义了Vault和余额的操作规则；Spot是连接预言机和核心合约的现货接口，只存储当前的ilk列表。</summary>
@@ -371,7 +406,7 @@
     <link href="http://lispking.github.io/2023/10/10/dai-core-module/"/>
     <id>http://lispking.github.io/2023/10/10/dai-core-module/</id>
     <published>2023-10-10T07:00:00.000Z</published>
-    <updated>2023-11-27T11:35:40.359Z</updated>
+    <updated>2023-11-30T14:23:11.101Z</updated>
     
     
     <summary type="html">本文介绍了 DAI `Core`相关合约模块的细节，包括 `Vat`合约和`Spot`合约。`Vat` 是 `dss` 的核心 `Vault` 引擎。它存储 `Vault` 并跟踪所有相关的 `Dai` 和抵押品余额。它还定义了可以通过操作 `Vault` 和余额的规则。`Vat` 中定义的规则是不可变的，因此在某种程度上，可以将 `Vat` 中的规则视为 `dss` 的宪法。`Spot`是负责连接预言机（`Oracles`）与核心合约的现货接口。作为一个接口合约，它只存储当前的 `ilk` 列表。</summary>
@@ -392,7 +427,7 @@
     <link href="http://lispking.github.io/2023/09/26/dai-module/"/>
     <id>http://lispking.github.io/2023/09/26/dai-module/</id>
     <published>2023-09-26T07:16:18.000Z</published>
-    <updated>2023-11-27T11:35:40.359Z</updated>
+    <updated>2023-11-30T14:23:11.101Z</updated>
     
     
     <summary type="html">本文介绍了 DAI 合约模块的细节，包括 DAI 代币合约和所有的 DaiJoin 适配器。DAI 合约是用户面向的 ERC20 代币合约，具有根据签名消息发行转账批准的能力。与 ERC20 的区别在于 DAI 合约中的 transferFrom 函数允许进行“无限授权”。此外，文章还提到了 permit 函数和无限允许可能带来的风险。在 transferFrom 功能中存在轻微的偏差，如果 src == msg.sender，则该函数不需要事先获得批准。</summary>
@@ -413,7 +448,7 @@
     <link href="http://lispking.github.io/2023/09/25/web3-world-think/"/>
     <id>http://lispking.github.io/2023/09/25/web3-world-think/</id>
     <published>2023-09-25T00:03:12.000Z</published>
-    <updated>2023-11-27T11:35:40.359Z</updated>
+    <updated>2023-11-30T14:23:11.101Z</updated>
     
     
     <summary type="html">本文讨论了下一个Web时代的特点，包括Web3.0、AI、区块链、VR、IoT、5G/6G/7G和数字人等技术的应用，以及元宇宙的概念。这个新时代将带来更加丰富、智能和个性化的体验，同时也将改变我们的生产方式、交流方式和商业模式。作者强调了中国在Web新时代的技术研发和应用上已经走在了世界的前列。</summary>
@@ -426,27 +461,6 @@
     <category term="Web3" scheme="http://lispking.github.io/tags/Web3/"/>
     
     <category term="元宇宙" scheme="http://lispking.github.io/tags/%E5%85%83%E5%AE%87%E5%AE%99/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>解读 DAI 架构流程图 —— 晦涩难懂的术语</title>
-    <link href="http://lispking.github.io/2023/09/22/dai-terminology/"/>
-    <id>http://lispking.github.io/2023/09/22/dai-terminology/</id>
-    <published>2023-09-22T03:20:39.000Z</published>
-    <updated>2023-11-27T11:35:40.359Z</updated>
-    
-    
-    <summary type="html">本文详细讲述了Maker协议中的各种术语及其相关合约接口的说明，让读者逐步明白其中的奥秘。同时，介绍了DAI的诞生背景，以及Maker晦涩难懂的代码是刻意的。文章列举了大量术语，包括Cat、Dai、End、Flipper、Flapper、Flopper等等</summary>
-    
-    
-    
-    <category term="MakerDAO" scheme="http://lispking.github.io/categories/MakerDAO/"/>
-    
-    
-    <category term="MakerDAO" scheme="http://lispking.github.io/tags/MakerDAO/"/>
-    
-    <category term="DAI" scheme="http://lispking.github.io/tags/DAI/"/>
     
   </entry>
   
