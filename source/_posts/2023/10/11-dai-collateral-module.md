@@ -44,7 +44,7 @@ description: 本文讲解了Collateral模块的细节，前文已经介绍了Cor
 
 > 每个 `join` 合约都是专门为允许给定的代币类型加入到 `Vat` 而创建的。正因为如此，每个 `join` 合约在处理系统内不同类型的代币时都有略微不同的逻辑。下面来看看`join`合约的交互流程以及其所在的位置（用黄色标注出来了）
 
-![JoinDiagram](images/makedao/TheMakerJoin.png)
+![JoinDiagram](/images/makedao/TheMakerJoin.png)
 
 ### `Join`合约细节说明
 

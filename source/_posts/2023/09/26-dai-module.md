@@ -20,7 +20,7 @@ description: 本文介绍了 DAI 合约模块的细节，包括 DAI 代币合约
 
 > DAI 合约是面向用户的 ERC20 代币合约，负责维护外部 DAI 余额的会计核算。大多数功能对于具有变动供应的代币来说是标准的，但它还值得注意的是具有根据签名消息发行转账批准的能力。
 
-![Dai Interactions with the Maker Protocol](images/makedao/DaiInteractions.png)
+![Dai Interactions with the Maker Protocol](/images/makedao/DaiInteractions.png)
 
 
 ### DAI 关键机制和概念

@@ -86,4 +86,4 @@ jalr    t1
 
 > 如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。
 
-![公众号](images/wechat-blog.png)
+![公众号](/images/wechat-blog.png)

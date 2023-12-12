@@ -73,7 +73,7 @@ cargo install --locked --version $(scripts/min-tool-version.sh bindgen) bindgen
 make ARCH=arm64 LLVM=1 O=build defconfig
 ```
 
-![make-defconfig-result](images/rust-for-linux/make-defconfig-result.png)
+![make-defconfig-result](/images/rust-for-linux/make-defconfig-result.png)
 
 
 ### 2. 支持 Rust 选项开启
@@ -83,18 +83,18 @@ make ARCH=arm64 LLVM=1 O=build menuconfig
 
 #### 2.1 进入配置页面，按回车选择 `General setup`
 
-![General-setup](images/rust-for-linux/General-setup.png)
+![General-setup](/images/rust-for-linux/General-setup.png)
 
 #### 2.2 滚动到最下方，按空格选择 `Rust support`，然后，按 `ESC` 返回上一层
 
-![make-menuconfig-result](images/rust-for-linux/make-menuconfig-result.png)
+![make-menuconfig-result](/images/rust-for-linux/make-menuconfig-result.png)
 
 #### 2.3 再按一次 `ESC` 弹窗，按回车确认 `Yes` 即可保存配置
-![Yes-confirm](images/rust-for-linux/Yes-confirm.png)
+![Yes-confirm](/images/rust-for-linux/Yes-confirm.png)
 
 #### 2.4 配置保存结果如下图所示：
 
-![save-config](images/rust-for-linux/save-config.png)
+![save-config](/images/rust-for-linux/save-config.png)
 
 ### 3. 编译内核
 
@@ -104,7 +104,7 @@ cd build && time make ARCH=arm64 LLVM=1 -j8
 
 > 编译结果如下图所示，代表编译成功（整体时间花费约 `半小时`），若编译出错，最后会出现 `Error` 字眼
 
-![compile-result](images/rust-for-linux/compile-result.png)
+![compile-result](/images/rust-for-linux/compile-result.png)
 
 
 ### 4. 进入 `Qemu` 环境验证
@@ -124,11 +124,11 @@ $ make menuconfig ARCH=arm64
 
 > 进入 `busybox` 菜单选择页，在 `Settings` 按回车进入下一个页面
 
-![busybox-setting](images/rust-for-linux/busybox-setting.png)
+![busybox-setting](/images/rust-for-linux/busybox-setting.png)
 
 > 找到 `Build static binary (no shared libs)` 选项，并按空格选中后，按 `ESC` 返回上层，再按一次进入提示保存页面，回车选择 `Yes` 保存即完成静态二进制编译支持。
 
-![busybox-setting-build-staice-binary](images/rust-for-linux/busybox-setting-build-static-binary.png)
+![busybox-setting-build-staice-binary](/images/rust-for-linux/busybox-setting-build-static-binary.png)
 
 
 > 编译 busybox 二进制文件，并将该执行文件 copy 到 linux 源码目录
@@ -524,4 +524,4 @@ qemu-system-aarch64 \
 
 > 如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。
 
-![公众号](images/wechat-blog.png)
+![公众号](/images/wechat-blog.png)

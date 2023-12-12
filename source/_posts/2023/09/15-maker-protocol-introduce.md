@@ -37,11 +37,11 @@ Maker通过创建一个包容性的经济赋权平台，为每个人释放去中
 
 ### Maker协议智能合约模块系统：
 
-![SystemDiagram](images/makedao/TheMakerProtocolSystemDiagram.png)
+![SystemDiagram](/images/makedao/TheMakerProtocolSystemDiagram.png)
 
 ### Maker 101协议交互：
 
-![MakerProtocol101](images/makedao/TheMakerProtocol101.png)
+![MakerProtocol101](/images/makedao/TheMakerProtocol101.png)
 
 ### 总结：
 

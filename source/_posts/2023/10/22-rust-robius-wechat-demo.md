@@ -89,13 +89,13 @@ git clone https://github.com/project-robius/makepad_wechat.git
 
 * 以下是在 `iOS` 模拟器安装成功运行效果图
 
-    ![iOS模块器效果](images/robius/TheRobiusWechatDemo.png)
+    ![iOS模块器效果](/images/robius/TheRobiusWechatDemo.png)
 
 ## [`makepad_wechat`] 应用源码解读
 
 ### 源码结构分析
 
-![makepad_wechat源码目录](images/robius/TheRobiusWechatDemoSource.png)
+![makepad_wechat源码目录](/images/robius/TheRobiusWechatDemoSource.png)
 
 `Demo` 源码目录整体较为简洁，具体解析如下：
 - `resources`：资源目录，主要存放字体、图标、图片等。
@@ -167,7 +167,7 @@ impl AppMain for App {
 
 > 如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。
 
-![公众号](images/wechat-blog.png)
+![公众号](/images/wechat-blog.png)
 
 
 <!-- Links below -->

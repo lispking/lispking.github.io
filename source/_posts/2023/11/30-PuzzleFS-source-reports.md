@@ -275,11 +275,11 @@ capnp convert binary:json ~/puzzlefs/format/metadata.capnp InodeVector < /tmp/pu
 
 OCI manifest主要由一个或多个文件列表（组成一个完整的可运行的文件系统）、索引和配置等元数据组成。其中，配置文件包含应用参数、环境变量等信息。索引文件主要是文件清单列表描述，不同平台可能会所有差异。
 
-![00-oci-spec](images/puzzlefs/00-oci-spec.png)
+![00-oci-spec](/images/puzzlefs/00-oci-spec.png)
 
 OCI 镜像构建完成后，可通过名称方式发现和下载镜像，以及通过哈希方式进行验证，通过签名进行信任，并解压到 OCI 运行时中。
 
-![01-oci-spec](images/puzzlefs/01-oci-spec.png)
+![01-oci-spec](/images/puzzlefs/01-oci-spec.png)
 
 OCI 规范主要包括下面这些组件：
 * Image Manifest - 有关容器镜像文件清单说明
@@ -336,7 +336,7 @@ type puzzlefs_blob {
 
 > 下面通过一张 UML 图来解读 Puzzle 文件系统格式里相关组件的关系，源码文件位于 `format/types.rs` 
 
-![02-format-types](images/02-format-types.png)
+![02-format-types](/images/02-format-types.png)
 
 
 #### 根文件系统（Rootfs）的结构体定义
@@ -458,7 +458,7 @@ pub struct FilesystemStream {
 
 3. 两个结构体关系如下图所述：
 
-![03-builder-filesystem](images/03-builder-filesystem.png)
+![03-builder-filesystem](/images/03-builder-filesystem.png)
 
 
 #### 核心函数作用解读
@@ -1093,5 +1093,5 @@ Wedson Almeida Filho (7):
 
 > 如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。
 
-![公众号](images/wechat-blog.png)
+![公众号](/images/wechat-blog.png)
 

@@ -41,7 +41,7 @@ description: 本文介绍了 DAI `Core`相关合约模块的细节，包括 `Vat
 
 > `Vat` 是 `dss` 的核心 `Vault` 引擎。它存储 `Vault` 并跟踪所有相关的 `Dai` 和抵押品余额。它还定义了可以通过操作 `Vault` 和余额的规则。`Vat` 中定义的规则是不可变的，因此在某种程度上，可以将 `Vat` 中的规则视为 `dss` 的宪法。
 
-![SystemDiagram](images/makedao/TheMakerProtocolSystemDiagram.png)
+![SystemDiagram](/images/makedao/TheMakerProtocolSystemDiagram.png)
 
 * `Vat` - `Vault`引擎术语解析
     - `gem`: collateral tokens.
@@ -133,7 +133,7 @@ description: 本文介绍了 DAI `Core`相关合约模块的细节，包括 `Vat
 
 > `Spot`是负责连接预言机（`Oracles`）与核心合约的现货接口。作为一个接口合约，它只存储当前的 `ilk` 列表。
 
-![SpotDiagram](images/makedao/TheMakerSpot.png)
+![SpotDiagram](/images/makedao/TheMakerSpot.png)
 
 ### `Spot`合约的核心机制和概念
 

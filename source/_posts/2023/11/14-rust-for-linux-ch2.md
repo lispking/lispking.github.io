@@ -42,7 +42,7 @@ git clone git@github.com:Rust-for-Linux/linux.git -b rust-dev --depth 1
 * tools: 一些用于开发和维护内核的工具
 * init-env.sh/make-aarch64.sh/qemu-aarch64-test.sh：细心的读者可能会发现，文章目录比官方多了几个脚本。这些额外的脚本是我自行添加的，其主要作用在[第一节课](https://lispking.github.io/2023/11/07/rust-for-linux-ch1/)中已经详细讲解过。在日常开发和测试过程中，这些脚本非常有用。
 
-![rust-dev-source.png](images/rust-for-linux/rust-dev-source.png)
+![rust-dev-source.png](/images/rust-for-linux/rust-dev-source.png)
 
 
 ## 常用 Linux 内核模块命令
@@ -340,7 +340,7 @@ EXPORT_SYMBOL_GPL(rust_helper_example);
 
 最后，以下面这张图生动地概括整个描述过程，相信您会认为这个过程颇具趣味性。
 
-![bindings-unsafe-safe](images/rust-for-linux/bindings-unsafe-safe.png)
+![bindings-unsafe-safe](/images/rust-for-linux/bindings-unsafe-safe.png)
 
 
 ## 未完待续
@@ -349,4 +349,4 @@ EXPORT_SYMBOL_GPL(rust_helper_example);
 
 > 如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。
 
-![公众号](images/wechat-blog.png)
+![公众号](/images/wechat-blog.png)
