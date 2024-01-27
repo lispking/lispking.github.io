@@ -13,6 +13,8 @@ tags: [Builpacks,Dockerfile,meta-buildpack]
 
 本节，我们将继续分享 Buildpacks 相关的内容，本节的主题是 Meta-buildpack。
 
+<!-- more -->
+
 ## Meta-buildpack 介绍
 
 在构建 Buildpack 的过程中，我们通常会创作一个名为 buildpack.toml 的配置文件，其中详细记录了构建包的版本、名称、描述以及它所依赖的其他构建包等信息。
