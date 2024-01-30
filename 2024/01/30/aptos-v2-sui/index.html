@@ -19,32 +19,31 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"lispking.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="ArceOS Unikernel 总结报告不知不觉，ArceOS Unikernel 课程的学习已经过去了一半。回顾过去这两周，我深感学习过程中的磨砺与成长。感谢石磊老师的细心指导，从基础概念入手，让我们逐渐掌握 Unikernel 的奥秘。谁曾想到，Unikernel 的设计竟如此强大。每次回顾这个过程，我都会重新阅读陈渝老师的著作《像开发应用一样开发操作系统》，从中汲取启示。我对操作系统可以如">
+    <meta name="description" content="Aptos 和 Sui 环境差异分析 免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^  Aptos Move.toml 优势：一个 Aptos 可执行文件解决编译和部署能力 劣势：需手动配置钱包 Address  12345678910111213141516[package]name &#x3D; &quot;my_todo_list&quot;version &#x3D; &quot;1.0.0">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2023秋冬季开源操作系统训练营第三阶段 - ArceOS Unikernel 总结报告">
-<meta property="og:url" content="http://lispking.github.io/2023/11/20/arceos-unikernel-summary/index.html">
+<meta property="og:title" content="Aptos 和 Sui 环境差异分析">
+<meta property="og:url" content="http://lispking.github.io/2024/01/30/aptos-v2-sui/index.html">
 <meta property="og:site_name" content="Dive In Web3">
-<meta property="og:description" content="ArceOS Unikernel 总结报告不知不觉，ArceOS Unikernel 课程的学习已经过去了一半。回顾过去这两周，我深感学习过程中的磨砺与成长。感谢石磊老师的细心指导，从基础概念入手，让我们逐渐掌握 Unikernel 的奥秘。谁曾想到，Unikernel 的设计竟如此强大。每次回顾这个过程，我都会重新阅读陈渝老师的著作《像开发应用一样开发操作系统》，从中汲取启示。我对操作系统可以如">
+<meta property="og:description" content="Aptos 和 Sui 环境差异分析 免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^  Aptos Move.toml 优势：一个 Aptos 可执行文件解决编译和部署能力 劣势：需手动配置钱包 Address  12345678910111213141516[package]name &#x3D; &quot;my_todo_list&quot;version &#x3D; &quot;1.0.0">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://lispking.github.io/images/wechat-blog.png">
-<meta property="article:published_time" content="2023-11-20T08:04:04.000Z">
+<meta property="article:published_time" content="2024-01-30T15:57:35.000Z">
 <meta property="article:modified_time" content="2024-01-30T16:01:55.606Z">
 <meta property="article:author" content="King">
-<meta property="article:tag" content="author:lispking">
-<meta property="article:tag" content="2023秋冬季开源操作系统训练营">
-<meta property="article:tag" content="第三阶段总结报告">
+<meta property="article:tag" content="Aptos">
+<meta property="article:tag" content="Sui">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://lispking.github.io/images/wechat-blog.png">
 
 
-<link rel="canonical" href="http://lispking.github.io/2023/11/20/arceos-unikernel-summary/">
+<link rel="canonical" href="http://lispking.github.io/2024/01/30/aptos-v2-sui/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://lispking.github.io/2023/11/20/arceos-unikernel-summary/","path":"2023/11/20/arceos-unikernel-summary/","title":"2023秋冬季开源操作系统训练营第三阶段 - ArceOS Unikernel 总结报告"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://lispking.github.io/2024/01/30/aptos-v2-sui/","path":"2024/01/30/aptos-v2-sui/","title":"Aptos 和 Sui 环境差异分析"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>2023秋冬季开源操作系统训练营第三阶段 - ArceOS Unikernel 总结报告 | Dive In Web3</title>
+<title>Aptos 和 Sui 环境差异分析 | Dive In Web3</title>
   
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6255376809208012" crossorigin="anonymous"></script>
 
@@ -153,7 +152,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ArceOS-Unikernel-%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A"><span class="nav-number">1.</span> <span class="nav-text">ArceOS Unikernel 总结报告</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BE%E7%A8%8B%E6%80%BB%E7%BB%93"><span class="nav-number">1.1.</span> <span class="nav-text">课程总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E5%91%A8%E7%BB%83%E4%B9%A0%E9%A2%98%E6%80%9D%E8%B7%AF%E6%80%BB%E7%BB%93"><span class="nav-number">1.2.</span> <span class="nav-text">第二周练习题思路总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0-1-%E5%92%8C-2-%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.1.</span> <span class="nav-text">练习 1 和 2 的思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0-3-%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.2.</span> <span class="nav-text">练习 3 的思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0-4-%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.3.</span> <span class="nav-text">练习 4 的思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0-5-%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.4.</span> <span class="nav-text">练习 5 的思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0-6-%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.5.</span> <span class="nav-text">练习 6 的思路</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Aptos-%E5%92%8C-Sui-%E7%8E%AF%E5%A2%83%E5%B7%AE%E5%BC%82%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">Aptos 和 Sui 环境差异分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Aptos-Move-toml"><span class="nav-number">1.1.</span> <span class="nav-text">Aptos Move.toml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sui-Move-toml"><span class="nav-number">1.2.</span> <span class="nav-text">Sui Move.toml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%91%BD%E4%BB%A4"><span class="nav-number">1.3.</span> <span class="nav-text">编译命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E7%BA%A6%E9%83%A8%E7%BD%B2"><span class="nav-number">1.4.</span> <span class="nav-text">合约部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E5%AF%86%E9%92%A5%E8%BF%98%E5%8E%9F%E9%92%B1%E5%8C%85"><span class="nav-number">1.5.</span> <span class="nav-text">从密钥还原钱包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DevNet-%E5%8F%96%E6%B5%8B%E8%AF%95%E5%B8%81"><span class="nav-number">1.6.</span> <span class="nav-text">DevNet 取测试币</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%9D%87%E7%BC%BA%E5%A4%B1"><span class="nav-number">1.7.</span> <span class="nav-text">环境变量均缺失</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#help-%E6%8C%87%E5%8D%97"><span class="nav-number">1.8.</span> <span class="nav-text">help 指南</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E8%AF%84%E4%BC%B0%E7%BB%93%E8%AE%BA"><span class="nav-number">1.9.</span> <span class="nav-text">环境评估结论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Sui-%E5%AD%A6%E4%B9%A0%E9%97%A8%E6%A7%9B%E6%AF%94-Aptos-%E8%A6%81%E9%AB%98%E4%B8%80%E4%BA%9B"><span class="nav-number">1.9.1.</span> <span class="nav-text">Sui 学习门槛比 Aptos 要高一些</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8B%A5%E5%B0%86%E6%95%B4%E4%BD%93%E5%8F%96%E6%B0%B4%E6%B5%81%E7%A8%8B%E4%B8%B2%E8%B5%B7%E6%9D%A5%EF%BC%8CAptos-%E4%B8%A4%E6%AD%A5%E5%AE%8C%E6%88%90%EF%BC%8C%E8%80%8C-Sui-%E9%9C%80%E8%A6%81%E5%9B%9B%E6%AD%A5%E5%AE%8C%E6%88%90"><span class="nav-number">1.9.2.</span> <span class="nav-text">若将整体取水流程串起来，Aptos 两步完成，而 Sui 需要四步完成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD"><span class="nav-number">1.10.</span> <span class="nav-text">未完待续</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -227,7 +226,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://lispking.github.io/2023/11/20/arceos-unikernel-summary/">
+    <link itemprop="mainEntityOfPage" href="http://lispking.github.io/2024/01/30/aptos-v2-sui/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars.githubusercontent.com/u/4446580?v=4">
@@ -240,12 +239,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="2023秋冬季开源操作系统训练营第三阶段 - ArceOS Unikernel 总结报告 | Dive In Web3">
+      <meta itemprop="name" content="Aptos 和 Sui 环境差异分析 | Dive In Web3">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          2023秋冬季开源操作系统训练营第三阶段 - ArceOS Unikernel 总结报告
+          Aptos 和 Sui 环境差异分析
         </h1>
 
         <div class="post-meta-container">
@@ -256,7 +255,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-11-20 16:04:04" itemprop="dateCreated datePublished" datetime="2023-11-20T16:04:04+08:00">2023-11-20</time>
+      <time title="创建时间：2024-01-30 23:57:35" itemprop="dateCreated datePublished" datetime="2024-01-30T23:57:35+08:00">2024-01-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -271,7 +270,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/oscamp-2023fall-arceos-unikernel/" itemprop="url" rel="index"><span itemprop="name">oscamp 2023fall arceos unikernel</span></a>
+          <a href="/categories/Blockchain/" itemprop="url" rel="index"><span itemprop="name">Blockchain</span></a>
         </span>
     </span>
 
@@ -282,7 +281,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
+      <span>2.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -299,49 +298,98 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="ArceOS-Unikernel-总结报告"><a href="#ArceOS-Unikernel-总结报告" class="headerlink" title="ArceOS Unikernel 总结报告"></a>ArceOS Unikernel 总结报告</h1><p>不知不觉，ArceOS Unikernel 课程的学习已经过去了一半。回顾过去这两周，我深感学习过程中的磨砺与成长。感谢石磊老师的细心指导，从基础概念入手，让我们逐渐掌握 Unikernel 的奥秘。谁曾想到，Unikernel 的设计竟如此强大。每次回顾这个过程，我都会重新阅读<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/-birTWw6kZQ9oyCzjTAntg">陈渝老师的著作《像开发应用一样开发操作系统》</a>，从中汲取启示。我对操作系统可以如同应用一般，通过组件化思维实现感到震惊。过去曾听说过鸿蒙分布式部署等新闻，也阅读过一些关于鸿蒙的相关文章，但亲身参与组件化操作系统的学习，完全是不同于以往的体验。</p>
-<h2 id="课程总结"><a href="#课程总结" class="headerlink" title="课程总结"></a>课程总结</h2><blockquote>
-<p>第一周练习主要包含以下内容：</p>
+    <div class="post-body" itemprop="articleBody"><h1 id="Aptos-和-Sui-环境差异分析"><a href="#Aptos-和-Sui-环境差异分析" class="headerlink" title="Aptos 和 Sui 环境差异分析"></a>Aptos 和 Sui 环境差异分析</h1><blockquote>
+<p>免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^</p>
 </blockquote>
-<ul>
-<li>首先，通过彩色打印 “Hello World” 和支持 Hashmap 数据类型的示例，快速熟悉 ArceOS 架构</li>
-<li>接着，实现 early 内存分配算法，深入了解 ArceOS 的内存分配流程</li>
-<li>最后，将协作式调度算法 FIFO 改造为抢占式调度算法，为第一周的学习画上圆满句号</li>
+<h2 id="Aptos-Move-toml"><a href="#Aptos-Move-toml" class="headerlink" title="Aptos Move.toml"></a>Aptos Move.toml</h2><ul>
+<li>优势：一个 Aptos 可执行文件解决编译和部署能力</li>
+<li>劣势：需手动配置钱包 Address</li>
 </ul>
-<p>通过本周学习对 ArceOS 的整体架构、内存分配及调度算法有更深入的了解。</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;my_todo_list&quot;</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">&quot;1.0.0&quot;</span></span><br><span class="line"><span class="attr">authors</span> = []</span><br><span class="line"></span><br><span class="line"><span class="section">[addresses]</span></span><br><span class="line"><span class="attr">todolist_addr</span>=<span class="string">&#x27;&lt;YOUR_ADDRESS&gt;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[dev-addresses]</span></span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies.AptosFramework]</span></span><br><span class="line"><span class="attr">git</span> = <span class="string">&quot;https://github.com/aptos-labs/aptos-core.git&quot;</span></span><br><span class="line"><span class="attr">rev</span> = <span class="string">&quot;devnet&quot;</span></span><br><span class="line"><span class="attr">subdir</span> = <span class="string">&quot;aptos-move/framework/aptos-framework&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[dev-dependencies]</span></span><br></pre></td></tr></table></figure>
+
 <span id="more"></span>
 
+<h2 id="Sui-Move-toml"><a href="#Sui-Move-toml" class="headerlink" title="Sui Move.toml"></a>Sui Move.toml</h2><ul>
+<li>优势：无须配置钱包 Address</li>
+<li>劣势：针对三种网络(mainnet,devnet,testnet)可执行文件，需分别用对应版本编译和部署，意味着不能用 mainnet 编译完，再部署到 devnet 网络）</li>
+</ul>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;first_package&quot;</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">&quot;0.0.1&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies]</span></span><br><span class="line"><span class="attr">Sui</span> = &#123; git = <span class="string">&quot;https://github.com/MystenLabs/sui.git&quot;</span>, subdir = <span class="string">&quot;crates/sui-framework/packages/sui-framework&quot;</span>, rev = <span class="string">&quot;devnet&quot;</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="section">[addresses]</span></span><br><span class="line"><span class="attr">first_package</span> = <span class="string">&quot;0x0&quot;</span></span><br></pre></td></tr></table></figure>
+
 <blockquote>
-<p>进入第二周的练习，主要包含以下内容：</p>
+<p>赞优势，但差评劣势</p>
+</blockquote>
+<h2 id="编译命令"><a href="#编译命令" class="headerlink" title="编译命令"></a>编译命令</h2><ul>
+<li>Aptos 合约编译</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">aptos move compile</span><br><span class="line">aptos move clean</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Sui 合约编译</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sui move build</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>无 clean 命令，差评</p>
+</blockquote>
+<h2 id="合约部署"><a href="#合约部署" class="headerlink" title="合约部署"></a>合约部署</h2><ul>
+<li>Aptos 实现</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aptos move publish --skip-fetch-latest-git-deps --assume-yes</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Sui 实现</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首次需执行以下命令，否则，会提示 &lt;FILE-PATH&gt;/.sui/sui_config/client.yaml 不存在</span></span><br><span class="line">sui client --<span class="built_in">yes</span> envs</span><br><span class="line"></span><br><span class="line"><span class="comment"># 合约部署，需指定 Gas，值不能太小，官方文档推荐的值 20000000 不好用，经常部署不上去，建议调大一点，改用 100000000</span></span><br><span class="line">sui client publish --skip-fetch-latest-git-deps --gas-budget &lt;GasBudget&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="从密钥还原钱包"><a href="#从密钥还原钱包" class="headerlink" title="从密钥还原钱包"></a>从密钥还原钱包</h2><ul>
+<li>Aptos 实现</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aptos init --private-key &lt;PrivateKey&gt; --assume-yes --network &lt;network&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Sui 实现</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sui keytool import &lt;PrivateKey&gt; &lt;KeyScheme&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="DevNet-取测试币"><a href="#DevNet-取测试币" class="headerlink" title="DevNet 取测试币"></a>DevNet 取测试币</h2><ul>
+<li>Aptos 实现</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aptos account fund-with-faucet --account default</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>贴心，值得点赞</p>
 </blockquote>
 <ul>
-<li>首先，需要准备 5 个基本实验环境，分别包括：从外部加载应用、将应用拷贝到执行区域并执行、通过 ABI 调用 ArceOS 功能、在 App 中正式调用 ABI 以及支持内核和应用分离的地址空间及切换。</li>
-<li>接下来，在上述环境基础上，完成 6 个附加练习，具体如下：<ul>
-<li>针对第一个环境，探索如何优化加载更多应用</li>
-<li>在第二个环境中，研究多应用的批处理方式</li>
-<li>针对第三个环境，探讨 ABIs 的 SYS_TERMINATE 功能调用</li>
-<li>在第四个环境中，实现内核与应用程序之间的通信，并支持 Hello 功能、打印字符串功能、退出功能</li>
-<li>最后，在第五个环境中，探索如何实现内核与应用程序的分离，并将控制权回到 loader，再由 loader 执行下一个应用</li>
+<li>Sui 实现</li>
 </ul>
-</li>
-<li>通过这些练习，将更加深入地了解 ArceOS 系统的运行机制和应用开发技巧。</li>
-</ul>
-<h2 id="第二周练习题思路总结"><a href="#第二周练习题思路总结" class="headerlink" title="第二周练习题思路总结"></a>第二周练习题思路总结</h2><h3 id="练习-1-和-2-的思路"><a href="#练习-1-和-2-的思路" class="headerlink" title="练习 1 和 2 的思路"></a>练习 1 和 2 的思路</h3><p>借鉴 Unix 协议的设计理念，将数据按照如下格式保存在 app.bin 文件中，以便 ArceOS 逐字节读取并采用循环机制顺序加载。</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">App 数量 | App1 大小 | App1 内容 | App2 大小 | App2 内容 | ... | AppN 大小 | AppN 内容  </span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl --location --request POST <span class="string">&#x27;https://faucet.devnet.sui.io/gas&#x27;</span> \</span><br><span class="line">--header <span class="string">&#x27;Content-Type: application/json&#x27;</span> \</span><br><span class="line">--data-raw <span class="string">&#x27;&#123;</span></span><br><span class="line"><span class="string">    &quot;FixedAmountRequest&quot;: &#123;</span></span><br><span class="line"><span class="string">        &quot;recipient&quot;: &quot;&lt;YOUR SUI ADDRESS&gt;&quot;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<p>通过这种设计，可以方便地管理各个应用程序的尺寸和内容，从而实现应用程序的顺序加载和高效运行。在 ArceOS 读取到相应数据后，可以根据数据内容来调用相应的应用程序。</p>
-<h3 id="练习-3-的思路"><a href="#练习-3-的思路" class="headerlink" title="练习 3 的思路"></a>练习 3 的思路</h3><p>这道题目相对较为简单，主要需要注意一个小细节 —— <code>noop</code> 指令。在编译过程中，<code>Rust</code> 会提示不通过，原因是 <code>typo</code>，多打了一个 <code>o</code>。</p>
-<p>起初，我以为该练习将 <code>nop</code> 指令加在 <code>options(noreturn)</code> 前面，但是运行的时候，程序会卡住半天不返回内核执行下一个应用。后来翻查指令解释资料，将 <code>options(noreturn)</code> 删除，练习 3 便顺利完成。</p>
-<p>在这道题中，需要注意 <code>nop</code> 指令的特殊性质，避免使其影响到程序的正常执行。通过细心观察和调整，可以顺利解决这个小问题，进而完成练习 3。</p>
-<h3 id="练习-4-的思路"><a href="#练习-4-的思路" class="headerlink" title="练习 4 的思路"></a>练习 4 的思路</h3><p>这道题较为简单，只需在 <code>ArceOS</code> 系统中添加 <code>SYS_TERMINATE</code> 系统调用。编写 <code>abi_terminate</code> 函数，并直接调用 <code>axstd::process::exit</code>。接着将此函数通过 <code>register_abi</code> 注册到系统中，并将 <code>abi_num</code> 指向 <code>SYS_TERMINATE</code>，如此便可顺利完成任务。</p>
-<h3 id="练习-5-的思路"><a href="#练习-5-的思路" class="headerlink" title="练习 5 的思路"></a>练习 5 的思路</h3><p>这道题具有一定难度，非常感谢<code>赫森</code>大佬在群里分享了思路。</p>
-<p>主要思路是参考了 rCore 教程中的链接章节，并在应用层引入了 <code>linker.ld</code> 链接汇编。这样做的目的是将字符串从 <code>.rodata</code> 区域读取出来，并将原始在 <code>ArceOS</code> 中的相关指令移动到 <code>hello_app</code> 应用中。为了实现 Hello、打印字符串和退出这三个功能，我将以下指令封装到 <code>abi_call</code> 宏中，使得代码看起来更加简洁明了。</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">li      a0, &#123;abi_num&#125;</span><br><span class="line">slli    t0, t0, <span class="number">3</span></span><br><span class="line">la      t1, &#123;abi_entry&#125;</span><br><span class="line">ld      t1, (t1)</span><br><span class="line">jalr    t1</span><br></pre></td></tr></table></figure>
-
-<h3 id="练习-6-的思路"><a href="#练习-6-的思路" class="headerlink" title="练习 6 的思路"></a>练习 6 的思路</h3><p>在完成练习 5 之后，练习 6 就会变得相对容易。主要是基于之前的 <code>hello_app</code> 应用进行改造，仅保留 <code>putchar</code> 函数。</p>
-<p>需要注意的是，为了避免让控制权回到 <code>loader</code> 的条件，例如不能进行无限循环等阻塞操作，练习 5 中有一个 <code>wfi</code> 指令用于等待中断。只需将此指令删除，即可顺利完成任务。</p>
 <blockquote>
-<p> 以上是对 6 个练习的思路总结，希望能对你有所帮助，祝大家玩得开心 ^_^</p>
+<p>差评，还有一种差评途径是到 Discord 手工取水</p>
+</blockquote>
+<h2 id="环境变量均缺失"><a href="#环境变量均缺失" class="headerlink" title="环境变量均缺失"></a>环境变量均缺失</h2><ul>
+<li><p>Aptos 和 Sui 均给差评，均没有文档说明这块，只能看源码了解到一二</p>
+</li>
+<li><p>MOVE_HOME 两者并没提示，差评</p>
+</li>
+<li><p>Sui 提供 SUI_CONFIG_DIR 比 Aptos 贴心，但是文档没提出来，还是差评</p>
+</li>
+</ul>
+<h2 id="help-指南"><a href="#help-指南" class="headerlink" title="help 指南"></a>help 指南</h2><ul>
+<li><p>aptos -h 做得较为清晰友好</p>
+</li>
+<li><p>sui -h 稍为差一些</p>
+</li>
+</ul>
+<h2 id="环境评估结论"><a href="#环境评估结论" class="headerlink" title="环境评估结论"></a>环境评估结论</h2><h3 id="Sui-学习门槛比-Aptos-要高一些"><a href="#Sui-学习门槛比-Aptos-要高一些" class="headerlink" title="Sui 学习门槛比 Aptos 要高一些"></a>Sui 学习门槛比 Aptos 要高一些</h3><h3 id="若将整体取水流程串起来，Aptos-两步完成，而-Sui-需要四步完成"><a href="#若将整体取水流程串起来，Aptos-两步完成，而-Sui-需要四步完成" class="headerlink" title="若将整体取水流程串起来，Aptos 两步完成，而 Sui 需要四步完成"></a>若将整体取水流程串起来，Aptos 两步完成，而 Sui 需要四步完成</h3><ul>
+<li>Aptos 流程：导入密钥还原钱包 &gt; 取水</li>
+<li>Sui 流程：初始化环境 &gt; 导入密钥还原钱包 &gt; 切换钱包地址到对应网络 &gt; 取水</li>
+</ul>
+<blockquote>
+<p>若两者能互相综合各自优势整合，对初学者将会更友好</p>
+</blockquote>
+<h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2><blockquote>
+<p>以上内容就是对《Aptos 和 Sui 环境差异分析》的全部解读，希望以上内容对同学们能有所启发和帮助。</p>
 </blockquote>
 <blockquote>
 <p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
@@ -405,23 +453,19 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/author-lispking/" rel="tag"><i class="fa fa-tag"></i> author:lispking</a>
-              <a href="/tags/2023%E7%A7%8B%E5%86%AC%E5%AD%A3%E5%BC%80%E6%BA%90%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AE%AD%E7%BB%83%E8%90%A5/" rel="tag"><i class="fa fa-tag"></i> 2023秋冬季开源操作系统训练营</a>
-              <a href="/tags/%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/" rel="tag"><i class="fa fa-tag"></i> 第三阶段总结报告</a>
+              <a href="/tags/Aptos/" rel="tag"><i class="fa fa-tag"></i> Aptos</a>
+              <a href="/tags/Sui/" rel="tag"><i class="fa fa-tag"></i> Sui</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/11/13/rust-for-linux-ch2/" rel="prev" title="RustForLinux：跟着清华训练营从零打造 Linux 驱动【第二课】">
-                  <i class="fa fa-angle-left"></i> RustForLinux：跟着清华训练营从零打造 Linux 驱动【第二课】
+                <a href="/2024/01/27/meta-buildpack/" rel="prev" title="跟我一起编写 Buildpacks：Meta-Buildpack 篇">
+                  <i class="fa fa-angle-left"></i> 跟我一起编写 Buildpacks：Meta-Buildpack 篇
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/11/27/linux-networking-stack-receiving-data/" rel="next" title="图文指南：Linux 网络堆栈监控和优化 —— 接收数据">
-                  图文指南：Linux 网络堆栈监控和优化 —— 接收数据 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
