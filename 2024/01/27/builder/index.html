@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lispking.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="上节回顾在【跟我一起编写 Buildpacks：Meta 篇】介绍了 Meta-Buildpack 的概念和用法，它是一个特殊的构建包，通过引用其他构建包来实现功能。可以通过配置文件中的顺序确定构建包的加载顺序。文章提供了一个示例来演示如何编写和构建 Meta-Buildpack。 本节，我们将继续分享 Buildpacks 相关的内容，本节的主题是 Builder。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="跟我一起编写 Buildpacks：Builder 篇">
+<meta property="og:url" content="http://lispking.github.io/2024/01/27/builder/index.html">
+<meta property="og:site_name" content="Dive In Web3">
+<meta property="og:description" content="上节回顾在【跟我一起编写 Buildpacks：Meta 篇】介绍了 Meta-Buildpack 的概念和用法，它是一个特殊的构建包，通过引用其他构建包来实现功能。可以通过配置文件中的顺序确定构建包的加载顺序。文章提供了一个示例来演示如何编写和构建 Meta-Buildpack。 本节，我们将继续分享 Buildpacks 相关的内容，本节的主题是 Builder。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://lispking.github.io/images/buildpacks/builder.png">
+<meta property="og:image" content="http://lispking.github.io/images/wechat-blog.png">
+<meta property="article:published_time" content="2024-01-27T03:00:34.000Z">
+<meta property="article:modified_time" content="2024-01-31T09:27:17.021Z">
+<meta property="article:author" content="King">
+<meta property="article:tag" content="Builpacks">
+<meta property="article:tag" content="Dockerfile">
+<meta property="article:tag" content="Builder">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lispking.github.io/images/buildpacks/builder.png">
+
+
+<link rel="canonical" href="http://lispking.github.io/2024/01/27/builder/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://lispking.github.io/2024/01/27/builder/","path":"2024/01/27/builder/","title":"跟我一起编写 Buildpacks：Builder 篇"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>跟我一起编写 Buildpacks：Builder 篇 | Dive In Web3</title>
+  
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6255376809208012" crossorigin="anonymous"></script>
+
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-28440BWWYK"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-28440BWWYK","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?ea3634b85b5b23007bec7092a4735018"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Dive In Web3" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Dive In Web3</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">深入Web3世界</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">23</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">12</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">27</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E8%8A%82%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.</span> <span class="nav-text">上节回顾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-builder%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">什么是 builder？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#builder-meta-buildpack-%E5%92%8C-buildpack-%E4%B8%89%E8%80%85%E5%85%B3%E7%B3%BB"><span class="nav-number">3.</span> <span class="nav-text">builder, meta-buildpack 和 buildpack 三者关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99-Builder"><span class="nav-number">4.</span> <span class="nav-text">编写 Builder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA-Builder"><span class="nav-number">5.</span> <span class="nav-text">构建 Builder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5-Builder"><span class="nav-number">6.</span> <span class="nav-text">检查 Builder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD"><span class="nav-number">7.</span> <span class="nav-text">未完待续</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="King"
+      src="https://avatars.githubusercontent.com/u/4446580?v=4">
+  <p class="site-author-name" itemprop="name">King</p>
+  <div class="site-description" itemprop="description">欢迎光临Web3世界，一起拥抱Web3</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lispking" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/lispking" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/lispking" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;lispking" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_nd.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="sidebar-inner sidebar-post-related">
+          <div class="animated">
+              <div class="links-of-blogroll-title"><i class="fa fa-signs-post fa-fw"></i>
+    相关文章
+  </div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2024/01/27/meta-buildpack/" rel="bookmark">
+        <time class="popular-posts-time">2024-01-27</time>
+        <br>
+      跟我一起编写 Buildpacks：Meta-Buildpack 篇
+      </a>
+    </li>
+  </ul>
+
+          </div>
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lispking.github.io/2024/01/27/builder/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/4446580?v=4">
+      <meta itemprop="name" content="King">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dive In Web3">
+      <meta itemprop="description" content="欢迎光临Web3世界，一起拥抱Web3">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="跟我一起编写 Buildpacks：Builder 篇 | Dive In Web3">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          跟我一起编写 Buildpacks：Builder 篇
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-01-27 11:00:34" itemprop="dateCreated datePublished" datetime="2024-01-27T11:00:34+08:00">2024-01-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-01-31 17:27:17" itemprop="dateModified" datetime="2024-01-31T17:27:17+08:00">2024-01-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Builpacks/" itemprop="url" rel="index"><span itemprop="name">Builpacks</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="上节回顾"><a href="#上节回顾" class="headerlink" title="上节回顾"></a>上节回顾</h2><p>在【<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/9nROJHl1OCEoeup2q31zSQ">跟我一起编写 Buildpacks：Meta 篇</a>】介绍了 Meta-Buildpack 的概念和用法，它是一个特殊的构建包，通过引用其他构建包来实现功能。可以通过配置文件中的顺序确定构建包的加载顺序。文章提供了一个示例来演示如何编写和构建 Meta-Buildpack。</p>
+<p>本节，我们将继续分享 Buildpacks 相关的内容，本节的主题是 Builder。</p>
+<span id="more"></span>
+
+<h2 id="什么是-builder？"><a href="#什么是-builder？" class="headerlink" title="什么是 builder？"></a>什么是 builder？</h2><p>在编写 builder 之前，我们需要先了解 builder 的组成结构。</p>
+<p><img src="/images/buildpacks/builder.png" alt="CreateBuilder"></p>
+<p>builder 是一个包含执行构建所需所有组件的镜像。builder 镜像是通过获取一个构建镜像，并添加一个生命周期、构建包以及配置构建各个方面（包括构建包检测顺序和运行镜像的位置）的文件来创建的。</p>
+<h2 id="builder-meta-buildpack-和-buildpack-三者关系"><a href="#builder-meta-buildpack-和-buildpack-三者关系" class="headerlink" title="builder, meta-buildpack 和 buildpack 三者关系"></a>builder, meta-buildpack 和 buildpack 三者关系</h2><p>为了更好地理解 builder、meta-buildpack 以及 buildpack 三者之间的层次关系，我们继续以”Leo”为例进行分析。</p>
+<ul>
+<li>在 builder 层面，我们指的是 leo-builder，它仅包含 meta-buildpack。</li>
+<li>meta-buildpack 则是一个更为综合的概念，它包含了多个底层包以及 procfile。以 leo 为例，它涵盖了 leo-dist buildpack以及procfile buildpack。</li>
+<li>而 buildpack 则构成了整个架构的最底层实现，它分布在多个仓库中。以 leo-dist buildpack 为例，它们分别包含了业务逻辑的实现，这是基本上所有链都需要实现的功能，比如钱包初始化、devnet取水、合约编译、合约部署等重要操作。这些操作往往需要花费较长时间来完成，这也体现了对智能合约以及区块链知识的理解和熟悉程度。</li>
+</ul>
+<h2 id="编写-Builder"><a href="#编写-Builder" class="headerlink" title="编写 Builder"></a>编写 Builder</h2><p>以 leo 为例，首先，创建一个名为 leo-builder 目录，并在该目录下创建一个名为 builder.toml 文件，内容如下所示。</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">description</span> = <span class="string">&quot;A Cloud Native Buildpacks (CNB) builder with Paketo stacks (Jammy Jellyfish) and Leo buildpacks&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[[buildpacks]]</span></span><br><span class="line">  <span class="attr">id</span> = <span class="string">&quot;amp-buildpacks/leo&quot;</span></span><br><span class="line">  <span class="attr">uri</span> = <span class="string">&quot;docker://ghcr.io/amp-buildpacks/leo:0.1.7&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[[order]]</span></span><br><span class="line">  <span class="section">[[order.group]]</span></span><br><span class="line">    <span class="attr">id</span> = <span class="string">&quot;amp-buildpacks/leo&quot;</span></span><br><span class="line">    <span class="attr">version</span> = <span class="string">&quot;0.1.7&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[stack]</span></span><br><span class="line">  <span class="attr">id</span> = <span class="string">&quot;io.buildpacks.stacks.jammy.tiny&quot;</span></span><br><span class="line">  <span class="attr">build-image</span> = <span class="string">&quot;docker.io/paketobuildpacks/build-jammy-tiny&quot;</span></span><br><span class="line">  <span class="attr">run-image</span> = <span class="string">&quot;index.docker.io/paketobuildpacks/run-jammy-tiny&quot;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>至此，Builder 的编写工作已经圆满完成。的确，这个过程简洁明了，这是因为在前期的 Meta-Buildpack 和 Buildpack 已经完成了大量的准备工作。</p>
+</blockquote>
+<p>以下是一些关于 <code>[[order]]</code> 的实用小贴士：</p>
+<ul>
+<li>当您采用逻辑与（<code>AND</code>）的方式定义 <code>[[order]]</code> 时，构建的顺序将严格遵循 <code>[[order.group]]</code> 中的排列顺序依次执行，且在执行过程中必须满足所有相应的 <code>buildpack</code> 检查逻辑。</li>
+</ul>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[[order]]</span></span><br><span class="line">  <span class="section">[[order.group]]</span></span><br><span class="line">    <span class="attr">id</span> = <span class="string">&quot;buildpack 1&quot;</span></span><br><span class="line">    <span class="attr">version</span> = <span class="string">&quot;0.1.0&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="section">[[order.group]]</span></span><br><span class="line">    <span class="attr">id</span> = <span class="string">&quot;buildpack 2&quot;</span></span><br><span class="line">    <span class="attr">version</span> = <span class="string">&quot;0.1.0&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当您采用逻辑或（<code>OR</code>）的方式定义 <code>[[order]]</code>，则只要满足其中任何一个条件，构建过程便会顺利通过。为了实现这一点，您可以在 <code>buildpack</code> 中灵活地编写 <code>Detect</code> 检查逻辑。</li>
+</ul>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[[order]]</span></span><br><span class="line">  <span class="section">[[order.group]]</span></span><br><span class="line">    <span class="attr">id</span> = <span class="string">&quot;buildpack 1&quot;</span></span><br><span class="line">    <span class="attr">version</span> = <span class="string">&quot;0.1.0&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[[order]]</span></span><br><span class="line">  <span class="section">[[order.group]]</span></span><br><span class="line">    <span class="attr">id</span> = <span class="string">&quot;buildpack 2&quot;</span></span><br><span class="line">    <span class="attr">version</span> = <span class="string">&quot;0.1.0&quot;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>请根据您的需求合理安排 [[order]] 的编写方式，以确保构建过程的顺利进行。</p>
+</blockquote>
+<h2 id="构建-Builder"><a href="#构建-Builder" class="headerlink" title="构建 Builder"></a>构建 Builder</h2><p>接下来，使用以下命令构建 Builder。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pack builder create amp-buildpacks/leo-builder --config builder.toml -v</span><br></pre></td></tr></table></figure>
+
+<p>如果最终输出信息中显示了 <code>Successfully created builder image amp-buildpacks/leo-builder</code>，那么这就意味着镜像打包过程已经成功完成。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Creating builder with the following buildpacks:</span><br><span class="line">-&gt; amp-buildpacks/leo@0.1.7</span><br><span class="line">-&gt; amp-buildpacks/aleo@0.1.10</span><br><span class="line">-&gt; amp-buildpacks/leo-dist@0.1.6</span><br><span class="line">-&gt; paketo-buildpacks/procfile@5.6.8</span><br><span class="line">Adding buildpack amp-buildpacks/aleo@0.1.10 (diffID=sha256:ba7d3db0b9f6571ce1dacb1a36d203f5c141eb2d4aebf10de733b8b2f4080141)</span><br><span class="line">Adding buildpack amp-buildpacks/leo-dist@0.1.6 (diffID=sha256:f04d3fccf0737f4ebf4b72741ccd823ae2083a71c470c16166131033c1e99693)</span><br><span class="line">Adding buildpack amp-buildpacks/leo@0.1.7 (diffID=sha256:d1f1c92194fd8358a20f395dd4978a809f294fbe93b7213b3dfeade6b93aa8db)</span><br><span class="line">Adding buildpack paketo-buildpacks/procfile@5.6.8 (diffID=sha256:7ed29173481c523f069fd9d4ca8a168733a161a2c45660423afb1bd9ada3545a)</span><br><span class="line">Successfully created builder image amp-buildpacks/leo-builder</span><br><span class="line">Tip: Run pack build &lt;image-name&gt; --builder amp-buildpacks/leo-builder to use this builder</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>最终，您可以参照上述的提示信息来验证 Builder 的有效性。</p>
+</blockquote>
+<h2 id="检查-Builder"><a href="#检查-Builder" class="headerlink" title="检查 Builder"></a>检查 Builder</h2><p>接下来，使用以下命令检查 Builder。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pack builder inspect ghcr.io/amp-buildpacks/leo-builder</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>由于文中镜像是通过持续集成与持续部署（CI&#x2F;CD）流程自动构建，因此输出的结果显示与此处的描述相符，内容上一致。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">Inspecting builder: ghcr.io/amp-buildpacks/leo-builder</span><br><span class="line"></span><br><span class="line">REMOTE:</span><br><span class="line"></span><br><span class="line">Description: A Cloud Native Buildpacks (CNB) builder with Paketo stacks (Jammy Jellyfish) and Leo buildpacks</span><br><span class="line"></span><br><span class="line">Created By:</span><br><span class="line">  Name: Pack CLI</span><br><span class="line">  Version: 0.32.1+git-b14250b.build-5241</span><br><span class="line"></span><br><span class="line">Trusted: No</span><br><span class="line"></span><br><span class="line">Stack:</span><br><span class="line">  ID: io.buildpacks.stacks.jammy.tiny</span><br><span class="line"></span><br><span class="line">Lifecycle:</span><br><span class="line">  Version: 0.17.2</span><br><span class="line">  Buildpack APIs:</span><br><span class="line">    Deprecated: 0.2, 0.3, 0.4, 0.5, 0.6</span><br><span class="line">    Supported: 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.10</span><br><span class="line">  Platform APIs:</span><br><span class="line">    Deprecated: 0.3, 0.4, 0.5, 0.6</span><br><span class="line">    Supported: 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.10, 0.11, 0.12</span><br><span class="line"></span><br><span class="line">Run Images:</span><br><span class="line">  index.docker.io/paketobuildpacks/run-jammy-tiny</span><br><span class="line"></span><br><span class="line">Buildpacks:</span><br><span class="line">  ID                                NAME                                      VERSION        HOMEPAGE</span><br><span class="line">  amp-buildpacks/aleo               AMP Buildpack <span class="keyword">for</span> Aleo Tool Suite         0.1.10         https://github.com/amp-buildpacks/aleo</span><br><span class="line">  amp-buildpacks/leo                AMP Buildpack <span class="keyword">for</span> Leo                     0.1.7          https://github.com/amp-buildpacks/leo</span><br><span class="line">  amp-buildpacks/leo-dist           AMP Buildpack <span class="keyword">for</span> Leo Distribution        0.1.6          https://github.com/amp-buildpacks/leo-dist</span><br><span class="line">  paketo-buildpacks/procfile        Paketo Buildpack <span class="keyword">for</span> Procfile             5.6.8          https://github.com/paketo-buildpacks/procfile</span><br><span class="line"></span><br><span class="line">Detection Order:</span><br><span class="line"> └ Group <span class="comment">#1:</span></span><br><span class="line">    └ amp-buildpacks/leo@0.1.7</span><br><span class="line">       └ Group <span class="comment">#1:</span></span><br><span class="line">          ├ amp-buildpacks/leo-dist@0.1.6</span><br><span class="line">          ├ amp-buildpacks/aleo@0.1.10</span><br><span class="line">          └ paketo-buildpacks/procfile@5.6.8    (optional)</span><br><span class="line"></span><br><span class="line">LOCAL:</span><br><span class="line">(not present)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>请注意打印出的检测顺序 <code>Detection Order</code> 结果，其中列出了 <code>amp-buildpacks/leo-dist@0.1.6</code>，这正是我们所期望看到的结果。</p>
+</blockquote>
+<h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2><p>恭喜！现在我们已经成功完成了 Builder 构建。接下来，我们可以着手对其进行扩展，以满足更广泛的需求。例如：自动化测试您的 buildpack？</p>
+<blockquote>
+<p>以上内容就是对《跟我一起编写 Buildpacks：Builder 篇》的全部解读，希望以上内容对同学们能有所启发和帮助。</p>
+</blockquote>
+<blockquote>
+<p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
+</blockquote>
+<p><img src="/images/wechat-blog.png" alt="公众号"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechat.png" alt="King 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="King 支付宝">
+        <span>支付宝</span>
+      </div>
+      <div>
+        <img src="/images/metamask.png" alt="King 比特币">
+        <span>比特币</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/lispking">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Builpacks/" rel="tag"><i class="fa fa-tag"></i> Builpacks</a>
+              <a href="/tags/Dockerfile/" rel="tag"><i class="fa fa-tag"></i> Dockerfile</a>
+              <a href="/tags/Builder/" rel="tag"><i class="fa fa-tag"></i> Builder</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/12/12/how-to-run-elf/" rel="prev" title="程序如何运行：ELF二进制文件">
+                  <i class="fa fa-angle-left"></i> 程序如何运行：ELF二进制文件
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/01/27/meta-buildpack/" rel="next" title="跟我一起编写 Buildpacks：Meta-Buildpack 篇">
+                  跟我一起编写 Buildpacks：Meta-Buildpack 篇 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+  
+  <script type="text/javascript">
+    // 可修改，摘要将显示在这个选择器选中的元素之上。
+    var _xhh_selector = ".post-body";
+    // 可修改，定制最外层 DIV 的风格。
+    // 默认限制宽度为 750px，上下加 8px 的镶边，4 像素圆角。
+    var _xhh_style = "max-width: 100%; margin:8px 0px; border-radius: 4px;";
+
+    // 以下部分不要改动
+    var host = '///xhh.club';
+    var _xhh_service_url = host + '/summarize-this/';
+    (function() {
+      var smmr = document.createElement("script");
+      smmr.src = host + "/static/js/summarize_this.js";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(smmr, s);
+    })();
+  </script>
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">King</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">143k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:10</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lispking" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.3.0/mermaid.min.js","integrity":"sha256-9y71g5Lz/KLsHjB8uXwnkuWDtAMDSzD/HdIbqhJfTAI="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","mhchem":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
