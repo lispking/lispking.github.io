@@ -29,7 +29,7 @@
 <meta property="og:image" content="http://lispking.github.io/images/buildpacks/order.png">
 <meta property="og:image" content="http://lispking.github.io/images/wechat-blog.png">
 <meta property="article:published_time" content="2024-01-27T03:00:34.000Z">
-<meta property="article:modified_time" content="2024-10-11T23:31:38.101Z">
+<meta property="article:modified_time" content="2024-10-11T23:34:57.137Z">
 <meta property="article:author" content="King">
 <meta property="article:tag" content="Builpacks">
 <meta property="article:tag" content="Dockerfile">
@@ -281,7 +281,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-10-12 07:31:38" itemprop="dateModified" datetime="2024-10-12T07:31:38+08:00">2024-10-12</time>
+      <time title="修改时间：2024-10-12 07:34:57" itemprop="dateModified" datetime="2024-10-12T07:34:57+08:00">2024-10-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -321,7 +321,6 @@
 <p>在【<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Nl5EQjNfsYhVsEAGF8yzKQ">跟我一起编写 Buildpacks：CICD 版本篇</a>】中，我们深入探索用于为 Paketo 风格的 Buildpacks 创建 GitHub Actions 工作流的神器 Pipeline Builder，只需在仓库里配置两个文件即可完成 CICD 全流程。</p>
 <p>本节，我们将继续分享 Buildpacks 相关的内容，本节的主题是 Meta-buildpack。</p>
 <span id="more"></span>
-
 <h2 id="Meta-buildpack-介绍"><a href="#Meta-buildpack-介绍" class="headerlink" title="Meta-buildpack 介绍"></a>Meta-buildpack 介绍</h2><p>在构建 Buildpack 的过程中，我们通常会创作一个名为 buildpack.toml 的配置文件，其中详细记录了构建包的版本、名称、描述以及它所依赖的其他构建包等信息。</p>
 <p>当我们开发多个构建包时，通常会为每个构建包编写独立的 buildpack.toml 文件，并将其存放在各自的仓库或特定目录中。</p>
 <p>然而，在实际应用场景中，我们常常会采用一个buildpack.toml文件来引用其他构建包。</p>
@@ -335,23 +334,18 @@
 </blockquote>
 <h2 id="编写-Meta-Buildpack"><a href="#编写-Meta-Buildpack" class="headerlink" title="编写 Meta-Buildpack"></a>编写 Meta-Buildpack</h2><p>还是以 leo 为例，首先，创建一个名为 leo 目录，并在该目录下创建一个名为 buildpack.toml 文件，内容如下所示。</p>
 <figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">api</span> = <span class="string">&quot;0.8&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[buildpack]</span></span><br><span class="line">  <span class="attr">description</span> = <span class="string">&quot;A Cloud Native Buildpack with an order definition suitable for Leo applications&quot;</span></span><br><span class="line">  <span class="attr">homepage</span> = <span class="string">&quot;https://github.com/amp-buildpacks/leo&quot;</span></span><br><span class="line">  <span class="attr">id</span> = <span class="string">&quot;amp-buildpacks/leo&quot;</span></span><br><span class="line">  <span class="attr">keywords</span> = [<span class="string">&quot;Leo&quot;</span>, <span class="string">&quot;Aleo&quot;</span>]</span><br><span class="line">  <span class="attr">name</span> = <span class="string">&quot;AMP Buildpack for Leo&quot;</span></span><br><span class="line">  <span class="attr">version</span> = <span class="string">&quot;&#123;&#123;.version&#125;&#125;&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="section">[[buildpack.licenses]]</span></span><br><span class="line">    <span class="attr">type</span> = <span class="string">&quot;Apache-2.0&quot;</span></span><br><span class="line">    <span class="attr">uri</span> = <span class="string">&quot;https://github.com/amp-buildpacks/leo/blob/main/LICENSE&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[metadata]</span></span><br><span class="line">  <span class="attr">include-files</span> = [<span class="string">&quot;LICENSE&quot;</span>, <span class="string">&quot;README.md&quot;</span>, <span class="string">&quot;buildpack.toml&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="section">[[order]]</span></span><br><span class="line"></span><br><span class="line">  <span class="section">[[order.group]]</span></span><br><span class="line">    <span class="attr">id</span> = <span class="string">&quot;amp-buildpacks/leo-dist&quot;</span></span><br><span class="line">    <span class="attr">version</span> = <span class="string">&quot;0.1.6&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="section">[[order.group]]</span></span><br><span class="line">    <span class="attr">id</span> = <span class="string">&quot;amp-buildpacks/aleo&quot;</span></span><br><span class="line">    <span class="attr">version</span> = <span class="string">&quot;0.1.10&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="section">[[order.group]]</span></span><br><span class="line">    <span class="attr">id</span> = <span class="string">&quot;paketo-buildpacks/procfile&quot;</span></span><br><span class="line">    <span class="attr">optional</span> = <span class="literal">true</span></span><br><span class="line">    <span class="attr">version</span> = <span class="string">&quot;5.6.8&quot;</span></span><br></pre></td></tr></table></figure>
-
 <p>接下来，创建一个名为 package.toml 文件，内容如下所示。</p>
 <figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[[dependencies]]</span></span><br><span class="line">  <span class="attr">uri</span> = <span class="string">&quot;docker://ghcr.io/amp-buildpacks/leo-dist:0.1.6&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[[dependencies]]</span></span><br><span class="line">  <span class="attr">uri</span> = <span class="string">&quot;docker://ghcr.io/amp-buildpacks/aleo:0.1.10&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[[dependencies]]</span></span><br><span class="line">  <span class="attr">uri</span> = <span class="string">&quot;docker://gcr.io/paketo-buildpacks/procfile:5.6.8&quot;</span></span><br></pre></td></tr></table></figure>
-
 <p>从上述内容可以看出，package.toml 文件中列出了构建过程中需要用到的依赖包。</p>
 <blockquote>
 <p>至此，Meta-Buildpack 已经编写完成。</p>
 </blockquote>
 <h2 id="构建-Meta-Buildpack"><a href="#构建-Meta-Buildpack" class="headerlink" title="构建 Meta-Buildpack"></a>构建 Meta-Buildpack</h2><p>接下来，使用以下命令构建 Meta-Buildpack。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pack build leo-sample \</span><br><span class="line">    --path ./leo_sample \</span><br><span class="line">    --buildpack ./leo \</span><br><span class="line">    --builder paketobuildpacks/builder-jammy-base</span><br></pre></td></tr></table></figure>
-
 <p>若最终输出信息中显示“Successfully built image leo-sample”，则表明镜像打包已成功完成。</p>
 <h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2><p>恭喜！现在我们已经成功完成了 Meta-Buildpack 构建。接下来，我们可以着手对其进行扩展，以满足更广泛的需求。例如：自动化测试您的 buildpack？</p>
 <blockquote>
 <p>以上内容就是对《跟我一起编写 Buildpacks：Meta-Buildpack 篇》全部内容，希望以上内容对同学们能有所启发和帮助。</p>
-</blockquote>
-<blockquote>
 <p>如果您喜欢这篇文章，欢迎关注微信公众号《猿禹宙》、点赞、转发和赞赏。每一位读者的认可都是我持续创作的动力。</p>
 </blockquote>
 <p><img src="/images/wechat-blog.png" alt="公众号"></p>

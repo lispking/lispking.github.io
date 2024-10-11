@@ -29,7 +29,7 @@
 <meta property="og:image" content="http://lispking.github.io/images/makedao/TheMakerProtocolSystemDiagram.png">
 <meta property="og:image" content="http://lispking.github.io/images/makedao/TheMakerSpot.png">
 <meta property="article:published_time" content="2023-10-10T07:00:00.000Z">
-<meta property="article:modified_time" content="2024-10-11T23:31:38.101Z">
+<meta property="article:modified_time" content="2024-10-11T23:34:57.137Z">
 <meta property="article:author" content="King">
 <meta property="article:tag" content="MakerDAO">
 <meta property="article:tag" content="DAI">
@@ -294,7 +294,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-10-12 07:31:38" itemprop="dateModified" datetime="2024-10-12T07:31:38+08:00">2024-10-12</time>
+      <time title="修改时间：2024-10-12 07:34:57" itemprop="dateModified" datetime="2024-10-12T07:34:57+08:00">2024-10-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -313,7 +313,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>4.5k</span>
+      <span>4.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -360,7 +360,7 @@
 <ul>
 <li>编码错误风险 <ul>
 <li><code>Vat</code> - <code>Vat</code> 中的错误可能是灾难性的，可能导致系统中所有 <code>Dai</code> 和抵押品的丢失（或锁定）。这将使得无法修改金库或转移 <code>Dai</code>。拍卖可能会停止运作。关机可能会失败。  </li>
-<li><code>Spot</code> - <code>Spot</code> 中的错误很可能导致抵押品价格不再更新。在这种情况下，系统需要授权一个新的 <code>Spot</code>，然后该 <code>Spot</code> 将能够更新价格。总的来说，这不是一种灾难性的故障，因为这只会在某段时间内暂停所有价格波动。</li>
+<li><code>Spot</code> - <code>Spot</code> 中的错误很可能导致抵押品价格不再更新。在这种情况下，系统需要授权一个新的 <code>Spot</code>，然后该 <code>Spot</code> 将能够更新价格。总的来说，这不是一种灾难性的故障，因为这只会在某段时间内暂停所有价格波动。  </li>
 </ul>
 </li>
 <li>数据源风险 <ul>
@@ -402,8 +402,8 @@
 <li><code>flux</code>: transfer collateral between users.</li>
 <li><code>move</code>: transfer stablecoin between users.</li>
 <li><code>grab</code>: liquidate a Vault.</li>
-<li><code>heal</code>: create &#x2F; destroy equal quantities of stablecoin and system debt (vice).</li>
-<li><code>fold</code>: modify the debt multiplier, creating &#x2F; destroying corresponding debt.</li>
+<li><code>heal</code>: create / destroy equal quantities of stablecoin and system debt (vice).</li>
+<li><code>fold</code>: modify the debt multiplier, creating / destroying corresponding debt.</li>
 <li><code>suck</code>: mint unbacked stablecoin (accounted for with vice).</li>
 <li><code>Line</code>: the total debt ceiling for all collateral types.</li>
 <li><code>frob</code>: modify a Vault.<ul>
@@ -415,18 +415,19 @@
 <li><code>dart</code>: change in debt.</li>
 </ul>
 </li>
-<li><code>fork</code>: to split a Vault - binary approval or splitting&#x2F;merging Vaults.<ul>
+<li><code>fork</code>: to split a Vault - binary approval or splitting/merging Vaults.<ul>
 <li><code>dink</code>: amount of collateral to exchange.</li>
 <li><code>dart</code>: amount of stablecoin debt to exchange.</li>
 </ul>
 </li>
-<li><code>wish</code>: check whether an address is allowed to modify another address’s gem or dai balance.<ul>
+<li><p><code>wish</code>: check whether an address is allowed to modify another address’s gem or dai balance.</p>
+<ul>
 <li><code>hope</code>: enable wish for a pair of addresses.</li>
 <li><code>nope</code>: disable wish for a pair of addresses.</li>
 </ul>
+<p><font color='red'>注意</font>：<code>art</code> 和 <code>Art</code> 代表标准化债务，即当乘以正确的利率时，可以得到最新的、当前的稳定币债务。</p>
 </li>
 </ul>
-<p>  <font color='red'>注意</font>：<code>art</code> 和 <code>Art</code> 代表标准化债务，即当乘以正确的利率时，可以得到最新的、当前的稳定币债务。</p>
 </li>
 <li><p>Accounting</p>
 <ul>
@@ -451,29 +452,29 @@
 <h3 id="Vat合约的核心机制和概念"><a href="#Vat合约的核心机制和概念" class="headerlink" title="Vat合约的核心机制和概念"></a><code>Vat</code>合约的核心机制和概念</h3><ul>
 <li><p><code>Vat</code> 中的核心 <code>Vault</code>、<code>Dai</code> 和抵押状态由 <code>Vat</code> 维护。<code>Vat</code> 合约没有外部依赖关系，并维护 <code>Dai</code> 的中央“会计不变量”。适用于 <code>Vat</code> 的核心原则如下：  </p>
 <ol>
-<li><code>Dai</code> 不能没有抵押品存在：</li>
+<li><code>Dai</code> 不能没有抵押品存在：  </li>
 </ol>
 <ul>
 <li><code>Ilk</code> 是一种特殊类型的抵押品。  </li>
 <li>抵押品<code>gem</code>分配给具有<code>slip</code>的用户。  </li>
-<li>抵押品<code>gem</code>在用户之间转移<code>flux</code>。</li>
+<li>抵押品<code>gem</code>在用户之间转移<code>flux</code>。  </li>
 </ul>
-<ol start="2">
-<li><code>Vault</code> 数据结构是 <code>Urn</code>：</li>
+<ol>
+<li><code>Vault</code> 数据结构是 <code>Urn</code>：  </li>
 </ol>
 <ul>
 <li>has <code>ink</code> - 负担的抵押品  </li>
-<li>has <code>art</code> - 负担、标准化债务</li>
+<li>has <code>art</code> - 负担、标准化债务  </li>
 </ul>
-<ol start="3">
-<li>类似地，一个抵押品是一个 <code>Ilk</code>：</li>
+<ol>
+<li>类似地，一个抵押品是一个 <code>Ilk</code>：  </li>
 </ol>
 <ul>
 <li>has <code>Art</code> - 负担、标准化债务  </li>
 <li>has <code>rate</code> - 债务缩放因子（下面进一步讨论）  </li>
 <li>has <code>spot</code> - 带安全余量的价格  </li>
 <li>has <code>line</code> - 债务上限  </li>
-<li>has <code>dust</code> - 债务下限<br>  <font color='red'>注意</font>：在上面的使用“<code>encumbered</code>”一词时，这是指“被锁定在 <code>Vault</code> 中”。</li>
+<li>has <code>dust</code> - 债务下限<br><font color='red'>注意</font>：在上面的使用“<code>encumbered</code>”一词时，这是指“被锁定在 <code>Vault</code> 中”。 </li>
 </ul>
 </li>
 <li><p><code>Vault</code> 管理  </p>
@@ -501,12 +502,12 @@
 <p><img src="/images/makedao/TheMakerSpot.png" alt="SpotDiagram"></p>
 <h3 id="Spot合约的核心机制和概念"><a href="#Spot合约的核心机制和概念" class="headerlink" title="Spot合约的核心机制和概念"></a><code>Spot</code>合约的核心机制和概念</h3><blockquote>
 <p><code>Poke</code> 是 <code>spot</code> 中唯一的非认证函数。该函数接收一个要<code>poked</code>的 <code>ilk</code> 的 <code>bytes32</code>。<code>Poke</code> 调用两个外部函数：  </p>
-</blockquote>
 <ol>
 <li><code>Peek</code> 调用给定 <code>ilk</code> 的 <code>OSM</code> 并将 <code>val</code>（值）和 <code>has</code>（布尔值，如果 <code>OSM</code> 中发生错误则为 <code>false</code>）作为返回值。只有在 <code>has == true</code> 时才会发生第二次外部调用。  </li>
 <li>在计算现货价格时，<code>par</code>（基本价格单位）对于计算 <code>DAI</code> 与价格中的 1 个单位的关系至关重要。然后将 <code>val</code>（值）除以 <code>par</code>（得到 <code>val</code> 与 <code>DAI</code> 的比率），再将结果除以 <code>ilk.mat</code>。这给我们提供了给定 <code>ilk</code> 的当前现货价格。  </li>
 <li>在计算<code>spot</code>后调用 <code>file</code>。这个函数用于 <code>ilk</code> 的当前清算价格更新 <code>vat</code>。</li>
 </ol>
+</blockquote>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://docs.makerdao.com/smart-contract-modules/core-module">Core Module</a></li>
 <li><a target="_blank" rel="noopener" href="https://docs.makerdao.com/smart-contract-modules/core-module/vat-detailed-documentation">Vat Module</a></li>

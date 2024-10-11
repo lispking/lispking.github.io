@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://lispking.github.io/images/makedao/DaiInteractions.png">
 <meta property="article:published_time" content="2023-09-26T07:16:18.000Z">
-<meta property="article:modified_time" content="2024-10-11T23:31:38.101Z">
+<meta property="article:modified_time" content="2024-10-11T23:34:57.137Z">
 <meta property="article:author" content="King">
 <meta property="article:tag" content="MakerDAO">
 <meta property="article:tag" content="DAI">
@@ -279,7 +279,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-10-12 07:31:38" itemprop="dateModified" datetime="2024-10-12T07:31:38+08:00">2024-10-12</time>
+      <time title="修改时间：2024-10-12 07:34:57" itemprop="dateModified" datetime="2024-10-12T07:34:57+08:00">2024-10-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -341,22 +341,17 @@
 </li>
 <li><p><font color='red'>无限允许是一项相对不常见的做法（尽管变得越来越普遍）</font>。这可能是一种通过恶意合约欺骗用户，使其放弃所有 DAI 访问权限的手段。这在可升级合约中尤为令人担忧，因为合约可能在升级为恶意合约之前看起来无害。</p>
 </li>
-<li><p>DAI 也容易受到已知的 <a target="_blank" rel="noopener" href="https://github.com/0xProject/0x-monorepo/issues/850">ERC20 竞态条件的影响</a>，但在无限授权的情况下通常不应成为问题。我们建议使用特定金额授权的任何用户都应注意这个问题，并在授权其他合约代表他们执行转账时谨慎行事。</p>
-</li>
-<li><p>在 <code>transferFrom</code> 功能中存在轻微的偏差：如果 <code>src == msg.sender</code>，则该函数不需要事先获得批准，而是将其视为从 <code>msg.sender</code> 到 <code>dst</code> 的正常转账。</p>
-</li>
-<li><p>DAI 内置的元交易功能：DAI 代币提供了一种链下授权，这意味着作为以太坊地址的所有者，您可以使用 <code>permit()</code> 函数签署权限，基本上将允许另一以太坊地址获得额度。您授权的以太坊地址可以负责执行转账，但有一个额度限制。</p>
-</li>
+<li>DAI 也容易受到已知的 <a target="_blank" rel="noopener" href="https://github.com/0xProject/0x-monorepo/issues/850">ERC20 竞态条件的影响</a>，但在无限授权的情况下通常不应成为问题。我们建议使用特定金额授权的任何用户都应注意这个问题，并在授权其他合约代表他们执行转账时谨慎行事。</li>
+<li>在 <code>transferFrom</code> 功能中存在轻微的偏差：如果 <code>src == msg.sender</code>，则该函数不需要事先获得批准，而是将其视为从 <code>msg.sender</code> 到 <code>dst</code> 的正常转账。</li>
+<li>DAI 内置的元交易功能：DAI 代币提供了一种链下授权，这意味着作为以太坊地址的所有者，您可以使用 <code>permit()</code> 函数签署权限，基本上将允许另一以太坊地址获得额度。您授权的以太坊地址可以负责执行转账，但有一个额度限制。</li>
 </ul>
 <h3 id="DAI-常见问题"><a href="#DAI-常见问题" class="headerlink" title="DAI 常见问题"></a>DAI 常见问题</h3><blockquote>
 <p>为什么这些组件对多抵押物 Dai（MCD）系统如此重要？  </p>
-</blockquote>
 <ul>
 <li>Dai 合约是用户面向的 ERC20 合约，负责维护外部 Dai 余额的会计核算。</li>
 <li>大多数功能对于具有变动供应的代币都是标准的，但它还值得注意的是，具有根据签名消息发行转移批准的能力。</li>
 <li><code>join</code> 由三个智能合约组成，其中一个是 <code>DaiJoin</code> 合约。每个 <code>join</code> 合约都是专门为给定的代币类型加入 <code>vat</code> 而创建的。因此，每个 <code>join</code> 合约在系统中的代币类型略有不同的逻辑。<code>DaiJoin</code> 合约允许用户将其 Dai 从系统中撤回到标准 ERC20 代币中。</li>
 </ul>
-<blockquote>
 <p>需要注意的问题（潜在的用户错误来源）</p>
 </blockquote>
 <ul>
