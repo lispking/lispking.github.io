@@ -28,6 +28,58 @@
       </categories>
   </entry>
   <entry>
+    <title>MakerDAO 协议介绍</title>
+    <url>/2023/09/15/maker-protocol-introduce/</url>
+    <content><![CDATA[<h3 id="MakerDAO介绍"><a href="#MakerDAO介绍" class="headerlink" title="MakerDAO介绍"></a>MakerDAO介绍</h3><p>MakerDAO是一个去中心化的组织，致力于为加密货币经济带来稳定性。</p>
+<blockquote>
+<p>Maker协议采用双代币系统。</p>
+</blockquote>
+<ol>
+<li><p>Dai，一种提供稳定性的抵押品支持的稳定币。Maker基金会和MakerDAO社区认为，任何企业或个人都需要去中心化的稳定币来实现数字货币的优势。</p>
+</li>
+<li><p>MKR，一种由利益相关者用来维护系统和管理Dai的治理令牌。MKR代币持有者是创客协议的决策者，得到更大的公众社区和其他各种外部各方的支持。</p>
+</li>
+</ol>
+<p>Maker通过创建一个包容性的经济赋权平台，为每个人释放去中心化金融的力量；使每个人都能平等地进入全球金融市场。</p>
+<p>随着新版本的Maker协议Multi-Collaborate Dai（MCD）在以太坊主网络上发布并上线，我们想介绍一下它所带来的一些变化和功能。Maker协议最大的变化是，它现在接受任何基于以太坊的资产作为抵押品来生成Dai，因为它已经得到了MKR持有人的批准，并通过Maker去中心化治理过程获得了特定的、相应的风险参数。</p>
+<p>此外，MCD升级还带来了一些其他新推出的功能。</p>
+<blockquote>
+<p>这些新功能包括：</p>
+</blockquote>
+<ul>
+<li>新的Dai代币 ($DAI)</li>
+<li>支持多种Vault抵押品类型 (通过ETH和BAT启动)<ul>
+<li>要打开Vault，请前往<a href="https://summer.fi/borrow">Oasis Borrow</a></li>
+</ul>
+</li>
+<li>Dai储蓄率 (DSR)<ul>
+<li>要使用DSR，请前往<a href="https://summer.fi/earn">Oasis Earn</a></li>
+</ul>
+</li>
+<li>更稳健的挂钩确保机制 (MKR作为后盾)</li>
+<li>每个区块支付稳定费，而不是在Dai还款时支付</li>
+<li>新的Maker术语</li>
+<li>MKR和治理保持不变</li>
+<li>Oasis交易</li>
+</ul>
+<h3 id="Maker协议智能合约模块系统："><a href="#Maker协议智能合约模块系统：" class="headerlink" title="Maker协议智能合约模块系统："></a>Maker协议智能合约模块系统：</h3><p><img src="/images/makedao/TheMakerProtocolSystemDiagram.png" alt="SystemDiagram"></p>
+<h3 id="Maker-101协议交互："><a href="#Maker-101协议交互：" class="headerlink" title="Maker 101协议交互："></a>Maker 101协议交互：</h3><p><img src="/images/makedao/TheMakerProtocol101.png" alt="MakerProtocol101"></p>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><blockquote>
+<p>MakerDAO 是一个致力于为加密货币经济带来稳定性的去中心化组织。该组织采用双代币系统，包括稳定币 Dai 和治理令牌 MKR。Dai 是一种由抵押品支持的稳定币，而 MKR 则用于维护系统和管理 Dai。Maker 协议已发布新版本 Multi-Collaborate Dai（MCD），在以太坊主网络上线。此次升级允许以太坊上任何资产作为抵押品生成 Dai，并引入了新的功能。新功能包括新的 Dai 代币、支持多种 Vault 抵押品类型、Dai 储蓄率、更稳健的挂钩确保机制等。MKR 和治理保持不变，同时推出了 Oasis 交易。通过这些创新，MakerDAO 旨在打造一个包容性的经济赋权平台，让每个人都能平等地进入全球金融市场。</p>
+</blockquote>
+<blockquote>
+<p>免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>MakerDAO</category>
+      </categories>
+      <tags>
+        <tag>MakerDAO</tag>
+        <tag>DAI</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>解读 DAI 架构流程图 —— 晦涩难懂的术语</title>
     <url>/2023/09/22/dai-terminology/</url>
     <content><![CDATA[<blockquote>
@@ -137,58 +189,6 @@
 <li><a href="https://blog.makerdao.com/zh/%E5%85%B3%E4%BA%8E-maker-%E7%9A%84%E5%8D%81%E4%B8%AA%E5%86%B7%E7%9F%A5%E8%AF%86/">关于 Maker 的十个冷知识</a></li>
 <li><a href="https://github.com/makerdao/dss/wiki/Actions">DAI官方Wiki之Actions</a></li>
 </ul>
-]]></content>
-      <categories>
-        <category>MakerDAO</category>
-      </categories>
-      <tags>
-        <tag>MakerDAO</tag>
-        <tag>DAI</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MakerDAO 协议介绍</title>
-    <url>/2023/09/15/maker-protocol-introduce/</url>
-    <content><![CDATA[<h3 id="MakerDAO介绍"><a href="#MakerDAO介绍" class="headerlink" title="MakerDAO介绍"></a>MakerDAO介绍</h3><p>MakerDAO是一个去中心化的组织，致力于为加密货币经济带来稳定性。</p>
-<blockquote>
-<p>Maker协议采用双代币系统。</p>
-</blockquote>
-<ol>
-<li><p>Dai，一种提供稳定性的抵押品支持的稳定币。Maker基金会和MakerDAO社区认为，任何企业或个人都需要去中心化的稳定币来实现数字货币的优势。</p>
-</li>
-<li><p>MKR，一种由利益相关者用来维护系统和管理Dai的治理令牌。MKR代币持有者是创客协议的决策者，得到更大的公众社区和其他各种外部各方的支持。</p>
-</li>
-</ol>
-<p>Maker通过创建一个包容性的经济赋权平台，为每个人释放去中心化金融的力量；使每个人都能平等地进入全球金融市场。</p>
-<p>随着新版本的Maker协议Multi-Collaborate Dai（MCD）在以太坊主网络上发布并上线，我们想介绍一下它所带来的一些变化和功能。Maker协议最大的变化是，它现在接受任何基于以太坊的资产作为抵押品来生成Dai，因为它已经得到了MKR持有人的批准，并通过Maker去中心化治理过程获得了特定的、相应的风险参数。</p>
-<p>此外，MCD升级还带来了一些其他新推出的功能。</p>
-<blockquote>
-<p>这些新功能包括：</p>
-</blockquote>
-<ul>
-<li>新的Dai代币 ($DAI)</li>
-<li>支持多种Vault抵押品类型 (通过ETH和BAT启动)<ul>
-<li>要打开Vault，请前往<a href="https://summer.fi/borrow">Oasis Borrow</a></li>
-</ul>
-</li>
-<li>Dai储蓄率 (DSR)<ul>
-<li>要使用DSR，请前往<a href="https://summer.fi/earn">Oasis Earn</a></li>
-</ul>
-</li>
-<li>更稳健的挂钩确保机制 (MKR作为后盾)</li>
-<li>每个区块支付稳定费，而不是在Dai还款时支付</li>
-<li>新的Maker术语</li>
-<li>MKR和治理保持不变</li>
-<li>Oasis交易</li>
-</ul>
-<h3 id="Maker协议智能合约模块系统："><a href="#Maker协议智能合约模块系统：" class="headerlink" title="Maker协议智能合约模块系统："></a>Maker协议智能合约模块系统：</h3><p><img src="/images/makedao/TheMakerProtocolSystemDiagram.png" alt="SystemDiagram"></p>
-<h3 id="Maker-101协议交互："><a href="#Maker-101协议交互：" class="headerlink" title="Maker 101协议交互："></a>Maker 101协议交互：</h3><p><img src="/images/makedao/TheMakerProtocol101.png" alt="MakerProtocol101"></p>
-<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><blockquote>
-<p>MakerDAO 是一个致力于为加密货币经济带来稳定性的去中心化组织。该组织采用双代币系统，包括稳定币 Dai 和治理令牌 MKR。Dai 是一种由抵押品支持的稳定币，而 MKR 则用于维护系统和管理 Dai。Maker 协议已发布新版本 Multi-Collaborate Dai（MCD），在以太坊主网络上线。此次升级允许以太坊上任何资产作为抵押品生成 Dai，并引入了新的功能。新功能包括新的 Dai 代币、支持多种 Vault 抵押品类型、Dai 储蓄率、更稳健的挂钩确保机制等。MKR 和治理保持不变，同时推出了 Oasis 交易。通过这些创新，MakerDAO 旨在打造一个包容性的经济赋权平台，让每个人都能平等地进入全球金融市场。</p>
-</blockquote>
-<blockquote>
-<p>免责声明：本文不构成投资建议，仅研究技术为主，祝玩得开心 ^_^</p>
-</blockquote>
 ]]></content>
       <categories>
         <category>MakerDAO</category>
