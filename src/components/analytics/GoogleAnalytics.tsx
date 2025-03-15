@@ -1,5 +1,7 @@
 "use client";
 import Script from "next/script";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 const GA_MEASUREMENT_ID = "G-28440BWWYK";
 
@@ -11,6 +13,19 @@ declare global {
 }
 
 export default function GoogleAnalytics() {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (pathname) {
+      window.gtag("config", GA_MEASUREMENT_ID, {
+        transport_url: "https://ssl.google-analytics.com",
+        first_party_collection: true,
+        page_path: pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : ""),
+      });
+    }
+  }, [pathname, searchParams]);
+
   return (
     <>
       <Script
@@ -23,11 +38,11 @@ export default function GoogleAnalytics() {
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', '${GA_MEASUREMENT_ID}', {
-            send_page_view: true,
-            page_path: window.location.pathname + window.location.search,
-            linker: {
-              domains: ['lispking.github.io']
-            }
+            page_location: window.location.href,
+            page_path: '${pathname}',
+            transport_url: 'https://ssl.google-analytics.com',
+            first_party_collection: true,
+            debug_mode: true
           });
         `}
       </Script>
