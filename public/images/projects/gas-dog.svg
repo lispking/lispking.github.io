@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" fill="none">
+  <rect width="800" height="450" fill="#1a1a2e"/>
+  
+  <!-- 背景元素 -->
+  <circle cx="400" cy="225" r="180" fill="#0f3460" opacity="0.6"/>
+  <path d="M200,100 Q400,50 600,100 T800,200" stroke="#e94560" stroke-width="3" opacity="0.3"/>
+  <path d="M0,300 Q200,250 400,300 T800,250" stroke="#e94560" stroke-width="3" opacity="0.3"/>
+  
+  <!-- Gas Dog Logo -->
+  <g transform="translate(320, 150)">
+    <!-- 狗头轮廓 -->
+    <path d="M0,0 Q30,-40 60,0 Q90,-10 100,20 Q110,50 80,70 Q40,100 0,70 Q-40,100 -80,70 Q-110,50 -100,20 Q-90,-10 -60,0 Q-30,-40 0,0" 
+          fill="#e94560" opacity="0.9"/>
+    
+    <!-- 眼睛 -->
+    <circle cx="-30" cy="20" r="10" fill="#1a1a2e"/>
+    <circle cx="30" cy="20" r="10" fill="#1a1a2e"/>
+    
+    <!-- 鼻子 -->
+    <circle cx="0" cy="40" r="8" fill="#1a1a2e"/>
+    
+    <!-- 气体符号 -->
+    <g transform="translate(0, -80)">
+      <circle cx="0" cy="0" r="25" fill="#16213e" stroke="#e94560" stroke-width="2"/>
+      <text x="0" y="7" font-family="Arial" font-size="24" font-weight="bold" fill="#e94560" text-anchor="middle">GAS</text>
+    </g>
+  </g>
+  
+  <!-- 数据可视化元素 -->
+  <g transform="translate(150, 300)">
+    <rect x="0" y="0" width="20" height="60" fill="#e94560" opacity="0.7"/>
+    <rect x="30" y="20" width="20" height="40" fill="#e94560" opacity="0.7"/>
+    <rect x="60" y="10" width="20" height="50" fill="#e94560" opacity="0.7"/>
+    <rect x="90" y="30" width="20" height="30" fill="#e94560" opacity="0.7"/>
+    <rect x="120" y="5" width="20" height="55" fill="#e94560" opacity="0.7"/>
+  </g>
+  
+  <g transform="translate(500, 300)">
+    <path d="M0,30 C20,10 40,50 60,30 S100,10 120,30" stroke="#e94560" stroke-width="3" fill="none"/>
+    <circle cx="0" cy="30" r="4" fill="#e94560"/>
+    <circle cx="30" cy="20" r="4" fill="#e94560"/>
+    <circle cx="60" cy="30" r="4" fill="#e94560"/>
+    <circle cx="90" cy="20" r="4" fill="#e94560"/>
+    <circle cx="120" cy="30" r="4" fill="#e94560"/>
+  </g>
+  
+  <!-- Monad符号 -->
+  <g transform="translate(650, 100)">
+    <circle cx="0" cy="0" r="30" fill="none" stroke="#e94560" stroke-width="2"/>
+    <text x="0" y="7" font-family="Arial" font-size="18" font-weight="bold" fill="#e94560" text-anchor="middle">M</text>
+  </g>
+</svg>

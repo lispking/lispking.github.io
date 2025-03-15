@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" fill="none">
+  <rect width="800" height="450" fill="#f8f9fa"/>
+  
+  <!-- 浏览器窗口 -->
+  <rect x="150" y="50" width="500" height="350" rx="10" fill="#ffffff" stroke="#333333" stroke-width="2"/>
+  
+  <!-- 浏览器顶部栏 -->
+  <rect x="150" y="50" width="500" height="40" rx="10" fill="#673ab7"/>
+  <rect x="150" y="80" width="500" height="10" fill="#673ab7"/>
+  
+  <!-- 浏览器控制按钮 -->
+  <circle cx="180" cy="70" r="8" fill="#ff5f57"/>
+  <circle cx="205" cy="70" r="8" fill="#febc2e"/>
+  <circle cx="230" cy="70" r="8" fill="#28c840"/>
+  
+  <!-- 地址栏 -->
+  <rect x="260" y="60" width="350" height="20" rx="10" fill="#ffffff" opacity="0.3"/>
+  
+  <!-- 代理界面 -->
+  <rect x="170" y="100" width="460" height="280" rx="5" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  
+  <!-- 代理设置界面 -->
+  <rect x="190" y="120" width="420" height="240" rx="5" fill="#f5f5f5" stroke="#e0e0e0" stroke-width="1"/>
+  
+  <!-- 代理列表 -->
+  <rect x="210" y="150" width="380" height="50" rx="5" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <rect x="210" y="210" width="380" height="50" rx="5" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <rect x="210" y="270" width="380" height="50" rx="5" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  
+  <!-- 代理状态指示器 -->
+  <circle cx="240" cy="175" r="10" fill="#4caf50"/>
+  <circle cx="240" cy="235" r="10" fill="#ff9800"/>
+  <circle cx="240" cy="295" r="10" fill="#9e9e9e"/>
+  
+  <!-- 代理信息 -->
+  <g font-family="Arial" font-size="14">
+    <text x="270" y="170" fill="#212121" font-weight="bold">US Proxy</text>
+    <text x="270" y="190" fill="#757575">192.168.1.1:8080</text>
+    
+    <text x="270" y="230" fill="#212121" font-weight="bold">EU Proxy</text>
+    <text x="270" y="250" fill="#757575">10.0.0.1:8080</text>
+    
+    <text x="270" y="290" fill="#212121" font-weight="bold">Asia Proxy</text>
+    <text x="270" y="310" fill="#757575">172.16.0.1:8080</text>
+  </g>
+  
+  <!-- 开关按钮 -->
+  <rect x="500" y="165" width="60" height="24" rx="12" fill="#4caf50"/>
+  <circle cx="548" cy="177" r="10" fill="#ffffff"/>
+  
+  <rect x="500" y="225" width="60" height="24" rx="12" fill="#9e9e9e"/>
+  <circle cx="512" cy="237" r="10" fill="#ffffff"/>
+  
+  <rect x="500" y="285" width="60" height="24" rx="12" fill="#9e9e9e"/>
+  <circle cx="512" cy="297" r="10" fill="#ffffff"/>
+  
+  <!-- 标题 -->
+  <text x="400" y="135" font-family="Arial" font-size="18" font-weight="bold" fill="#673ab7" text-anchor="middle">Browser Proxy Manager</text>
+  
+  <!-- 网络连接图标 -->
+  <g transform="translate(620, 70)">
+    <circle cx="0" cy="0" r="15" fill="#673ab7" opacity="0.8"/>
+    <path d="M-6,-6 L6,6 M-6,6 L6,-6" stroke="#ffffff" stroke-width="2"/>
+  </g>
+</svg>

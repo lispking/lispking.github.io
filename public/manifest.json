@@ -1,0 +1,22 @@
+{
+  "name": "King - 个人技术博客",
+  "short_name": "King",
+  "description": "分享技术见解，探索创新解决方案，连接志同道合的技术爱好者",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6366F1",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32 48x48 64x64 128x128 256x256",
+      "type": "image/x-icon"
+    }
+  ]
+}

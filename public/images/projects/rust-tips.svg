@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" fill="none">
+  <rect width="800" height="450" fill="#2b2b2b"/>
+  
+  <!-- 背景元素 -->
+  <path d="M0,225 Q200,100 400,225 T800,225" stroke="#ff7043" stroke-width="2" opacity="0.2"/>
+  <path d="M0,300 Q200,400 400,300 T800,300" stroke="#ff7043" stroke-width="2" opacity="0.2"/>
+  
+  <!-- Rust Logo -->
+  <g transform="translate(400, 225) scale(0.8)">
+    <!-- 齿轮外圈 -->
+    <circle cx="0" cy="0" r="120" fill="none" stroke="#ff7043" stroke-width="8"/>
+    
+    <!-- 齿轮内部 -->
+    <g>
+      <!-- 齿轮齿 -->
+      <path d="M0,-120 L0,-150 L20,-150 L20,-120 Z" fill="#ff7043" transform="rotate(0)"/>
+      <path d="M0,-120 L0,-150 L20,-150 L20,-120 Z" fill="#ff7043" transform="rotate(30)"/>
+      <path d="M0,-120 L0,-150 L20,-150 L20,-120 Z" fill="#ff7043" transform="rotate(60)"/>
+      <path d="M0,-120 L0,-150 L20,-150 L20,-120 Z" fill="#ff7043" transform="rotate(90)"/>
+      <path d="M0,-120 L0,-150 L20,-150 L20,-120 Z" fill="#ff7043" transform="rotate(120)"/>
+      <path d="M0,-120 L0,-150 L20,-150 L20,-120 Z" fill="#ff7043" transform="rotate(150)"/>
+      <path d="M0,-120 L0,-150 L20,-150 L20,-120 Z" fill="#ff7043" transform="rotate(180)"/>
+      <path d="M0,-120 L0,-150 L20,-150 L20,-120 Z" fill="#ff7043" transform="rotate(210)"/>
+      <path d="M0,-120 L0,-150 L20,-150 L20,-120 Z" fill="#ff7043" transform="rotate(240)"/>
+      <path d="M0,-120 L0,-150 L20,-150 L20,-120 Z" fill="#ff7043" transform="rotate(270)"/>
+      <path d="M0,-120 L0,-150 L20,-150 L20,-120 Z" fill="#ff7043" transform="rotate(300)"/>
+      <path d="M0,-120 L0,-150 L20,-150 L20,-120 Z" fill="#ff7043" transform="rotate(330)"/>
+    </g>
+    
+    <!-- 内圈 -->
+    <circle cx="0" cy="0" r="80" fill="none" stroke="#ff7043" stroke-width="4"/>
+    
+    <!-- Rust字母 -->
+    <text x="0" y="15" font-family="Arial" font-size="70" font-weight="bold" fill="#ff7043" text-anchor="middle">R</text>
+  </g>
+  
+  <!-- 代码片段 -->
+  <g transform="translate(150, 300)">
+    <rect x="0" y="0" width="200" height="100" rx="5" fill="#3c3c3c"/>
+    <text x="10" y="25" font-family="monospace" font-size="14" fill="#a9b7c6">fn main() {</text>
+    <text x="20" y="50" font-family="monospace" font-size="14" fill="#a9b7c6">let tip = "Rust Tips";</text>
+    <text x="20" y="75" font-family="monospace" font-size="14" fill="#a9b7c6">println!("{}", tip);</text>
+    <text x="10" y="100" font-family="monospace" font-size="14" fill="#a9b7c6">}</text>
+  </g>
+  
+  <!-- 技巧图标 -->
+  <g transform="translate(550, 150)">
+    <circle cx="0" cy="0" r="40" fill="#3c3c3c"/>
+    <text x="0" y="7" font-family="Arial" font-size="30" font-weight="bold" fill="#ff7043" text-anchor="middle">TIP</text>
+  </g>
+  
+  <g transform="translate(600, 250)">
+    <circle cx="0" cy="0" r="30" fill="#3c3c3c"/>
+    <text x="0" y="7" font-family="Arial" font-size="24" font-weight="bold" fill="#ff7043" text-anchor="middle">!</text>
+  </g>
+  
+  <!-- 装饰元素 -->
+  <g transform="translate(500, 350)">
+    <path d="M0,0 L50,0 L25,40 Z" fill="#ff7043" opacity="0.7"/>
+  </g>
+</svg>

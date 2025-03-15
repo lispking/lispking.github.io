@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" fill="none">
+  <rect width="800" height="450" fill="#f5f5f5"/>
+  
+  <!-- 浏览器窗口 -->
+  <rect x="150" y="50" width="500" height="350" rx="10" fill="#ffffff" stroke="#333333" stroke-width="2"/>
+  
+  <!-- 浏览器顶部栏 -->
+  <rect x="150" y="50" width="500" height="40" rx="10" fill="#4285f4"/>
+  <rect x="150" y="80" width="500" height="10" fill="#4285f4"/>
+  
+  <!-- 浏览器控制按钮 -->
+  <circle cx="180" cy="70" r="8" fill="#ff5f57"/>
+  <circle cx="205" cy="70" r="8" fill="#febc2e"/>
+  <circle cx="230" cy="70" r="8" fill="#28c840"/>
+  
+  <!-- 地址栏 -->
+  <rect x="260" y="60" width="350" height="20" rx="10" fill="#ffffff" opacity="0.3"/>
+  
+  <!-- JSON内容区域 -->
+  <rect x="170" y="100" width="460" height="280" rx="5" fill="#282c34"/>
+  
+  <!-- JSON代码 -->
+  <g font-family="monospace" font-size="14">
+    <text x="190" y="130" fill="#e06c75">{</text>
+    <text x="210" y="160" fill="#e5c07b">"name"</text>
+    <text x="260" y="160" fill="#abb2bf">:</text>
+    <text x="270" y="160" fill="#98c379">"Browser JSON"</text>
+    <text x="210" y="190" fill="#e5c07b">"version"</text>
+    <text x="280" y="190" fill="#abb2bf">:</text>
+    <text x="290" y="190" fill="#d19a66">"1.0.0"</text>
+    <text x="210" y="220" fill="#e5c07b">"description"</text>
+    <text x="300" y="220" fill="#abb2bf">:</text>
+    <text x="310" y="220" fill="#98c379">"A Chrome extension for JSON"</text>
+    <text x="210" y="250" fill="#e5c07b">"features"</text>
+    <text x="280" y="250" fill="#abb2bf">:</text>
+    <text x="290" y="250" fill="#e06c75">[</text>
+    <text x="230" y="280" fill="#98c379">"Formatting"</text>
+    <text x="230" y="310" fill="#98c379">"Syntax highlighting"</text>
+    <text x="230" y="340" fill="#98c379">"Tree view"</text>
+    <text x="210" y="370" fill="#e06c75">]</text>
+    <text x="190" y="400" fill="#e06c75">}</text>
+  </g>
+  
+  <!-- 装饰元素 -->
+  <g transform="translate(600, 70)">
+    <path d="M0,0 L15,0 L15,15 L0,15 Z" fill="#4285f4"/>
+    <path d="M20,0 L35,0 L35,15 L20,15 Z" fill="#ea4335"/>
+    <path d="M0,20 L15,20 L15,35 L0,35 Z" fill="#fbbc05"/>
+    <path d="M20,20 L35,20 L35,35 L20,35 Z" fill="#34a853"/>
+  </g>
+</svg>

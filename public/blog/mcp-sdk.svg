@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" fill="none">
+  <rect width="800" height="450" fill="#1a1a2e"/>
+  
+  <!-- 背景网格 -->
+  <path d="M0,50 L800,50" stroke="#4a5568" stroke-width="1" opacity="0.1"/>
+  <path d="M0,150 L800,150" stroke="#4a5568" stroke-width="1" opacity="0.1"/>
+  <path d="M0,250 L800,250" stroke="#4a5568" stroke-width="1" opacity="0.1"/>
+  <path d="M0,350 L800,350" stroke="#4a5568" stroke-width="1" opacity="0.1"/>
+  
+  <!-- MCP中心圆环 -->
+  <circle cx="400" cy="225" r="120" fill="none" stroke="#6366f1" stroke-width="4"/>
+  <circle cx="400" cy="225" r="100" fill="none" stroke="#6366f1" stroke-width="2" opacity="0.5"/>
+  
+  <!-- TypeScript标志 -->
+  <g transform="translate(370, 195)">
+    <rect width="60" height="60" rx="5" fill="#3178c6"/>
+    <text x="30" y="40" font-family="Arial" font-size="35" font-weight="bold" fill="white" text-anchor="middle">TS</text>
+  </g>
+  
+  <!-- 连接点和数据流 -->
+  <g>
+    <!-- 左侧数据源 -->
+    <circle cx="200" cy="125" r="30" fill="#6366f1" opacity="0.8"/>
+    <text x="200" y="130" font-family="Arial" font-size="12" fill="white" text-anchor="middle">数据源</text>
+    <path d="M230,125 Q315,125 370,195" stroke="#6366f1" stroke-width="2" fill="none"/>
+    
+    <!-- 右侧工具 -->
+    <circle cx="600" cy="125" r="30" fill="#6366f1" opacity="0.8"/>
+    <text x="600" y="130" font-family="Arial" font-size="12" fill="white" text-anchor="middle">工具</text>
+    <path d="M570,125 Q485,125 430,195" stroke="#6366f1" stroke-width="2" fill="none"/>
+    
+    <!-- 底部模板 -->
+    <circle cx="400" cy="375" r="30" fill="#6366f1" opacity="0.8"/>
+    <text x="400" y="380" font-family="Arial" font-size="12" fill="white" text-anchor="middle">模板</text>
+    <path d="M400,345 L400,285" stroke="#6366f1" stroke-width="2" fill="none"/>
+  </g>
+  
+  <!-- 代码片段 -->
+  <g transform="translate(150, 275)">
+    <rect width="150" height="80" rx="5" fill="#2d2d3b"/>
+    <text x="10" y="20" font-family="monospace" font-size="12" fill="#6366f1">interface MCP {</text>
+    <text x="20" y="40" font-family="monospace" font-size="12" fill="#e2e8f0">  data: Resource;</text>
+    <text x="20" y="60" font-family="monospace" font-size="12" fill="#e2e8f0">  tools: Tool[];</text>
+    <text x="10" y="80" font-family="monospace" font-size="12" fill="#6366f1">}</text>
+  </g>
+  
+  <!-- LLM云 -->
+  <g transform="translate(550, 275)">
+    <path d="M0,40 Q20,0 60,20 T120,40 T60,60 T0,40" fill="#6366f1" opacity="0.3"/>
+    <text x="60" y="45" font-family="Arial" font-size="16" fill="white" text-anchor="middle">LLM</text>
+  </g>
+  
+  <!-- 连接线 -->
+  <path d="M300,315 Q400,315 500,315" stroke="#6366f1" stroke-width="2" stroke-dasharray="5,5"/>
+  
+  <!-- 标题 -->
+  <text x="400" y="50" font-family="Arial" font-size="24" font-weight="bold" fill="#6366f1" text-anchor="middle">MCP TypeScript SDK</text>
+</svg>

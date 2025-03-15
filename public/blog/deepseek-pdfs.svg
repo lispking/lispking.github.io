@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" fill="none">
+  <rect width="800" height="450" fill="#1e293b"/>
+  
+  <!-- 背景装饰 -->
+  <path d="M0,225 Q200,175 400,225 T800,225" stroke="#3b82f6" stroke-width="2" opacity="0.2"/>
+  <path d="M0,275 Q200,325 400,275 T800,275" stroke="#3b82f6" stroke-width="2" opacity="0.2"/>
+  
+  <!-- PDF文档区域 -->
+  <g transform="translate(150, 100)">
+    <!-- PDF图标 -->
+    <rect x="0" y="0" width="200" height="250" rx="10" fill="#dc2626"/>
+    <rect x="20" y="20" width="160" height="20" rx="3" fill="white" opacity="0.8"/>
+    <rect x="20" y="50" width="160" height="10" rx="2" fill="white" opacity="0.6"/>
+    <rect x="20" y="70" width="140" height="10" rx="2" fill="white" opacity="0.6"/>
+    <rect x="20" y="90" width="160" height="10" rx="2" fill="white" opacity="0.6"/>
+    
+    <!-- PDF水印 -->
+    <text x="100" y="180" font-family="Arial" font-size="60" font-weight="bold" fill="white" opacity="0.2" text-anchor="middle">PDF</text>
+  </g>
+  
+  <!-- DeepSeek AI处理区域 -->
+  <g transform="translate(450, 100)">
+    <!-- AI处理框 -->
+    <rect x="0" y="0" width="200" height="250" rx="10" fill="#3b82f6"/>
+    
+    <!-- 神经网络可视化 -->
+    <g transform="translate(20, 50)">
+      <!-- 节点层1 -->
+      <circle cx="20" cy="30" r="5" fill="white"/>
+      <circle cx="20" cy="60" r="5" fill="white"/>
+      <circle cx="20" cy="90" r="5" fill="white"/>
+      
+      <!-- 节点层2 -->
+      <circle cx="80" cy="45" r="5" fill="white"/>
+      <circle cx="80" cy="75" r="5" fill="white"/>
+      
+      <!-- 节点层3 -->
+      <circle cx="140" cy="60" r="5" fill="white"/>
+      
+      <!-- 连接线 -->
+      <path d="M25,30 L75,45" stroke="white" stroke-width="1" opacity="0.5"/>
+      <path d="M25,30 L75,75" stroke="white" stroke-width="1" opacity="0.5"/>
+      <path d="M25,60 L75,45" stroke="white" stroke-width="1" opacity="0.5"/>
+      <path d="M25,60 L75,75" stroke="white" stroke-width="1" opacity="0.5"/>
+      <path d="M25,90 L75,45" stroke="white" stroke-width="1" opacity="0.5"/>
+      <path d="M25,90 L75,75" stroke="white" stroke-width="1" opacity="0.5"/>
+      
+      <path d="M85,45 L135,60" stroke="white" stroke-width="1" opacity="0.5"/>
+      <path d="M85,75 L135,60" stroke="white" stroke-width="1" opacity="0.5"/>
+    </g>
+    
+    <!-- DeepSeek标志 -->
+    <text x="100" y="180" font-family="Arial" font-size="20" font-weight="bold" fill="white" text-anchor="middle">DeepSeek</text>
+  </g>
+  
+  <!-- 问答界面 -->
+  <g transform="translate(250, 50)">
+    <!-- 连接箭头 -->
+    <path d="M100,100 L200,100" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <defs>
+      <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6"/>
+      </marker>
+    </defs>
+  </g>
+  
+  <!-- 问答示例 -->
+  <g transform="translate(300, 370)">
+    <rect x="0" y="0" width="200" height="40" rx="20" fill="#4b5563"/>
+    <text x="100" y="25" font-family="Arial" font-size="14" fill="white" text-anchor="middle">问：文档的主要内容是什么？</text>
+  </g>
+  
+  <!-- 答案示例 -->
+  <g transform="translate(300, 20)">
+    <rect x="0" y="0" width="200" height="40" rx="20" fill="#3b82f6"/>
+    <text x="100" y="25" font-family="Arial" font-size="14" fill="white" text-anchor="middle">智能PDF问答系统</text>
+  </g>
+  
+  <!-- 装饰元素 -->
+  <circle cx="50" cy="50" r="20" fill="#3b82f6" opacity="0.2"/>
+  <circle cx="750" cy="400" r="30" fill="#3b82f6" opacity="0.2"/>
+</svg>
