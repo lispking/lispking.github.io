@@ -1,7 +1,7 @@
 "use client";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { FiMail, FiGithub, FiTwitter, FiLinkedin } from "react-icons/fi";
+import { FiGithub, FiTwitter } from "react-icons/fi";
 import { FaWeixin } from "react-icons/fa";
 import Image from "next/image";
 

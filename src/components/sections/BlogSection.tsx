@@ -3,7 +3,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
-import { FiClock, FiTag, FiArrowRight } from "react-icons/fi";
+import { FiClock, FiArrowRight } from "react-icons/fi";
 
 const blogPosts = [
   {

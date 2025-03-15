@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { FiCode, FiDatabase, FiServer, FiGlobe } from "react-icons/fi";
