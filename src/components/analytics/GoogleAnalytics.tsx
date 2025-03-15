@@ -1,6 +1,5 @@
 "use client";
 import Script from "next/script";
-import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 const GA_MEASUREMENT_ID = "G-28440BWWYK";
@@ -13,18 +12,33 @@ declare global {
 }
 
 export default function GoogleAnalytics() {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
   useEffect(() => {
-    if (pathname) {
-      window.gtag("config", GA_MEASUREMENT_ID, {
-        transport_url: "https://ssl.google-analytics.com",
-        first_party_collection: true,
-        page_path: pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : ""),
-      });
-    }
-  }, [pathname, searchParams]);
+    const handleScroll = () => {
+      // 防抖处理滚动事件
+      let timeout: NodeJS.Timeout;
+      return () => {
+        if (timeout) clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          const scrollPercentage = Math.round(
+            (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+          );
+          window.gtag("event", "scroll", {
+            transport_url: "https://ssl.google-analytics.com",
+            first_party_collection: true,
+            value: scrollPercentage,
+            page_location: window.location.href,
+          });
+        }, 500);
+      };
+    };
+
+    const debouncedHandleScroll = handleScroll();
+    window.addEventListener("scroll", debouncedHandleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", debouncedHandleScroll);
+    };
+  }, []);
 
   return (
     <>
@@ -39,10 +53,9 @@ export default function GoogleAnalytics() {
           gtag('js', new Date());
           gtag('config', '${GA_MEASUREMENT_ID}', {
             page_location: window.location.href,
-            page_path: '${pathname}',
             transport_url: 'https://ssl.google-analytics.com',
             first_party_collection: true,
-            debug_mode: true
+            send_page_view: true
           });
         `}
       </Script>
