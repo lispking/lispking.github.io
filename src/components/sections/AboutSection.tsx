@@ -8,25 +8,25 @@ const skills = [
   {
     name: "前端开发",
     icon: <FiCode className="h-8 w-8 text-purple-500" />,
-    description: "熟练掌握现代前端技术栈，包括React、Vue、Next.js等框架，以及TypeScript、Tailwind CSS等工具。",
+    description: "熟练掌握现代前端技术栈，包括 React、Vue、Next.js 等框架，以及 TypeScript、Tailwind CSS 等工具。",
     level: 90,
   },
   {
     name: "后端开发",
     icon: <FiServer className="h-8 w-8 text-blue-500" />,
-    description: "擅长后端开发，擅长Rust、Go、Java、Python等语言，曾在阿里巴巴、华为、腾讯等大型企业服务超过10年。",
+    description: "擅长架构设计和开发，擅长 Rust、Go、Java、Python 等编程语言，曾在阿里、华为、腾讯等大型企业服务超过10年。",
     level: 95,
   },
   {
     name: "数据库",
     icon: <FiDatabase className="h-8 w-8 text-green-500" />,
-    description: "精通SQL和NoSQL数据库，包括MySQL、PostgreSQL、MongoDB等，能够设计高效的数据模型。",
+    description: "精通 SQL 和 NoSQL 数据库，包括 MySQL、PostgreSQL、Cassandra 等，能够设计高效的数据模型。",
     level: 80,
   },
   {
     name: "Web3技术",
     icon: <FiGlobe className="h-8 w-8 text-yellow-500" />,
-    description: "深入研究区块链和Web3技术，包括智能合约开发、DApp构建和去中心化存储解决方案，擅长Solidity、FunC、Move。",
+    description: "深入研究区块链和 Web3 技术，包括智能合约开发、DApp 构建和去中心化存储解决方案，擅长 Solidity、FunC、Move 语言",
     level: 75,
   },
 ];
