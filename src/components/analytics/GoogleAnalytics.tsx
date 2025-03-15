@@ -5,8 +5,8 @@ const GA_MEASUREMENT_ID = "G-28440BWWYK";
 
 declare global {
   interface Window {
-    dataLayer: any[];
-    gtag: (...args: any[]) => void;
+    dataLayer: Array<Record<string, unknown>>;
+    gtag: (...args: [string, string, ...unknown[]]) => void;
   }
 }
 
