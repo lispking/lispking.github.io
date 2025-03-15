@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { FiMenu, FiX } from "react-icons/fi";
 import ThemeToggle from "../ui/ThemeToggle";
@@ -14,8 +15,15 @@ const navItems = [
 ];
 
 const Navbar = () => {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const isActive = (path: string) => {
+    if (path === "/" && pathname === "/") return true;
+    if (path !== "/" && pathname.startsWith(path)) return true;
+    return false;
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,9 +59,19 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 href={item.path}
-                className="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+                className={`relative transition-colors ${isActive(item.path)
+                  ? "text-purple-600 dark:text-purple-400 font-medium"
+                  : "text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400"
+                }`}
               >
                 {item.name}
+                {isActive(item.path) && (
+                  <motion.div
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-purple-600 dark:bg-purple-400"
+                    layoutId="navbar-underline"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
               </Link>
             ))}
             <ThemeToggle />
@@ -91,10 +109,20 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   href={item.path}
-                  className="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors py-2"
+                  className={`transition-colors py-2 ${isActive(item.path)
+                    ? "text-purple-600 dark:text-purple-400 font-medium"
+                    : "text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400"
+                  }`}
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
+                  {isActive(item.path) && (
+                    <motion.div
+                      className="h-0.5 bg-purple-600 dark:bg-purple-400 mt-1"
+                      layoutId="navbar-underline-mobile"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
                 </Link>
               ))}
             </div>
