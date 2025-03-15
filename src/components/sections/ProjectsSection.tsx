@@ -63,14 +63,14 @@ const ProjectsSection = () => {
   };
 
   return (
-    <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-800">
+    <section id="projects" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
+            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
           >
             精选项目
           </motion.h2>
@@ -84,7 +84,7 @@ const ProjectsSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+            className="text-lg text-gray-600 max-w-2xl mx-auto"
           >
             探索我的创新项目，每个项目都融合了最新技术和创意设计，解决实际问题。
           </motion.p>
@@ -101,7 +101,7 @@ const ProjectsSection = () => {
             <motion.div
               key={project.title}
               variants={itemVariants}
-              className="bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+              className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
             >
               <div className="relative h-60 w-full">
                 <Image
@@ -127,7 +127,7 @@ const ProjectsSection = () => {
                 </div>
               </div>
               <div className="p-6">
-                <p className="text-gray-600 dark:text-gray-400 mb-6">{project.description}</p>
+                <p className="text-gray-600 mb-6">{project.description}</p>
                 <div className="flex justify-between items-center">
                   <div className="flex space-x-4">
                     <a
@@ -151,7 +151,7 @@ const ProjectsSection = () => {
                     href={project.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
+                    className="text-sm font-medium text-purple-600 hover:underline"
                   >
                     查看详情
                   </a>

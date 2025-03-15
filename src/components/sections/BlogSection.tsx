@@ -59,14 +59,14 @@ const BlogSection = () => {
   };
 
   return (
-    <section id="blog" className="py-20 bg-white dark:bg-gray-900">
+    <section id="blog" className="py-20 bg-white">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
+            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
           >
             最新博客
           </motion.h2>
@@ -80,7 +80,7 @@ const BlogSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+            className="text-lg text-gray-600 max-w-2xl mx-auto"
           >
             分享我对技术趋势的见解、开发经验和实用教程，帮助你在技术道路上不断进步。
           </motion.p>
@@ -97,7 +97,7 @@ const BlogSection = () => {
             <motion.article
               key={post.slug}
               variants={itemVariants}
-              className="bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group"
+              className="bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group"
             >
               <Link href={post.slug} className="block" target="_blank">
                 <div className="relative h-48 w-full overflow-hidden">
@@ -112,7 +112,7 @@ const BlogSection = () => {
                   </div>
                 </div>
                 <div className="p-6">
-                  <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
+                  <div className="flex items-center text-sm text-gray-500 mb-3">
                     <span>{post.date}</span>
                     <span className="mx-2">•</span>
                     <span className="flex items-center">
@@ -120,13 +120,13 @@ const BlogSection = () => {
                       {post.readTime}
                     </span>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors">
                     {post.title}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                  <p className="text-gray-600 mb-4 line-clamp-3">
                     {post.excerpt}
                   </p>
-                  <div className="flex items-center text-purple-600 dark:text-purple-400 font-medium group-hover:translate-x-1 transition-transform">
+                  <div className="flex items-center text-purple-600 font-medium group-hover:translate-x-1 transition-transform">
                     阅读全文
                     <FiArrowRight className="ml-1" />
                   </div>
@@ -142,7 +142,7 @@ const BlogSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="inline-block px-8 py-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-medium rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-200 dark:border-gray-700"
+            className="inline-block px-8 py-3 bg-white text-gray-900 font-medium rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-200"
           >
             查看所有文章
           </motion.a>

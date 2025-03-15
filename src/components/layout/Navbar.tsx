@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { FiMenu, FiX } from "react-icons/fi";
-import ThemeToggle from "../ui/ThemeToggle";
 import Logo from "../ui/Logo";
 
 const navItems = [
@@ -60,29 +59,27 @@ const Navbar = () => {
                 key={item.name}
                 href={item.path}
                 className={`relative transition-colors ${isActive(item.path)
-                  ? "text-purple-600 dark:text-purple-400 font-medium"
-                  : "text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400"
+                  ? "text-purple-600 font-medium"
+                  : "text-gray-700 hover:text-purple-600"
                 }`}
               >
                 {item.name}
                 {isActive(item.path) && (
                   <motion.div
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-purple-600 dark:bg-purple-400"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-purple-600"
                     layoutId="navbar-underline"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
               </Link>
             ))}
-            <ThemeToggle />
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-4">
-            <ThemeToggle />
+          <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-700 dark:text-gray-300 focus:outline-none"
+              className="text-gray-700 focus:outline-none"
             >
               {isOpen ? (
                 <FiX className="h-6 w-6" />
@@ -101,7 +98,7 @@ const Navbar = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
-          className="md:hidden bg-white dark:bg-gray-900 shadow-lg"
+          className="md:hidden bg-white shadow-lg"
         >
           <div className="container mx-auto px-4 py-4">
             <div className="flex flex-col space-y-4">
@@ -110,15 +107,15 @@ const Navbar = () => {
                   key={item.name}
                   href={item.path}
                   className={`transition-colors py-2 ${isActive(item.path)
-                    ? "text-purple-600 dark:text-purple-400 font-medium"
-                    : "text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400"
+                    ? "text-purple-600 font-medium"
+                    : "text-gray-700 hover:text-purple-600"
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
                   {isActive(item.path) && (
                     <motion.div
-                      className="h-0.5 bg-purple-600 dark:bg-purple-400 mt-1"
+                      className="h-0.5 bg-purple-600 mt-1"
                       layoutId="navbar-underline-mobile"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />

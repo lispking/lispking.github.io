@@ -20,11 +20,11 @@ const Logo = ({ className = "" }: LogoProps) => {
           viewBox="0 0 32 32"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="text-gray-900 dark:text-white"
+          className="text-blue-600"
         >
           <motion.path
             d="M16 2L4 8V24L16 30L28 24V8L16 2Z"
-            stroke="currentColor"
+            stroke="#3B82F6"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -34,7 +34,7 @@ const Logo = ({ className = "" }: LogoProps) => {
           />
           <motion.path
             d="M16 2V16M16 30V16M4 8L16 16M28 8L16 16"
-            stroke="currentColor"
+            stroke="#3B82F6"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
