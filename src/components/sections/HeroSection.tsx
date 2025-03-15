@@ -56,7 +56,7 @@ const HeroSection = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-12">
           <div className="w-full md:w-1/2 text-center md:text-left">
             <h1 className="hero-title text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-              {"探索技术的边界，分享创新的见解".split("").map((char, index) => (
+              {"探索技术的边界 分享创新的见解".split(" ").map((char, index) => (
                 <span key={index} className="inline-block">
                   {char === " " ? "\u00A0" : char}
                 </span>
