@@ -3,25 +3,31 @@ import Script from "next/script";
 
 const GA_MEASUREMENT_ID = "G-28440BWWYK";
 
+declare global {
+  interface Window {
+    dataLayer: any[];
+    gtag: (...args: any[]) => void;
+  }
+}
+
 export default function GoogleAnalytics() {
   return (
     <>
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-        strategy="afterInteractive"
-        crossOrigin="anonymous"
+        strategy="lazyOnload"
       />
-      <Script id="google-analytics" strategy="afterInteractive">
+      <Script id="google-analytics" strategy="lazyOnload">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-
           gtag('config', '${GA_MEASUREMENT_ID}', {
-            page_path: window.location.pathname,
-            transport_url: 'https://www.google-analytics.com',
-            cookie_domain: window.location.hostname,
-            cookie_flags: 'SameSite=None;Secure'
+            send_page_view: true,
+            page_path: window.location.pathname + window.location.search,
+            linker: {
+              domains: ['lispking.github.io']
+            }
           });
         `}
       </Script>
