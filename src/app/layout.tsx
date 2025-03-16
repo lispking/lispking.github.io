@@ -5,7 +5,7 @@ import "./globals.css";
 // Components
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google'
 import { GoogleAdSense } from "@/components/GoogleAdSense";
 
 const geistSans = Geist({
@@ -54,6 +54,7 @@ export default function RootLayout({
         <Footer />
         <GoogleAnalytics gaId="G-28440BWWYK" />
         <GoogleAdSense publisherId="pub-6255376809208012" />
+        <GoogleTagManager gtmId="G-28440BWWYK" />
       </body>
     </html>
   );
