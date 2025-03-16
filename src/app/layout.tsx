@@ -6,6 +6,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleAdSense } from "@/components/GoogleAdSense";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,6 +53,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <GoogleAnalytics gaId="G-28440BWWYK" />
+        <GoogleAdSense publisherId="pub-6255376809208012" />
       </body>
     </html>
   );
