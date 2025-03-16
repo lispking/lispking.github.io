@@ -3,10 +3,15 @@ import { useRef } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { FiGithub, FiExternalLink } from "react-icons/fi";
+import { Project } from "@/data/projects";
 
-import { personalProjects as projects } from "@/data/projects";
+interface ProjectsGridProps {
+  title: string;
+  description: string;
+  projects: Project[];
+}
 
-const ProjectsSection = () => {
+const ProjectsGrid = ({ title, description, projects }: ProjectsGridProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
 
@@ -30,7 +35,7 @@ const ProjectsSection = () => {
   };
 
   return (
-    <section id="projects" className="py-20 bg-gray-50">
+    <section className="py-16">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-16">
           <motion.h2
@@ -39,7 +44,7 @@ const ProjectsSection = () => {
             transition={{ duration: 0.6 }}
             className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
           >
-            精选项目
+            {title}
           </motion.h2>
           <motion.div
             initial={{ opacity: 0, width: 0 }}
@@ -53,7 +58,7 @@ const ProjectsSection = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-lg text-gray-600 max-w-2xl mx-auto"
           >
-            探索我的创新项目，每个项目都融合了最新技术和创意设计，解决实际问题。
+            {description}
           </motion.p>
         </div>
 
@@ -127,21 +132,9 @@ const ProjectsSection = () => {
             </motion.div>
           ))}
         </motion.div>
-
-        <div className="text-center mt-12">
-          <motion.a
-            href="/projects"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="inline-block px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-500 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-          >
-            查看更多项目
-          </motion.a>
-        </div>
       </div>
     </section>
   );
 };
 
-export default ProjectsSection;
+export default ProjectsGrid;

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#F8FAFC"/>
+  
+  <!-- Circuit Board Pattern -->
+  <g stroke="#94A3B8" stroke-width="2">
+    <!-- Horizontal Lines -->
+    <path d="M200 150 H600" stroke-dasharray="4,8"/>
+    <path d="M200 250 H600" stroke-dasharray="4,8"/>
+    <path d="M200 350 H600" stroke-dasharray="4,8"/>
+    <path d="M200 450 H600" stroke-dasharray="4,8"/>
+    
+    <!-- Vertical Lines -->
+    <path d="M300 100 V500" stroke-dasharray="4,8"/>
+    <path d="M400 100 V500" stroke-dasharray="4,8"/>
+    <path d="M500 100 V500" stroke-dasharray="4,8"/>
+  </g>
+
+  <!-- Main Hardware Wallet Shape -->
+  <rect x="250" y="200" width="300" height="200" rx="20" fill="#4F46E5" filter="drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"/>
+  
+  <!-- Screen -->
+  <rect x="280" y="230" width="240" height="100" rx="8" fill="#1E293B"/>
+  
+  <!-- Chip Components -->
+  <g transform="translate(300,350)">
+    <!-- Multiple Chips -->
+    <rect x="0" y="0" width="30" height="30" rx="4" fill="#22C55E"/>
+    <rect x="40" y="0" width="30" height="30" rx="4" fill="#EAB308"/>
+    <rect x="80" y="0" width="30" height="30" rx="4" fill="#EC4899"/>
+    <rect x="120" y="0" width="30" height="30" rx="4" fill="#8B5CF6"/>
+    <rect x="160" y="0" width="30" height="30" rx="4" fill="#F97316"/>
+  </g>
+  
+  <!-- Open Source Symbol -->
+  <g transform="translate(400,260)">
+    <circle cx="0" cy="0" r="30" fill="none" stroke="#FFFFFF" stroke-width="4"/>
+    <path d="M-15,-15 L15,15 M-15,15 L15,-15" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Price Tag -->
+  <g transform="translate(480,350)">
+    <rect x="0" y="0" width="50" height="25" rx="4" fill="#FFFFFF"/>
+    <text x="25" y="18" font-family="Arial" font-size="14" fill="#4F46E5" text-anchor="middle">$0.3</text>
+  </g>
+
+  <!-- Text Labels -->
+  <text x="400" y="160" font-family="Arial" font-size="24" font-weight="bold" fill="#1E293B" text-anchor="middle">OHW</text>
+  <text x="400" y="520" font-family="Arial" font-size="16" fill="#64748B" text-anchor="middle">Open Hardware Wallet</text>
+</svg>
