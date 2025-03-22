@@ -121,39 +121,48 @@ export default function SearchBar({ className = '' }: SearchBarProps) {
       </div>
 
       {isOpen && searchQuery && (
-        <div className="absolute z-50 w-64 md:w-80 mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg max-h-96 overflow-y-auto">
-          {filteredResults.length > 0 ? (
-            filteredResults.map((post) => (
-              <Link
-                key={post.id}
-                href={`/blog/${post.id}`}
-                className="block px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 border-b border-gray-100 dark:border-gray-700 last:border-0"
-                onClick={() => {
-                  setIsOpen(false);
-                  setIsExpanded(false);
-                  setSearchQuery('');
-                }}
-              >
-                <h3 className="font-medium text-gray-900 dark:text-gray-100 line-clamp-1">
-                  {highlightText(post.title, searchQuery)}
-                </h3>
-                <div className="flex items-center gap-2 mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  <span>{new Date(post.date).toLocaleDateString()}</span>
-                  <span>•</span>
-                  <span className="line-clamp-1">
-                    {post.tags.map((tag, index) => (
-                      <span key={tag}>
-                        {index > 0 && ', '}
-                        {highlightText(tag, searchQuery)}
+        <div className="absolute z-50 w-64 md:w-80 mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg flex flex-col" style={{ maxHeight: '24rem' }}>
+          <div className="overflow-y-auto flex-1">
+            {filteredResults.length > 0 ? (
+              <>
+                {filteredResults.map((post) => (
+                  <Link
+                    key={post.id}
+                    href={`/blog/${post.id}`}
+                    className="block px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 border-b border-gray-100 dark:border-gray-700 last:border-0"
+                    onClick={() => {
+                      setIsOpen(false);
+                      setIsExpanded(false);
+                      setSearchQuery('');
+                    }}
+                  >
+                    <h3 className="font-medium text-gray-900 dark:text-gray-100 line-clamp-1">
+                      {highlightText(post.title, searchQuery)}
+                    </h3>
+                    <div className="flex items-center gap-2 mt-1 text-sm text-gray-500 dark:text-gray-400">
+                      <span>{new Date(post.date).toLocaleDateString()}</span>
+                      <span>•</span>
+                      <span className="line-clamp-1">
+                        {post.tags.map((tag, index) => (
+                          <span key={tag}>
+                            {index > 0 && ', '}
+                            {highlightText(tag, searchQuery)}
+                          </span>
+                        ))}
                       </span>
-                    ))}
-                  </span>
-                </div>
-              </Link>
-            ))
-          ) : (
-            <div className="px-4 py-3 text-gray-500 dark:text-gray-400">
-              没有找到相关文章
+                    </div>
+                  </Link>
+                ))}
+              </>
+            ) : (
+              <div className="px-4 py-3 text-gray-500 dark:text-gray-400">
+                没有找到相关文章
+              </div>
+            )}
+          </div>
+          {filteredResults.length > 0 && (
+            <div className="px-4 py-2 text-sm text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800">
+              找到 {filteredResults.length} 条相关记录
             </div>
           )}
         </div>
