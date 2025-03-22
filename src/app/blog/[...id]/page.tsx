@@ -1,17 +1,16 @@
 import { format } from "date-fns";
-import { getAllPostIds, getPostData } from "@/lib/posts";
+import { getPostData } from "@/lib/posts";
 import Link from "next/link";
 import { FiArrowLeft, FiCalendar, FiTag } from "react-icons/fi";
 import ShareButton from "@/components/ShareButton";
 import ScrollToTop from "@/components/ScrollToTop";
 import "@/styles/prism-theme.css";
 
-export async function generateStaticParams() {
-  const paths = getAllPostIds();
-  return paths;
-}
+type Props = {
+  params: Promise<{ id: string[] }>;
+};
 
-export default async function Post({ params }: { params: { id: string[] } }) {
+export default async function Post({ params }: Props) {
   const { id } = await params;
   const post = await getPostData(id);
 
@@ -40,6 +39,11 @@ export default async function Post({ params }: { params: { id: string[] } }) {
                 <time dateTime={post.date}>
                   {format(new Date(post.date), "yyyy年MM月dd日")}
                 </time>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-gray-600">{post.wordCount} 字</span>
+                <span className="text-gray-600">·</span>
+                <span className="text-gray-600">{post.readingTime} 分钟阅读</span>
               </div>
               <div className="flex items-center gap-2">
                 <FiTag className="w-4 h-4" />

@@ -17,6 +17,8 @@ export interface PostData {
   tags: string[]
   category: string
   contentHtml: string
+  wordCount: number
+  readingTime: number
 }
 
 function getAllMarkdownFiles(dir: string): string[] {
@@ -52,10 +54,41 @@ export function getSortedPostsData(year?: string): Omit<PostData, 'contentHtml'>
     // Use gray-matter to parse the post metadata section
     const matterResult = matter(fileContents)
 
-    // Combine the data with the id and category
+    // Extract code blocks from content
+    const codeBlocks = matterResult.content.match(/```[\s\S]*?```/g) || [];
+    
+    // Remove code blocks from content for word count
+    let contentWithoutCode = matterResult.content;
+    codeBlocks.forEach(block => {
+      contentWithoutCode = contentWithoutCode.replace(block, '');
+    });
+    
+    // Calculate word count (excluding code blocks)
+    const textWordCount = contentWithoutCode.trim().split(/\s+/).length;
+    
+    // Calculate code lines
+    const codeLines = codeBlocks.reduce((acc, block) => {
+      // Remove the opening and closing ``` and count lines
+      const code = block.replace(/^```[^\n]*\n|```$/g, '');
+      return acc + code.split('\n').length;
+    }, 0);
+    
+    // Calculate total word count (text + code)
+    const wordCount = textWordCount + codeLines;
+    
+    // Calculate reading time
+    // Assume normal text reading speed: 200 words per minute
+    // Code reading speed: 100 lines per minute
+    const textReadingTime = textWordCount / 200;
+    const codeReadingTime = codeLines / 100;
+    const readingTime = Math.ceil(textReadingTime + codeReadingTime);
+
+    // Combine the data with the id, category, and reading metrics
     return {
       id,
       category,
+      wordCount,
+      readingTime,
       ...(matterResult.data as { title: string; date: string; description: string; tags: string[] })
     }
   })
@@ -119,11 +152,42 @@ export async function getPostData(id: string | string[]): Promise<PostData> {
       .process(matterResult.content)
     const contentHtml = processedContent.toString()
 
-    // Combine the data with the id, category and contentHtml
+    // Extract code blocks from content
+    const codeBlocks = matterResult.content.match(/```[\s\S]*?```/g) || [];
+    
+    // Remove code blocks from content for word count
+    let contentWithoutCode = matterResult.content;
+    codeBlocks.forEach(block => {
+      contentWithoutCode = contentWithoutCode.replace(block, '');
+    });
+    
+    // Calculate word count (excluding code blocks)
+    const textWordCount = contentWithoutCode.trim().split(/\s+/).length;
+    
+    // Calculate code lines
+    const codeLines = codeBlocks.reduce((acc, block) => {
+      // Remove the opening and closing ``` and count lines
+      const code = block.replace(/^```[^\n]*\n|```$/g, '');
+      return acc + code.split('\n').length;
+    }, 0);
+    
+    // Calculate total word count (text + code)
+    const wordCount = textWordCount + codeLines;
+    
+    // Calculate reading time
+    // Assume normal text reading speed: 200 words per minute
+    // Code reading speed: 100 lines per minute
+    const textReadingTime = textWordCount / 200;
+    const codeReadingTime = codeLines / 100;
+    const readingTime = Math.ceil(textReadingTime + codeReadingTime);
+
+    // Combine the data with the id, category, contentHtml, and reading metrics
     return {
       id: idPath,
       category,
       contentHtml,
+      wordCount,
+      readingTime,
       ...(matterResult.data as { title: string; date: string; description: string; tags: string[] })
     }
   } catch {

@@ -56,6 +56,11 @@ export default function BlogPage() {
                               {format(new Date(post.date), "yyyy年MM月dd日")}
                             </time>
                           </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-gray-600">{post.wordCount} 字</span>
+                            <span className="text-gray-600">·</span>
+                            <span className="text-gray-600">{post.readingTime} 分钟阅读</span>
+                          </div>
                           <div className="flex flex-wrap gap-2">
                             {post.tags.map((tag) => (
                               <span
