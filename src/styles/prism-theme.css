@@ -1,0 +1,297 @@
+/**
+ * VS Code-like theme for <code> blocks
+ */
+
+/* 行内代码样式 */
+article :not(pre) > code {
+  color: #0066cc;
+  background: #f5f7f9;
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-weight: 500;
+}
+
+/* 代码块样式 */
+article pre {
+  margin: 0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-size: 0.875em;
+  line-height: 1.5;
+}
+
+article code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  counter-reset: line;
+}
+
+article [data-line] {
+  display: inline-block;
+  width: 100%;
+  padding: 0 0.5rem;
+}
+
+article [data-highlighted-line] {
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 2px solid #60a5fa;
+}
+
+article [data-highlighted-chars] {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 0.25rem;
+}
+
+/* Token colors */
+article .token.comment,
+article .token.prolog,
+article .token.doctype,
+article .token.cdata {
+  color: #6a9955;
+  font-style: italic;
+}
+
+article .token.namespace {
+  opacity: 0.7;
+}
+
+article .token.string,
+article .token.attr-value {
+  color: #ce9178;
+}
+
+article .token.punctuation,
+article .token.operator {
+  color: #d4d4d4;
+}
+
+article .token.boolean,
+article .token.number {
+  color: #b5cea8;
+}
+
+article .token.property {
+  color: #9cdcfe;
+}
+
+article .token.tag {
+  color: #569cd6;
+}
+
+article .token.function {
+  color: #dcdcaa;
+}
+
+article .token.keyword {
+  color: #569cd6;
+}
+
+article .token.regex,
+article .token.important {
+  color: #d16969;
+}
+
+article .token.variable {
+  color: #9cdcfe;
+}
+
+article .token.bold,
+article .token.important {
+  font-weight: bold;
+}
+
+article .token.italic {
+  font-style: italic;
+}
+
+/* Blockquote Style */
+article blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.2rem;
+  background-color: rgba(99, 110, 123, 0.1);
+  border-left: 4px solid #60a5fa;
+  border-radius: 0.375rem;
+  color: inherit;
+  font-style: italic;
+}
+
+article blockquote p {
+  margin: 0;
+}
+
+article blockquote p + p {
+  margin-top: 1rem;
+}
+
+/* Table Styles */
+article table {
+  width: 100%;
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+  font-size: 0.875em;
+}
+
+article th,
+article td {
+  padding: 0.75rem;
+  text-align: left;
+  border: 1px solid rgba(99, 110, 123, 0.2);
+}
+
+article th {
+  background-color: rgba(99, 110, 123, 0.1);
+  font-weight: 600;
+}
+
+article tr:nth-child(even) {
+  background-color: rgba(99, 110, 123, 0.05);
+}
+
+/* List Styles */
+article ul,
+article ol {
+  margin: 1.25rem 0;
+  padding-left: 1.5rem;
+}
+
+article ul {
+  list-style-type: disc;
+}
+
+article ol {
+  list-style-type: decimal;
+}
+
+article li {
+  margin: 0.5rem 0;
+}
+
+/* Horizontal Rule */
+article hr {
+  margin: 2rem 0;
+  border: 0;
+  height: 1px;
+  background-color: rgba(99, 110, 123, 0.2);
+}
+
+/* Strong Tag Style */
+article strong {
+  font-weight: 600;
+  color: #0e2f76;
+  text-decoration: underline;
+  text-decoration-color: rgba(37, 99, 235, 0.3);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+  padding: 0 0.2em;
+}
+
+/* Heading Styles */
+article h1 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1.25rem;
+  color: var(--foreground);
+  letter-spacing: -0.025em;
+  border-bottom: 2px solid #60a5fa;
+  padding-bottom: 0.5rem;
+}
+
+article h2 {
+  font-size: 1.4rem;
+  line-height: 2rem;
+  font-weight: 700;
+  margin-top: 1.75rem;
+  margin-bottom: 1rem;
+  color: var(--foreground);
+  letter-spacing: -0.02em;
+  border-bottom: 1px solid #9ca3af;
+  padding-bottom: 0.375rem;
+}
+
+article h3 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.875rem;
+  color: var(--foreground);
+  letter-spacing: -0.015em;
+  border-bottom: 1px solid #d1d5db;
+  padding-bottom: 0.25rem;
+}
+
+article h4 {
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--foreground);
+  letter-spacing: -0.025em;
+}
+
+article h5 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+  letter-spacing: -0.025em;
+}
+
+article h6 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+  letter-spacing: -0.025em;
+}
+
+/* Line Numbers */
+article pre[class*="language-"].line-numbers {
+  position: relative;
+  padding-left: 3.8em;
+  counter-reset: linenumber;
+}
+
+article pre[class*="language-"].line-numbers > code {
+  position: relative;
+  white-space: inherit;
+}
+
+article .line-numbers .line-numbers-rows {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  font-size: 100%;
+  left: -3.8em;
+  width: 3em; /* works for line-numbers below 1000 lines */
+  letter-spacing: -1px;
+  border-right: 1px solid #404040;
+  user-select: none;
+}
+
+article .line-numbers-rows > span {
+  display: block;
+  counter-increment: linenumber;
+}
+
+article .line-numbers-rows > span:before {
+  content: counter(linenumber);
+  color: #858585;
+  display: block;
+  padding-right: 0.8em;
+  text-align: right;
+}
+
+/* 普通文本样式 */
+article p {
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
+}

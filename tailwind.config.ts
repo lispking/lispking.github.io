@@ -28,9 +28,68 @@ const config: Config = {
           900: '#4c1d95',
         },
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: '65ch',
+            color: 'inherit',
+            a: {
+              color: '#3182ce',
+              '&:hover': {
+                color: '#2c5282',
+              },
+            },
+            strong: {
+              color: 'inherit',
+            },
+            'ol > li::before': {
+              color: 'inherit',
+            },
+            'ul > li::before': {
+              backgroundColor: 'inherit',
+            },
+            hr: {
+              borderColor: 'inherit',
+            },
+            blockquote: {
+              color: 'inherit',
+              borderLeftColor: 'inherit',
+            },
+            h1: {
+              color: 'inherit',
+            },
+            h2: {
+              color: 'inherit',
+            },
+            h3: {
+              color: 'inherit',
+            },
+            h4: {
+              color: 'inherit',
+            },
+            'figure figcaption': {
+              color: 'inherit',
+            },
+            code: {
+              color: 'inherit',
+            },
+            'a code': {
+              color: 'inherit',
+            },
+            pre: {
+              color: 'inherit',
+              backgroundColor: 'rgb(243 244 246)',
+            },
+            thead: {
+              color: 'inherit',
+              borderBottomColor: 'inherit',
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 }
 
 export default config

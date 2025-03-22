@@ -136,7 +136,7 @@ const BlogSection = () => {
           ))}
         </motion.div>
 
-        {/* <div className="text-center mt-12">
+        <div className="text-center mt-12">
           <motion.a
             href="/blog"
             initial={{ opacity: 0, y: 20 }}
@@ -146,7 +146,7 @@ const BlogSection = () => {
           >
             查看所有文章
           </motion.a>
-        </div> */}
+        </div>
       </div>
     </section>
   );
