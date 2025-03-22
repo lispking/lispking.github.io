@@ -49,17 +49,19 @@ export default function BlogPage() {
                       className="bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300"
                     >
                       <Link href={`/blog/${post.id}`} className="block p-8">
-                        <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                          <div className="flex items-center gap-2">
-                            <FiCalendar className="w-4 h-4" />
-                            <time dateTime={post.date}>
-                              {format(new Date(post.date), "yyyy年MM月dd日")}
-                            </time>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <span className="text-gray-600">{post.wordCount} 字</span>
-                            <span className="text-gray-600">·</span>
-                            <span className="text-gray-600">{post.readingTime} 分钟阅读</span>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-4 text-sm text-gray-600 mb-4">
+                          <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-2">
+                              <FiCalendar className="w-4 h-4" />
+                              <time dateTime={post.date}>
+                                {format(new Date(post.date), "yyyy年MM月dd日")}
+                              </time>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <span className="text-gray-600">{post.wordCount} 字</span>
+                              <span className="text-gray-600">·</span>
+                              <span className="text-gray-600">{post.readingTime} 分钟</span>
+                            </div>
                           </div>
                           <div className="flex flex-wrap gap-2">
                             {post.tags.map((tag) => (

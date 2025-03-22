@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { FiMenu, FiX } from "react-icons/fi";
 import Logo from "../ui/Logo";
+import SearchBar from "../SearchBar";
 
 const navItems = [
   { name: "首页", path: "/" },
@@ -53,7 +54,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           <Logo />
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation and Search */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <Link
@@ -74,6 +75,7 @@ const Navbar = () => {
                 )}
               </Link>
             ))}
+            <SearchBar />
           </div>
 
           {/* Mobile Menu Button */}
@@ -102,6 +104,10 @@ const Navbar = () => {
           className="md:hidden bg-white shadow-lg"
         >
           <div className="container mx-auto px-4 py-4">
+            {/* Mobile Search Bar */}
+            <div className="mb-4">
+              <SearchBar />
+            </div>
             <div className="flex flex-col space-y-4">
               {navItems.map((item) => (
                 <Link
