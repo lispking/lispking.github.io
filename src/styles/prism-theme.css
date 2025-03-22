@@ -3,7 +3,7 @@
  */
 
 /* 行内代码样式 */
-article :not(pre) > code {
+article :not(pre)>code {
   color: #0066cc;
   background: #f5f7f9;
   padding: 0.2em 0.4em;
@@ -96,7 +96,8 @@ article pre code {
   color: #c9d1d9;
   white-space: pre;
   word-break: break-word;
-  padding-right: 3rem; /* 为复制按钮留出空间 */
+  padding-right: 3rem;
+  /* 为复制按钮留出空间 */
 }
 
 /* 代码块语言标签样式 */
@@ -246,7 +247,7 @@ article blockquote p {
   margin: 0;
 }
 
-article blockquote p + p {
+article blockquote p+p {
   margin-top: 1rem;
 }
 
@@ -382,11 +383,11 @@ article h6 {
 /* Line Numbers */
 article pre[class*="language-"].line-numbers {
   position: relative;
-  padding-left: 3.8em;
+  padding-left: 1.8em;
   counter-reset: linenumber;
 }
 
-article pre[class*="language-"].line-numbers > code {
+article pre[class*="language-"].line-numbers>code {
   position: relative;
   white-space: inherit;
 }
@@ -397,18 +398,19 @@ article .line-numbers .line-numbers-rows {
   top: 0;
   font-size: 100%;
   left: -3.8em;
-  width: 3em; /* works for line-numbers below 1000 lines */
+  width: 3em;
+  /* works for line-numbers below 1000 lines */
   letter-spacing: -1px;
   border-right: 1px solid #404040;
   user-select: none;
 }
 
-article .line-numbers-rows > span {
+article .line-numbers-rows>span {
   display: block;
   counter-increment: linenumber;
 }
 
-article .line-numbers-rows > span:before {
+article .line-numbers-rows>span:before {
   content: counter(linenumber);
   color: #858585;
   display: block;
@@ -420,4 +422,32 @@ article .line-numbers-rows > span:before {
 article p {
   line-height: 1.75;
   margin-bottom: 1.25rem;
+}
+
+code[data-line-numbers] {
+  counter-reset: line;
+}
+
+code[data-line-numbers]>[data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+
+  /* Other styling */
+  display: inline-block;
+  width: 0.75rem;
+  margin-right: 1rem;
+  text-align: right;
+  color: gray;
+}
+
+code[data-line-numbers-max-digits="2"]>[data-line]::before {
+  width: 1.25rem;
+}
+
+code[data-line-numbers-max-digits="3"]>[data-line]::before {
+  width: 1.75rem;
+}
+
+code[data-line-numbers-max-digits="4"]>[data-line]::before {
+  width: 2.25rem;
 }

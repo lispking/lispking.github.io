@@ -22,12 +22,12 @@ A modern, minimalist blog built with Next.js, featuring a unique brand identity 
 ## Getting Started
 
 1. Install dependencies:
-```bash
+```bash showLineNumbers
 pnpm install
 ```
 
 2. Run the development server:
-```bash
+```bash showLineNumbers
 pnpm dev
 ```
 
