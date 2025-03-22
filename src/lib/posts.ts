@@ -10,10 +10,10 @@ import remarkGfm from 'remark-gfm'
 const postsDirectory = path.join(process.cwd(), 'src/posts')
 
 export interface PostData {
-  prevId: any
-  nextId: any
-  prevTitle: any
-  nextTitle: any
+  prevId: string | null
+  nextId: string | null
+  prevTitle: string | null
+  nextTitle: string | null
   id: string
   title: string
   date: string
