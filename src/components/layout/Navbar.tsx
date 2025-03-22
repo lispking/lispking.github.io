@@ -75,7 +75,7 @@ const Navbar = () => {
                 )}
               </Link>
             ))}
-            <SearchBar />
+            <SearchBar onNavigate={() => setIsOpen(false)} />
           </div>
 
           {/* Mobile Menu Button */}
@@ -106,7 +106,7 @@ const Navbar = () => {
           <div className="container mx-auto px-4 py-4">
             {/* Mobile Search Bar */}
             <div className="mb-4">
-              <SearchBar />
+              <SearchBar onNavigate={() => setIsOpen(false)} />
             </div>
             <div className="flex flex-col space-y-4">
               {navItems.map((item) => (

@@ -13,6 +13,7 @@ interface Post {
 
 interface SearchBarProps {
   className?: string;
+  onNavigate?: () => void;
 }
 
 // 高亮文本的辅助函数
@@ -28,7 +29,7 @@ const highlightText = (text: string, query: string) => {
   );
 };
 
-export default function SearchBar({ className = '' }: SearchBarProps) {
+export default function SearchBar({ className = '', onNavigate }: SearchBarProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Post[]>([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -131,9 +132,12 @@ export default function SearchBar({ className = '' }: SearchBarProps) {
                     href={`/blog/${post.id}`}
                     className="block px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 border-b border-gray-100 dark:border-gray-700 last:border-0"
                     onClick={() => {
-                      setIsOpen(false);
-                      setIsExpanded(false);
-                      setSearchQuery('');
+                      setTimeout(() => {
+                        setIsOpen(false);
+                        setIsExpanded(false);
+                        setSearchQuery('');
+                        onNavigate?.();
+                      }, 100);
                     }}
                   >
                     <h3 className="font-medium text-gray-900 dark:text-gray-100 line-clamp-1">
