@@ -10,6 +10,10 @@ import remarkGfm from 'remark-gfm'
 const postsDirectory = path.join(process.cwd(), 'src/posts')
 
 export interface PostData {
+  prevId: any
+  nextId: any
+  prevTitle: any
+  nextTitle: any
   id: string
   title: string
   date: string
@@ -99,12 +103,23 @@ export function getSortedPostsData(year?: string): Omit<PostData, 'contentHtml'>
     : allPostsData
 
   // Sort posts by date
-  return filteredPosts.sort((a, b) => {
+  const sortedPosts = filteredPosts.sort((a, b) => {
     if (a.date < b.date) {
       return 1
     } else {
       return -1
     }
+  })
+
+  return sortedPosts.map((post, index, arr) => {
+    const [prev, next] = [arr[index - 1], arr[index + 1]];
+    return {
+      ...post,
+      prevId: prev?.id || null,
+      nextId: next?.id || null,
+      prevTitle: prev?.title || null,
+      nextTitle: next?.title || null
+    };
   })
 }
 
@@ -182,7 +197,21 @@ export async function getPostData(id: string | string[]): Promise<PostData> {
     const readingTime = Math.ceil(textReadingTime + codeReadingTime);
 
     // Combine the data with the id, category, contentHtml, and reading metrics
+    // Get all posts and sort by date
+    const allPosts = getSortedPostsData()
+    
+    // Find the index of the current post
+    const currentIndex = allPosts.findIndex(post => post.id === idPath)
+    
+    const [prev, next] = [
+      currentIndex > 0 ? allPosts[currentIndex - 1] : null,
+      currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null
+    ];
     return {
+      prevId: prev?.id || null,
+      nextId: next?.id || null,
+      prevTitle: prev?.title || null,
+      nextTitle: next?.title || null,
       id: idPath,
       category,
       contentHtml,

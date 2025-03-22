@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { getAllPostIds, getPostData } from "@/lib/posts";
 import Link from "next/link";
-import { FiArrowLeft, FiCalendar, FiTag } from "react-icons/fi";
+import { FiArrowLeft, FiArrowRight, FiCalendar, FiTag } from "react-icons/fi";
 import ShareButton from "@/components/ShareButton";
 import ScrollToTop from "@/components/ScrollToTop";
 import "@/styles/prism-theme.css";
@@ -90,6 +90,27 @@ export default async function Post({ params }: Props) {
             dangerouslySetInnerHTML={{ __html: post.contentHtml }}
           />
           <ScrollToTop />
+          {/* 上一篇/下一篇导航 */}
+          <div className="flex justify-between mt-12">
+            {post.prevId && (
+              <Link
+                href={`/blog/${post.prevId}`}
+                className="inline-flex items-center space-x-2 text-indigo-600 hover:text-indigo-800 transition-colors duration-200"
+              >
+                <FiArrowLeft className="w-5 h-5" />
+                <span>上一篇：{post.prevTitle}</span>
+              </Link>
+            )}
+            {post.nextId && (
+              <Link
+                href={`/blog/${post.nextId}`}
+                className="inline-flex items-center space-x-2 text-indigo-600 hover:text-indigo-800 transition-colors duration-200 ml-auto"
+              >
+                <span>下一篇：{post.nextTitle}</span>
+                <FiArrowRight className="w-5 h-5" />
+              </Link>
+            )}
+          </div>
         </article>
       </div>
     </div>
