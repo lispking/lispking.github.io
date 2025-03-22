@@ -1,14 +1,30 @@
 import { format } from "date-fns";
-import { getPostData } from "@/lib/posts";
+import { getAllPostIds, getPostData } from "@/lib/posts";
 import Link from "next/link";
 import { FiArrowLeft, FiCalendar, FiTag } from "react-icons/fi";
 import ShareButton from "@/components/ShareButton";
 import ScrollToTop from "@/components/ScrollToTop";
 import "@/styles/prism-theme.css";
+import type { Viewport } from "next";
 
 type Props = {
   params: Promise<{ id: string[] }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
+
+export function generateViewport(): Viewport {
+  return {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+    themeColor: "black",
+  };
+}
+
+export async function generateStaticParams() {
+  return getAllPostIds();
+}
 
 export default async function Post({ params }: Props) {
   const { id } = await params;
@@ -43,7 +59,9 @@ export default async function Post({ params }: Props) {
               <div className="flex items-center gap-2">
                 <span className="text-gray-600">{post.wordCount} 字</span>
                 <span className="text-gray-600">·</span>
-                <span className="text-gray-600">{post.readingTime} 分钟阅读</span>
+                <span className="text-gray-600">
+                  {post.readingTime} 分钟阅读
+                </span>
               </div>
               <div className="flex items-center gap-2">
                 <FiTag className="w-4 h-4" />
@@ -59,7 +77,7 @@ export default async function Post({ params }: Props) {
                 </div>
               </div>
               {/* Twitter分享按钮 */}
-              <ShareButton title={post.title} path={`/blog/${id.join('/')}`} />
+              <ShareButton title={post.title} path={`/blog/${id.join("/")}`} />
             </div>
           </header>
 
