@@ -23,7 +23,10 @@ export function generateViewport(): Viewport {
 }
 
 export async function generateStaticParams() {
-  return getAllPostIds();
+  const posts = getAllPostIds();
+  return posts.map((post) => ({
+    id: post.params.id
+  }));
 }
 
 export default async function Post({ params }: Props) {
