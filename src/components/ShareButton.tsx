@@ -12,7 +12,7 @@ interface ShareButtonProps {
 }
 
 export default function ShareButton({ title, path }: ShareButtonProps) {
-  const shareUrl = `https://lispking.github.io/${path}`;
+  const shareUrl = `https://lispking.github.io${path}`;
   const shareText = `${title} | King 的博客`;
 
   const handleTwitterShare = () => {
