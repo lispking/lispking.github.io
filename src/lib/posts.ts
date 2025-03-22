@@ -162,6 +162,20 @@ export async function getPostData(id: string | string[]): Promise<PostData> {
       .use(rehypePrettyCode, {
         theme: 'github-dark',
         keepBackground: true,
+        onVisitLine(node) {
+          if (node.children.length === 0) {
+            node.children = [{ type: 'text', value: ' ' }];
+          }
+        },
+        onVisitHighlightedLine(node) {
+          node.properties.className?.push('highlighted');
+        },
+        onVisitTitle(node) {
+          node.properties.className = ['code-title'];
+        },
+        onVisitCaption(node) {
+          node.properties.className = ['code-caption'];
+        }
       })
       .use(rehypeStringify, { allowDangerousHtml: true })
       .process(matterResult.content)

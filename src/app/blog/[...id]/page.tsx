@@ -6,6 +6,7 @@ import ShareButton from "@/components/ShareButton";
 import ScrollToTop from "@/components/ScrollToTop";
 import "@/styles/prism-theme.css";
 import type { Viewport } from "next";
+import CodeBlock from "@/components/CodeBlock";
 
 type Props = {
   params: Promise<{ id: string[] }>;
@@ -37,6 +38,7 @@ export default async function Post({ params }: Props) {
     <div className="min-h-screen bg-white">
       <div className="container mx-auto px-4 py-8">
         <article className="max-w-4xl mx-auto">
+          <CodeBlock />
           {/* 返回按钮 */}
           <Link
             href="/blog"

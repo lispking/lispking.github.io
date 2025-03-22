@@ -14,12 +14,138 @@ article :not(pre) > code {
 
 /* 代码块样式 */
 article pre {
-  margin: 0;
+  position: relative;
+  margin: 1.5rem 0;
   padding: 1rem;
+  background-color: #0d1117;
   border-radius: 0.5rem;
   overflow-x: auto;
-  font-size: 0.875em;
+}
+
+/* 代码块标题样式 */
+article pre .code-title {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #8b949e;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* 代码块说明样式 */
+article pre .code-caption {
+  display: block;
+  margin-top: 0.5rem;
+  color: #8b949e;
+  font-size: 0.875rem;
+  font-style: italic;
+}
+
+/* 复制按钮样式 */
+article pre .copy-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  padding: 0.25rem;
+  font-size: 0.875rem;
+  color: #c9d1d9;
+  background-color: #21262d;
+  border: 1px solid #30363d;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+article pre:hover .copy-button {
+  opacity: 1;
+}
+
+article pre .copy-button:hover {
+  background-color: #30363d;
+  transform: scale(1.05);
+}
+
+article pre .copy-button.copied {
+  background-color: #238636;
+  border-color: #238636;
+  color: #ffffff;
+}
+
+article pre .copy-button svg {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+article pre .copy-button:hover svg {
+  transform: scale(1.1);
+}
+
+/* 代码块内容样式 */
+article pre code {
+  display: block;
+  font-family: var(--font-geist-mono);
+  font-size: 0.875rem;
   line-height: 1.5;
+  color: #c9d1d9;
+  white-space: pre;
+  word-break: break-word;
+  padding-right: 3rem; /* 为复制按钮留出空间 */
+}
+
+/* 代码块语言标签样式 */
+article pre code::before {
+  content: attr(data-language);
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #8b949e;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+/* 代码块行号样式 */
+article pre code .line-number {
+  display: inline-block;
+  width: 1.5rem;
+  margin-right: 0.5rem;
+  color: #8b949e;
+  text-align: right;
+}
+
+/* 代码块高亮行样式 */
+article pre code .highlighted {
+  background-color: #1f2937;
+}
+
+/* 代码块高亮词样式 */
+article pre code .word {
+  background-color: #1f2937;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+}
+
+/* 代码块滚动条样式 */
+article pre::-webkit-scrollbar {
+  height: 0.5rem;
+}
+
+article pre::-webkit-scrollbar-track {
+  background-color: #0d1117;
+}
+
+article pre::-webkit-scrollbar-thumb {
+  background-color: #30363d;
+  border-radius: 0.25rem;
+}
+
+article pre::-webkit-scrollbar-thumb:hover {
+  background-color: #484f58;
 }
 
 article code {
