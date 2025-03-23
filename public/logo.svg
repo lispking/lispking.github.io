@@ -1,5 +1,40 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M16 2L4 8V24L16 30L28 24V8L16 2Z" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#EEF2FF"/>
-  <path d="M16 2V16M16 30V16M4 8L16 16M28 8L16 16" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9333EA" />
+      <stop offset="100%" style="stop-color:#3B82F6" />
+    </linearGradient>
+    <style>
+      .calligraphy {
+        font-family: 'Arial', sans-serif;
+        font-style: italic;
+        font-weight: bold;
+        font-size: 6px;
+      }
+    </style>
+  </defs>
+  
+  <!-- 背景圆角矩形 -->
+  <rect x="2" y="2" width="28" height="28" rx="8" fill="none" stroke="url(#gradient)" stroke-width="2" />
+  
+  <!-- 字母K -->
+  <path d="M8 8L8 24M8 16L16 8M8 16L16 24" stroke="url(#gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  
+  <!-- 菱形点阵装饰 -->
+  <g transform="translate(14, 16)">
+    <!-- 点阵 -->
+    <circle cx="0" cy="0" r="0.5" fill="url(#gradient)" />
+    <circle cx="4" cy="-4" r="0.5" fill="url(#gradient)" />
+    <circle cx="4" cy="4" r="0.5" fill="url(#gradient)" />
+    <circle cx="8" cy="0" r="0.5" fill="url(#gradient)" />
+    <circle cx="12" cy="-4" r="0.5" fill="url(#gradient)" />
+    <circle cx="12" cy="4" r="0.5" fill="url(#gradient)" />
+    
+    <!-- 连接线形成菱形 -->
+    <path d="M0 0L4 -4L8 0L12 -4M0 0L4 4L8 0L12 4" 
+          stroke="url(#gradient)" stroke-width="0.5" stroke-opacity="0.6" />
+    
+    <!-- ing文字 -->
+    <text x="6" y="0" class="calligraphy" fill="url(#gradient)" text-anchor="middle" dominant-baseline="middle">ing</text>
+  </g>
 </svg>
