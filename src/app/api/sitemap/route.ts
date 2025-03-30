@@ -3,7 +3,7 @@ import { headers } from 'next/headers';
 
 export async function GET() {
   const headersList = headers();
-  const domain = headersList.get('host') || 'lispking.com';
+  const domain = (await headersList).get('host') || 'lispking.github.io';
   const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
   const baseUrl = `${protocol}://${domain}`;
 
