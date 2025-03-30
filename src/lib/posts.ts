@@ -41,6 +41,10 @@ function getAllMarkdownFiles(dir: string): string[] {
   return files
 }
 
+export function getAllPosts() {
+  return getSortedPostsData();
+}
+
 export function getSortedPostsData(year?: string): Omit<PostData, 'contentHtml'>[] {
   // Get all markdown files recursively under /posts
   const filePaths = getAllMarkdownFiles(postsDirectory)

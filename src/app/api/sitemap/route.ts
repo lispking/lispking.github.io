@@ -1,4 +1,4 @@
-import { getSortedPostsData } from '@/lib/posts';
+import { getAllPosts } from '@/lib/posts';
 import { headers } from 'next/headers';
 
 export const dynamic = 'force-static';
@@ -11,7 +11,7 @@ export async function GET() {
   const baseUrl = `${protocol}://${domain}`;
 
   // 获取所有博客文章
-  const posts = getSortedPostsData();
+  const posts = getAllPosts();
 
   // 生成sitemap XML
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
