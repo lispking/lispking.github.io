@@ -1,6 +1,9 @@
 import { getSortedPostsData } from '@/lib/posts';
 import { headers } from 'next/headers';
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 export async function GET() {
   const headersList = headers();
   const domain = (await headersList).get('host') || 'lispking.github.io';
