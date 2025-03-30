@@ -76,7 +76,7 @@ importers:
         specifier: ^0.5.16
         version: 0.5.16(tailwindcss@4.0.14)
       '@types/node':
-        specifier: ^20
+        specifier: ^20.17.24
         version: 20.17.24
       '@types/qrcode':
         specifier: ^1.5.5
@@ -100,7 +100,7 @@ importers:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@20.17.24)(typescript@5.8.2)
       typescript:
-        specifier: ^5
+        specifier: ^5.8.2
         version: 5.8.2
 
 packages:

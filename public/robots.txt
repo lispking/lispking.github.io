@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://lispking.github.io/api/sitemap
+Sitemap: https://lispking.github.io/sitemap.xml
