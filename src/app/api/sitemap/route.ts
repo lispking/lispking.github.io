@@ -5,8 +5,8 @@ export const dynamic = 'force-static';
 export const revalidate = false;
 
 export async function GET() {
-  const headersList = headers();
-  const domain = (await headersList).get('host') || 'lispking.github.io';
+  const headersList = await headers();
+  const domain = headersList.get('host') || 'lispking.github.io';
   const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
   const baseUrl = `${protocol}://${domain}`;
 
