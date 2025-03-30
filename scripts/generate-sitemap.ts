@@ -1,13 +1,12 @@
-import { getAllPosts } from '@/lib/posts';
+import fs from 'fs';
+import path from 'path';
+import { getAllPosts } from '../src/lib/posts';
 
-export const dynamic = 'force-static';
-export const revalidate = false;
+const DOMAIN = 'lispking.github.io';
+const PROTOCOL = 'https';
+const BASE_URL = `${PROTOCOL}://${DOMAIN}`;
 
-export async function GET() {
-  const domain = 'lispking.github.io';
-  const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
-  const baseUrl = `${protocol}://${domain}`;
-
+async function generateSitemap() {
   // 获取所有博客文章
   const posts = getAllPosts();
 
@@ -16,35 +15,35 @@ export async function GET() {
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       <!-- 主页 -->
       <url>
-        <loc>${baseUrl}</loc>
+        <loc>${BASE_URL}</loc>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
       </url>
       
       <!-- 博客页面 -->
       <url>
-        <loc>${baseUrl}/blog</loc>
+        <loc>${BASE_URL}/blog</loc>
         <changefreq>daily</changefreq>
         <priority>0.8</priority>
       </url>
 
       <!-- 项目页面 -->
       <url>
-        <loc>${baseUrl}/projects</loc>
+        <loc>${BASE_URL}/projects</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
       </url>
 
       <!-- 关于页面 -->
       <url>
-        <loc>${baseUrl}/about</loc>
+        <loc>${BASE_URL}/about</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
       </url>
 
       <!-- 联系页面 -->
       <url>
-        <loc>${baseUrl}/contact</loc>
+        <loc>${BASE_URL}/contact</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
       </url>
@@ -52,17 +51,17 @@ export async function GET() {
       <!-- 博客文章 -->
       ${posts.map(post => `
       <url>
-        <loc>${baseUrl}/blog/${post.id}</loc>
+        <loc>${BASE_URL}/blog/${post.id}</loc>
         <lastmod>${new Date(post.date).toISOString()}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
       </url>`).join('')}
     </urlset>`;
 
-  return new Response(sitemap, {
-    headers: {
-      'Content-Type': 'application/xml',
-      'Cache-Control': 'public, max-age=3600, s-maxage=3600'
-    }
-  });
+  // 将sitemap写入public目录
+  const publicDir = path.join(process.cwd(), 'public');
+  fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemap);
+  console.log('Sitemap generated successfully!');
 }
+
+generateSitemap().catch(console.error);

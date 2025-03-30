@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "generate-sitemap": "ts-node scripts/generate-sitemap.ts",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
@@ -40,6 +41,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.2.2",
     "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }
