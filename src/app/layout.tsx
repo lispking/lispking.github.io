@@ -5,7 +5,7 @@ import "./globals.css";
 // Components
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google'
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { GoogleAdSense } from "@/components/GoogleAdSense";
 
 const geistSans = Geist({
@@ -21,6 +21,22 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "King - 个人技术博客",
   description: "分享技术见解，探索创新解决方案，连接志同道合的技术爱好者",
+  keywords: [
+    "技术博客",
+    "分享",
+    "技术",
+    "创新",
+    "解决方案",
+    "技术爱好者",
+    "个人技术博客",
+    "全栈开发者",
+    "前端开发",
+    "后端开发",
+    "Web3技术",
+    "Rust编程",
+    "技术分享",
+    "Chrome扩展",
+  ],
   icons: {
     icon: [
       { url: "/favicon.ico" },
@@ -48,9 +64,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white`}
       >
         <Navbar />
-        <main className="min-h-screen pt-20">
-          {children}
-        </main>
+        <main className="min-h-screen pt-20">{children}</main>
         <Footer />
         <GoogleAnalytics gaId="G-28440BWWYK" />
         <GoogleAdSense publisherId="pub-6255376809208012" />
