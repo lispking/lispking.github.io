@@ -19,8 +19,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "King - 个人技术博客与项目分享",
-  description: "欢迎来到 King 个人技术博客，探索前沿技术和开发经验，分享创新见解，助力开发者成长。",
+  title: "King's 技术博客：技术分享与创新解读",
+  description: "欢迎来到 King's 个人技术博客，探索前沿技术和开发经验，分享创新见解，助力开发者成长。",
   keywords: [
     "全栈开发", "Web3技术", "区块链技术", "技术博客", "前端开发", "数据库开发", "Rust编程", "Chrome扩展"
   ],
