@@ -23,15 +23,25 @@ A modern, minimalist blog built with Next.js, featuring a unique brand identity 
 
 1. Install dependencies:
 ```bash showLineNumbers
-pnpm install
+bun install
 ```
 
 2. Run the development server:
 ```bash showLineNumbers
-pnpm dev
+bun dev
 ```
 
 3. Open [http://localhost:3000](http://localhost:3000) to view the blog
+
+## Build And Deploy
+
+Build the production bundle locally:
+
+```bash showLineNumbers
+bun run build
+```
+
+This repository publishes with GitHub Actions using `bun ci` and `bun run build`.
 
 ## Project Structure
 
