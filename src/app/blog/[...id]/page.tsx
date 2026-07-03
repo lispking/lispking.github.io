@@ -5,8 +5,10 @@ import { FiArrowLeft, FiArrowRight, FiCalendar, FiTag } from "react-icons/fi";
 import ShareButton from "@/components/ShareButton";
 import ScrollToTop from "@/components/ScrollToTop";
 import "@/styles/prism-theme.css";
+import type { Metadata } from "next";
 import type { Viewport } from "next";
 import CodeBlock from "@/components/CodeBlock";
+import { createArticleJsonLd, createArticleMetadata } from "@/lib/seo";
 
 type Props = {
   params: Promise<{ id: string[] }>;
@@ -30,12 +32,40 @@ export async function generateStaticParams() {
   }));
 }
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  const post = await getPostData(id);
+  const postPath = `/blog/${id.join("/")}`;
+
+  return createArticleMetadata({
+    title: post.title,
+    description: post.description,
+    path: postPath,
+    publishedTime: new Date(post.date).toISOString(),
+    tags: post.tags,
+    section: "technology",
+  });
+}
+
 export default async function Post({ params }: Props) {
   const { id } = await params;
   const post = await getPostData(id);
+  const postPath = `/blog/${id.join("/")}`;
+  const articleJsonLd = createArticleJsonLd({
+    title: post.title,
+    description: post.description,
+    path: postPath,
+    datePublished: new Date(post.date).toISOString(),
+    tags: post.tags,
+    wordCount: post.wordCount,
+  });
 
   return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <div className="container mx-auto px-4 py-8">
         <article className="max-w-4xl mx-auto">
           <CodeBlock />

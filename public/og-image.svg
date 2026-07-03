@@ -1,0 +1,51 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#f8fafc"/>
+  <rect x="72" y="72" width="1056" height="486" rx="36" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  <circle cx="1010" cy="150" r="72" fill="#22c55e" fill-opacity="0.14"/>
+  <circle cx="970" cy="470" r="96" fill="#f97316" fill-opacity="0.13"/>
+  <circle cx="190" cy="480" r="120" fill="#6366f1" fill-opacity="0.11"/>
+  <path d="M0 552C145 492 250 486 384 520C536 558 645 594 796 552C930 514 1015 460 1200 502V630H0V552Z" fill="#0f172a" fill-opacity="0.05"/>
+
+  <g transform="translate(118 118)">
+    <defs>
+      <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#9333EA"/>
+        <stop offset="100%" stop-color="#3B82F6"/>
+      </linearGradient>
+    </defs>
+    <g transform="scale(2.875)">
+      <rect x="2" y="2" width="28" height="28" rx="8" fill="none" stroke="url(#logoGradient)" stroke-width="2"/>
+      <path d="M8 8L8 24M8 16L16 8M8 16L16 24" stroke="url(#logoGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <g transform="translate(14, 16)">
+        <circle cx="0" cy="0" r="0.5" fill="url(#logoGradient)"/>
+        <circle cx="4" cy="-4" r="0.5" fill="url(#logoGradient)"/>
+        <circle cx="4" cy="4" r="0.5" fill="url(#logoGradient)"/>
+        <circle cx="8" cy="0" r="0.5" fill="url(#logoGradient)"/>
+        <circle cx="12" cy="-4" r="0.5" fill="url(#logoGradient)"/>
+        <circle cx="12" cy="4" r="0.5" fill="url(#logoGradient)"/>
+        <path d="M0 0L4 -4L8 0L12 -4M0 0L4 4L8 0L12 4" stroke="url(#logoGradient)" stroke-width="0.5" stroke-opacity="0.6"/>
+        <text x="6" y="0" fill="url(#logoGradient)" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-style="italic" font-weight="700" font-size="6">ing</text>
+      </g>
+    </g>
+    <text x="116" y="62" fill="url(#logoGradient)" font-family="Arial, sans-serif" font-size="52" font-weight="800">King</text>
+  </g>
+
+  <text x="118" y="268" fill="#0f172a" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="64" font-weight="800">
+    King's 技术博客
+  </text>
+  <text x="118" y="344" fill="#334155" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="34" font-weight="500">
+    Rust · Web3 · 全栈开发 · AI 工具 · 开源实践
+  </text>
+  <text x="118" y="424" fill="#475569" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="28">
+    探索前沿技术和开发经验，分享创新见解，助力开发者成长。
+  </text>
+
+  <g transform="translate(118 486)">
+    <rect width="264" height="48" rx="24" fill="#eef2ff"/>
+    <text x="24" y="32" fill="#4338ca" font-family="Arial, sans-serif" font-size="22" font-weight="700">lispking.github.io</text>
+  </g>
+  <g transform="translate(414 486)">
+    <rect width="188" height="48" rx="24" fill="#ecfdf5"/>
+    <text x="24" y="32" fill="#047857" font-family="Arial, sans-serif" font-size="22" font-weight="700">@lispking</text>
+  </g>
+</svg>

@@ -4,6 +4,15 @@ import { getSortedPostsData } from "@/lib/posts";
 import { FiCalendar, FiArrowRight } from "react-icons/fi";
 import YearNavigation from "@/components/YearNavigation";
 import ScrollToTop from "@/components/ScrollToTop";
+import { createPageMetadata } from "@/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: "博客文章",
+  description:
+    "阅读 King's 技术博客文章，覆盖 Rust、Web3、全栈开发、AI Agent、浏览器扩展和开源项目实践。",
+  path: "/blog",
+  keywords: ["Rust", "Web3", "AI Agent", "技术文章", "开源实践"],
+});
 
 export default function BlogPage() {
   const posts = getSortedPostsData();

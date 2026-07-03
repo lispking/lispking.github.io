@@ -1,12 +1,11 @@
 import { getAllPosts } from '@/lib/posts';
+import { siteConfig } from '@/lib/seo';
 
 export const dynamic = 'force-static';
 export const revalidate = false;
 
 export async function GET() {
-  const domain = 'lispking.github.io';
-  const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
-  const baseUrl = `${protocol}://${domain}`;
+  const baseUrl = siteConfig.url;
 
   // 获取所有博客文章
   const posts = getAllPosts();

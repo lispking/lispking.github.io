@@ -2,6 +2,10 @@
   "name": "King's 技术博客：技术分享与创新解读",
   "short_name": "King",
   "description": "欢迎来到 King's 个人技术博客，探索前沿技术和开发经验，分享创新见解，助力开发者成长。",
+  "id": "/",
+  "scope": "/",
+  "lang": "zh-CN",
+  "dir": "ltr",
   "keywords": [
     "全栈开发", "Web3技术", "区块链技术", "技术博客", "前端开发", "数据库开发", "Rust编程", "Chrome扩展"
   ],
@@ -9,6 +13,7 @@
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#6366F1",
+  "categories": ["technology", "developer", "education"],
   "icons": [
     {
       "src": "/logo.svg",

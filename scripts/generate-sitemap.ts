@@ -1,10 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import { getAllPosts } from '../src/lib/posts';
+import { siteConfig } from '../src/lib/seo';
 
-const DOMAIN = 'lispking.github.io';
-const PROTOCOL = 'https';
-const BASE_URL = `${PROTOCOL}://${DOMAIN}`;
+const BASE_URL = siteConfig.url;
 
 async function generateSitemap() {
   // 获取所有博客文章

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -7,6 +7,12 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { GoogleAdSense } from "@/components/GoogleAdSense";
+import {
+  createPageMetadata,
+  personJsonLd,
+  siteConfig,
+  websiteJsonLd,
+} from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,26 +25,44 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "King's 技术博客：技术分享与创新解读",
-  description: "欢迎来到 King's 个人技术博客，探索前沿技术和开发经验，分享创新见解，助力开发者成长。",
-  keywords: [
-    "全栈开发", "Web3技术", "区块链技术", "技术博客", "前端开发", "数据库开发", "Rust编程", "Chrome扩展"
-  ],
+  ...createPageMetadata(),
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.title,
+    template: `%s | ${siteConfig.shortName}`,
+  },
+  applicationName: siteConfig.name,
+  referrer: "origin-when-cross-origin",
   icons: {
     icon: [
       { url: "/favicon.ico" },
       { url: "/logo.svg", type: "image/svg+xml" },
     ],
+    apple: [{ url: "/logo.svg", type: "image/svg+xml" }],
   },
   manifest: "/manifest.json",
-  themeColor: "#6366F1",
-  authors: [{ name: "King" }],
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
+  appleWebApp: {
+    capable: true,
+    title: siteConfig.shortName,
+    statusBarStyle: "default",
+  },
+  formatDetection: {
+    telephone: false,
+    date: false,
+    address: false,
+    email: false,
+    url: false,
   },
 };
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: siteConfig.themeColor,
+};
+
+const jsonLd = [personJsonLd, websiteJsonLd];
 
 export default function RootLayout({
   children,
@@ -50,6 +74,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <Navbar />
         <main className="min-h-screen pt-20">{children}</main>
         <Footer />
