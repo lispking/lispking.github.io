@@ -49,7 +49,7 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="relative bg-white rounded-lg shadow-xl max-w-lg w-full mx-auto p-6"
+            className="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-lg w-full mx-auto p-6"
           >
             <button
               onClick={onClose}

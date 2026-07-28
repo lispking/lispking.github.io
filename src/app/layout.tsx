@@ -5,6 +5,7 @@ import "./globals.css";
 // Components
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { GoogleAdSense } from "@/components/GoogleAdSense";
 import {
@@ -64,23 +65,31 @@ export const viewport: Viewport = {
 
 const jsonLd = [personJsonLd, websiteJsonLd];
 
+// Inline script: applies saved theme from localStorage before paint to avoid FOUC.
+const themeScript = `(function(){try{var t=localStorage.getItem('theme')||'system';var d=window.matchMedia('(prefers-color-scheme: dark)').matches;if(t==='dark'||(t==='system'&&d)){document.documentElement.classList.add('dark');document.documentElement.style.colorScheme='dark';}else{document.documentElement.style.colorScheme='light';}}catch(e){}})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN">
+    <html lang="zh-CN" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-gray-900`}
       >
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <Navbar />
-        <main className="min-h-screen pt-20">{children}</main>
-        <Footer />
+        <ThemeProvider>
+          <Navbar />
+          <main className="min-h-screen pt-20">{children}</main>
+          <Footer />
+        </ThemeProvider>
         <GoogleAnalytics gaId="G-28440BWWYK" />
         <GoogleAdSense publisherId="pub-6255376809208012" />
         <GoogleTagManager gtmId="G-28440BWWYK" />

@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
+/* Class-based dark mode for Tailwind CSS v4 — all dark: utilities match .dark on <html> */
+@custom-variant dark (&:is(.dark *));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+}
+
+/* Class-based dark mode (toggled by ThemeProvider / inline script) */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 @theme inline {
@@ -12,8 +21,9 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Fallback: if no explicit choice, follow the system preference. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not(.dark):not(.light) {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
@@ -41,6 +51,11 @@ pre[class*="language-"] {
   border-radius: 0.25rem;
   font-size: 0.875em;
   font-weight: 500;
+}
+
+.dark :not(pre) > code {
+  background: #1e293b;
+  color: #7dd3fc;
 }
 
 .token.comment,

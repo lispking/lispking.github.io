@@ -42,7 +42,7 @@ const ProjectsGrid = ({ title, description, projects }: ProjectsGridProps) => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+            className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
           >
             {title}
           </motion.h2>
@@ -56,7 +56,7 @@ const ProjectsGrid = ({ title, description, projects }: ProjectsGridProps) => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-lg text-gray-600 max-w-2xl mx-auto"
+            className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
           >
             {description}
           </motion.p>
@@ -73,7 +73,7 @@ const ProjectsGrid = ({ title, description, projects }: ProjectsGridProps) => {
             <motion.div
               key={project.title}
               variants={itemVariants}
-              className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+              className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
             >
               <div className="relative h-60 w-full">
                 <Image
@@ -99,7 +99,7 @@ const ProjectsGrid = ({ title, description, projects }: ProjectsGridProps) => {
                 </div>
               </div>
               <div className="p-6">
-                <p className="text-gray-600 mb-6">{project.description}</p>
+                <p className="text-gray-600 dark:text-gray-300 mb-6">{project.description}</p>
                 <div className="flex justify-between items-center">
                   <div className="flex space-x-4">
                     <a

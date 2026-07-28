@@ -67,9 +67,9 @@ export default function ShareButton({ title, path }: ShareButtonProps) {
         triggerRef={wechatButtonRef as React.RefObject<HTMLElement>}
       >
         <div className="text-center">
-          <h3 className="text-sm font-semibold mb-2">微信扫码分享</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">微信扫码分享</h3>
           <QRCode url={shareUrl} size={150} />
-          <p className="mt-2 text-xs text-gray-500">请使用微信扫描二维码分享</p>
+          <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">请使用微信扫描二维码分享</p>
         </div>
       </Popover>
     </div>

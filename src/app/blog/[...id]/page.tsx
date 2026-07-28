@@ -61,7 +61,7 @@ export default async function Post({ params }: Props) {
   });
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
@@ -72,19 +72,19 @@ export default async function Post({ params }: Props) {
           {/* 返回按钮 */}
           <Link
             href="/blog"
-            className="group inline-flex items-center space-x-2 text-indigo-600 hover:text-indigo-800 transition-colors duration-200 mb-8"
+            className="group inline-flex items-center space-x-2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors duration-200 mb-8"
           >
             <FiArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-200" />
             <span>返回文章列表</span>
           </Link>
           <header className="mb-8">
             {/* 文章标题 */}
-            <h1 className="text-3xl font-bold mb-6 text-gray-900">
+            <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
               {post.title}
             </h1>
 
             {/* 元信息 */}
-            <div className="flex flex-wrap items-center gap-4 text-gray-600 pb-6 border-b border-gray-100">
+            <div className="flex flex-wrap items-center gap-4 text-gray-600 dark:text-gray-300 pb-6 border-b border-gray-100 dark:border-gray-800">
               <div className="flex items-center gap-2">
                 <FiCalendar className="w-4 h-4" />
                 <time dateTime={post.date}>
@@ -92,9 +92,9 @@ export default async function Post({ params }: Props) {
                 </time>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-gray-600">{post.wordCount} 字</span>
-                <span className="text-gray-600">·</span>
-                <span className="text-gray-600">
+                <span className="text-gray-600 dark:text-gray-400">{post.wordCount} 字</span>
+                <span className="text-gray-600 dark:text-gray-400">·</span>
+                <span className="text-gray-600 dark:text-gray-400">
                   {post.readingTime} 分钟阅读
                 </span>
               </div>
@@ -104,7 +104,7 @@ export default async function Post({ params }: Props) {
                   {post.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-1 bg-gray-100 text-sm rounded-full"
+                      className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-sm rounded-full"
                     >
                       {tag}
                     </span>
@@ -118,7 +118,7 @@ export default async function Post({ params }: Props) {
 
           {/* 文章内容 */}
           <div
-            className="prose prose-lg max-w-none prose-indigo"
+            className="prose prose-lg dark:prose-invert max-w-none prose-indigo"
             dangerouslySetInnerHTML={{ __html: post.contentHtml }}
           />
           <ScrollToTop />
@@ -127,7 +127,7 @@ export default async function Post({ params }: Props) {
             {post.prevId && (
               <Link
                 href={`/blog/${post.prevId}`}
-                className="inline-flex items-center space-x-2 text-indigo-600 hover:text-indigo-800 transition-colors duration-200"
+                className="inline-flex items-center space-x-2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors duration-200"
               >
                 <FiArrowLeft className="w-5 h-5" />
                 <span>上一篇：{post.prevTitle}</span>
@@ -136,7 +136,7 @@ export default async function Post({ params }: Props) {
             {post.nextId && (
               <Link
                 href={`/blog/${post.nextId}`}
-                className="inline-flex items-center space-x-2 text-indigo-600 hover:text-indigo-800 transition-colors duration-200 ml-auto"
+                className="inline-flex items-center space-x-2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors duration-200 ml-auto"
               >
                 <span>下一篇：{post.nextTitle}</span>
                 <FiArrowRight className="w-5 h-5" />

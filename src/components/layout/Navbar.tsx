@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { FiMenu, FiX } from "react-icons/fi";
 import Logo from "../ui/Logo";
 import SearchBar from "../SearchBar";
+import ThemeToggle from "../ThemeToggle";
 
 const navItems = [
   { name: "首页", path: "/" },
@@ -76,6 +77,7 @@ const Navbar = () => {
               </Link>
             ))}
             <SearchBar onNavigate={() => setIsOpen(false)} />
+            <ThemeToggle />
           </div>
 
           {/* Mobile Menu Button */}
@@ -129,6 +131,9 @@ const Navbar = () => {
                   )}
                 </Link>
               ))}
+              <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
+                <ThemeToggle />
+              </div>
             </div>
           </div>
         </motion.div>

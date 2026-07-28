@@ -12,6 +12,11 @@ article :not(pre)>code {
   font-weight: 500;
 }
 
+.dark article :not(pre)>code {
+  color: #7dd3fc;
+  background: #1e293b;
+}
+
 /* 代码块样式 */
 article pre {
   position: relative;
@@ -243,6 +248,11 @@ article blockquote {
   font-style: italic;
 }
 
+.dark article blockquote {
+  background-color: rgba(96, 165, 250, 0.12);
+  border-left-color: #93c5fd;
+}
+
 article blockquote p {
   margin: 0;
 }
@@ -266,13 +276,26 @@ article td {
   border: 1px solid rgba(99, 110, 123, 0.2);
 }
 
+.dark article th,
+.dark article td {
+  border-color: rgba(99, 110, 123, 0.4);
+}
+
 article th {
   background-color: rgba(99, 110, 123, 0.1);
   font-weight: 600;
 }
 
+.dark article th {
+  background-color: rgba(99, 110, 123, 0.2);
+}
+
 article tr:nth-child(even) {
   background-color: rgba(99, 110, 123, 0.05);
+}
+
+.dark article tr:nth-child(even) {
+  background-color: rgba(99, 110, 123, 0.15);
 }
 
 /* List Styles */
@@ -302,6 +325,10 @@ article hr {
   background-color: rgba(99, 110, 123, 0.2);
 }
 
+.dark article hr {
+  background-color: rgba(99, 110, 123, 0.35);
+}
+
 /* Strong Tag Style */
 article strong {
   font-weight: 600;
@@ -311,6 +338,11 @@ article strong {
   text-decoration-thickness: 2px;
   text-underline-offset: 2px;
   padding: 0 0.2em;
+}
+
+.dark article strong {
+  color: #93c5fd;
+  text-decoration-color: rgba(147, 197, 253, 0.4);
 }
 
 /* Heading Styles */

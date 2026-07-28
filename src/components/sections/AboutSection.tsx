@@ -36,14 +36,14 @@ const AboutSection = () => {
   const isInView = useInView(ref, { once: true, amount: 0.3 });
   
   return (
-    <section id="about" className="py-20 bg-white">
+    <section id="about" className="py-20 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-16">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+            className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
           >
             关于我
           </motion.h2>
@@ -57,7 +57,7 @@ const AboutSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-lg text-gray-600 max-w-2xl mx-auto"
+            className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
           >
             我是一名充满激情的全栈开发者，专注于创建优雅、高效且用户友好的数字体验。
           </motion.p>
@@ -69,7 +69,7 @@ const AboutSection = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6 }}
-              className="text-2xl font-bold text-gray-900 mb-4"
+              className="text-2xl font-bold text-gray-900 dark:text-white mb-4"
             >
               我的故事
             </motion.h3>
@@ -126,7 +126,7 @@ const AboutSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="text-2xl font-bold text-gray-900 mb-12 text-center"
+            className="text-2xl font-bold text-gray-900 dark:text-white mb-12 text-center"
           >
             技能与专长
           </motion.h3>
@@ -138,14 +138,14 @@ const AboutSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.1 * index }}
-                className="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
+                className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
               >
                 <div className="flex items-center mb-4">
                   {skill.icon}
-                  <h4 className="text-xl font-semibold text-gray-900 ml-3">{skill.name}</h4>
+                  <h4 className="text-xl font-semibold text-gray-900 dark:text-white ml-3">{skill.name}</h4>
                 </div>
-                <p className="text-gray-600 mb-4">{skill.description}</p>
-                <div className="w-full bg-gray-200 rounded-full h-2.5">
+                <p className="text-gray-600 dark:text-gray-300 mb-4">{skill.description}</p>
+                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={isInView ? { width: `${skill.level}%` } : {}}

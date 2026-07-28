@@ -13,7 +13,7 @@ export const metadata = createPageMetadata({
 
 export default function Projects() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
+    <main className="flex min-h-screen flex-col items-center justify-between bg-white dark:bg-gray-900">
       <ScrollReveal>
         <ProjectsGrid
           title="个人开源项目"

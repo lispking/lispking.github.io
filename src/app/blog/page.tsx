@@ -31,13 +31,13 @@ export default function BlogPage() {
   const years = Object.keys(postsByYear).sort((a, b) => b.localeCompare(a));
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-black">
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             博客文章
           </h1>
-          <p className="text-xl text-gray-600 mb-8">
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
             分享技术见解，探索创新解决方案
           </p>
 
@@ -48,17 +48,17 @@ export default function BlogPage() {
           <div className="space-y-16">
             {years.map((year) => (
               <div key={year} id={year}>
-                <h2 className="text-2xl font-bold text-gray-800 mb-8">
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-8">
                   {year}年
                 </h2>
                 <div className="space-y-8">
                   {postsByYear[year].map((post) => (
                     <article
                       key={post.id}
-                      className="bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300"
+                      className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300"
                     >
                       <Link href={`/blog/${post.id}`} className="block p-8">
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-4 text-sm text-gray-600 mb-4">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-4 text-sm text-gray-600 dark:text-gray-300 mb-4">
                           <div className="flex items-center gap-4">
                             <div className="flex items-center gap-2">
                               <FiCalendar className="w-4 h-4" />
@@ -67,16 +67,16 @@ export default function BlogPage() {
                               </time>
                             </div>
                             <div className="flex items-center gap-2">
-                              <span className="text-gray-600">{post.wordCount} 字</span>
-                              <span className="text-gray-600">·</span>
-                              <span className="text-gray-600">{post.readingTime} 分钟</span>
+                              <span className="text-gray-600 dark:text-gray-400">{post.wordCount} 字</span>
+                              <span className="text-gray-600 dark:text-gray-400">·</span>
+                              <span className="text-gray-600 dark:text-gray-400">{post.readingTime} 分钟</span>
                             </div>
                           </div>
                           <div className="flex flex-wrap gap-2">
                             {post.tags.map((tag) => (
                               <span
                                 key={tag}
-                                className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-indigo-50 text-indigo-700"
+                                className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-indigo-50 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300"
                               >
                                 {tag}
                               </span>
@@ -84,15 +84,15 @@ export default function BlogPage() {
                           </div>
                         </div>
 
-                        <h2 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors duration-200">
+                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-200">
                           {post.title}
                         </h2>
 
-                        <p className="text-gray-600 mb-4 line-clamp-2">
+                        <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">
                           {post.description}
                         </p>
 
-                        <div className="flex items-center text-indigo-600 font-medium group">
+                        <div className="flex items-center text-indigo-600 dark:text-indigo-400 font-medium group">
                           <span className="mr-2">阅读全文</span>
                           <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
                         </div>

@@ -12,7 +12,7 @@ export const metadata = createPageMetadata({
 
 export default function Contact() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
+    <main className="flex min-h-screen flex-col items-center justify-between bg-white dark:bg-gray-900">
       <ScrollReveal>
         <ContactSection />
       </ScrollReveal>
