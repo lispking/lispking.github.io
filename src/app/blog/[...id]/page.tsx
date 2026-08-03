@@ -1,13 +1,14 @@
 import { format } from "date-fns";
 import { getAllPostIds, getPostData } from "@/lib/posts";
 import Link from "next/link";
-import { FiArrowLeft, FiArrowRight, FiCalendar, FiTag } from "react-icons/fi";
+import { FiArrowLeft, FiCalendar, FiTag } from "react-icons/fi";
 import ShareButton from "@/components/ShareButton";
 import ScrollToTop from "@/components/ScrollToTop";
 import "@/styles/prism-theme.css";
 import type { Metadata } from "next";
 import type { Viewport } from "next";
 import CodeBlock from "@/components/CodeBlock";
+import PostNavigation from "@/components/PostNavigation";
 import { createArticleJsonLd, createArticleMetadata } from "@/lib/seo";
 
 type Props = {
@@ -123,26 +124,10 @@ export default async function Post({ params }: Props) {
           />
           <ScrollToTop />
           {/* 上一篇/下一篇导航 */}
-          <div className="flex justify-between mt-12">
-            {post.prevId && (
-              <Link
-                href={`/blog/${post.prevId}`}
-                className="inline-flex items-center space-x-2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors duration-200"
-              >
-                <FiArrowLeft className="w-5 h-5" />
-                <span>上一篇：{post.prevTitle}</span>
-              </Link>
-            )}
-            {post.nextId && (
-              <Link
-                href={`/blog/${post.nextId}`}
-                className="inline-flex items-center space-x-2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors duration-200 ml-auto"
-              >
-                <span>下一篇：{post.nextTitle}</span>
-                <FiArrowRight className="w-5 h-5" />
-              </Link>
-            )}
-          </div>
+          <PostNavigation
+            prev={post.prevId ? { id: post.prevId, title: post.prevTitle } : null}
+            next={post.nextId ? { id: post.nextId, title: post.nextTitle } : null}
+          />
         </article>
       </div>
     </div>
